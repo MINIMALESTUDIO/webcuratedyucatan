@@ -162,7 +162,7 @@ export function filtrarVenues(
     }
     if (filtros.inversiones.length) {
       const inversion = venue.inversionDesdeUSD;
-      if (inversion === undefined) return false;
+      if (inversion == null) return false;
       if (
         !RANGOS_INVERSION.some(
           (rango) => filtros.inversiones.includes(rango.id) && enRango(inversion, rango),

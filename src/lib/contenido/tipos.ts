@@ -7,8 +7,10 @@
  * - `slug` es el valor de `slug.current`;
  * - las imágenes traen URL, dimensiones y texto alternativo (`asset->url`,
  *   `asset->metadata.dimensions`).
- * En la fase de CMS solo cambia la implementación de src/lib/contenido/index.ts.
+ * Las dos fuentes (DEMO local y Sanity) devuelven exactamente estos tipos (D-033).
  */
+
+import type { PortableTextBlock } from '@portabletext/react';
 
 export type Idioma = 'en' | 'es';
 
@@ -18,13 +20,8 @@ export interface TextoLocalizado {
   es?: string;
 }
 
-/** Subconjunto de Portable Text que usa el piloto. */
-export interface BloqueTexto {
-  _type: 'block';
-  _key: string;
-  style: 'normal' | 'h3';
-  children: Array<{ _type: 'span'; _key: string; text: string }>;
-}
+/** Bloque de texto enriquecido (Portable Text). */
+export type BloqueTexto = PortableTextBlock;
 
 export interface BloquesLocalizados {
   en: BloqueTexto[];
@@ -32,11 +29,15 @@ export interface BloquesLocalizados {
 }
 
 export interface Imagen {
+  /** Clave del elemento dentro de un arreglo de Sanity (galerías): permite editarlo en la página. */
+  _key?: string;
   url: string;
   ancho: number;
   alto: number;
   /** Texto alternativo obligatorio. */
   alt: TextoLocalizado;
+  /** Punto de interés elegido en Sanity (0–1): se usa como object-position al recortar. */
+  hotspot?: { x: number; y: number };
   /** Imagen de relleno del piloto: la interfaz la marca como "[DEMO] Foto pendiente". */
   esDemo?: boolean;
 }
