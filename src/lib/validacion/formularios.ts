@@ -3,22 +3,11 @@ import { z } from 'zod';
 /*
  * Esquemas de los formularios (D-027). Se usan en el cliente en el piloto y se reutilizarán
  * en los route handlers de la Fase 4. Los mensajes de error son claves de traducción
- * (Formularios.errores.*), no textos.
+ * (Formularios.errores.*, ver ./errores.ts), no textos.
+ * En el cliente este módulo se carga con import() al enviar, para no sumar zod al JS inicial.
  */
 
-export const CODIGOS_ERROR = [
-  'requerido',
-  'muyCorto',
-  'muyLargo',
-  'correoInvalido',
-  'fechaInvalida',
-  'fechaPasada',
-  'fechaOFlexible',
-  'numeroInvalido',
-  'consentimiento',
-] as const;
-
-export type CodigoError = (typeof CODIGOS_ERROR)[number];
+export { CODIGOS_ERROR, type CodigoError, erroresPorCampo } from './errores';
 
 const nombre = z
   .string()
@@ -103,14 +92,3 @@ export const esquemaGuia = z.object({
 
 export type DatosDisponibilidad = z.infer<typeof esquemaDisponibilidad>;
 export type DatosGuia = z.infer<typeof esquemaGuia>;
-
-/** Primer código de error por campo, para mostrarlo junto a cada campo. */
-export function erroresPorCampo(error: z.ZodError): Record<string, CodigoError> {
-  const errores: Record<string, CodigoError> = {};
-  for (const issue of error.issues) {
-    const campo = String(issue.path[0] ?? '');
-    const codigo = CODIGOS_ERROR.find((c) => c === issue.message) ?? 'requerido';
-    if (campo && !errores[campo]) errores[campo] = codigo;
-  }
-  return errores;
-}

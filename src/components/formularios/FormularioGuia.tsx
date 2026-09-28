@@ -4,11 +4,15 @@
 import { useId } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { esquemaGuia } from '@/lib/validacion/formularios';
+
 import { Boton } from '@/components/ui/Boton';
 import { AvisoPiloto } from './AvisoPiloto';
 import { CampoCasilla, CampoTexto } from './Campos';
 import { textoDe, useFormularioPiloto } from './useFormularioPiloto';
+
+// El esquema (y zod) se descarga solo al enviar (D-031).
+const cargarEsquemaGuia = () =>
+  import('@/lib/validacion/formularios').then((modulo) => modulo.esquemaGuia);
 
 export function FormularioGuia() {
   const t = useTranslations('Formularios');
@@ -18,7 +22,7 @@ export function FormularioGuia() {
   const id = (campo: string) => `${base}-${campo}`;
 
   const { errores, validado, aviso, alEnviar, hidratado } = useFormularioPiloto(
-    esquemaGuia,
+    cargarEsquemaGuia,
     (datos) => ({
       nombre: textoDe(datos, 'nombre'),
       correo: textoDe(datos, 'correo'),

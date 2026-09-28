@@ -4,11 +4,15 @@
 import { useId } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { esquemaDisponibilidad } from '@/lib/validacion/formularios';
+
 import { Boton } from '@/components/ui/Boton';
 import { AvisoPiloto } from './AvisoPiloto';
 import { CampoAreaTexto, CampoCasilla, CampoTexto } from './Campos';
 import { textoDe, useFormularioPiloto } from './useFormularioPiloto';
+
+// El esquema (y zod) se descarga solo al enviar (D-031).
+const cargarEsquemaDisponibilidad = () =>
+  import('@/lib/validacion/formularios').then((modulo) => modulo.esquemaDisponibilidad);
 
 export function FormularioDisponibilidad({ venueSlug }: { venueSlug: string }) {
   const t = useTranslations('Formularios');
@@ -17,7 +21,7 @@ export function FormularioDisponibilidad({ venueSlug }: { venueSlug: string }) {
   const id = (campo: string) => `${base}-${campo}`;
 
   const { errores, validado, aviso, alEnviar, hidratado } = useFormularioPiloto(
-    esquemaDisponibilidad,
+    cargarEsquemaDisponibilidad,
     (datos) => ({
       nombre: textoDe(datos, 'nombre'),
       correo: textoDe(datos, 'correo'),
