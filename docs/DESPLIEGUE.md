@@ -57,7 +57,22 @@ El resto de variables de `.env.example` no se usan todavía.
 
 ## 4. Resultados del despliegue del piloto
 
-_Por completar tras el primer despliegue:_ URL, duración del build, memoria pico (línea `[medir-build]` del log), prueba de `next/image` (`/_next/image` responde WebP), tiempo de respuesta.
+**Línea base local** (2026-09-28, Windows 11, Node 24.19.0, 16 CPU, build limpio sin caché): `npm run build:medido` → memoria pico del árbol de procesos **2177 MB**, **25 s**. En Windows la suma de _working sets_ cuenta la memoria compartida entre procesos más de una vez, así que la cifra real es algo menor. Next reparte la generación de páginas en tantos procesos como CPU haya, así que con las 2 CPU del plan se espera menos memoria y más tiempo.
+
+**En Hostinger** — _por completar tras el primer despliegue:_
+
+| Dato                                               | Resultado     | Cómo se obtiene                                                                                                                         |
+| -------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| URL pública                                        | por confirmar | hPanel                                                                                                                                  |
+| Versión de Node y límite de memoria del contenedor | por confirmar | primera línea `[medir-build]` del log de build                                                                                          |
+| Memoria pico y duración del build                  | por confirmar | última línea `[medir-build]` del log                                                                                                    |
+| Comando de arranque que funciona                   | por confirmar | `npm run start` o `npm run start -- -p $PORT`                                                                                           |
+| `next/image` (sharp)                               | por confirmar | `curl -I "https://<dominio>/_next/image?url=%2Fdemo%2Fvenue-1-hero.jpg&w=640&q=75"` debe responder `200` con `content-type: image/webp` |
+| Tiempo de respuesta del HTML                       | por confirmar | `curl -w "%{time_starttransfer}"` sobre `/`                                                                                             |
+
+## 4.1 Caché de imágenes optimizadas
+
+El optimizador de Next guarda las imágenes en `.next/cache/images` hasta 4 horas (valor por defecto en Next 16). Si se reemplaza una imagen de `public/` con el mismo nombre, se sigue sirviendo la anterior hasta que expire o se borre la caché. Con las imágenes de Sanity no ocurre, porque cada archivo nuevo tiene URL nueva.
 
 ## 5. Volver a desplegar o revertir
 

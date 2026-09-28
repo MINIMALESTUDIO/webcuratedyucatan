@@ -214,6 +214,7 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Fecha: 2026-09-28
 - Contexto: el responsable pidió documentar la compatibilidad de `next/image` en Hostinger.
 - Decisión: en el piloto las imágenes DEMO son archivos locales y pasan por el optimizador de Next (sharp), para probarlo en Hostinger. En la fase de CMS las imágenes vendrán del CDN de Sanity con un `loader` propio, sin optimizar en el servidor. Imágenes DEMO generadas con `npm run demo:imagenes`, marcadas visiblemente como "[DEMO] Foto pendiente".
+- Consecuencias: el optimizador guarda cada imagen en `.next/cache/images` hasta 4 horas (`minimumCacheTTL` por defecto en Next 16). Si se reemplaza un archivo con la misma URL, se sigue sirviendo la versión anterior: hay que borrar esa carpeta o cambiar el nombre del archivo. Con Sanity no ocurre, porque cada archivo nuevo tiene URL nueva.
 
 ### D-026 — Filtros del listado
 
@@ -241,3 +242,18 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Fecha: 2026-09-28
 - Contexto: hay que documentar el uso de memoria del build en Hostinger.
 - Decisión: `npm run build:medido` ejecuta `next build` y muestra al final la memoria pico del árbol de procesos (en Linux lee `/proc`; en Windows, `Win32_Process`). Es el comando de build que se configura en Hostinger.
+
+### D-031 — Esquemas zod cargados al enviar
+
+- Fecha: 2026-09-28
+- Contexto: la primera medición de Lighthouse dio 264 KB de JS inicial en el inicio y 272 KB en la ficha (presupuesto: 170 KB). El chunk más pesado que controlamos (90 KB gzip) era casi todo zod, que solo se usa al enviar un formulario.
+- Opciones consideradas: `zod/mini` (más pequeño, otra API); validar sin zod en el cliente (rompe el esquema compartido); cargar el esquema con `import()` al enviar.
+- Decisión: `import()` al enviar. Los códigos de error viven en `src/lib/validacion/errores.ts`, sin zod en tiempo de ejecución; los esquemas siguen en `formularios.ts` y se reutilizarán en el servidor.
+- Consecuencias: zod (88 KB gzip) se descarga solo en el primer envío, con una espera mínima. Rendimiento en Lighthouse: inicio 79 → 91 y ficha 81 → 90; JS inicial 173 KB y 184 KB.
+
+### D-032 — Envío bloqueado hasta hidratar
+
+- Fecha: 2026-09-28
+- Contexto: las páginas son estáticas. Si alguien envía un formulario antes de que cargue el JS, el navegador hace un envío nativo (GET) y los datos personales quedan en la URL.
+- Decisión: el botón de envío está desactivado en el HTML prerenderizado y se activa al hidratar (`useHidratado`, con `useSyncExternalStore`). El formulario expone `data-hidratado` para las pruebas.
+- Consecuencias: durante la carga inicial el botón se ve atenuado un instante.

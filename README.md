@@ -25,6 +25,9 @@ Sitio bilingüe (inglés por defecto, español en `/es`) que promueve Yucatán c
 | `npm run capturas`      | Capturas de las páginas del piloto en 360, 768 y 1440 px             |
 | `npm run demo:imagenes` | Regenera las imágenes `[DEMO]` de `public/demo/`                     |
 
+Las pruebas e2e y las capturas corren contra el build de producción: ejecuta `npm run build` antes.
+Si regeneras imágenes con el mismo nombre, borra `.next/cache/images` (el optimizador las guarda hasta 4 horas).
+
 ## Estructura
 
 ```
