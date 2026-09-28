@@ -30,3 +30,10 @@ npm-debug.log*
 
 # Vercel
 .vercel
+
+# Build del Studio de Sanity
+/studio-dist
+/.sanity
+
+# Semilla de Sanity generada (rutas locales de archivos)
+/sanity/semilla
