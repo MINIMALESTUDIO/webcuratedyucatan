@@ -21,6 +21,7 @@ export async function SeccionEpisodio({ episodio }: { episodio: Episodio }) {
             youtubeId={episodio.youtubeId}
             titulo={titulo}
             sizes="(min-width: 1280px) 720px, (min-width: 1024px) 58vw, 100vw"
+            edicion={{ id: episodio._id, tipo: 'episodio', ruta: 'youtubeId' }}
           />
           {episodio.esDemo && <p className="mt-3 text-xs text-piedra">{tv('notaDemo')}</p>}
         </div>

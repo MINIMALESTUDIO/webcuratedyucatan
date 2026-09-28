@@ -32,6 +32,7 @@ export function TarjetaVenue({
       <div className="arco relative aspect-[4/5] overflow-hidden bg-piedra">
         <ImagenContenido
           imagen={venue.imagen}
+          edicion={{ id: venue._id, tipo: 'venue', ruta: 'media.imagenHero' }}
           sizes={sizes}
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         />

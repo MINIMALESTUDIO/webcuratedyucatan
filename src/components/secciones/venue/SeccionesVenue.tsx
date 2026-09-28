@@ -1,7 +1,9 @@
+import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { Venue, VenueTarjeta } from '@/lib/contenido/tipos';
 import { formatearNumero } from '@/lib/formato';
 import { localizar, localizarBloques } from '@/lib/i18n/localizar';
+import { rutaElemento } from '@/lib/sanity/edicion';
 import { Chip } from '@/components/ui/Chip';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
@@ -12,7 +14,34 @@ import { ReproductorVideo } from '../ReproductorVideo';
 import { TarjetaProveedor } from '../TarjetaProveedor';
 import { TarjetaVenue } from '../TarjetaVenue';
 
-/** Descripción en texto enriquecido (subconjunto de Portable Text). */
+/** Estilos del texto enriquecido de Sanity (párrafos, subtítulos, listas y enlaces). */
+const componentesTexto: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p>{children}</p>,
+    h3: ({ children }) => <h3 className="mt-2 text-titulo-3">{children}</h3>,
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc space-y-2 pl-6">{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal space-y-2 pl-6">{children}</ol>,
+  },
+  marks: {
+    link: ({ value, children }) => {
+      const href = typeof value?.href === 'string' ? value.href : '#';
+      const externo = href.startsWith('http');
+      return (
+        <a
+          href={href}
+          className="text-almagre underline underline-offset-4"
+          {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {children}
+        </a>
+      );
+    },
+  },
+};
+
+/** Descripción en texto enriquecido (Portable Text). */
 export async function DescripcionVenue({ venue }: { venue: Venue }) {
   const t = await getTranslations('Venue.descripcion');
   const idioma = await getLocale();
@@ -20,15 +49,10 @@ export async function DescripcionVenue({ venue }: { venue: Venue }) {
     <div>
       <h2 className="text-titulo-2">{t('titulo')}</h2>
       <div className="mt-6 flex max-w-lectura flex-col gap-5 text-destacado">
-        {localizarBloques(venue.descripcion, idioma).map((bloque) =>
-          bloque.style === 'h3' ? (
-            <h3 key={bloque._key} className="text-titulo-3">
-              {bloque.children.map((hijo) => hijo.text).join('')}
-            </h3>
-          ) : (
-            <p key={bloque._key}>{bloque.children.map((hijo) => hijo.text).join('')}</p>
-          ),
-        )}
+        <PortableText
+          value={localizarBloques(venue.descripcion, idioma)}
+          components={componentesTexto}
+        />
       </div>
     </div>
   );
@@ -63,6 +87,7 @@ export async function SeccionEntrevista({ venue }: { venue: Venue }) {
               segundoInicio: capitulo.segundoInicio,
             }))}
             sizes="(min-width: 1280px) 820px, (min-width: 1024px) 65vw, 100vw"
+            edicion={{ id: venue._id, tipo: 'venue', ruta: 'entrevista' }}
           />
         </div>
       </Contenedor>
@@ -92,6 +117,15 @@ export async function SeccionEspacios({ venue }: { venue: Venue }) {
                   <div className="relative aspect-[3/2] overflow-hidden bg-piedra">
                     <ImagenContenido
                       imagen={imagen}
+                      edicion={{
+                        id: venue._id,
+                        tipo: 'venue',
+                        ruta: rutaElemento(
+                          'espacios',
+                          espacio._key,
+                          `.${rutaElemento('imagenes', imagen._key)}`,
+                        ),
+                      }}
                       sizes="(min-width: 1280px) 400px, (min-width: 768px) 45vw, 100vw"
                     />
                   </div>

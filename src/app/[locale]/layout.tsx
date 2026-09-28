@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations } from 'next-intl/server';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { sanityConfigurado } from '@/lib/sanity/configuracion';
+import { EdicionVisual } from '@/components/edicion/EdicionVisual';
 import { ajustesTipograficos, clasesTipograficas } from '@/estilos/tipografia';
 import { sitioIndexable, urlSitio } from '@/lib/sitio';
 import { elegir } from '@/lib/utilidades';
@@ -55,6 +58,10 @@ export default async function LayoutRaiz({ children, params }: LayoutProps<'/[lo
 
   const mensajes = await getMessages();
   const t = await getTranslations('Comun');
+  // La edición visual solo se carga en modo borrador (desde "Editar en la página" del Studio):
+  // los visitantes no descargan su código (D-034). Al editar, VisualEditing refresca la página
+  // desde el servidor, que lee los borradores con su token.
+  const vistaPrevia = sanityConfigurado() && (await draftMode()).isEnabled;
 
   return (
     <html lang={locale} className={clasesTipograficas} style={ajustesTipograficos}>
@@ -69,6 +76,7 @@ export default async function LayoutRaiz({ children, params }: LayoutProps<'/[lo
           <Encabezado />
           <main id="contenido">{children}</main>
           <Pie />
+          {vistaPrevia && <EdicionVisual />}
         </NextIntlClientProvider>
       </body>
     </html>

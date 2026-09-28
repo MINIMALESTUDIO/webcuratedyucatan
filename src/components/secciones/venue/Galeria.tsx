@@ -5,12 +5,13 @@
 import { type KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { Imagen } from '@/lib/contenido/tipos';
+import { rutaElemento } from '@/lib/sanity/edicion';
 import { cx } from '@/lib/utilidades';
 import { Icono } from '@/components/ui/Icono';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 import { Contenedor } from '@/components/ui/Contenedor';
 
-export function Galeria({ imagenes }: { imagenes: Imagen[] }) {
+export function Galeria({ imagenes, venueId }: { imagenes: Imagen[]; venueId?: string }) {
   const t = useTranslations('Venue.galeria');
   const tc = useTranslations('Comun');
   const dialogo = useRef<HTMLDialogElement>(null);
@@ -86,6 +87,15 @@ export function Galeria({ imagenes }: { imagenes: Imagen[] }) {
               >
                 <ImagenContenido
                   imagen={imagen}
+                  edicion={
+                    venueId
+                      ? {
+                          id: venueId,
+                          tipo: 'venue',
+                          ruta: rutaElemento('media.galeria', imagen._key),
+                        }
+                      : undefined
+                  }
                   sizes={
                     i === 0
                       ? '(min-width: 1280px) 640px, (min-width: 1024px) 50vw, (min-width: 640px) 44vw, 78vw'

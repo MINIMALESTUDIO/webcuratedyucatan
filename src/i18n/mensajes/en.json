@@ -21,7 +21,8 @@
     "nombreIdioma": {
       "en": "English",
       "es": "Español"
-    }
+    },
+    "salirVistaPrevia": "Exit preview"
   },
   "Navegacion": {
     "principal": "Main",

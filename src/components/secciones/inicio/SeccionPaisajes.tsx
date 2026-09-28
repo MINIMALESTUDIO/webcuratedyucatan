@@ -25,6 +25,7 @@ export async function SeccionPaisajes({ regiones }: { regiones: Region[] }) {
                 <div className="arco relative aspect-[4/5] overflow-hidden bg-piedra">
                   <ImagenContenido
                     imagen={region.imagen}
+                    edicion={{ id: region._id, tipo: 'region', ruta: 'imagen' }}
                     sizes="(min-width: 1280px) 400px, (min-width: 640px) 30vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />

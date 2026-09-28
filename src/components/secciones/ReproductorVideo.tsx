@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatearTiempo } from '@/lib/formato';
+import { atributoEdicion, type OrigenEdicion } from '@/lib/sanity/edicion';
 import { cx } from '@/lib/utilidades';
 import { Icono } from '@/components/ui/Icono';
 
@@ -20,9 +21,11 @@ interface Props {
   capitulos?: CapituloLocalizado[];
   /** Tamaños de la miniatura según el ancho de la columna. */
   sizes: string;
+  /** Campo de Sanity del video, para editarlo desde la página. */
+  edicion?: OrigenEdicion;
 }
 
-export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes }: Props) {
+export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes, edicion }: Props) {
   const t = useTranslations('Venue.entrevista');
   const idioma = useLocale();
   // `clave` cambia en cada clic para volver a montar el iframe aunque se repita el capítulo.
@@ -36,7 +39,7 @@ export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes }: P
     : null;
 
   return (
-    <div>
+    <div data-sanity={atributoEdicion(edicion)}>
       <div className="relative aspect-video overflow-hidden bg-tinta">
         {src && reproduccion ? (
           <iframe

@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import type { FichaTecnica as DatosFicha } from '@/lib/contenido/tipos';
 import { formatearNumero, formatearUSD, urlGoogleMaps } from '@/lib/formato';
 import { localizar } from '@/lib/i18n/localizar';
+import { atributoEdicion } from '@/lib/sanity/edicion';
 import { Icono } from '@/components/ui/Icono';
 
 function Fila({ etiqueta, children }: { etiqueta: string; children: ReactNode }) {
@@ -15,7 +16,7 @@ function Fila({ etiqueta, children }: { etiqueta: string; children: ReactNode })
 }
 
 /** Datos estandarizados del venue (sección 6): base para comparadores futuros. */
-export async function FichaTecnica({ ficha }: { ficha: DatosFicha }) {
+export async function FichaTecnica({ ficha, venueId }: { ficha: DatosFicha; venueId: string }) {
   const t = await getTranslations('Venue.ficha');
   const tc = await getTranslations('Catering');
   const tcomun = await getTranslations('Comun');
@@ -25,7 +26,11 @@ export async function FichaTecnica({ ficha }: { ficha: DatosFicha }) {
   const minutos = (valor: number) => tcomun('minutos', { minutos: formatearNumero(valor, idioma) });
 
   return (
-    <aside aria-labelledby="ficha-tecnica" className="bg-piedra p-6 sm:p-8">
+    <aside
+      aria-labelledby="ficha-tecnica"
+      className="bg-piedra p-6 sm:p-8"
+      data-sanity={atributoEdicion({ id: venueId, tipo: 'venue', ruta: 'fichaTecnica' })}
+    >
       <h2 id="ficha-tecnica" className="text-titulo-3">
         {t('titulo')}
       </h2>

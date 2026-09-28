@@ -14,6 +14,7 @@ export async function HeroVenue({ venue }: { venue: Venue }) {
     <section className="relative isolate flex min-h-[78svh] items-end overflow-hidden bg-tinta text-cal">
       <ImagenContenido
         imagen={venue.media.imagenHero}
+        edicion={{ id: venue._id, tipo: 'venue', ruta: 'media.imagenHero' }}
         sizes="100vw"
         preload
         className="-z-20 object-cover"

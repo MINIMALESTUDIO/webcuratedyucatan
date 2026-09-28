@@ -21,7 +21,8 @@
     "nombreIdioma": {
       "en": "English",
       "es": "Español"
-    }
+    },
+    "salirVistaPrevia": "Salir de la vista previa"
   },
   "Navegacion": {
     "principal": "Principal",

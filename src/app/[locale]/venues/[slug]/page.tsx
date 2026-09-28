@@ -1,9 +1,16 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
+import { stegaClean } from 'next-sanity';
 import { hasLocale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { obtenerSlugsVenues, obtenerVenue, obtenerVenuesSimilares } from '@/lib/contenido';
+import { getPathname } from '@/i18n/navigation';
+import {
+  obtenerSlugActual,
+  obtenerSlugsVenues,
+  obtenerVenue,
+  obtenerVenuesSimilares,
+} from '@/lib/contenido';
 import { localizar } from '@/lib/i18n/localizar';
 import { alternativas } from '@/lib/seo/metadatos';
 import { Contenedor } from '@/components/ui/Contenedor';
@@ -36,8 +43,9 @@ export async function generateMetadata({
   const venue = await obtenerVenue(slug);
   if (!venue) return {};
   return {
-    title: venue.seo?.titulo ? localizar(venue.seo.titulo, locale) : venue.nombre,
-    description: localizar(venue.seo?.descripcion ?? venue.resumen, locale),
+    // En modo borrador los textos llevan stega: se limpian para el <title> y la descripción.
+    title: stegaClean(venue.seo?.titulo ? localizar(venue.seo.titulo, locale) : venue.nombre),
+    description: stegaClean(localizar(venue.seo?.descripcion ?? venue.resumen, locale)),
     alternates: alternativas({ pathname: '/venues/[slug]', params: { slug } }, locale),
     openGraph: { images: [{ url: venue.media.imagenHero.url, width: 1200, height: 750 }] },
   };
@@ -46,7 +54,20 @@ export async function generateMetadata({
 export default async function PaginaVenue({ params }: PageProps<'/[locale]/venues/[slug]'>) {
   const { slug } = await params;
   const venue = await obtenerVenue(slug);
-  if (!venue) notFound();
+  if (!venue) {
+    // Slug cambiado en Sanity: redirección permanente 308 al vigente (D-020).
+    const slugActual = await obtenerSlugActual(slug);
+    if (slugActual) {
+      const { locale } = await params;
+      permanentRedirect(
+        getPathname({
+          href: { pathname: '/venues/[slug]', params: { slug: slugActual } },
+          locale: locale as (typeof routing.locales)[number],
+        }),
+      );
+    }
+    notFound();
+  }
 
   const [similares, tn, tv] = await Promise.all([
     obtenerVenuesSimilares(venue),
@@ -76,7 +97,7 @@ export default async function PaginaVenue({ params }: PageProps<'/[locale]/venue
           </div>
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-24">
-              <FichaTecnica ficha={venue.fichaTecnica} />
+              <FichaTecnica ficha={venue.fichaTecnica} venueId={venue._id} />
             </div>
           </div>
         </Contenedor>
@@ -84,7 +105,7 @@ export default async function PaginaVenue({ params }: PageProps<'/[locale]/venue
 
       <SeccionEntrevista venue={venue} />
       <SeccionEspacios venue={venue} />
-      <Galeria imagenes={venue.media.galeria} />
+      <Galeria imagenes={venue.media.galeria} venueId={venue._id} />
       <SeccionCitas venue={venue} />
       <SeccionProveedores venue={venue} />
       <SeccionDisponibilidad venue={venue} />

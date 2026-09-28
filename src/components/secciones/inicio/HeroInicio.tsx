@@ -17,6 +17,7 @@ export async function HeroInicio({ configuracion }: { configuracion: Configuraci
       {/* La imagen se muestra de inmediato; el video, si existe, carga después. */}
       <ImagenContenido
         imagen={configuracion.imagenHero}
+        edicion={{ id: configuracion._id, tipo: 'configuracionSitio', ruta: 'imagenHero' }}
         sizes="100vw"
         preload
         className="-z-20 object-cover"

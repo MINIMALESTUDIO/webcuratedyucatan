@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ConfiguracionSitio } from '@/lib/contenido/tipos';
 import { localizar } from '@/lib/i18n/localizar';
+import { rutaElemento } from '@/lib/sanity/edicion';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 import { EncabezadoSeccion } from '../EncabezadoSeccion';
@@ -24,6 +25,11 @@ export async function SeccionTradiciones({ datos }: { datos: ConfiguracionSitio[
               <div className="arco relative aspect-[4/5] overflow-hidden bg-piedra">
                 <ImagenContenido
                   imagen={elemento.imagen}
+                  edicion={{
+                    id: 'configuracionSitio',
+                    tipo: 'configuracionSitio',
+                    ruta: rutaElemento('tradiciones.elementos', elemento._key, '.imagen'),
+                  }}
                   sizes="(min-width: 1280px) 400px, (min-width: 640px) 30vw, 100vw"
                 />
               </div>

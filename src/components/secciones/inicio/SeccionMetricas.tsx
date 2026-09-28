@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { ConfiguracionSitio } from '@/lib/contenido/tipos';
 import { formatearNumero } from '@/lib/formato';
+import { atributoEdicion } from '@/lib/sanity/edicion';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { Sobretitulo } from '@/components/ui/Sobretitulo';
 
@@ -20,7 +21,14 @@ export async function SeccionMetricas({ metricas }: { metricas: ConfiguracionSit
           {t('sobretitulo')}
         </h2>
         <Sobretitulo className="text-cal">{t('sobretitulo')}</Sobretitulo>
-        <dl className="mt-8 grid gap-10 sm:grid-cols-3">
+        <dl
+          className="mt-8 grid gap-10 sm:grid-cols-3"
+          data-sanity={atributoEdicion({
+            id: 'configuracionSitio',
+            tipo: 'configuracionSitio',
+            ruta: 'metricas',
+          })}
+        >
           {cifras.map((cifra) => (
             <div
               key={cifra.etiqueta}

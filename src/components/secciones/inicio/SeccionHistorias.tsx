@@ -32,6 +32,7 @@ export async function SeccionHistorias({ historias }: { historias: HistoriaResum
                 <div className="relative aspect-[3/2] overflow-hidden bg-piedra">
                   <ImagenContenido
                     imagen={historia.imagenPortada}
+                    edicion={{ id: historia._id, tipo: 'historia', ruta: 'imagenPortada' }}
                     sizes="(min-width: 1280px) 400px, (min-width: 768px) 30vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                   />
