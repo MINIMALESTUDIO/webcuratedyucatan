@@ -1,0 +1,10 @@
+.next
+node_modules
+package-lock.json
+public/demo
+docs/capturas
+docs/lighthouse
+docs/PROMPT.md
+playwright-report
+test-results
+next-env.d.ts

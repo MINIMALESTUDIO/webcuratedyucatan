@@ -1,0 +1,7 @@
+# Finales de línea LF en el repositorio (desarrollo en Windows, despliegue en Linux)
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.webp binary
+*.ico binary
+*.woff2 binary
