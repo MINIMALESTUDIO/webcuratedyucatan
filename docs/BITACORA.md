@@ -130,3 +130,72 @@ Contra los presupuestos de la sección 10: rendimiento, accesibilidad, buenas pr
 - `c0b9dee` perf(formularios): carga los esquemas zod solo al enviar
 - `db3e369` chore(despliegue): agrega medición de memoria del build
 - Este reporte y la evidencia: `docs(bitacora): registra la Fase P con capturas y Lighthouse`
+
+---
+
+## Fase 2 — CMS: base con edición visual (2026-09-28)
+
+**Estado:** base completa y verificada en modo DEMO. **Falta crear el proyecto de Sanity**, que requiere que el titular inicie sesión una vez en la CLI (`npx sanity login`). Después se crean el proyecto, los tokens, el CORS y el webhook, se importan los datos DEMO, se publica el Studio y se completa la verificación con datos reales. La Fase P sigue pendiente del despliegue en Hostinger.
+
+### Resumen
+
+Modelo de contenido completo de la sección 6 en Sanity, con validaciones, ayudas para el editor, campos bilingües y documentos únicos protegidos. El Studio se configura en el repositorio y se publica aparte (D-013). El sitio lee de Sanity cuando está configurado y de los datos DEMO si no (D-033). La edición directa en la página funciona con la herramienta Presentation: clic en textos, imágenes, ficha técnica, videos y métricas, y vista previa de borradores (D-034). Incluye el webhook de revalidación firmado, la redirección 308 por slugs anteriores y los scripts de semilla y verificación de privacidad.
+
+### Archivos creados / modificados
+
+- `sanity.config.ts`, `sanity.cli.ts`: Studio con Contenido, "Editar en la página" y Consultas GROQ; publicado en `curatedyucatan.sanity.studio`.
+- `sanity/schemas/*`: tipos de objeto (imagen con alt, YouTube, capítulo, cita, espacio, ficha técnica, SEO) y documentos (venue, región, proveedor, categoría, historia, episodio, guía, página editorial, configuración del sitio, contactos de leads privados).
+- `sanity/estructura.ts`, `sanity/presentacion.ts`: menú del Studio con documentos únicos y relación documento ↔ página para la edición visual.
+- `src/lib/sanity/*`: configuración pública, cliente con stega filtrado, `sanityFetch`, consultas GROQ proyectadas a los tipos del sitio, limpieza de null y codificador de `data-sanity`.
+- `src/lib/contenido/fuente.ts`, `fuente-demo.ts`, `fuente-sanity.ts`, `index.ts`: contrato común y elección de fuente.
+- `src/app/api/draft-mode/enable`, `disable`, `src/app/api/revalidar`: modo borrador y webhook firmado.
+- `src/components/edicion/*`: edición visual con carga diferida y botón para salir de la vista previa.
+- `src/components/ui/ImagenContenido.tsx` y componentes de secciones: loader del CDN de Sanity, punto de interés y origen de edición.
+- `src/app/[locale]/layout.tsx`, `venues/[slug]/page.tsx`: edición visual en modo borrador, metadatos sin stega, redirección 308.
+- `scripts/semilla-sanity.ts`, `scripts/verificar-privados-sanity.ts`: datos DEMO a Sanity y prueba de D-012.
+- `tests/unit/edicion.test.ts`: el codificador propio equivale a `createDataAttribute`.
+- `docs/CONTENIDO.md`, `DESPLIEGUE.md` (sección 7), `DECISIONES.md` (D-013, D-033 a D-035), `.env.example`, `README.md`, `CHANGELOG.md`.
+
+### Dependencias agregadas
+
+| Paquete             | Versión | Motivo                                                              |
+| ------------------- | ------- | ------------------------------------------------------------------- |
+| sanity              | 6.16.0  | Studio (stack)                                                      |
+| next-sanity         | 13.3.4  | cliente, modo borrador, edición visual y loader de imágenes (stack) |
+| @sanity/vision      | 6.16.0  | herramienta de consultas en el Studio                               |
+| styled-components   | 6.5.3   | requerida por Sanity                                                |
+| @portabletext/react | 7.0.1   | texto enriquecido; ya la usa next-sanity (D-035)                    |
+| tsx                 | 4.23.15 | scripts TypeScript (aprobada, D-022)                                |
+
+### Decisiones tomadas
+
+D-013 (Studio publicado aparte), D-033 (dos fuentes de contenido), D-034 (edición visual) y D-035 (imágenes y dependencias), en [DECISIONES.md](DECISIONES.md).
+
+### Supuestos
+
+- El dataset `production` será público (plan gratuito); la privacidad de los contactos depende del ID `privado.*`, que se comprueba con `npm run sanity:verificar-privados` al crear el proyecto.
+- El Studio queda en inglés (interfaz de Sanity) con títulos y ayudas en español; el paquete de idioma español del Studio sería una dependencia más.
+- La interfaz del Studio no pide PDF para la guía DEMO (no existe); el campo queda marcado como pendiente.
+
+### Verificación
+
+| Comando                                          | Resultado real                                                               |
+| ------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `npx sanity schemas validate`                    | 0 errores, 0 advertencias                                                    |
+| `npm run studio:build`                           | correcto, ~7 s                                                               |
+| `npm run typecheck` / `npm run lint`             | sin errores                                                                  |
+| `npm test`                                       | 47 de 47 (5 archivos; incluye la equivalencia del codificador `data-sanity`) |
+| `npm run build`                                  | correcto; todas las páginas siguen estáticas pese a leer `draftMode()`       |
+| `npm run test:e2e`                               | 18 de 18 en modo DEMO                                                        |
+| `npm run sanity:semilla`                         | 31 documentos con 53 imágenes                                                |
+| Lighthouse móvil local (mediana de 3, modo DEMO) | inicio 91 con 179 KB de JS; ficha 89 con 190 KB                              |
+
+Hallazgo durante la verificación: importar la edición visual de forma estática sumaba ~180 KB comprimidos a todas las páginas (JS inicial 373 KB, rendimiento 75). Se corrigió con carga diferida y el codificador propio (D-034).
+
+### Pendientes y riesgos
+
+- **Crear el proyecto de Sanity** (necesito tu inicio de sesión) y completar la verificación: importación, privacidad de contactos, "Editar en la página" de punta a punta y webhook.
+- Configurar el webhook y las variables de Sanity en Hostinger cuando exista el despliegue.
+- La CSP de la Fase 7 debe permitir que el Studio muestre el sitio en un iframe.
+- `npm audit`: 15 alertas en la cadena de herramientas de la CLI de Sanity, no en el sitio (D-035).
+- Tipos generados con Sanity TypeGen: pendiente; hoy las consultas se tipan a mano contra `tipos.ts`.

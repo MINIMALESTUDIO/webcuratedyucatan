@@ -145,9 +145,10 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 ### D-013 — Sanity Studio embebido o desplegado aparte
 
 - Fecha: 2026-09-28
-- Contexto: el responsable pidió evaluar `sanity deploy` para aligerar el build en Hostinger.
-- Decisión: **pendiente**. La recomendación se entrega antes de la fase de CMS. La Fase P mide la memoria del build sin Studio como línea base (D-030).
-- Consecuencias: ninguna todavía.
+- Contexto: el responsable pidió evaluar `sanity deploy` para aligerar el build en Hostinger. El documento original pedía el Studio embebido en `/studio`.
+- Opciones consideradas: embebido en `/studio` (una sola URL, pero su código entra en el build de Next en un plan de 3 GB compartidos); publicado aparte en `*.sanity.studio` con `sanity deploy` (gratis, build del sitio más liviano, se actualiza sin redesplegar el sitio).
+- Decisión (2026-09-28, recomendación aplicada al pedir la base del CMS): **Studio publicado aparte.** La configuración vive en el repositorio (`sanity.config.ts`, `sanity/`) y se publica con `npm run studio:deploy`. La edición visual ("Editar en la página") funciona igual desde el Studio publicado. Medido: el build del Studio tarda ~7 s y no forma parte del build del sitio.
+- Consecuencias: el Studio tiene su propia URL (`https://curatedyucatan.sanity.studio`, a confirmar al publicar). Embeberlo después es añadir una ruta `src/app/studio/[[...tool]]` con la misma configuración. La CSP de la Fase 7 debe permitir que el Studio muestre el sitio en un iframe (`frame-ancestors`).
 
 ### D-014 — Videos del hero y de venues en Sanity
 
@@ -257,3 +258,28 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Contexto: las páginas son estáticas. Si alguien envía un formulario antes de que cargue el JS, el navegador hace un envío nativo (GET) y los datos personales quedan en la URL.
 - Decisión: el botón de envío está desactivado en el HTML prerenderizado y se activa al hidratar (`useHidratado`, con `useSyncExternalStore`). El formulario expone `data-hidratado` para las pruebas.
 - Consecuencias: durante la carga inicial el botón se ve atenuado un instante.
+
+### D-033 — Dos fuentes de contenido: Sanity o DEMO
+
+- Fecha: 2026-09-28
+- Contexto: la base del CMS se construye antes de que exista el proyecto de Sanity (falta iniciar sesión en la CLI), y el sitio y sus pruebas deben seguir funcionando.
+- Opciones consideradas: reemplazar la fuente DEMO por Sanity de una vez; elegir la fuente según la configuración.
+- Decisión: `src/lib/contenido/index.ts` usa Sanity si hay `NEXT_PUBLIC_SANITY_PROJECT_ID` y los datos DEMO si no. Ambas fuentes cumplen el mismo contrato (`fuente.ts`) y devuelven los mismos tipos; la fuente de Sanity se carga con `import()` para que el modo DEMO no cargue su cliente. Los datos DEMO se convierten en documentos de Sanity con `npm run sanity:semilla` y se importan con la CLI.
+- Consecuencias: las pruebas e2e corren en modo DEMO sin servicios externos. Si falta el documento `configuracionSitio` en Sanity, el inicio usa los textos DEMO y lo avisa en el log. Los venues incompletos (sin foto principal, región o ficha) no se listan para no romper las tarjetas.
+
+### D-034 — Edición visual ("Editar en la página")
+
+- Fecha: 2026-09-28
+- Contexto: el responsable pidió poder editar el sitio directo desde la página.
+- Decisión: herramienta Presentation de Sanity con modo borrador de Next (`/api/draft-mode/enable` y `/disable`), `sanityFetch` de `next-sanity/live` y `VisualEditing`.
+  - **Stega** (marcas invisibles con el origen de cada texto) solo en modo borrador y solo en textos bilingües, nombres y autores: no toca slugs, IDs de YouTube ni valores de listas que el sitio usa como claves.
+  - Imágenes, ficha técnica, videos y métricas se marcan con atributos `data-sanity`, con un codificador propio equivalente a `createDataAttribute` (una prueba unitaria compara ambos) para no cargar ~11 KB en el navegador.
+  - **Ningún token llega al navegador** (regla 9): `browserToken: false`. En Presentation, al editar, `VisualEditing` refresca la página desde el servidor, que lee los borradores con `SANITY_API_READ_TOKEN`.
+  - El código de edición visual (~180 KB comprimidos) se carga con `next/dynamic` solo en modo borrador; los visitantes no lo descargan.
+- Consecuencias: JS inicial medido en modo DEMO: 179 KB en el inicio y 190 KB en la ficha (+6 KB por el loader de imágenes de Sanity). Fuera del Studio, la vista previa de borradores se actualiza al recargar (sin token en el navegador no hay actualización en vivo). Los cambios publicados llegan por el webhook `/api/revalidar` (D-010).
+
+### D-035 — Imágenes de Sanity y dependencias de la fase de CMS
+
+- Fecha: 2026-09-28
+- Decisión: las imágenes de Sanity usan el `imageLoader` de `next-sanity/image` (se redimensionan en el CDN de Sanity, sin trabajo en Hostinger) y respetan el punto de interés como `object-position`. No se usa `@sanity/image-url`: el loader cumple su función. Dependencias agregadas: `sanity` 6.16.0, `next-sanity` 13.3.4, `@sanity/vision` 6.16.0, `styled-components` 6.5.3 (requerida por Sanity), `@portabletext/react` 7.0.1 (la usa `next-sanity`; se declara explícita para no depender de una instalación indirecta) y `tsx` 4.23.15 (scripts, aprobada en D-022).
+- Consecuencias: `npm audit` reporta 15 alertas (3 altas y 12 moderadas), todas en la cadena de herramientas de la CLI de Sanity (adm-zip, js-yaml, smol-toml, uuid), que se usan al compilar o publicar el Studio y al importar datos. Ninguna llega al código que descargan los visitantes. El arreglo que propone npm es bajar a Sanity 5; se descarta y se revisará al actualizar Sanity.

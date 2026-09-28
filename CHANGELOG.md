@@ -15,6 +15,7 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/).
 - Base técnica: Next.js 16.3.6, TypeScript 6 estricto, next-intl sin detección por navegador, tokens de marca, tipografía autohospedada, datos DEMO con la forma de Sanity, 53 imágenes de relleno.
 - Calidad: 41 pruebas unitarias, 18 pruebas e2e en móvil, escritorio y WebKit con axe, capturas en 360, 768 y 1440 px, Lighthouse móvil local y medición de memoria del build.
 - Documentación: requisitos, decisiones D-001 a D-032, guía de despliegue en Hostinger y bitácora de la Fase P.
+- Fase 2 (base del CMS): esquemas de Sanity de la sección 6, Studio publicado aparte, edición directa en la página (Presentation) con modo borrador, webhook de revalidación firmado, redirección 308 por slugs anteriores, fuente de contenido Sanity con respaldo DEMO, semilla de datos y prueba de privacidad de contactos.
 
 ### Cambiado
 
