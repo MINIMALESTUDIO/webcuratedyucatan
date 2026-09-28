@@ -6,6 +6,8 @@ import { routing } from '@/i18n/routing';
 import { ajustesTipograficos, clasesTipograficas } from '@/estilos/tipografia';
 import { sitioIndexable, urlSitio } from '@/lib/sitio';
 import { elegir } from '@/lib/utilidades';
+import { Encabezado } from '@/components/secciones/Encabezado';
+import { Pie } from '@/components/secciones/Pie';
 import '@/estilos/globales.css';
 
 export function generateStaticParams() {
@@ -64,7 +66,9 @@ export default async function LayoutRaiz({ children, params }: LayoutProps<'/[lo
           {t('saltarAlContenido')}
         </a>
         <NextIntlClientProvider messages={elegir(mensajes, MENSAJES_CLIENTE)}>
+          <Encabezado />
           <main id="contenido">{children}</main>
+          <Pie />
         </NextIntlClientProvider>
       </body>
     </html>
