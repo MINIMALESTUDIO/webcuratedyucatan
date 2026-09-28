@@ -108,6 +108,13 @@
     background-color: rgb(34 30 26 / 0.6);
   }
 
+  /* Reserva espacio para la barra fija inferior de la ficha en móvil (no tapa el pie). */
+  @media (width < 64rem) {
+    body:has([data-barra-fija]) {
+      padding-bottom: calc(var(--altura-barra-movil) + env(safe-area-inset-bottom));
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

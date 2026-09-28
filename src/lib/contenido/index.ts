@@ -78,7 +78,10 @@ export async function obtenerVenue(slug: string): Promise<Venue | null> {
   return venuesPublicados().find((venue) => venue.slug === slug) ?? null;
 }
 
-/** Misma región suma 2 puntos y cada tipo en común suma 1. */
+/**
+ * Misma región suma 2 puntos y cada tipo en común suma 1. Si no hay suficientes parecidos,
+ * se completa con los demás venues, primero los destacados editoriales.
+ */
 export async function obtenerVenuesSimilares(venue: Venue, limite = 3): Promise<VenueTarjeta[]> {
   return venuesPublicados()
     .filter((otro) => otro.slug !== venue.slug)
@@ -88,8 +91,12 @@ export async function obtenerVenuesSimilares(venue: Venue, limite = 3): Promise<
         (otro.region.slug === venue.region.slug ? 2 : 0) +
         otro.tipos.filter((tipo) => venue.tipos.includes(tipo)).length,
     }))
-    .filter(({ puntos }) => puntos > 0)
-    .sort((a, b) => b.puntos - a.puntos || a.otro.nombre.localeCompare(b.otro.nombre))
+    .sort(
+      (a, b) =>
+        b.puntos - a.puntos ||
+        Number(b.otro.destacado) - Number(a.otro.destacado) ||
+        a.otro.nombre.localeCompare(b.otro.nombre),
+    )
     .slice(0, limite)
     .map(({ otro }) => aTarjeta(otro));
 }
