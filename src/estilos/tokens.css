@@ -1,0 +1,20 @@
+/*
+ * Tokens de diseño de Curated Yucatán.
+ * Paleta aprobada en D-006 (contraste WCAG 2.1 verificado). Los colores se mapean a
+ * utilidades de Tailwind en globales.css (bg-cal, text-tinta, etc.).
+ */
+:root {
+  /* Color */
+  --cal: #f7f3ec; /* fondo, blanco hueso */
+  --piedra: #eae2d4; /* superficies, caliza */
+  --almagre: #a13f2b; /* marca, CTA y enlaces: 5.82:1 con cal */
+  --almagre-oscuro: #8c3524; /* hover del CTA: 7.17:1 con cal */
+  --henequen: #4a6650; /* acentos: 5.74:1 sobre cal */
+  --cenote: #106c74; /* uso mínimo: 5.55:1 sobre cal */
+  --tinta: #221e1a; /* texto principal: 14.97:1 sobre cal */
+  --tinta-suave: #5e564e; /* texto secundario y bordes de campos: 6.51:1 sobre cal */
+
+  /* Medidas de estructura */
+  --altura-encabezado: 4rem;
+  --altura-barra-movil: 4.5rem;
+}

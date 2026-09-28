@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Colores y familias tipográficas: apuntan a los tokens y a las variables de next/font. */
+@theme inline {
+  --color-cal: var(--cal);
+  --color-piedra: var(--piedra);
+  --color-almagre: var(--almagre);
+  --color-almagre-oscuro: var(--almagre-oscuro);
+  --color-henequen: var(--henequen);
+  --color-cenote: var(--cenote);
+  --color-tinta: var(--tinta);
+  --color-tinta-suave: var(--tinta-suave);
+
+  --font-titulo: var(--fuente-titulo), Georgia, 'Times New Roman', serif;
+  --font-titulo-italica: var(--fuente-titulo-italica), Georgia, 'Times New Roman', serif;
+  --font-texto: var(--fuente-texto), system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/*
+ * Escala tipográfica fluida (de 360 px a 1440 px de ancho) y medidas de maquetación.
+ * Tailwind usa el espaciado base de 0.25rem (escala de 4 px).
+ */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.65;
+  --text-destacado: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  --text-destacado--line-height: 1.5;
+  --text-titulo-3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --text-titulo-3--line-height: 1.2;
+  --text-titulo-2: clamp(1.75rem, 1.45rem + 1.3vw, 2.5rem);
+  --text-titulo-2--line-height: 1.12;
+  --text-titulo-1: clamp(2.125rem, 1.6rem + 2.3vw, 3.5rem);
+  --text-titulo-1--line-height: 1.06;
+  --text-display: clamp(2.625rem, 1.75rem + 3.9vw, 5.25rem);
+  --text-display--line-height: 1.02;
+
+  --spacing-seccion: clamp(4rem, 2.8rem + 5vw, 7.5rem);
+  --spacing-margen: clamp(1rem, 0.6rem + 1.8vw, 2.5rem);
+
+  --container-contenido: 80rem;
+  --container-lectura: 42rem;
+
+  --radius-suave: 2px;
+}
+
+@layer base {
+  html {
+    background-color: var(--cal);
+    color: var(--tinta);
+    scroll-padding-top: calc(var(--altura-encabezado) + 1rem);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-texto);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-titulo);
+    font-weight: var(--peso-titulo);
+    letter-spacing: var(--tracking-titulo);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--almagre);
+    outline-offset: 3px;
+  }
+
+  /* Evita el zoom automático de iOS al enfocar campos. */
+  input,
+  select,
+  textarea {
+    font-size: max(1rem, 16px);
+  }
+
+  ::selection {
+    background-color: var(--almagre);
+    color: var(--cal);
+  }
+
+  /* Bloquea el desplazamiento del fondo mientras hay un diálogo modal abierto. */
+  html:has(dialog[open]:modal) {
+    overflow: hidden;
+  }
+
+  dialog::backdrop {
+    background-color: rgb(34 30 26 / 0.6);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Máscara de arco de medio punto, como la arquería de las haciendas. */
+@utility arco {
+  border-radius: 9999px 9999px 0 0;
+}
+
+/* Contorno de foco claro para controles sobre fondos oscuros o fotos. */
+@utility foco-claro {
+  &:focus-visible {
+    outline-color: var(--cal);
+  }
+}
+
+/* Separador inspirado en el mosaico de pasta yucateco (SVG de menos de 1 KB). */
+@utility patron-pasta {
+  background-color: var(--piedra);
+  background-size: 1.5rem 1.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' fill='%23EAE2D4'/%3E%3Cg fill='%23A13F2B'%3E%3Cpath d='M0 0h10a10 10 0 0 1-10 10z'/%3E%3Cpath d='M40 0v10a10 10 0 0 1-10-10z'/%3E%3Cpath d='M0 40v-10a10 10 0 0 1 10 10z'/%3E%3Cpath d='M40 40h-10a10 10 0 0 1 10-10z'/%3E%3C/g%3E%3Cpath d='M20 7l13 13-13 13-13-13z' fill='none' stroke='%234A6650' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='3.2' fill='%23106C74'/%3E%3C/svg%3E");
+}
+
+/* Velo inferior para leer texto claro sobre fotografía o video. */
+@utility velo-inferior {
+  background-image: linear-gradient(
+    180deg,
+    rgb(34 30 26 / 0) 0%,
+    rgb(34 30 26 / 0.35) 45%,
+    rgb(34 30 26 / 0.82) 100%
+  );
+}
