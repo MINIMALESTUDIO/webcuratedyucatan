@@ -26,7 +26,11 @@ function arco(x, base, a, h) {
   return `M${x} ${base}V${base - h + r}A${r} ${r} 0 0 1 ${x + a} ${base - h + r}V${base}Z`;
 }
 
-function svg({ ancho, alto, paleta, etiqueta }) {
+/**
+ * Las imágenes de hero se usan a pantalla completa con el titular encima: llevan el texto
+ * arriba y más pequeño (cabe en el recorte vertical del móvil) para no chocar con el titular.
+ */
+function svg({ ancho, alto, paleta, etiqueta, hero = false }) {
   const [claro, medio, oscuro, colorTexto] = paleta;
   const vertical = alto > ancho;
   const base = alto;
@@ -42,10 +46,10 @@ function svg({ ancho, alto, paleta, etiqueta }) {
   ).join(' ');
 
   const lado = Math.min(ancho, alto);
-  const grande = Math.round(lado * 0.1);
-  const mediano = Math.round(lado * 0.036);
-  const chico = Math.round(lado * 0.028);
-  const centro = alto * 0.42;
+  const grande = Math.round(lado * (hero ? 0.08 : 0.1));
+  const mediano = Math.round(lado * (hero ? 0.026 : 0.036));
+  const chico = Math.round(lado * (hero ? 0.02 : 0.028));
+  const centro = alto * (hero ? 0.24 : 0.42);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${ancho}" height="${alto}" viewBox="0 0 ${ancho} ${alto}">
   <defs>
@@ -65,8 +69,8 @@ function svg({ ancho, alto, paleta, etiqueta }) {
 </svg>`;
 }
 
-// Inventario: [archivo, ancho, alto, etiqueta]. Debe coincidir con src/lib/demo/.
-const imagenes = [['inicio-hero.jpg', 2400, 1500, 'Inicio · Home']];
+// Inventario: [archivo, ancho, alto, etiqueta, esHero]. Debe coincidir con src/lib/demo/.
+const imagenes = [['inicio-hero.jpg', 2400, 1500, 'Inicio · Home', true]];
 
 const venues = [
   'Hacienda Ejemplo Norte',
@@ -85,7 +89,7 @@ const medidasGaleria = [
 ];
 venues.forEach((nombre, i) => {
   const n = i + 1;
-  imagenes.push([`venue-${n}-hero.jpg`, 2400, 1500, nombre]);
+  imagenes.push([`venue-${n}-hero.jpg`, 2400, 1500, nombre, true]);
   medidasGaleria.forEach(([ancho, alto], k) => {
     imagenes.push([`venue-${n}-galeria-${k + 1}.jpg`, ancho, alto, `${nombre} · ${k + 1}/5`]);
   });
@@ -105,11 +109,16 @@ imagenes.push(['guia-portada.jpg', 1200, 1600, 'Guía · Guide 2027']);
 
 await mkdir(DESTINO, { recursive: true });
 
+// Los heros alternan entre las paletas oscuras (henequén, cenote, almagre) para que el texto
+// claro del titular se lea bien.
+const PALETAS_HERO = [PALETAS[1], PALETAS[2], PALETAS[3]];
+
 let total = 0;
-for (const [i, [archivo, ancho, alto, etiqueta]] of imagenes.entries()) {
-  const paleta = PALETAS[i % PALETAS.length];
+let heros = 0;
+for (const [i, [archivo, ancho, alto, etiqueta, hero = false]] of imagenes.entries()) {
+  const paleta = hero ? PALETAS_HERO[heros++ % PALETAS_HERO.length] : PALETAS[i % PALETAS.length];
   const salida = join(DESTINO, archivo);
-  const info = await sharp(Buffer.from(svg({ ancho, alto, paleta, etiqueta })))
+  const info = await sharp(Buffer.from(svg({ ancho, alto, paleta, etiqueta, hero })))
     .jpeg({ quality: 72, mozjpeg: true, progressive: true })
     .toFile(salida);
   total += info.size;
