@@ -49,7 +49,11 @@ function procesosLinux() {
       const campos = stat.slice(stat.lastIndexOf(')') + 2).split(' ');
       const status = readFileSync(`/proc/${nombre}/status`, 'utf8');
       const rss = status.match(/VmRSS:\s+(\d+) kB/);
-      procesos.push({ pid: Number(nombre), ppid: Number(campos[1]), bytes: rss ? Number(rss[1]) * 1024 : 0 });
+      procesos.push({
+        pid: Number(nombre),
+        ppid: Number(campos[1]),
+        bytes: rss ? Number(rss[1]) * 1024 : 0,
+      });
     } catch {
       // El proceso terminó mientras se leía.
     }
