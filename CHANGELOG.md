@@ -6,6 +6,8 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/).
 
 ### Agregado
 
+- Fase R (realineación con la dirección del proyecto): sistema visual del libro (negro sobre blanco; Montserrat, Cinzel y Questrial como sustituto de Century Gothic) y mapa del sitio del documento de estructura. Incluye inicio en siete bloques, Discover Yucatán, venues por tres colecciones con cinco filtros y perfil base con Curated Notes, Catering y Photography curados, Design & Production (Minimal), Curated Journal, About, Find Your Yucatán y Plan Your Event. Modelo de Sanity, datos DEMO y pruebas reescritos (D-036 a D-046).
+
 - Fase P (piloto visual), en inglés (`/`) y español (`/es`):
   - Inicio con las once secciones de la sección 11.
   - Listado de venues con filtros reflejados en la URL (barra lateral en escritorio, panel en móvil).

@@ -283,3 +283,114 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Fecha: 2026-09-28
 - Decisión: las imágenes de Sanity usan el `imageLoader` de `next-sanity/image` (se redimensionan en el CDN de Sanity, sin trabajo en Hostinger) y respetan el punto de interés como `object-position`. No se usa `@sanity/image-url`: el loader cumple su función. Dependencias agregadas: `sanity` 6.16.0, `next-sanity` 13.3.4, `@sanity/vision` 6.16.0, `styled-components` 6.5.3 (requerida por Sanity), `@portabletext/react` 7.0.1 (la usa `next-sanity`; se declara explícita para no depender de una instalación indirecta) y `tsx` 4.23.15 (scripts, aprobada en D-022).
 - Consecuencias: `npm audit` reporta 15 alertas (3 altas y 12 moderadas), todas en la cadena de herramientas de la CLI de Sanity (adm-zip, js-yaml, smol-toml, uuid), que se usan al compilar o publicar el Studio y al importar datos. Ninguna llega al código que descargan los visitantes. El arreglo que propone npm es bajar a Sanity 5; se descarta y se revisará al actualizar Sanity.
+
+### D-036 — Tipografía del libro con sustituto libre de Century Gothic
+
+- Fecha: 2026-09-29
+- Contexto: el prompt visual pide las familias del libro impreso, y el PDF lo confirma: Century Gothic es la voz de marca (portada, títulos de sección y aperturas), Cinzel solo va en nombres de venues y Montserrat en cuerpo y etiquetas. Century Gothic es comercial; el responsable indicó buscar un sustituto.
+- Opciones consideradas: Questrial, Didact Gothic, Jost, Urbanist, Outfit, Josefin Sans y Poppins, medidas contra la Century Gothic instalada en el equipo (ancho de "CURATED YUCATAN HERITAGE SPACES", altura de x y redondez de la "O").
+- Decisión: **Questrial** (OFL, Google Fonts) como sustituto: 99 % del ancho de Century Gothic, altura de x 0.76 frente a 0.74 y la misma "O" redonda. Montserrat para el cuerpo, con la itálica aparte y sin precarga (D-046); Cinzel sin precarga. Todo con `next/font`, en `src/estilos/tipografia.ts`. Los títulos van en mayúsculas espaciadas, como en el libro.
+- Consecuencias: **reemplaza D-005**. Questrial tiene un solo peso; las negritas e itálicas de Century Gothic del libro (índice y etiquetas) se resuelven con Montserrat.
+
+### D-037 — Sistema visual del libro: negro sobre blanco
+
+- Fecha: 2026-09-29
+- Contexto: medido sobre el PDF del libro: todo el texto es `#000000` sobre blanco, las líneas son negras y no hay color de interfaz; el color lo aportan las fotos. El prompt visual admite blancos cálidos y taupe solo en detalles y pide evitar colores fuertes, degradados y fondos saturados.
+- Decisión:
+  - Tokens `papel` (#fff), `papel-calido`, `arena`, `linea`, `taupe` (#6f6253, 5.92:1), `tinta` (#111, 18.88:1) y `tinta-suave` (#5f5850, 7.00:1), todos con contraste AA verificado.
+  - Botones carbón sólidos o de línea, sin esquinas redondeadas.
+  - Se retiran los arcos como máscara, el patrón de pasta, el sello, los iconos de categorías y las bandas de color.
+  - Sobre foto, velo uniforme del 45 % (sin degradado) con texto grande y botón blanco sólido.
+  - Las imágenes DEMO pasan a marcadores neutros.
+- Consecuencias: **reemplaza D-006** y los recursos gráficos de la sección 9 de PROMPT.md (arcos y pasta).
+
+### D-038 — Los documentos de dirección mandan sobre PROMPT.md donde chocan
+
+- Fecha: 2026-09-29
+- Contexto: el responsable pidió alinear la implementación con el prompt visual, la estructura web, la estrategia LOVE MÉXICO y el libro (`docs/referencias/`). Describen otro enfoque que PROMPT.md: plataforma de descubrimiento para wedding planners, extensión digital del libro.
+- Decisión:
+  - Mapa del sitio de la sección 18 del documento de estructura: Home, Discover Yucatán, Venues, Catering, Photography, Design & Production, Curated Journal, About, Find Your Yucatán y Plan Your Event (más Privacy).
+  - Menú con el CTA "Plan your event".
+  - Se retiran las rutas que el documento no menciona: vendors, wedding weekend, plan your wedding, venue tours, guide, stories, planning assistance, partners y shortlist.
+  - Las URL en inglés son estables (`/find-your-yucatan` y `/` para los QR). Se mantiene el español con URL traducidas.
+- Consecuencias: PROMPT.md queda como referencia técnica (stack, seguridad, rendimiento y backend). Sus secciones 1, 4, 6, 9 y 11 y el "fuera de alcance" del quiz quedan reemplazadas por este documento y D-039 a D-044. Supuesto por validar: mantener el español.
+
+### D-039 — Tres colecciones como documentos
+
+- Fecha: 2026-09-29
+- Contexto: el documento de estructura dice que el libro establece tres categorías (Contemporary Sanctuaries, Organic Estates, Timeless Venues), que también usan el stand y Find Your Yucatán. El libro disponible (volumen II, borrador) usa dos estilos: Heritage Spaces y Distinctive Venues.
+- Decisión: **supuesto** a favor de las tres del documento, que es la fuente más reciente y la que conecta con Find Your Yucatán. Son documentos `coleccion` (nombre, lema, descripción, palabra del resultado e imagen), no una lista en el código: cambiar a dos es editar Sanity.
+- Consecuencias: cada venue tiene una colección obligatoria.
+
+### D-040 — Venues: filtros y perfil del documento
+
+- Fecha: 2026-09-29
+- Decisión:
+  - **Filtros:** Style (colección), Capacity (rangos [DEMO] sobre la capacidad máxima), Accommodation, Location (región) e Indoor / Outdoor. Interior / exterior se calcula de los espacios: "mixto" cuenta como ambos. Las colecciones funcionan como entrada visual; el resto de filtros va en un solo panel. El orden es editorial (destacados primero), sin selector.
+  - **Perfil:** hero con nombre y ubicación, Quick facts, About, Spaces, Curated Notes, Gallery y Request information. Se suman la película de la serie "El Lugar de Tu Historia" (el libro la presenta como capítulo audiovisual de la colección) y más venues de la misma colección.
+  - **Se retiran del modelo:** tipos de venue, nivel de listado (queda la marca editorial `destacado` de D-015), catering, horario de música, inversión, temporada, tiempo al aeropuerto, mapa, citas y proveedores recomendados.
+  - **Se agregan:** localidad, km al centro, atributos para Find Your Yucatán y Curated Notes.
+- Consecuencias: reemplaza D-026 en sus filtros y el nivel de listado de D-015.
+
+### D-041 — Find Your Yucatán dentro del alcance
+
+- Fecha: 2026-09-29
+- Contexto: PROMPT.md dejaba el quiz fuera de alcance; la estrategia LOVE MÉXICO lo incluye en el lanzamiento con su propio QR.
+- Decisión:
+  - Experiencia paso a paso (una pregunta por pantalla), con las seis preguntas del documento.
+  - El resultado es la atmósfera elegida (una colección).
+  - Recomienda tres venues con reglas deterministas en `src/lib/descubrimiento/encuentra.ts`, probadas con Vitest:
+    - descartan la capacidad insuficiente y la falta de hospedaje "requerido";
+    - puntúan: lo que más importa +3, hospedaje preferido +1, entorno +1 y destacado +1;
+    - si no alcanzan, se completa con la misma colección y luego con otras.
+  - "Save your Curated selection" con Name, Company, Email y Country.
+- Consecuencias: el formulario de guardado no envía nada hasta la Fase 4 (D-027).
+
+### D-042 — Formularios de Plan Your Event y solicitud de información
+
+- Fecha: 2026-09-29
+- Decisión:
+  - Campos exactos de la sección 13: What are you planning?, Estimated guests? (rangos), Looking for (varias opciones) y Contact (Name, Company, Country, Email, Phone opcional, Approximate date, Message).
+  - **Supuestos:** Company obligatoria (audiencia de planners) y Message opcional.
+  - La solicitud de un venue usa el mismo formulario, sin "Looking for".
+  - Los partners y Minimal llevan a Plan Your Event con "Looking for" marcado por la URL.
+  - Se retiran el formulario de disponibilidad (fecha exacta y número de invitados) y el de la guía.
+- Consecuencias: los envíos siguen desactivados hasta la Fase 4. El esquema `esquemaSolicitud` es el que usará el backend.
+
+### D-043 — Catering, Photography y Minimal
+
+- Fecha: 2026-09-29
+- Decisión:
+  - `proveedor` pasa a tener una sección (catering o fotografía) y los 11 datos del documento: especialidad, servicios, estilo, enfoque fotográfico (Editorial, Documentary, Fine Art, Cinematic), ciudad base, cobertura, experiencia en bodas destino, web, Instagram, logotipo y fotografías.
+  - Se eliminan las categorías de proveedor y los proveedores que no son de catering ni fotografía.
+  - Minimal es un documento único `disenoProduccion` con sus cinco áreas y portafolio: no es un directorio.
+  - El contacto comercial sigue en `privado.*` (D-012).
+- Consecuencias: queda pendiente saber si MasQueAyer (florería del libro) forma parte de Design & Production.
+
+### D-044 — Contenido editorial: Journal, Discover y páginas fijas
+
+- Fecha: 2026-09-29
+- Decisión:
+  - `historia` pasa a `articulo` (Curated Journal, sin tipos).
+  - Discover Yucatán es un documento único con secciones (ancla, etiquetas, texto y fotos); los siete temas del inicio enlazan a sus anclas.
+  - About y Privacy son `paginaEditorial` con ID fijo (`pagina-nosotros`, `pagina-privacidad`) y secciones de texto, imagen, preguntas y llamado.
+  - Se retiran `episodio` y `guia`: la película va en cada venue y la serie completa se enlaza desde el pie (`redes.youtube`). El libro no se regala (40 ejemplares), así que no hay guía descargable.
+- Consecuencias: no hay datos en Sanity que migrar (el proyecto aún no existe); la semilla genera el modelo nuevo directamente.
+
+### D-045 — Constructor de páginas (Fase C) aplazado
+
+- Fecha: 2026-09-29
+- Contexto: el plan de C1 se armó sobre la estructura anterior (D-038).
+- Decisión: las páginas usan composición fija, con todos sus textos e imágenes editables en Sanity y en "Editar en la página". El constructor por bloques se replanteará sobre la nueva estructura, después de revisar esta fase.
+
+### D-046 — Rendimiento de la imagen principal y fuentes
+
+- Fecha: 2026-09-29
+- Contexto: Lighthouse marcaba la imagen principal con prioridad baja (`preload` de Next 16 no agrega `fetchpriority`) y precargaba 72 KB de Montserrat, incluida la itálica.
+- Decisión: `fetchPriority="high"` en las imágenes con `preload`. La itálica de Montserrat pasa a ser familia aparte sin precarga, asignada a `.italic`, `em`, `i` y `blockquote`.
+- Consecuencias: medición en modo DEMO, mediana de 3 corridas:
+  - inicio: rendimiento 88, LCP simulado 3.65 s, JS 169 KB;
+  - ficha: rendimiento 88, LCP simulado 3.75 s, JS 185 KB;
+  - en ambas, accesibilidad, buenas prácticas y SEO 100, y CLS 0.
+
+  El LCP observado es 1.3 s. La diferencia es el JavaScript del framework (React y el runtime de Next, ~350 KB sin comprimir) que la simulación ejecuta con la CPU 4 veces más lenta antes del pintado. **Pendiente:** evaluar imágenes renderizadas en el servidor (loader global) para reducir la hidratación, y medir en Hostinger.

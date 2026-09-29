@@ -199,3 +199,109 @@ Hallazgo durante la verificación: importar la edición visual de forma estátic
 - La CSP de la Fase 7 debe permitir que el Studio muestre el sitio en un iframe.
 - `npm audit`: 15 alertas en la cadena de herramientas de la CLI de Sanity, no en el sitio (D-035).
 - Tipos generados con Sanity TypeGen: pendiente; hoy las consultas se tipan a mano contra `tipos.ts`.
+
+---
+
+## Fase R — Realineación con la dirección del proyecto (2026-09-29)
+
+**Estado:** completa en modo DEMO, pendiente de tu revisión. El envío real de formularios sigue en la Fase 4 y el proyecto de Sanity sigue sin crearse (falta `npx sanity login`).
+
+### Resumen
+
+El sitio se reconstruyó sobre los documentos de dirección (`docs/referencias/`): prompt visual, "Estructura y dirección web", estrategia LOVE MÉXICO 2026 y el libro impreso, analizado página por página. Donde chocan con PROMPT.md, mandan esos documentos (D-038).
+
+- **Sistema visual del libro:** negro sobre blanco, fotografía protagonista, filetes finos y mucho aire. Montserrat, Cinzel y Questrial (sustituto medido de Century Gothic).
+- **Mapa del sitio del documento:** Home con sus siete bloques, Discover Yucatán, Venues con tres colecciones, Catering, Photography, Design & Production (Minimal), Curated Journal, About, Find Your Yucatán y Plan Your Event.
+- **Modelo, datos y Studio:** modelo de contenido, datos DEMO y Studio de Sanity reescritos para esa estructura, con la edición en la página.
+
+### Archivos creados / modificados
+
+- **Base visual:**
+  - `src/estilos/tokens.css`, `globales.css`, `tipografia.ts`: paleta y tipografía nuevas.
+  - `scripts/generar-imagenes-demo.mjs` y `public/demo/`: 114 marcadores neutros.
+- **Modelo:**
+  - `src/lib/contenido/tipos.ts`, `derivados.ts`, `fuente.ts`, `fuente-demo.ts`, `fuente-sanity.ts`, `index.ts`.
+  - `src/lib/demo/*`: colecciones, venues, partners, Minimal, Journal, Discover y páginas.
+- **Lógica:**
+  - `src/lib/venues/filtros.ts`: filtros del documento.
+  - `src/lib/descubrimiento/encuentra.ts`: Find Your Yucatán.
+  - `src/lib/validacion/*`: Plan Your Event y selección.
+- **Rutas:**
+  - `src/i18n/routing.ts` y `src/lib/navegacion.ts`.
+  - Páginas nuevas en `src/app/[locale]/`: descubre-yucatan, catering, fotografia, diseno-y-produccion, journal, nosotros, encuentra-tu-yucatan, planea-tu-evento y privacidad.
+  - Se retiraron nueve rutas.
+- **Componentes:**
+  - Rehechos: encabezado de dos niveles, menú, pie, tarjetas de venue, partner y artículo, inicio (siete bloques), ficha de venue, listado con colecciones y panel de filtros, reproductor y galería.
+  - Nuevos: perfil de partner, página editorial y Find Your Yucatán.
+  - Formularios de solicitud y de selección.
+- **Sanity:** esquemas, estructura del Studio, Presentation, consultas GROQ y semilla.
+- **Pruebas:**
+  - `tests/unit/*`: filtros, validación, datos, y Find Your Yucatán nueva.
+  - `tests/e2e/recorrido.spec.ts` y `paginas.captura.ts`.
+- **Documentación:**
+  - `docs/DECISIONES.md` (D-036 a D-046).
+  - Entrada nueva en el registro de cambios de `docs/PROMPT.md`.
+  - `docs/CONTENIDO.md`, `docs/DESPLIEGUE.md` (filtro del webhook), `README.md`, `docs/ANALISIS_DIRECCION.md` (sección 13).
+  - Evidencia en `docs/capturas/fase-r/` y `docs/lighthouse/fase-r/`.
+
+### Dependencias
+
+**Ninguna nueva.** Questrial, Cinzel y Montserrat llegan con `next/font`. Herramientas usadas sin agregarlas al proyecto:
+
+- Lighthouse 13.5.0 (vía `npx`);
+- PyMuPDF, en un entorno aislado de la carpeta temporal, solo para analizar el PDF del libro.
+
+### Decisiones tomadas
+
+Detalle en [DECISIONES.md](DECISIONES.md):
+
+- D-036 (tipografía) y D-037 (sistema visual) reemplazan D-005 y D-006.
+- D-038: la dirección manda sobre PROMPT.md.
+- D-039 a D-044: colecciones, venues, Find Your Yucatán, formularios, partners y contenido editorial.
+- D-045: el constructor de bloques queda aplazado.
+- D-046: rendimiento de la imagen principal y las fuentes.
+
+### Supuestos (por validar)
+
+1. **Tres colecciones** (documento de estructura) y no los dos estilos del libro (volumen II, borrador). Cambiarlo es editar documentos en Sanity.
+2. **Se mantiene el español** con URL traducidas; el inglés es el idioma por defecto.
+3. **Formulario de solicitud:** Company obligatoria y Message opcional.
+4. Las **entrevistas de YouTube** se quedan como "la película" de cada venue (el libro presenta la serie "El Lugar de Tu Historia").
+5. Se retiran la **guía descargable** (el libro no se regala) y la **shortlist**.
+6. Los **rangos de capacidad** y los atributos de venues son [DEMO].
+
+### Verificación
+
+| Comando                                                | Resultado real                                                                                          |
+| ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `npm run lint` / `npm run typecheck`                   | sin errores ni avisos                                                                                   |
+| `npm test`                                             | 50 de 50 (6 archivos; incluye las reglas de Find Your Yucatán y los datos derivados)                    |
+| `npx sanity schemas validate` / `npm run studio:build` | 0 errores y 0 avisos / correcto                                                                         |
+| `npm run sanity:semilla`                               | 31 documentos del modelo nuevo                                                                          |
+| `npm run build:medido`                                 | correcto, todas las páginas estáticas; memoria pico 2293 MB, 18 s                                       |
+| `npm run test:e2e`                                     | 27 de 27 en móvil, escritorio y WebKit, dos corridas seguidas; axe sin violaciones serias en 13 páginas |
+| `npm run capturas`                                     | 30 capturas (10 páginas × 360, 768 y 1440 px)                                                           |
+| Lighthouse móvil (mediana de 3)                        | ver la tabla de abajo                                                                                   |
+
+Lighthouse móvil, mediana de 3 corridas, en modo DEMO con 4G simulada:
+
+| Página | Rendimiento | Accesibilidad | Buenas prácticas | SEO | LCP    | CLS | JS inicial |
+| ------ | ----------- | ------------- | ---------------- | --- | ------ | --- | ---------- |
+| Inicio | 88          | 100           | 100              | 100 | 3.65 s | 0   | 169 KB     |
+| Ficha  | 88          | 100           | 100              | 100 | 3.75 s | 0   | 185 KB     |
+
+**Hallazgos de la verificación:**
+
+- La imagen principal se pedía con prioridad baja y la itálica de Montserrat se precargaba; ambas cosas se corrigieron (D-046).
+- El LCP observado es de 1.3 s; el simulado sube por el JavaScript del framework con la CPU 4 veces más lenta.
+- La corrección de accesibilidad de los capítulos (nombre accesible que incluye el texto visible, pedida en la Fase C) va incluida y la cubre una prueba e2e.
+
+### Pendientes y riesgos
+
+- **Rendimiento:** 88 frente al presupuesto de 90, y LCP simulado de 3.7 s frente a 2.5 s. La ficha lleva 185 KB de JS: los componentes interactivos de galería, película y formulario justifican pasar de 170 KB. Propuesta: imágenes renderizadas en el servidor con un loader global, para reducir la hidratación, y medir en Hostinger.
+- **Contenido real:** venues verificados, partners, Minimal y los artículos del Journal. El libro sirve de referencia visual pero no como fuente de datos: es un borrador con los títulos de los venues cruzados.
+- **Fotografías originales** en alta resolución y confirmar que la autorización "for editorial purposes" cubre la web.
+- **Backend (Fase 4):** Plan Your Event, solicitud de información y guardado de la selección no envían nada todavía. Falta la captura de UTM para medir los QR.
+- **Sanity:** crear el proyecto (tu `npx sanity login`), importar la semilla, validar los documentos contra el esquema y probar la edición en la página de punta a punta.
+- **Decisiones abiertas:** 2 o 3 colecciones; MasQueAyer dentro o fuera de Design & Production; destino del QR 03 y del QR de la videoteca; fecha de LOVE MÉXICO.
+- **Fase C** (constructor de bloques): replantear sobre esta estructura.

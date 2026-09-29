@@ -7,6 +7,7 @@
 > - 2026-09-28: se agrega la **Fase P (piloto visual)** antes de la Fase 0 por decisión del responsable del proyecto (ver D-003 en `docs/DECISIONES.md`).
 > - 2026-09-28: sección 6 — se agrega el campo `slugsAnteriores` a `venue` y `proveedor` (ver D-021).
 > - 2026-09-28: sección 15 — se agrega `SANITY_API_WRITE_TOKEN`, solo para uso local (ver D-021).
+> - 2026-09-29: **Realineación (Fase R).** Donde chocan, mandan los documentos de dirección de `docs/referencias/` (prompt visual, estructura web, estrategia LOVE MÉXICO y el libro). Quedan reemplazadas las secciones 1 (audiencia), 4 (rutas), 6 (modelo de venue y proveedor), 9 (tipografía, paleta, arcos y pasta), 11 (inicio y páginas) y el quiz de "fuera de alcance". Ver D-036 a D-046.
 > - Otras decisiones aprobadas que precisan este documento sin cambiar su texto: base de datos MariaDB en Hostinger (D-002), redirecciones permanentes 308 (D-020), límite de envíos sin `DELETE` (D-011), `contactoLeads` en documentos `privado.*` (D-012). La lista completa está en `docs/DECISIONES.md`.
 
 ---

@@ -1,6 +1,6 @@
 # Análisis: el sitio actual frente a la dirección de Curated Yucatán
 
-> 2026-09-29. Solo diagnóstico: no se toma ninguna decisión sobre la página.
+> 2026-09-29. Diagnóstico previo a la Fase R. El estado después de la implementación está en la sección 13.
 >
 > **Referencias** (transcritas en `docs/referencias/`): prompt visual, "Estructura y dirección web" y la estrategia LOVE MÉXICO 2026.
 > **Comparado contra:** el código en `main` (commit `dba4716`), las capturas y Lighthouse de la Fase P, y `docs/PROMPT.md`, la especificación con la que se construyó el sitio.
@@ -17,41 +17,43 @@ La **base técnica sirve tal cual**: Next.js, Sanity con edición en la página,
 
 **Causa raíz:** `PROMPT.md` y los documentos nuevos describen dos proyectos parecidos pero distintos.
 
-| | `PROMPT.md` (lo construido) | Documentos nuevos |
-|---|---|---|
-| Qué es | Portal de bodas de destino | Plataforma de descubrimiento del destino, "extensión digital del libro" |
-| Para quién | Parejas y wedding planners de EE. UU. y Canadá | "Principalmente wedding planners y profesionales internacionales" |
-| Referencia | neworleans.com/weddings | El libro impreso |
-| Diferenciador | Entrevistas largas de YouTube | La curaduría: tres categorías del libro, Find Your Yucatán |
-| Proveedores | Directorio por categorías | Catering y Photography curados (3–5 cada uno) + Minimal como partner. "No debe percibirse como un directorio" |
-| Imán de leads | Guía descargable | Find Your Yucatán (discovery) y Plan Your Event (conversion) |
-| Eventos | Bodas | Bodas y eventos: welcome party, rehearsal dinner |
+|               | `PROMPT.md` (lo construido)                    | Documentos nuevos                                                                                             |
+| ------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Qué es        | Portal de bodas de destino                     | Plataforma de descubrimiento del destino, "extensión digital del libro"                                       |
+| Para quién    | Parejas y wedding planners de EE. UU. y Canadá | "Principalmente wedding planners y profesionales internacionales"                                             |
+| Referencia    | neworleans.com/weddings                        | El libro impreso                                                                                              |
+| Diferenciador | Entrevistas largas de YouTube                  | La curaduría: tres categorías del libro, Find Your Yucatán                                                    |
+| Proveedores   | Directorio por categorías                      | Catering y Photography curados (3–5 cada uno) + Minimal como partner. "No debe percibirse como un directorio" |
+| Imán de leads | Guía descargable                               | Find Your Yucatán (discovery) y Plan Your Event (conversion)                                                  |
+| Eventos       | Bodas                                          | Bodas y eventos: welcome party, rehearsal dinner                                                              |
 
 ### Tablero
 
-| Dimensión | Distancia | Resumen |
-|---|---|---|
-| Base técnica (stack, CMS, idiomas, rendimiento, accesibilidad) | 🟢 Cerca | Reutilizable sin cambios |
-| Principios (móvil primero, crecimiento, foto protagonista, animación sutil) | 🟢 Cerca | Ya aplicados |
-| Perfil de venue | 🟡 Parcial | Tiene más de lo pedido; le faltan Style, Indoor/Outdoor y Curated Notes |
-| Listado de venues | 🟡 Parcial | 3 de 5 filtros coinciden; falta la taxonomía del libro, que además no está definida (2 estilos en el libro y 3 categorías en el documento) |
-| Journal | 🟡 Parcial | Existe como "Stories", sin páginas construidas |
-| Inicio | 🔴 Lejos | 3 de 7 bloques coinciden; 5 secciones que el documento no pide |
-| Navegación y mapa del sitio | 🔴 Lejos | Solo Venues coincide en el menú; faltan 6 secciones |
-| Catering, Photography, Design & Production | 🔴 Lejos | Directorio genérico en vez de 3 secciones curadas |
-| Audiencia y tono | 🔴 Lejos | Textos para parejas |
-| Paleta | 🔴 Lejos | El libro es negro sobre blanco, sin ningún color de interfaz; el sitio usa rojo, verde y fondos oscuros |
-| Tipografía | 🔴 Lejos | El libro confirma Montserrat, Cinzel y Century Gothic; ninguna coincide con las del sitio |
-| Composición | 🔴 Lejos | El libro no usa arcos como máscara, patrones, tarjetas, iconos ni bandas de color; el sitio usa todo eso |
+| Dimensión                                                                   | Distancia  | Resumen                                                                                                                                    |
+| --------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Base técnica (stack, CMS, idiomas, rendimiento, accesibilidad)              | 🟢 Cerca   | Reutilizable sin cambios                                                                                                                   |
+| Principios (móvil primero, crecimiento, foto protagonista, animación sutil) | 🟢 Cerca   | Ya aplicados                                                                                                                               |
+| Perfil de venue                                                             | 🟡 Parcial | Tiene más de lo pedido; le faltan Style, Indoor/Outdoor y Curated Notes                                                                    |
+| Listado de venues                                                           | 🟡 Parcial | 3 de 5 filtros coinciden; falta la taxonomía del libro, que además no está definida (2 estilos en el libro y 3 categorías en el documento) |
+| Journal                                                                     | 🟡 Parcial | Existe como "Stories", sin páginas construidas                                                                                             |
+| Inicio                                                                      | 🔴 Lejos   | 3 de 7 bloques coinciden; 5 secciones que el documento no pide                                                                             |
+| Navegación y mapa del sitio                                                 | 🔴 Lejos   | Solo Venues coincide en el menú; faltan 6 secciones                                                                                        |
+| Catering, Photography, Design & Production                                  | 🔴 Lejos   | Directorio genérico en vez de 3 secciones curadas                                                                                          |
+| Audiencia y tono                                                            | 🔴 Lejos   | Textos para parejas                                                                                                                        |
+| Paleta                                                                      | 🔴 Lejos   | El libro es negro sobre blanco, sin ningún color de interfaz; el sitio usa rojo, verde y fondos oscuros                                    |
+| Tipografía                                                                  | 🔴 Lejos   | El libro confirma Montserrat, Cinzel y Century Gothic; ninguna coincide con las del sitio                                                  |
+| Composición                                                                 | 🔴 Lejos   | El libro no usa arcos como máscara, patrones, tarjetas, iconos ni bandas de color; el sitio usa todo eso                                   |
 
 ## 2. Concepto, audiencia y tono
 
 **Documentos:**
+
 - "Plataforma digital de descubrimiento y consulta sobre Yucatán dirigida principalmente a wedding planners y profesionales internacionales".
 - Lema: "Your insider guide to celebrating in Yucatán."
 - Bodas y eventos.
 
 **Hoy:** los textos hablan a una pareja.
+
 - Menú: "Plan your wedding", "Wedding weekend", "Plan with us".
 - Inicio: "Everything for your wedding weekend".
 - Título del sitio: "Weddings in Yucatán, curated".
@@ -63,38 +65,39 @@ La **base técnica sirve tal cual**: Next.js, Sanity con edición en la página,
 
 ## 3. Navegación y mapa del sitio
 
-| Documento | Hoy | Estado |
-|---|---|---|
-| Home | `/` | 🟡 Existe, con otra estructura |
-| Discover Yucatán | No existe. Lo más cercano: regiones y tradiciones en el inicio, y `/wedding-weekend` pendiente | 🔴 Falta |
-| Venues + 3 categorías del libro | `/venues`, por región y tipo | 🟡 Existe con otra taxonomía |
-| Perfil de venue | `/venues/[slug]` | 🟢 Existe |
-| Catering | Categoría dentro de `/vendors` (pendiente) | 🔴 Falta como sección |
-| Photography | Categoría dentro de `/vendors` (pendiente) | 🔴 Falta como sección |
-| Design & Production → Minimal | No existe | 🔴 Falta |
-| Curated Journal | `/stories` (pendiente) | 🟡 Otro nombre ("antes «Stories»") |
-| About | No existe | 🔴 Falta |
-| Find Your Yucatán | No existe | 🔴 Falta |
-| Plan Your Event | `/plan-your-wedding` (editorial) y `/planning-assistance` (formulario), ambos pendientes | 🟡 Dividido en dos |
-| No aparecen en los documentos | `/venue-tours`, `/guide`, `/shortlist`, `/partners`, `/wedding-weekend` | Por decidir |
+| Documento                       | Hoy                                                                                            | Estado                             |
+| ------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------- |
+| Home                            | `/`                                                                                            | 🟡 Existe, con otra estructura     |
+| Discover Yucatán                | No existe. Lo más cercano: regiones y tradiciones en el inicio, y `/wedding-weekend` pendiente | 🔴 Falta                           |
+| Venues + 3 categorías del libro | `/venues`, por región y tipo                                                                   | 🟡 Existe con otra taxonomía       |
+| Perfil de venue                 | `/venues/[slug]`                                                                               | 🟢 Existe                          |
+| Catering                        | Categoría dentro de `/vendors` (pendiente)                                                     | 🔴 Falta como sección              |
+| Photography                     | Categoría dentro de `/vendors` (pendiente)                                                     | 🔴 Falta como sección              |
+| Design & Production → Minimal   | No existe                                                                                      | 🔴 Falta                           |
+| Curated Journal                 | `/stories` (pendiente)                                                                         | 🟡 Otro nombre ("antes «Stories»") |
+| About                           | No existe                                                                                      | 🔴 Falta                           |
+| Find Your Yucatán               | No existe                                                                                      | 🔴 Falta                           |
+| Plan Your Event                 | `/plan-your-wedding` (editorial) y `/planning-assistance` (formulario), ambos pendientes       | 🟡 Dividido en dos                 |
+| No aparecen en los documentos   | `/venue-tours`, `/guide`, `/shortlist`, `/partners`, `/wedding-weekend`                        | Por decidir                        |
 
 **Menú:**
+
 - Hoy: Venues · Vendors · Wedding weekend · Plan your wedding · Venue tours · Guide, con el botón "Plan with us".
 - Documento: Home · Discover Yucatán · Venues · Catering · Photography · Design & Production · Curated Journal · About, con el botón "Plan your event".
 - Solo coincide Venues, además de la idea de un botón de conversión.
 
 ## 4. Inicio
 
-| # | Documento | Hoy | Coincide |
-|---|---|---|---|
-| 01 | **Hero:** video; "CURATED YUCATÁN / Your insider guide…"; un CTA "Explore Yucatán" que lleva a Discover | Video con imagen de respaldo ✓, otra frase, 2 CTA ("Explore venues", "Get the guide") | 🟡 |
-| 02 | **What is Curated?** Breve, con CTA "About Curated" | "El sello curated": sello y 4 pasos (visitamos, filmamos, seleccionamos, conectamos), sin CTA | 🟡 Misma intención |
-| 03 | **Discover Yucatán:** Architecture, Culture, Gastronomy, History, Nature, Haciendas, Experiences; con fotos y CTA | Repartido en tres secciones: "Por qué Yucatán" (3 puntos de texto), "Explora por paisaje" (regiones) y "Tradiciones" | 🟡 Por temas en el documento, por región hoy |
-| 04 | **Explore Curated:** Venues, Catering, Photography y D&P, con fotografía | 9 categorías de proveedores con iconos: Wedding planners, Photo & video, Flowers, Furniture & rentals, Music, Catering, Beauty, Transportation, Lodging | 🔴 Iconos en vez de fotos, y otras categorías |
-| 05 | **Featured venues:** 4–6, con foto, nombre, ubicación, estilo y capacidad; "Explore venue" y "View all venues" | 3 venues con foto, nombre, región y tipo, banquete, hospedaje y botón de entrevista; "See all venues" | 🟢 Faltan el estilo, 1–3 venues y el CTA por venue |
-| 06 | **Curated Journal:** 3 artículos, foto y título, "Explore the journal" | "Recent stories": 3 con tipo, fecha y minutos de lectura | 🟢 Cambia el nombre |
-| 07 | **Plan Your Event:** cierre y conversión | No existe; el inicio termina con métricas | 🔴 Falta |
-| — | No aparecen en el documento | Último episodio (YouTube), guía descargable, métricas y separador de pasta | Sobran |
+| #   | Documento                                                                                                         | Hoy                                                                                                                                                     | Coincide                                           |
+| --- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| 01  | **Hero:** video; "CURATED YUCATÁN / Your insider guide…"; un CTA "Explore Yucatán" que lleva a Discover           | Video con imagen de respaldo ✓, otra frase, 2 CTA ("Explore venues", "Get the guide")                                                                   | 🟡                                                 |
+| 02  | **What is Curated?** Breve, con CTA "About Curated"                                                               | "El sello curated": sello y 4 pasos (visitamos, filmamos, seleccionamos, conectamos), sin CTA                                                           | 🟡 Misma intención                                 |
+| 03  | **Discover Yucatán:** Architecture, Culture, Gastronomy, History, Nature, Haciendas, Experiences; con fotos y CTA | Repartido en tres secciones: "Por qué Yucatán" (3 puntos de texto), "Explora por paisaje" (regiones) y "Tradiciones"                                    | 🟡 Por temas en el documento, por región hoy       |
+| 04  | **Explore Curated:** Venues, Catering, Photography y D&P, con fotografía                                          | 9 categorías de proveedores con iconos: Wedding planners, Photo & video, Flowers, Furniture & rentals, Music, Catering, Beauty, Transportation, Lodging | 🔴 Iconos en vez de fotos, y otras categorías      |
+| 05  | **Featured venues:** 4–6, con foto, nombre, ubicación, estilo y capacidad; "Explore venue" y "View all venues"    | 3 venues con foto, nombre, región y tipo, banquete, hospedaje y botón de entrevista; "See all venues"                                                   | 🟢 Faltan el estilo, 1–3 venues y el CTA por venue |
+| 06  | **Curated Journal:** 3 artículos, foto y título, "Explore the journal"                                            | "Recent stories": 3 con tipo, fecha y minutos de lectura                                                                                                | 🟢 Cambia el nombre                                |
+| 07  | **Plan Your Event:** cierre y conversión                                                                          | No existe; el inicio termina con métricas                                                                                                               | 🔴 Falta                                           |
+| —   | No aparecen en el documento                                                                                       | Último episodio (YouTube), guía descargable, métricas y separador de pasta                                                                              | Sobran                                             |
 
 El documento pide un inicio "que no sature": 7 bloques. Hoy son 11, más el separador.
 
@@ -102,35 +105,36 @@ El documento pide un inicio "que no sature": 7 bloques. Hoy son 11, más el sepa
 
 ### Listado
 
-| | Documento | Hoy |
-|---|---|---|
-| Filtros | Style, Capacity, Accommodation, Location, Indoor/Outdoor | Región, tipo, rangos de capacidad, hospedaje, catering, rangos de inversión |
-| Coinciden | | Capacity, Accommodation, Location (región) |
-| Faltan | | **Style**: las 3 categorías del libro no existen en el modelo. **Indoor/Outdoor**: el dato existe por espacio, pero no se filtra |
-| Sobran | | Catering e inversión. El documento no habla de precios |
-| Presentación | "Limpios y progresivos"; "no un buscador comercial" | Todos visibles en la barra lateral, con orden y contador |
-| Tarjeta | Imagen, nombre, ubicación, capacidad, estilo | Imagen, región y tipo, nombre, banquete, hospedaje |
+|              | Documento                                                | Hoy                                                                                                                              |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Filtros      | Style, Capacity, Accommodation, Location, Indoor/Outdoor | Región, tipo, rangos de capacidad, hospedaje, catering, rangos de inversión                                                      |
+| Coinciden    |                                                          | Capacity, Accommodation, Location (región)                                                                                       |
+| Faltan       |                                                          | **Style**: las 3 categorías del libro no existen en el modelo. **Indoor/Outdoor**: el dato existe por espacio, pero no se filtra |
+| Sobran       |                                                          | Catering e inversión. El documento no habla de precios                                                                           |
+| Presentación | "Limpios y progresivos"; "no un buscador comercial"      | Todos visibles en la barra lateral, con orden y contador                                                                         |
+| Tarjeta      | Imagen, nombre, ubicación, capacidad, estilo             | Imagen, región y tipo, nombre, banquete, hospedaje                                                                               |
 
 Las tres categorías (Contemporary Sanctuaries, Organic Estates, Timeless Venues) son la pieza central del sistema: ordenan el libro, el listado y el resultado de Find Your Yucatán. Hoy el campo equivalente es "tipo" (hacienda, ciudad colonial, playa, cenote y selva, boutique), que describe el lugar, no el estilo.
 
 ### Perfil
 
-| Documento | Hoy |
-|---|---|
-| Hero + nombre + ubicación | ✓, con 2 botones |
+| Documento                                                             | Hoy                                                                                                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hero + nombre + ubicación                                             | ✓, con 2 botones                                                                                                                              |
 | Quick facts: Location, Capacity, Accommodation, Style, Indoor/Outdoor | "At a glance": capacidades, hospedaje, catering, horario de música, inversión, temporada, traslados y mapa. **Faltan Style e Indoor/Outdoor** |
-| About | ✓ |
-| Spaces | ✓, con capacidades por formato |
-| **Curated Notes** (información para planners) | **Falta** |
-| Gallery | ✓, con visor |
-| Request information | ✓ Formulario de disponibilidad, pero con enfoque de pareja ("wedding date") |
-| — | Extras: entrevista con capítulos, citas, proveedores recomendados, venues similares, favoritos |
+| About                                                                 | ✓                                                                                                                                             |
+| Spaces                                                                | ✓, con capacidades por formato                                                                                                                |
+| **Curated Notes** (información para planners)                         | **Falta**                                                                                                                                     |
+| Gallery                                                               | ✓, con visor                                                                                                                                  |
+| Request information                                                   | ✓ Formulario de disponibilidad, pero con enfoque de pareja ("wedding date")                                                                   |
+| —                                                                     | Extras: entrevista con capítulos, citas, proveedores recomendados, venues similares, favoritos                                                |
 
 Es la parte más avanzada. El documento pide una estructura base consistente: habrá que decidir qué extras se quedan.
 
 ## 6. Catering, Photography y Design & Production
 
 **Documento:**
+
 - Tres secciones separadas, con 3–5 perfiles curados cada una.
 - Cada perfil lleva 11 datos: nombre comercial, categoría y especialidad, descripción, servicios, estilo o diferenciador, ciudad base y cobertura, experiencia en bodas destino, web e Instagram, contacto comercial, logotipo y fotografías.
 - La foto pesa más que el logotipo.
@@ -138,6 +142,7 @@ Es la parte más avanzada. El documento pide una estructura base consistente: ha
 - Design & Production es solo Minimal, con sus áreas (Furniture, Tabletop, Floral Design, Décor, Production), y no es un directorio.
 
 **Hoy:**
+
 - Un único tipo `proveedor` con categoría (9 categorías en DEMO) y estos campos: nombre, categoría, resumen, descripción, imágenes, web, Instagram, regiones que cubre y destacado.
 - Las páginas están pendientes.
 
@@ -147,13 +152,13 @@ Es la parte más avanzada. El documento pide una estructura base consistente: ha
 
 ## 7. Otras secciones
 
-| Sección | Documento | Hoy | Distancia |
-|---|---|---|---|
-| **Curated Journal** | 5 títulos para el lanzamiento; "no un blog corporativo" | El tipo `historia` lo cubre (portada, cuerpo, tipo: artículo, boda real, lista) | 🟢 Nombre y rutas |
-| **About** | 5 preguntas; Minimal explicado con transparencia, sin ser el mensaje principal | Nada | 🔴 Cabe como página del constructor de la Fase C |
-| **Discover Yucatán** | Mérida, Haciendas, Culture, Gastronomy, Nature (cenotes, costa, vegetación), Experiences; cierra con "Explore venues" | Solo existen las 3 regiones | 🔴 Cabe en el constructor de bloques |
-| **Find Your Yucatán** | 6 preguntas, resultado con una de las 3 categorías, ~3 venues y guardado opcional (Name, Company, Email, Country). En el lanzamiento (Fase 01) y con su propio QR | No existe | 🔴 **Contradicción:** `PROMPT.md` y `FASE_C.md` lo ponen fuera de alcance ("quiz de matchmaking") |
-| **Plan Your Event** | Tipo de evento, invitados por rangos, qué busca (Venue, Catering, Photography, D&P, Not sure yet), contacto (Name, Company, Country, Email, Phone opcional, fecha aproximada, mensaje) y confirmación clara | La asesoría de `PROMPT.md` (fecha, invitados, estilo, presupuesto, contacto) no está construida. El formulario de disponibilidad comparte los datos de contacto | 🟡 Faltan Company, tipo de evento y "qué busca"; el documento no pide presupuesto |
+| Sección               | Documento                                                                                                                                                                                                   | Hoy                                                                                                                                                             | Distancia                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Curated Journal**   | 5 títulos para el lanzamiento; "no un blog corporativo"                                                                                                                                                     | El tipo `historia` lo cubre (portada, cuerpo, tipo: artículo, boda real, lista)                                                                                 | 🟢 Nombre y rutas                                                                                 |
+| **About**             | 5 preguntas; Minimal explicado con transparencia, sin ser el mensaje principal                                                                                                                              | Nada                                                                                                                                                            | 🔴 Cabe como página del constructor de la Fase C                                                  |
+| **Discover Yucatán**  | Mérida, Haciendas, Culture, Gastronomy, Nature (cenotes, costa, vegetación), Experiences; cierra con "Explore venues"                                                                                       | Solo existen las 3 regiones                                                                                                                                     | 🔴 Cabe en el constructor de bloques                                                              |
+| **Find Your Yucatán** | 6 preguntas, resultado con una de las 3 categorías, ~3 venues y guardado opcional (Name, Company, Email, Country). En el lanzamiento (Fase 01) y con su propio QR                                           | No existe                                                                                                                                                       | 🔴 **Contradicción:** `PROMPT.md` y `FASE_C.md` lo ponen fuera de alcance ("quiz de matchmaking") |
+| **Plan Your Event**   | Tipo de evento, invitados por rangos, qué busca (Venue, Catering, Photography, D&P, Not sure yet), contacto (Name, Company, Country, Email, Phone opcional, fecha aproximada, mensaje) y confirmación clara | La asesoría de `PROMPT.md` (fecha, invitados, estilo, presupuesto, contacto) no está construida. El formulario de disponibilidad comparte los datos de contacto | 🟡 Faltan Company, tipo de evento y "qué busca"; el documento no pide presupuesto                 |
 
 ## 8. Capa visual
 
@@ -161,28 +166,29 @@ Es la parte más avanzada. El documento pide una estructura base consistente: ha
 
 **Documento:** fondos blancos o blanco cálido, texto negro o carbón, y café, arena o taupe solo como acentos (líneas finas y divisores). La fotografía aporta el color. Evitar colores fuertes, degradados y fondos saturados.
 
-| Token (D-006) | Valor | Encaja | Uso actual |
-|---|---|---|---|
-| `cal` | `#f7f3ec` | ✅ Blanco cálido | Fondo general |
-| `piedra` | `#eae2d4` | ✅ Arena, con moderación | Bandas de fondo (16 usos) |
-| `tinta` | `#221e1a` | ✅ Carbón | Texto; fondo del hero, del episodio y del pie (16 usos como fondo) |
-| `tinta-suave` | `#5e564e` | ✅ Taupe oscuro | Texto secundario |
-| `almagre` | `#a13f2b` | ❌ Rojo fuerte | Marca, botones, enlaces y botón de reproducir (28 usos) |
-| `almagre-oscuro` | `#8c3524` | ❌ | Hover de botones |
-| `henequen` | `#4a6650` | ❌ Como fondo | Fondo de métricas y acentos (6 usos) |
-| `cenote` | `#106c74` | ❌ | Sin uso en componentes |
+| Token (D-006)    | Valor     | Encaja                   | Uso actual                                                         |
+| ---------------- | --------- | ------------------------ | ------------------------------------------------------------------ |
+| `cal`            | `#f7f3ec` | ✅ Blanco cálido         | Fondo general                                                      |
+| `piedra`         | `#eae2d4` | ✅ Arena, con moderación | Bandas de fondo (16 usos)                                          |
+| `tinta`          | `#221e1a` | ✅ Carbón                | Texto; fondo del hero, del episodio y del pie (16 usos como fondo) |
+| `tinta-suave`    | `#5e564e` | ✅ Taupe oscuro          | Texto secundario                                                   |
+| `almagre`        | `#a13f2b` | ❌ Rojo fuerte           | Marca, botones, enlaces y botón de reproducir (28 usos)            |
+| `almagre-oscuro` | `#8c3524` | ❌                       | Hover de botones                                                   |
+| `henequen`       | `#4a6650` | ❌ Como fondo            | Fondo de métricas y acentos (6 usos)                               |
+| `cenote`         | `#106c74` | ❌                       | Sin uso en componentes                                             |
 
 **Además:**
+
 - Las imágenes `[DEMO]` son degradados saturados (turquesa, terracota, verde), que exageran el color de las capturas. Con fotos reales la sensación cambia, pero siguen siendo "degradados" a ojos del documento.
 - Falta un token para las líneas finas arena o caqui que usa el documento de estrategia.
 
 ### Tipografía
 
-| Rol | Documento | Hoy (D-005, opción B) |
-|---|---|---|
-| Interfaz, cuerpo, navegación, botones, formularios | **Montserrat** | Source Sans 3 |
-| Títulos y momentos editoriales (uso selectivo) | **Cinzel** | Ibarra Real Nova |
-| Editorial secundaria | **Century Gothic** | — |
+| Rol                                                | Documento          | Hoy (D-005, opción B) |
+| -------------------------------------------------- | ------------------ | --------------------- |
+| Interfaz, cuerpo, navegación, botones, formularios | **Montserrat**     | Source Sans 3         |
+| Títulos y momentos editoriales (uso selectivo)     | **Cinzel**         | Ibarra Real Nova      |
+| Editorial secundaria                               | **Century Gothic** | —                     |
 
 - Montserrat y Cinzel son de Google Fonts, con licencia libre: se autohospedan igual que hoy.
 - **Century Gothic es comercial** (Monotype): en la web necesita licencia web o un sustituto libre. Además es geométrica como Montserrat, así que usar ambas roza el "no mezclar innecesariamente".
@@ -194,11 +200,13 @@ Es la parte más avanzada. El documento pide una estructura base consistente: ha
 **Documento:** mucho espacio negativo, títulos con aire, líneas discretas, fotos de gran formato, evitar cajas y tarjetas, y ningún elemento gráfico innecesario.
 
 **A favor, hoy:**
+
 - Espaciado amplio entre secciones.
 - Listas de puntos y pasos con líneas finas.
 - Fotos grandes en el hero y en la galería.
 
 **En contra, hoy:**
+
 - Máscaras de arco en la mayoría de las imágenes: paisajes, destacados, tradiciones, similares y página pendiente. Vienen de `PROMPT.md` §9. Los documentos no las mencionan; el arco solo aparece como elemento arquitectónico del stand.
 - Separador con patrón de pasta (`PROMPT.md` §9).
 - Sello circular decorativo.
@@ -243,6 +251,7 @@ La estructura está lista (hero, galería, espacios, portadas). Faltan las fotos
 - ✅ **Lo que encaja:** el constructor de bloques ("crecer sin rediseñar"), las páginas editoriales, el Journal, la edición en la página, la biblioteca de medios y los créditos de foto.
 
 **Decisiones y secciones que quedarían reemplazadas:**
+
 - D-005 (tipografía) y D-006 (paleta).
 - `PROMPT.md`: §1 (audiencia), §4 (rutas), §6 (modelo de venue y proveedor), §9 (arcos y pasta), §11 (inicio y páginas) y "fuera de alcance" (quiz).
 
@@ -301,3 +310,25 @@ Detalle y mediciones en `docs/referencias/libro-volumen-2.md`.
 - **Tipografía:** los tres nombres quedan confirmados, con sus roles. Sigue pendiente la licencia de Century Gothic. Como alternativas libres de estilo geométrico similar se pueden evaluar TeX Gyre Adventor, Didact Gothic y Questrial.
 - **Venues:** la duda de la taxonomía (2 o 3) pasa a ser la decisión más importante, porque define el listado, las tarjetas y el resultado de Find Your Yucatán.
 - **Entrevistas en video:** dejan de ser "lo que sobra". El libro las presenta como capítulo audiovisual de la colección.
+
+## 13. Estado tras la Fase R (2026-09-29)
+
+La implementación se alineó con los documentos. Detalle en la bitácora (Fase R) y en D-036 a D-046.
+
+| Dimensión                                              | Antes   | Ahora | Qué falta                                                                       |
+| ------------------------------------------------------ | ------- | ----- | ------------------------------------------------------------------------------- |
+| Base técnica                                           | 🟢      | 🟢    | —                                                                               |
+| Principios (móvil, crecimiento, foto, animación sutil) | 🟢      | 🟢    | —                                                                               |
+| Inicio (7 bloques)                                     | 🔴      | 🟢    | Textos y fotos reales                                                           |
+| Navegación y mapa del sitio                            | 🔴      | 🟢    | —                                                                               |
+| Listado de venues (colecciones y 5 filtros)            | 🟡      | 🟢    | Confirmar 2 o 3 colecciones; rangos reales                                      |
+| Perfil de venue (estructura base)                      | 🟡      | 🟢    | Fichas verificadas y Curated Notes reales                                       |
+| Catering, Photography, Design & Production             | 🔴      | 🟢    | Selección real de 3–5 partners por sección y contenido de Minimal               |
+| Curated Journal, About, Discover                       | 🔴 / 🟡 | 🟢    | Textos reales (el libro tiene "Why Yucatán", "Haciendas" y "Seasons")           |
+| Find Your Yucatán                                      | 🔴      | 🟡    | Experiencia lista; el guardado no envía (Fase 4)                                |
+| Plan Your Event                                        | 🟡      | 🟡    | Formulario con los campos exactos; el envío es de la Fase 4                     |
+| Audiencia y tono                                       | 🔴      | 🟡    | La interfaz ya habla a planners y eventos; faltan los textos editoriales reales |
+| Paleta · Tipografía · Composición                      | 🔴      | 🟢    | —                                                                               |
+| Fotografía                                             | 🔴      | 🔴    | Originales en alta resolución y derechos para web                               |
+| Rendimiento                                            | 🟡      | 🟡    | 88 en inicio y ficha frente a 90; LCP simulado 3.7 s                            |
+| LOVE MÉXICO: URL de QR · UTM · backend                 | 🔴      | 🟡    | URL estables listas; faltan la captura de UTM y el backend                      |

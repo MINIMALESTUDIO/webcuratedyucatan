@@ -113,7 +113,7 @@ En sanity.io/manage → API → Webhooks:
 | URL          | `https://<dominio>/api/revalidar`                                                                                                  |
 | Dataset      | `production`                                                                                                                       |
 | Disparadores | Crear, actualizar y borrar                                                                                                         |
-| Filtro       | `_type in ["venue","region","proveedor","categoriaProveedor","historia","episodio","guia","paginaEditorial","configuracionSitio"]` |
+| Filtro       | `_type in ["venue","coleccion","region","proveedor","articulo","paginaEditorial","descubreYucatan","disenoProduccion","configuracionSitio"]` |
 | Proyección   | `{ _type, "slug": slug.current }`                                                                                                  |
 | Método       | POST                                                                                                                               |
 | Secreto      | el mismo valor que `SANITY_REVALIDATE_SECRET`                                                                                      |
