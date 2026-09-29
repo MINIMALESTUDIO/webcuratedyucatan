@@ -1,18 +1,24 @@
 /*
- * Tokens de diseño de Curated Yucatán.
- * Paleta aprobada en D-006 (contraste WCAG 2.1 verificado). Los colores se mapean a
- * utilidades de Tailwind en globales.css (bg-cal, text-tinta, etc.).
+ * Tokens de diseño de Curated Yucatán (D-037), tomados del libro impreso: texto negro sobre
+ * blanco, sin color de interfaz; el color lo aporta la fotografía. El taupe solo va en detalles.
+ * Contraste WCAG 2.1 verificado. Los colores se mapean a utilidades de Tailwind en
+ * globales.css (bg-papel, text-tinta, etc.).
  */
 :root {
   /* Color */
-  --cal: #f7f3ec; /* fondo, blanco hueso */
-  --piedra: #eae2d4; /* superficies, caliza */
-  --almagre: #a13f2b; /* marca, CTA y enlaces: 5.82:1 con cal */
-  --almagre-oscuro: #8c3524; /* hover del CTA: 7.17:1 con cal */
-  --henequen: #4a6650; /* acentos: 5.74:1 sobre cal */
-  --cenote: #106c74; /* uso mínimo: 5.55:1 sobre cal */
-  --tinta: #221e1a; /* texto principal: 14.97:1 sobre cal */
-  --tinta-suave: #5e564e; /* texto secundario y bordes de campos: 6.51:1 sobre cal */
+  --papel: #ffffff; /* fondo principal, como las páginas del libro */
+  --papel-calido: #f7f5f1; /* superficie alterna, blanco cálido */
+  --arena: #ebe6de; /* marcos de foto y áreas de espera */
+  --linea: #d6cdc0; /* filetes y divisores finos (decorativo, sin texto) */
+  --taupe: #6f6253; /* acentos pequeños de texto: 5.92:1 sobre papel, 5.44:1 sobre papel cálido */
+  --tinta: #111111; /* texto principal, carbón: 18.88:1 sobre papel */
+  --tinta-suave: #5f5850; /* texto secundario: 7.00:1 sobre papel, 5.64:1 sobre arena */
+
+  /*
+   * Velo uniforme sobre fotografía o video (sin degradado). Con 45 % de tinta, el texto blanco
+   * grande (≥ 24 px) cumple 3:1 aun sobre un píxel blanco; el texto pequeño va en botón sólido.
+   */
+  --velo: rgb(17 17 17 / 0.45);
 
   /* Medidas de estructura */
   --altura-encabezado: 4rem;

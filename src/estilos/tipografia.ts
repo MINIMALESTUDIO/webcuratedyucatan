@@ -1,55 +1,51 @@
-import type { CSSProperties } from 'react';
-import { Ibarra_Real_Nova, Source_Sans_3 } from 'next/font/google';
+import { Cinzel, Montserrat, Questrial } from 'next/font/google';
 
 /*
- * Tipografía del sitio (D-005). Opción B aprobada: Ibarra Real Nova (títulos) y
- * Source Sans 3 (interfaz y datos), ambas variables y autohospedadas por next/font.
+ * Tipografía del sitio (D-036): las familias del libro impreso Curated Yucatán, autohospedadas
+ * por next/font.
+ * - Questrial: sustituto libre (OFL) de Century Gothic, que es comercial. Es la voz de marca:
+ *   logotipo, títulos de sección y etiquetas, en mayúsculas espaciadas. Medido contra Century
+ *   Gothic: 99 % del ancho, misma altura de x y la misma "O" redonda.
+ * - Cinzel: solo nombres propios de venues y partners, como en el libro.
+ * - Montserrat: cuerpo, interfaz, formularios y datos.
  *
- * Este es el único archivo que hay que tocar para cambiar de tipografía. Para la opción A:
- *
- *   import { Bodoni_Moda, Manrope } from 'next/font/google';
- *
- *   export const fuenteTitulo = Bodoni_Moda({
- *     subsets: ['latin'], axes: ['opsz'], display: 'swap', variable: '--fuente-titulo',
- *   });
- *   export const fuenteTituloItalica = Bodoni_Moda({
- *     subsets: ['latin'], style: 'italic', axes: ['opsz'], display: 'swap', preload: false,
- *     variable: '--fuente-titulo-italica',
- *   });
- *   export const fuenteTexto = Manrope({ subsets: ['latin'], display: 'swap', variable: '--fuente-texto' });
- *
- * y en `ajustesTipograficos`: '--peso-titulo': '500', '--peso-display': '400',
- * '--tracking-titulo': '-0.01em'.
+ * Este es el único archivo que hay que tocar para cambiar de familias.
  */
 
-export const fuenteTitulo = Ibarra_Real_Nova({
+export const fuenteMarca = Questrial({
+  weight: '400',
   subsets: ['latin'],
   display: 'swap',
-  variable: '--fuente-titulo',
+  variable: '--fuente-marca',
 });
 
-// La itálica solo aparece en citas y entradillas: se carga aparte y sin precarga para no
-// competir con la imagen principal de la página.
-export const fuenteTituloItalica = Ibarra_Real_Nova({
+// Los nombres propios solo aparecen en fichas y tarjetas: sin precarga para no competir con la
+// imagen principal de la página.
+export const fuenteNombre = Cinzel({
+  weight: '400',
   subsets: ['latin'],
-  style: 'italic',
   display: 'swap',
   preload: false,
-  variable: '--fuente-titulo-italica',
+  variable: '--fuente-nombre',
 });
 
-export const fuenteTexto = Source_Sans_3({
+export const fuenteTexto = Montserrat({
   subsets: ['latin'],
   display: 'swap',
   variable: '--fuente-texto',
 });
 
-/** Ajustes finos de la familia elegida, disponibles como variables CSS. */
-export const ajustesTipograficos = {
-  '--peso-titulo': '500',
-  '--peso-display': '400',
-  '--tracking-titulo': '-0.005em',
-} as CSSProperties;
+// La itálica (lemas y entradillas) se carga aparte y sin precarga para no competir con la
+// imagen principal; globales.css la asigna a .italic, em, i y blockquote.
+export const fuenteTextoItalica = Montserrat({
+  subsets: ['latin'],
+  style: 'italic',
+  display: 'swap',
+  preload: false,
+  variable: '--fuente-texto-italica',
+});
 
-/** Clases que declaran las variables de las dos familias en <html>. */
-export const clasesTipograficas = `${fuenteTitulo.variable} ${fuenteTituloItalica.variable} ${fuenteTexto.variable}`;
+/** Clases que declaran las variables de las familias en <html>. */
+export const clasesTipograficas = [fuenteMarca, fuenteNombre, fuenteTexto, fuenteTextoItalica]
+  .map((fuente) => fuente.variable)
+  .join(' ');
