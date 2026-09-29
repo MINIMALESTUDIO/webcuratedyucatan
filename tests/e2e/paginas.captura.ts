@@ -2,17 +2,24 @@ import { mkdirSync } from 'node:fs';
 import { test, type Page } from '@playwright/test';
 
 /*
- * Capturas de página completa de las tres páginas del piloto en 360, 768 y 1440 px.
- * Se guardan en docs/capturas/fase-p/ para el reporte de la Fase P.
+ * Capturas de página completa de las páginas principales en 360, 768 y 1440 px.
+ * Se guardan en docs/capturas/<fase>/ para el reporte de fase (CAPTURAS_FASE, por defecto fase-r).
  * Uso: npm run build && npm run capturas
  */
 
-const DESTINO = 'docs/capturas/fase-p';
+const DESTINO = `docs/capturas/${process.env.CAPTURAS_FASE ?? 'fase-r'}`;
 const ANCHOS = [360, 768, 1440];
 const PAGINAS = [
   { nombre: 'inicio', ruta: '/' },
+  { nombre: 'descubre', ruta: '/discover-yucatan' },
   { nombre: 'listado', ruta: '/venues' },
   { nombre: 'ficha', ruta: '/venues/demo-hacienda-ejemplo-norte' },
+  { nombre: 'catering', ruta: '/catering' },
+  { nombre: 'perfil-fotografia', ruta: '/photography/demo-estudio-ejemplo' },
+  { nombre: 'diseno', ruta: '/design-production' },
+  { nombre: 'journal', ruta: '/journal' },
+  { nombre: 'encuentra', ruta: '/find-your-yucatan' },
+  { nombre: 'planea', ruta: '/plan-your-event' },
 ];
 
 // Recorre la página para que carguen las imágenes diferidas antes de la captura.

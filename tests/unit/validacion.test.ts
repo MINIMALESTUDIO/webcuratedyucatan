@@ -1,91 +1,94 @@
 import { describe, expect, it } from 'vitest';
-import {
-  erroresPorCampo,
-  esquemaDisponibilidad,
-  esquemaGuia,
-  hoyEnMerida,
-} from '@/lib/validacion/formularios';
+import { erroresPorCampo, esquemaSeleccion, esquemaSolicitud } from '@/lib/validacion/formularios';
 
-const valido = {
+const solicitud = {
+  tipoEvento: 'boda',
+  invitados: '100-200',
+  buscando: ['venue', 'fotografia'],
   nombre: 'Ana López',
+  empresa: 'Estudio Ejemplo',
+  pais: 'Canada',
   correo: 'ana@example.com',
   telefono: '',
-  pais: 'Canada',
-  fechaBoda: '2099-05-20',
-  fechaFlexible: false,
-  invitadosAprox: '120',
+  fechaAproximada: 'March 2027',
   mensaje: '',
   consentimientoPrivacidad: true,
-  venueSlug: 'demo-hacienda-ejemplo-norte',
+  origen: 'general',
   idioma: 'en',
 };
 
-function errores(datos: Record<string, unknown>) {
-  const resultado = esquemaDisponibilidad.safeParse(datos);
+function errores(esquema: typeof esquemaSolicitud | typeof esquemaSeleccion, datos: object) {
+  const resultado = esquema.safeParse(datos);
   return resultado.success ? {} : erroresPorCampo(resultado.error);
 }
 
-describe('esquemaDisponibilidad', () => {
-  it('acepta una solicitud válida y convierte invitados a número', () => {
-    const resultado = esquemaDisponibilidad.safeParse(valido);
-    expect(resultado.success).toBe(true);
-    expect(resultado.data?.invitadosAprox).toBe(120);
+describe('esquemaSolicitud (Plan Your Event)', () => {
+  it('acepta una solicitud válida', () => {
+    expect(esquemaSolicitud.safeParse(solicitud).success).toBe(true);
   });
 
-  it('marca como requeridos los campos vacíos', () => {
+  it('solo el teléfono y el mensaje son opcionales', () => {
     expect(
-      errores({ ...valido, nombre: ' ', correo: '', pais: '', invitadosAprox: '' }),
-    ).toMatchObject({
-      nombre: 'requerido',
-      correo: 'requerido',
-      pais: 'requerido',
-      invitadosAprox: 'requerido',
+      errores(esquemaSolicitud, { ...solicitud, telefono: undefined, mensaje: undefined }),
+    ).toEqual({});
+    expect(errores(esquemaSolicitud, { ...solicitud, empresa: '' })).toEqual({
+      empresa: 'requerido',
+    });
+    expect(errores(esquemaSolicitud, { ...solicitud, fechaAproximada: ' ' })).toEqual({
+      fechaAproximada: 'requerido',
     });
   });
 
-  it('valida el formato del correo y el rango de invitados', () => {
-    expect(errores({ ...valido, correo: 'ana@', invitadosAprox: '0' })).toEqual({
+  it('las opciones son las del documento', () => {
+    expect(errores(esquemaSolicitud, { ...solicitud, tipoEvento: 'cumpleaños' })).toEqual({
+      tipoEvento: 'requerido',
+    });
+    expect(errores(esquemaSolicitud, { ...solicitud, invitados: undefined })).toEqual({
+      invitados: 'requerido',
+    });
+    expect(errores(esquemaSolicitud, { ...solicitud, buscando: [] })).toEqual({
+      buscando: 'eligeUno',
+    });
+  });
+
+  it('valida correo, largo y consentimiento', () => {
+    expect(
+      errores(esquemaSolicitud, {
+        ...solicitud,
+        correo: 'ana@',
+        nombre: 'A',
+        mensaje: 'x'.repeat(2001),
+        consentimientoPrivacidad: false,
+      }),
+    ).toEqual({
       correo: 'correoInvalido',
-      invitadosAprox: 'numeroInvalido',
-    });
-    expect(errores({ ...valido, invitadosAprox: '12.5' })).toEqual({
-      invitadosAprox: 'numeroInvalido',
-    });
-  });
-
-  it('exige una fecha futura o marcarla como flexible', () => {
-    expect(errores({ ...valido, fechaBoda: '' })).toEqual({ fechaBoda: 'fechaOFlexible' });
-    expect(errores({ ...valido, fechaBoda: '', fechaFlexible: true })).toEqual({});
-    expect(errores({ ...valido, fechaBoda: '2020-01-01' })).toEqual({ fechaBoda: 'fechaPasada' });
-    expect(errores({ ...valido, fechaBoda: hoyEnMerida() })).toEqual({ fechaBoda: 'fechaPasada' });
-    expect(errores({ ...valido, fechaBoda: '2099-02-30' })).toEqual({ fechaBoda: 'fechaInvalida' });
-  });
-
-  it('exige el consentimiento de privacidad', () => {
-    expect(errores({ ...valido, consentimientoPrivacidad: false })).toEqual({
+      nombre: 'muyCorto',
+      mensaje: 'muyLargo',
       consentimientoPrivacidad: 'consentimiento',
     });
   });
 });
 
-describe('esquemaGuia', () => {
-  it('acepta datos válidos y rechaza sin consentimiento', () => {
-    const datos = {
-      nombre: 'Ana',
-      correo: 'ana@example.com',
-      consentimientoPrivacidad: true,
-      aceptaNovedades: false,
-      idioma: 'es',
-    };
-    expect(esquemaGuia.safeParse(datos).success).toBe(true);
-    const sinConsentimiento = esquemaGuia.safeParse({ ...datos, consentimientoPrivacidad: false });
-    expect(sinConsentimiento.success).toBe(false);
-  });
-});
+describe('esquemaSeleccion (Find Your Yucatán)', () => {
+  const seleccion = {
+    nombre: 'Ana López',
+    empresa: 'Estudio Ejemplo',
+    correo: 'ana@example.com',
+    pais: 'Canada',
+    consentimientoPrivacidad: true,
+    resultado: 'timeless',
+    venues: ['demo-hacienda-ejemplo-norte'],
+    idioma: 'es',
+  };
 
-describe('hoyEnMerida', () => {
-  it('usa la zona horaria de Mérida (UTC-6)', () => {
-    // 2026-01-01 03:00 UTC todavía es 31 de diciembre en Mérida.
-    expect(hoyEnMerida(new Date('2026-01-01T03:00:00Z'))).toBe('2025-12-31');
+  it('acepta Name, Company, Email y Country con el resultado', () => {
+    expect(esquemaSeleccion.safeParse(seleccion).success).toBe(true);
+  });
+
+  it('exige los cuatro campos de contacto', () => {
+    expect(errores(esquemaSeleccion, { ...seleccion, pais: '', empresa: '' })).toEqual({
+      pais: 'requerido',
+      empresa: 'requerido',
+    });
   });
 });

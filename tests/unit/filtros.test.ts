@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { VenueTarjeta } from '@/lib/contenido/tipos';
+import { tarjeta } from './ayudantes';
 import {
   alternar,
   contarFiltrosActivos,
@@ -11,192 +12,113 @@ import {
   ordenarVenues,
 } from '@/lib/venues/filtros';
 
-const REGIONES = ['merida-centro', 'haciendas', 'costa'];
+const VALIDOS = {
+  colecciones: ['contemporary', 'organic', 'timeless'],
+  regiones: ['merida', 'alrededores-de-merida', 'costa'],
+};
 
-function tarjeta(parcial: Partial<VenueTarjeta> & Pick<VenueTarjeta, 'slug'>): VenueTarjeta {
-  return {
-    _id: parcial.slug,
-    nombre: parcial.slug,
-    destacado: false,
-    nivelListado: 'basico',
-    region: { nombre: { en: 'Region' }, slug: 'haciendas' },
-    tipos: ['hacienda'],
-    resumen: { en: 'Resumen' },
-    imagen: { url: '/x.jpg', ancho: 10, alto: 10, alt: { en: 'x' } },
-    capacidadBanqueteMax: 150,
-    tieneHospedaje: false,
-    catering: 'propio',
-    tieneEntrevista: false,
-    ...parcial,
-  };
-}
+const coleccion = (slug: string) => ({ nombre: { en: slug }, slug, resultado: { en: slug } });
 
 const venues: VenueTarjeta[] = [
-  tarjeta({
-    slug: 'a',
-    nombre: 'Alba',
-    capacidadBanqueteMax: 350,
-    catering: 'ambos',
-    inversionDesdeUSD: 25_000,
-    tieneHospedaje: true,
-    nivelListado: 'destacado',
-  }),
+  tarjeta({ slug: 'a', nombre: 'Alba', capacidadMax: 500, tieneHospedaje: true, entorno: 'ambos' }),
   tarjeta({
     slug: 'b',
-    nombre: 'Bruma',
-    region: { nombre: { en: 'C' }, slug: 'costa' },
-    tipos: ['playa'],
-    capacidadBanqueteMax: 180,
-    catering: 'externo',
-    inversionDesdeUSD: 9_000,
-    nivelListado: 'video',
+    nombre: 'Brisa',
+    coleccion: coleccion('contemporary'),
+    region: { nombre: { en: 'Costa' }, slug: 'costa' },
+    capacidadMax: 180,
+    entorno: 'exterior',
     destacado: true,
   }),
   tarjeta({
     slug: 'c',
     nombre: 'Ceiba',
-    region: { nombre: { en: 'M' }, slug: 'merida-centro' },
-    tipos: ['boutique', 'ciudad-colonial'],
-    capacidadBanqueteMax: 70,
-    catering: 'propio',
-  }),
-  tarjeta({
-    slug: 'd',
-    nombre: 'Duna',
-    region: { nombre: { en: 'C' }, slug: 'costa' },
-    tipos: ['playa', 'otro'],
-    capacidadBanqueteMax: 420,
-    catering: 'propio',
-    inversionDesdeUSD: undefined,
-    destacado: true,
+    coleccion: coleccion('organic'),
+    capacidadMax: 350,
+    tieneHospedaje: true,
+    entorno: 'interior',
   }),
 ];
 
-describe('leerFiltros y escribirFiltros', () => {
-  it('lee valores válidos, descarta desconocidos y duplicados', () => {
-    const params = new URLSearchParams(
-      'region=costa,inventada,costa&tipo=playa,xyz&capacidad=200-350&hospedaje=si&catering=externo&inversion=20-35k&orden=nombre',
-    );
-    expect(leerFiltros(params, REGIONES)).toEqual({
-      regiones: ['costa'],
-      tipos: ['playa'],
-      capacidades: ['200-350'],
-      hospedaje: true,
-      catering: ['externo'],
-      inversiones: ['20-35k'],
-      orden: 'nombre',
-    });
-  });
-
-  it('usa los valores por defecto con una URL vacía o un orden inválido', () => {
-    expect(leerFiltros(new URLSearchParams('orden=precio'), REGIONES)).toEqual(FILTROS_VACIOS);
-  });
-
-  it('escribe una query estable, legible y sin valores por defecto', () => {
-    const query = escribirFiltros({
-      ...FILTROS_VACIOS,
-      tipos: ['hacienda', 'playa'],
-      hospedaje: true,
-    });
-    expect(query).toBe('tipo=hacienda,playa&hospedaje=si');
-    expect(escribirFiltros(FILTROS_VACIOS)).toBe('');
-  });
-
-  it('ida y vuelta: leer(escribir(f)) devuelve los mismos filtros', () => {
-    const filtros: FiltrosVenues = {
-      ...FILTROS_VACIOS,
-      regiones: ['haciendas'],
-      capacidades: ['hasta-100', 'mas-350'],
-      orden: 'capacidad',
-    };
-    expect(leerFiltros(new URLSearchParams(escribirFiltros(filtros)), REGIONES)).toEqual(filtros);
-  });
-});
+const con = (cambio: Partial<FiltrosVenues>): FiltrosVenues => ({ ...FILTROS_VACIOS, ...cambio });
+const slugs = (lista: VenueTarjeta[]) => lista.map((v) => v.slug);
 
 describe('filtrarVenues', () => {
   it('sin filtros devuelve todos', () => {
-    expect(filtrarVenues(venues, FILTROS_VACIOS)).toHaveLength(4);
+    expect(slugs(filtrarVenues(venues, FILTROS_VACIOS))).toEqual(['a', 'b', 'c']);
   });
 
-  it('combina con "o" dentro de un grupo y con "y" entre grupos', () => {
-    const resultado = filtrarVenues(venues, {
-      ...FILTROS_VACIOS,
-      tipos: ['playa', 'boutique'],
+  it('estilo: colecciones combinadas con "o"', () => {
+    expect(slugs(filtrarVenues(venues, con({ colecciones: ['organic', 'contemporary'] })))).toEqual(
+      ['b', 'c'],
+    );
+  });
+
+  it('capacidad por rangos sobre la capacidad máxima', () => {
+    expect(slugs(filtrarVenues(venues, con({ capacidades: ['hasta-200'] })))).toEqual(['b']);
+    expect(slugs(filtrarVenues(venues, con({ capacidades: ['200-400', 'mas-400'] })))).toEqual([
+      'a',
+      'c',
+    ]);
+  });
+
+  it('hospedaje y ubicación se combinan con "y"', () => {
+    expect(slugs(filtrarVenues(venues, con({ hospedaje: true })))).toEqual(['a', 'c']);
+    expect(slugs(filtrarVenues(venues, con({ hospedaje: true, regiones: ['costa'] })))).toEqual([]);
+  });
+
+  it('interior / exterior: un venue con ambos cumple con cualquiera', () => {
+    expect(slugs(filtrarVenues(venues, con({ entornos: ['interior'] })))).toEqual(['a', 'c']);
+    expect(slugs(filtrarVenues(venues, con({ entornos: ['exterior'] })))).toEqual(['a', 'b']);
+  });
+});
+
+describe('URL de filtros', () => {
+  it('ida y vuelta estable, con comas legibles', () => {
+    const filtros = con({
+      colecciones: ['timeless'],
+      capacidades: ['200-400', 'mas-400'],
+      hospedaje: true,
       regiones: ['costa'],
+      entornos: ['exterior'],
     });
-    expect(resultado.map((v) => v.slug)).toEqual(['b', 'd']);
+    const query = escribirFiltros(filtros);
+    expect(query).toBe(
+      'estilo=timeless&capacidad=200-400,mas-400&hospedaje=si&ubicacion=costa&entorno=exterior',
+    );
+    expect(leerFiltros(new URLSearchParams(query), VALIDOS)).toEqual(filtros);
   });
 
-  it('filtra por rango de capacidad de banquete con límites inclusivos', () => {
-    const resultado = filtrarVenues(venues, { ...FILTROS_VACIOS, capacidades: ['200-350'] });
-    expect(resultado.map((v) => v.slug)).toEqual(['a']);
+  it('ignora valores desconocidos y duplicados', () => {
+    const leidos = leerFiltros(
+      new URLSearchParams('estilo=timeless,nada,timeless&entorno=techo&ubicacion=luna&hospedaje=1'),
+      VALIDOS,
+    );
+    expect(leidos).toEqual(con({ colecciones: ['timeless'] }));
   });
 
-  it('catering propio incluye "ambos" y externo también', () => {
-    expect(
-      filtrarVenues(venues, { ...FILTROS_VACIOS, catering: ['externo'] }).map((v) => v.slug),
-    ).toEqual(['a', 'b']);
-    expect(
-      filtrarVenues(venues, { ...FILTROS_VACIOS, catering: ['propio'] }).map((v) => v.slug),
-    ).toEqual(['a', 'c', 'd']);
-  });
-
-  it('el filtro de inversión excluye venues sin dato', () => {
-    const resultado = filtrarVenues(venues, {
-      ...FILTROS_VACIOS,
-      inversiones: ['menos-10k', 'mas-35k'],
-    });
-    expect(resultado.map((v) => v.slug)).toEqual(['b']);
-  });
-
-  it('hospedaje en sitio', () => {
-    expect(
-      filtrarVenues(venues, { ...FILTROS_VACIOS, hospedaje: true }).map((v) => v.slug),
-    ).toEqual(['a']);
+  it('sin filtros la query queda vacía', () => {
+    expect(escribirFiltros(FILTROS_VACIOS)).toBe('');
   });
 });
 
-describe('ordenarVenues', () => {
-  it('destacados: nivel comercial, luego marca editorial y luego nombre', () => {
-    expect(ordenarVenues(venues, 'destacados', 'es').map((v) => v.slug)).toEqual([
-      'a',
-      'b',
-      'd',
-      'c',
-    ]);
+describe('ayudantes', () => {
+  it('cuenta los filtros del panel (sin el estilo)', () => {
+    expect(
+      contarFiltrosActivos(
+        con({ colecciones: ['timeless'], hospedaje: true, entornos: ['interior'] }),
+      ),
+    ).toBe(2);
   });
 
-  it('capacidad de mayor a menor y nombre alfabético', () => {
-    expect(ordenarVenues(venues, 'capacidad', 'en').map((v) => v.slug)).toEqual([
-      'd',
-      'a',
-      'b',
-      'c',
-    ]);
-    expect(ordenarVenues(venues, 'nombre', 'en').map((v) => v.slug)).toEqual(['a', 'b', 'c', 'd']);
-  });
-
-  it('no modifica el arreglo original', () => {
-    const copia = [...venues];
-    ordenarVenues(venues, 'capacidad', 'en');
-    expect(venues).toEqual(copia);
-  });
-});
-
-describe('utilidades de filtros', () => {
   it('alternar agrega y quita', () => {
     expect(alternar(['a'], 'b')).toEqual(['a', 'b']);
     expect(alternar(['a', 'b'], 'a')).toEqual(['b']);
   });
 
-  it('cuenta filtros activos sin contar el orden', () => {
-    expect(
-      contarFiltrosActivos({
-        ...FILTROS_VACIOS,
-        tipos: ['playa'],
-        hospedaje: true,
-        orden: 'nombre',
-      }),
-    ).toBe(2);
+  it('orden editorial: destacados primero y luego nombre, sin mutar', () => {
+    const copia = [...venues];
+    expect(slugs(ordenarVenues(venues, 'en'))).toEqual(['b', 'a', 'c']);
+    expect(venues).toEqual(copia);
   });
 });

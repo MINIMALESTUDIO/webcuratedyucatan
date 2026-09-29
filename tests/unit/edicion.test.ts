@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 
 /*
  * El codificador propio de data-sanity (src/lib/sanity/edicion.ts) debe producir exactamente lo
@@ -16,6 +16,12 @@ async function cargar() {
 }
 
 describe('atributoEdicion', () => {
+  // La primera importación de next-sanity tarda varios segundos en frío: se precalienta aquí
+  // con un tope amplio para que no cuente dentro del tiempo de cada caso.
+  beforeAll(async () => {
+    await import('next-sanity');
+  }, 60_000);
+
   afterEach(() => vi.unstubAllEnvs());
 
   const casos: Array<[string, string, string]> = [
