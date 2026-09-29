@@ -1,52 +1,29 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
-import { campoLocalizado, validarPesoVideo } from '../ayudantes';
+import { campoBloquesLocalizados, campoLocalizado, validarPesoVideo } from '../ayudantes';
 
 const MB = 1_048_576;
 
-const elementoTexto = (name: string, title: string, conImagen = false) =>
-  defineArrayMember({
-    name,
-    title,
-    type: 'object',
-    fields: [
-      campoLocalizado({ name: 'titulo', title: 'Título', max: 60 }),
-      campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240 }),
-      ...(conImagen
-        ? [
-            defineField({
-              name: 'imagen',
-              title: 'Imagen',
-              type: 'imagenConAlt',
-              validation: (r) => r.required(),
-            }),
-          ]
-        : []),
-    ],
-    preview: { select: { title: 'titulo.en', media: 'imagen' } },
-  });
-
-/** Singleton con los textos del inicio y los datos generales del sitio (sección 6). */
+/** Singleton con los textos e imágenes del inicio y los datos generales del sitio. */
 export const configuracionSitio = defineType({
   name: 'configuracionSitio',
   title: 'Configuración del sitio',
   type: 'document',
   groups: [
-    { name: 'hero', title: 'Portada', default: true },
-    { name: 'inicio', title: 'Secciones del inicio' },
+    { name: 'hero', title: 'Hero', default: true },
+    { name: 'inicio', title: 'Bloques del inicio' },
     { name: 'general', title: 'Contacto y redes' },
   ],
   fields: [
-    campoLocalizado({ name: 'fraseHero', title: 'Frase principal', max: 70, group: 'hero' }),
     campoLocalizado({
-      name: 'subtituloHero',
-      title: 'Subtítulo',
-      largo: true,
-      max: 160,
+      name: 'lema',
+      title: 'Lema',
+      description: '"Your insider guide to celebrating in Yucatán."',
+      max: 70,
       group: 'hero',
     }),
     defineField({
       name: 'imagenHero',
-      title: 'Imagen de portada',
+      title: 'Imagen del hero',
       description: 'Se muestra de inmediato; el video, si existe, carga después.',
       type: 'imagenConAlt',
       group: 'hero',
@@ -54,7 +31,8 @@ export const configuracionSitio = defineType({
     }),
     defineField({
       name: 'videoHero',
-      title: 'Video de portada',
+      title: 'Video del hero',
+      description: 'Haciendas, arquitectura, Mérida, naturaleza, gastronomía, montajes y diseño.',
       type: 'object',
       group: 'hero',
       fields: [
@@ -75,82 +53,115 @@ export const configuracionSitio = defineType({
       ],
     }),
     defineField({
-      name: 'porQueYucatan',
-      title: 'Por qué Yucatán',
+      name: 'queEsCurated',
+      title: '02 · What is Curated?',
       type: 'object',
       group: 'inicio',
       fields: [
-        campoLocalizado({ name: 'titulo', title: 'Título', max: 70 }),
-        campoLocalizado({ name: 'entradilla', title: 'Entradilla', largo: true, max: 240 }),
+        campoLocalizado({
+          name: 'texto',
+          title: 'Texto',
+          description: 'Breve: no es un About completo.',
+          largo: true,
+          max: 320,
+        }),
+      ],
+    }),
+    defineField({
+      name: 'descubre',
+      title: '03 · Discover Yucatán',
+      type: 'object',
+      group: 'inicio',
+      fields: [
+        campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240 }),
         defineField({
-          name: 'puntos',
-          title: 'Puntos',
+          name: 'temas',
+          title: 'Temas',
+          description:
+            'Architecture, Culture, Gastronomy, History, Nature, Haciendas, Experiences.',
           type: 'array',
-          of: [elementoTexto('punto', 'Punto')],
+          of: [
+            defineArrayMember({
+              name: 'temaDescubre',
+              type: 'object',
+              fields: [
+                campoLocalizado({ name: 'titulo', title: 'Título', max: 30 }),
+                defineField({
+                  name: 'imagen',
+                  title: 'Imagen',
+                  type: 'imagenConAlt',
+                  validation: (r) => r.required(),
+                }),
+                defineField({
+                  name: 'ancla',
+                  title: 'Sección de Discover Yucatán',
+                  description: 'El ancla de la sección a la que lleva (merida, haciendas…).',
+                  type: 'string',
+                  validation: (r) => r.required().regex(/^[a-z0-9-]+$/),
+                }),
+              ],
+              preview: { select: { title: 'titulo.en', subtitle: 'ancla', media: 'imagen' } },
+            }),
+          ],
+          validation: (r) => r.max(7),
+        }),
+      ],
+    }),
+    defineField({
+      name: 'exploraCurated',
+      title: '04 · Explore Curated',
+      type: 'object',
+      group: 'inicio',
+      fields: [
+        campoLocalizado({ name: 'texto', title: 'Texto', max: 120 }),
+        defineField({
+          name: 'areas',
+          title: 'Áreas',
+          description:
+            'Venues, Catering, Photography y Design & Production, cada una con fotografía.',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              name: 'areaExplora',
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'destino',
+                  title: 'Área',
+                  type: 'string',
+                  options: {
+                    list: [
+                      { title: 'Venues', value: 'venues' },
+                      { title: 'Catering', value: 'catering' },
+                      { title: 'Photography', value: 'fotografia' },
+                      { title: 'Design & Production', value: 'diseno-produccion' },
+                    ],
+                  },
+                  validation: (r) => r.required(),
+                }),
+                campoLocalizado({ name: 'texto', title: 'Texto', max: 100 }),
+                defineField({
+                  name: 'imagen',
+                  title: 'Imagen',
+                  type: 'imagenConAlt',
+                  validation: (r) => r.required(),
+                }),
+              ],
+              preview: { select: { title: 'destino', media: 'imagen' } },
+            }),
+          ],
           validation: (r) => r.max(4),
         }),
       ],
     }),
     defineField({
-      name: 'sello',
-      title: 'Sello y proceso curated',
+      name: 'planea',
+      title: '07 · Plan your event',
       type: 'object',
       group: 'inicio',
       fields: [
-        campoLocalizado({ name: 'titulo', title: 'Título', max: 70 }),
         campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240 }),
-        defineField({
-          name: 'pasos',
-          title: 'Pasos',
-          description: 'En orden: el sitio los numera.',
-          type: 'array',
-          of: [elementoTexto('paso', 'Paso')],
-          validation: (r) => r.max(6),
-        }),
-      ],
-    }),
-    defineField({
-      name: 'tradiciones',
-      title: 'Tradiciones yucatecas',
-      type: 'object',
-      group: 'inicio',
-      fields: [
-        campoLocalizado({ name: 'titulo', title: 'Título', max: 70 }),
-        campoLocalizado({ name: 'entradilla', title: 'Entradilla', largo: true, max: 240 }),
-        defineField({
-          name: 'elementos',
-          title: 'Tradiciones',
-          type: 'array',
-          of: [elementoTexto('tradicion', 'Tradición', true)],
-          validation: (r) => r.max(6),
-        }),
-      ],
-    }),
-    defineField({
-      name: 'metricas',
-      title: 'Métricas de credibilidad',
-      type: 'object',
-      group: 'inicio',
-      options: { columns: 3 },
-      fields: [
-        defineField({
-          name: 'venuesVisitados',
-          title: 'Venues visitados',
-          type: 'number',
-          validation: (r) => r.integer().min(0),
-        }),
-        defineField({
-          name: 'horasEntrevista',
-          title: 'Horas de entrevista',
-          type: 'number',
-          validation: (r) => r.integer().min(0),
-        }),
-        defineField({
-          name: 'edicionesImpresas',
-          title: 'Ediciones impresas',
-          type: 'number',
-          validation: (r) => r.integer().min(0),
-        }),
+        defineField({ name: 'imagen', title: 'Imagen', type: 'imagenConAlt' }),
       ],
     }),
     defineField({
@@ -160,7 +171,11 @@ export const configuracionSitio = defineType({
       group: 'general',
       fields: [
         defineField({ name: 'instagram', title: 'Instagram', type: 'url' }),
-        defineField({ name: 'youtube', title: 'YouTube', type: 'url' }),
+        defineField({
+          name: 'youtube',
+          title: 'YouTube (El Lugar de Tu Historia)',
+          type: 'url',
+        }),
       ],
     }),
     defineField({
@@ -174,7 +189,77 @@ export const configuracionSitio = defineType({
 });
 
 /**
- * Correos que reciben copia de los leads de cada venue o proveedor (D-012).
+ * Design & Production: Minimal como Curated Design & Production Partner (documento de
+ * estructura, sección 10). No es un directorio: un solo documento con sus áreas.
+ */
+export const disenoProduccion = defineType({
+  name: 'disenoProduccion',
+  title: 'Design & Production (Minimal)',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'nombre',
+      title: 'Nombre',
+      type: 'string',
+      initialValue: 'Minimal 4.0',
+      validation: (r) => r.required(),
+    }),
+    campoLocalizado({ name: 'lema', title: 'Lema', max: 60 }),
+    campoBloquesLocalizados({ name: 'descripcion', title: 'Descripción' }),
+    defineField({
+      name: 'imagenPrincipal',
+      title: 'Imagen principal',
+      type: 'imagenConAlt',
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: 'areas',
+      title: 'Áreas',
+      description: 'Furniture, Tabletop, Floral Design, Décor, Production.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'areaDiseno',
+          type: 'object',
+          fields: [
+            campoLocalizado({ name: 'nombre', title: 'Nombre', max: 40 }),
+            campoLocalizado({ name: 'descripcion', title: 'Descripción', largo: true, max: 320 }),
+            defineField({
+              name: 'imagenes',
+              title: 'Portafolio',
+              type: 'array',
+              of: [defineArrayMember({ type: 'imagenConAlt' })],
+              validation: (r) => r.min(1).max(2),
+            }),
+          ],
+          preview: { select: { title: 'nombre.en', media: 'imagenes.0' } },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'servicios',
+      title: 'Principales servicios',
+      type: 'array',
+      of: [defineArrayMember({ type: 'elementoLista' })],
+    }),
+    campoLocalizado({ name: 'estilo', title: 'Estilo o diferenciador', largo: true, max: 280 }),
+    campoLocalizado({ name: 'experiencia', title: 'Experiencia', largo: true, max: 280 }),
+    defineField({
+      name: 'ciudadBase',
+      title: 'Ciudad base',
+      type: 'string',
+      validation: (r) => r.required(),
+    }),
+    campoLocalizado({ name: 'cobertura', title: 'Zonas donde trabajan', max: 120 }),
+    defineField({ name: 'sitioWeb', title: 'Sitio web', type: 'url' }),
+    defineField({ name: 'instagram', title: 'Instagram', type: 'url' }),
+    defineField({ name: 'logotipo', title: 'Logotipo', type: 'imagenConAlt' }),
+  ],
+  preview: { prepare: () => ({ title: 'Design & Production (Minimal)' }) },
+});
+
+/**
+ * Correos que reciben copia de los leads de cada venue o partner (D-012).
  * Vive en un documento con ID "privado.contactosLeads": Sanity no expone documentos con punto
  * en el ID sin token, aunque el dataset sea público. El sitio lo lee solo en el servidor.
  */
@@ -196,7 +281,7 @@ export const contactosLeads = defineType({
           fields: [
             defineField({
               name: 'referencia',
-              title: 'Venue o proveedor',
+              title: 'Venue o partner',
               type: 'reference',
               to: [{ type: 'venue' }, { type: 'proveedor' }],
               weak: true,

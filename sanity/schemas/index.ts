@@ -1,28 +1,38 @@
-import { capitulo, cita, espacio, fichaTecnica, imagenConAlt, seo, youtube } from './objetos';
-import { categoriaProveedor, proveedor, region } from './documentos/catalogos';
-import { episodio, guia, historia, paginaEditorial } from './documentos/editorial';
-import { configuracionSitio, contactosLeads } from './documentos/singletons';
+import {
+  capitulo,
+  elementoLista,
+  espacio,
+  fichaTecnica,
+  imagenConAlt,
+  notaCurated,
+  seo,
+  youtube,
+} from './objetos';
+import { coleccion, proveedor, region } from './documentos/catalogos';
+import { articulo, descubreYucatan, paginaEditorial } from './documentos/editorial';
+import { configuracionSitio, contactosLeads, disenoProduccion } from './documentos/singletons';
 import { venue } from './documentos/venue';
 
-// Modelo de contenido de la sección 6 de docs/PROMPT.md.
+// Modelo de contenido alineado con "Estructura y dirección web" (docs/referencias, D-038).
 export const tiposEsquema = [
   // Objetos reutilizables
   imagenConAlt,
   youtube,
   capitulo,
-  cita,
+  elementoLista,
   espacio,
   fichaTecnica,
+  notaCurated,
   seo,
   // Documentos
   venue,
+  coleccion,
   region,
   proveedor,
-  categoriaProveedor,
-  historia,
-  episodio,
-  guia,
+  articulo,
   paginaEditorial,
+  descubreYucatan,
   configuracionSitio,
+  disenoProduccion,
   contactosLeads,
 ];

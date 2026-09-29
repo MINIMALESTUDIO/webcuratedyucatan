@@ -84,12 +84,14 @@ export function campoLocalizado({
   });
 }
 
-/** Bloque de texto enriquecido sencillo (párrafos, subtítulos, negritas, cursivas y enlaces). */
+/** Bloque de texto enriquecido sencillo: párrafos, subtítulos, citas, listas, negritas, cursivas y enlaces. */
 export const bloqueTexto = defineArrayMember({
   type: 'block',
   styles: [
     { title: 'Párrafo', value: 'normal' },
-    { title: 'Subtítulo', value: 'h3' },
+    { title: 'Subtítulo', value: 'h2' },
+    { title: 'Subtítulo menor', value: 'h3' },
+    { title: 'Cita', value: 'blockquote' },
   ],
   lists: [
     { title: 'Viñetas', value: 'bullet' },
@@ -122,7 +124,7 @@ interface OpcionesBloques {
   name: string;
   title: string;
   description?: string;
-  /** Permite imágenes y videos de YouTube dentro del texto (historias). */
+  /** Permite imágenes y videos de YouTube dentro del texto (artículos del Journal). */
   conMedios?: boolean;
   group?: string;
 }

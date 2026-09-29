@@ -66,36 +66,33 @@ export const capitulo = defineType({
   },
 });
 
-export const cita = defineType({
-  name: 'cita',
-  title: 'Cita destacada',
+/** Elemento de una lista bilingüe (servicios). */
+export const elementoLista = defineType({
+  name: 'elementoLista',
+  title: 'Elemento',
   type: 'object',
-  fields: [
-    campoLocalizado({ name: 'texto', title: 'Cita', largo: true, max: 280 }),
-    defineField({ name: 'autor', title: 'Autor', type: 'string', validation: (r) => r.required() }),
-    campoLocalizado({ name: 'cargo', title: 'Cargo', max: 60 }),
-  ],
-  preview: { select: { title: 'texto.en', subtitle: 'autor' } },
+  fields: [campoLocalizado({ name: 'texto', title: 'Texto', max: 80 })],
+  preview: { select: { title: 'texto.en', subtitle: 'texto.es' } },
 });
 
-const capacidad = (name: string, title: string, requerido = false) =>
-  defineField({
-    name,
-    title,
-    type: 'number',
-    validation: (r) => (requerido ? r.required() : r).integer().min(0).max(5000),
-  });
-
+/** Espacio del venue, como "Capacity & spaces" en el libro. */
 export const espacio = defineType({
   name: 'espacio',
   title: 'Espacio',
   type: 'object',
   fields: [
     campoLocalizado({ name: 'nombre', title: 'Nombre', max: 60 }),
-    campoLocalizado({ name: 'descripcion', title: 'Descripción', largo: true, max: 300 }),
+    campoLocalizado({
+      name: 'descripcion',
+      title: 'Descripción',
+      largo: true,
+      max: 300,
+      requerido: false,
+    }),
     defineField({
       name: 'interiorExterior',
       title: 'Interior o exterior',
+      description: 'El sitio calcula con esto el dato "Indoor / Outdoor" del venue.',
       type: 'string',
       options: {
         list: [
@@ -108,9 +105,12 @@ export const espacio = defineType({
       },
       validation: (r) => r.required(),
     }),
-    capacidad('capacidadCeremonia', 'Capacidad de ceremonia'),
-    capacidad('capacidadCoctel', 'Capacidad de cóctel'),
-    capacidad('capacidadBanquete', 'Capacidad de banquete'),
+    defineField({
+      name: 'capacidad',
+      title: 'Capacidad (invitados)',
+      type: 'number',
+      validation: (r) => r.integer().min(0).max(5000),
+    }),
     defineField({
       name: 'imagenes',
       title: 'Imágenes',
@@ -121,19 +121,21 @@ export const espacio = defineType({
   preview: { select: { title: 'nombre.en', subtitle: 'interiorExterior', media: 'imagenes.0' } },
 });
 
-/** Datos estandarizados del venue: base de filtros y comparadores futuros (sección 13). */
+/** Datos clave del venue ("Quick facts"): base de los filtros y de Find Your Yucatán. */
 export const fichaTecnica = defineType({
   name: 'fichaTecnica',
-  title: 'Ficha técnica',
+  title: 'Datos clave',
   type: 'object',
-  fieldsets: [
-    { name: 'capacidades', title: 'Capacidades máximas', options: { columns: 3 } },
-    { name: 'traslados', title: 'Traslados (minutos)', options: { columns: 2 } },
-  ],
+  fieldsets: [{ name: 'traslado', title: 'Desde el centro de Mérida', options: { columns: 2 } }],
   fields: [
-    { ...capacidad('capacidadCeremoniaMax', 'Ceremonia', true), fieldset: 'capacidades' },
-    { ...capacidad('capacidadCoctelMax', 'Cóctel', true), fieldset: 'capacidades' },
-    { ...capacidad('capacidadBanqueteMax', 'Banquete', true), fieldset: 'capacidades' },
+    defineField({
+      name: 'capacidadMax',
+      title: 'Capacidad máxima (invitados)',
+      description:
+        'La del espacio más grande. Se usa en el filtro de capacidad y en Find Your Yucatán.',
+      type: 'number',
+      validation: (r) => r.required().integer().min(1).max(5000),
+    }),
     defineField({
       name: 'hospedaje',
       title: 'Hospedaje',
@@ -163,51 +165,32 @@ export const fichaTecnica = defineType({
       ],
     }),
     defineField({
-      name: 'catering',
-      title: 'Catering',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Propio', value: 'propio' },
-          { title: 'Externo', value: 'externo' },
-          { title: 'Ambos', value: 'ambos' },
-        ],
-        layout: 'radio',
-        direction: 'horizontal',
-      },
-      validation: (r) => r.required(),
-    }),
-    campoLocalizado({ name: 'horarioLimiteMusica', title: 'Horario límite de música', max: 40 }),
-    defineField({
-      name: 'minutosAeropuertoMID',
-      title: 'Desde el aeropuerto MID',
-      type: 'number',
-      fieldset: 'traslados',
-      validation: (r) => r.required().integer().min(0),
-    }),
-    defineField({
       name: 'minutosCentroMerida',
-      title: 'Desde el centro de Mérida',
+      title: 'Minutos',
       type: 'number',
-      fieldset: 'traslados',
+      fieldset: 'traslado',
       validation: (r) => r.required().integer().min(0),
     }),
     defineField({
-      name: 'inversionDesdeUSD',
-      title: 'Inversión desde (USD)',
-      description: 'Opcional. Si se deja vacío, el sitio muestra "A consultar".',
+      name: 'kmCentroMerida',
+      title: 'Kilómetros',
       type: 'number',
-      validation: (r) => r.integer().min(0),
-    }),
-    campoLocalizado({ name: 'mejorTemporada', title: 'Mejor temporada', max: 60 }),
-    defineField({
-      name: 'ubicacion',
-      title: 'Ubicación',
-      description: 'Latitud y longitud. Se usa para el mapa y el enlace a Google Maps.',
-      type: 'geopoint',
-      validation: (r) => r.required(),
+      fieldset: 'traslado',
+      validation: (r) => r.min(0),
     }),
   ],
+});
+
+/** Nota práctica para wedding planners ("Curated Notes"). */
+export const notaCurated = defineType({
+  name: 'notaCurated',
+  title: 'Nota',
+  type: 'object',
+  fields: [
+    campoLocalizado({ name: 'titulo', title: 'Título', max: 60 }),
+    campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 320 }),
+  ],
+  preview: { select: { title: 'titulo.en', subtitle: 'texto.en' } },
 });
 
 export const seo = defineType({

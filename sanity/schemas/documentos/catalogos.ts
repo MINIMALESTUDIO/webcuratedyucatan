@@ -6,116 +6,213 @@ import {
   campoSlugsAnteriores,
 } from '../ayudantes';
 
-export const region = defineType({
-  name: 'region',
-  title: 'Región',
+const orden = defineField({
+  name: 'orden',
+  title: 'Orden',
+  description: 'Menor número = aparece antes.',
+  type: 'number',
+  validation: (r) => r.integer().min(0),
+});
+
+/**
+ * Colección del libro (Contemporary Sanctuaries, Organic Estates, Timeless Venues). Es un
+ * documento para poder cambiar la taxonomía sin tocar código (D-039).
+ */
+export const coleccion = defineType({
+  name: 'coleccion',
+  title: 'Colección',
   type: 'document',
   fields: [
-    campoLocalizado({ name: 'nombre', title: 'Nombre', max: 40 }),
+    campoLocalizado({
+      name: 'nombre',
+      title: 'Nombre',
+      description: '"Timeless Venues".',
+      max: 40,
+    }),
     campoSlug(),
-    campoLocalizado({ name: 'descripcion', title: 'Descripción', largo: true, max: 200 }),
+    campoLocalizado({
+      name: 'lema',
+      title: 'Lema',
+      description: '"Heritage and elegance."',
+      max: 60,
+    }),
+    campoLocalizado({ name: 'descripcion', title: 'Descripción', largo: true, max: 280 }),
+    campoLocalizado({
+      name: 'resultado',
+      title: 'Palabra del resultado',
+      description: 'Find Your Yucatán muestra "Your Yucatán is… Timeless".',
+      max: 20,
+    }),
     defineField({
       name: 'imagen',
       title: 'Imagen',
       type: 'imagenConAlt',
       validation: (r) => r.required(),
     }),
-    defineField({
-      name: 'orden',
-      title: 'Orden',
-      description: 'Menor número = aparece antes.',
-      type: 'number',
-      validation: (r) => r.integer().min(0),
-    }),
+    orden,
   ],
   orderings: [{ title: 'Orden', name: 'orden', by: [{ field: 'orden', direction: 'asc' }] }],
-  preview: { select: { title: 'nombre.en', subtitle: 'nombre.es', media: 'imagen' } },
+  preview: { select: { title: 'nombre.en', subtitle: 'lema.en', media: 'imagen' } },
 });
 
-export const categoriaProveedor = defineType({
-  name: 'categoriaProveedor',
-  title: 'Categoría de proveedor',
+/** Ubicación de los venues (filtro "Location"). */
+export const region = defineType({
+  name: 'region',
+  title: 'Región',
   type: 'document',
-  fields: [
-    campoLocalizado({ name: 'nombre', title: 'Nombre', max: 40 }),
-    campoSlug(),
-    defineField({
-      name: 'icono',
-      title: 'Icono',
-      description: 'Iconos propios del sitio (sin librería externa).',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Planeación', value: 'planner' },
-          { title: 'Cámara', value: 'camara' },
-          { title: 'Flor', value: 'flor' },
-          { title: 'Silla', value: 'silla' },
-          { title: 'Música', value: 'musica' },
-          { title: 'Banquete', value: 'banquete' },
-          { title: 'Belleza', value: 'belleza' },
-          { title: 'Transporte', value: 'transporte' },
-          { title: 'Hospedaje', value: 'hospedaje' },
-        ],
-      },
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: 'orden',
-      title: 'Orden',
-      type: 'number',
-      validation: (r) => r.integer().min(0),
-    }),
-  ],
+  fields: [campoLocalizado({ name: 'nombre', title: 'Nombre', max: 40 }), campoSlug(), orden],
   orderings: [{ title: 'Orden', name: 'orden', by: [{ field: 'orden', direction: 'asc' }] }],
   preview: { select: { title: 'nombre.en', subtitle: 'nombre.es' } },
 });
 
+/** Partner de Catering o Photography (documento de estructura, secciones 8 y 9). */
 export const proveedor = defineType({
   name: 'proveedor',
-  title: 'Proveedor',
+  title: 'Partner',
   type: 'document',
+  groups: [
+    { name: 'general', title: 'General', default: true },
+    { name: 'perfil', title: 'Perfil' },
+    { name: 'media', title: 'Fotos' },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
-      name: 'nombre',
-      title: 'Nombre',
-      description: 'Nombre propio: se muestra igual en ambos idiomas.',
+      name: 'tipo',
+      title: 'Sección',
       type: 'string',
-      validation: (r) => r.required().max(80),
-    }),
-    campoSlug('nombre'),
-    campoSlugsAnteriores(),
-    defineField({
-      name: 'categoria',
-      title: 'Categoría',
-      type: 'reference',
-      to: [{ type: 'categoriaProveedor' }],
+      group: 'general',
+      options: {
+        list: [
+          { title: 'Catering', value: 'catering' },
+          { title: 'Photography', value: 'fotografia' },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
       validation: (r) => r.required(),
     }),
-    campoLocalizado({ name: 'resumen', title: 'Resumen', largo: true, max: 200 }),
-    campoBloquesLocalizados({ name: 'descripcion', title: 'Descripción' }),
     defineField({
-      name: 'imagenes',
-      title: 'Imágenes',
-      type: 'array',
-      of: [defineArrayMember({ type: 'imagenConAlt' })],
-      validation: (r) => r.required().min(1),
+      name: 'nombre',
+      title: 'Nombre comercial',
+      description: 'Nombre propio: se muestra igual en ambos idiomas.',
+      type: 'string',
+      group: 'general',
+      validation: (r) => r.required().max(80),
     }),
-    defineField({ name: 'sitioWeb', title: 'Sitio web', type: 'url' }),
+    campoSlug('nombre', 'general'),
+    campoSlugsAnteriores('general'),
+    campoLocalizado({
+      name: 'especialidad',
+      title: 'Categoría y especialidad',
+      max: 60,
+      group: 'general',
+    }),
+    campoLocalizado({
+      name: 'resumen',
+      title: 'Diferenciador breve',
+      description: 'Una línea para la vista general.',
+      max: 120,
+      group: 'general',
+    }),
+    defineField({
+      name: 'estilosFotografia',
+      title: 'Enfoque fotográfico',
+      type: 'array',
+      group: 'general',
+      hidden: ({ document }) => document?.tipo !== 'fotografia',
+      of: [defineArrayMember({ type: 'string' })],
+      options: {
+        list: [
+          { title: 'Editorial', value: 'editorial' },
+          { title: 'Documentary', value: 'documental' },
+          { title: 'Fine Art', value: 'fine-art' },
+          { title: 'Cinematic', value: 'cinematografico' },
+        ],
+      },
+      validation: (r) => r.unique(),
+    }),
+    defineField({ ...orden, group: 'general' }),
+    campoBloquesLocalizados({
+      name: 'descripcion',
+      title: 'Descripción de la empresa',
+      group: 'perfil',
+    }),
+    defineField({
+      name: 'servicios',
+      title: 'Principales servicios',
+      type: 'array',
+      group: 'perfil',
+      of: [defineArrayMember({ type: 'elementoLista' })],
+      validation: (r) => r.max(8),
+    }),
+    campoLocalizado({
+      name: 'estilo',
+      title: 'Estilo o diferenciador',
+      largo: true,
+      max: 280,
+      group: 'perfil',
+    }),
+    campoLocalizado({
+      name: 'experiencia',
+      title: 'Experiencia en bodas destino o eventos internacionales',
+      largo: true,
+      max: 280,
+      group: 'perfil',
+    }),
+    defineField({
+      name: 'ciudadBase',
+      title: 'Ciudad base',
+      type: 'string',
+      group: 'perfil',
+      validation: (r) => r.required().max(60),
+    }),
+    campoLocalizado({
+      name: 'cobertura',
+      title: 'Zonas donde trabajan',
+      max: 120,
+      group: 'perfil',
+    }),
+    defineField({ name: 'sitioWeb', title: 'Sitio web', type: 'url', group: 'perfil' }),
     defineField({
       name: 'instagram',
       title: 'Instagram',
       description: 'URL del perfil.',
       type: 'url',
+      group: 'perfil',
     }),
     defineField({
-      name: 'regionesQueCubre',
-      title: 'Regiones que cubre',
-      type: 'array',
-      of: [defineArrayMember({ type: 'reference', to: [{ type: 'region' }] })],
-      validation: (r) => r.unique(),
+      name: 'imagenPrincipal',
+      title: 'Fotografía principal',
+      description: 'La fotografía pesa más que el logotipo en todo el sitio.',
+      type: 'imagenConAlt',
+      group: 'media',
+      validation: (r) => r.required(),
     }),
-    defineField({ name: 'destacado', title: 'Destacado', type: 'boolean', initialValue: false }),
-    defineField({ name: 'seo', title: 'SEO', type: 'seo' }),
+    defineField({
+      name: 'galeria',
+      title: 'Fotografías de su trabajo',
+      type: 'array',
+      group: 'media',
+      of: [defineArrayMember({ type: 'imagenConAlt' })],
+      options: { layout: 'grid' },
+    }),
+    defineField({
+      name: 'logotipo',
+      title: 'Logotipo',
+      description: 'En buena resolución. Uso secundario.',
+      type: 'imagenConAlt',
+      group: 'media',
+    }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seo', group: 'seo' }),
   ],
-  preview: { select: { title: 'nombre', subtitle: 'categoria.nombre.en', media: 'imagenes.0' } },
+  orderings: [{ title: 'Orden', name: 'orden', by: [{ field: 'orden', direction: 'asc' }] }],
+  preview: {
+    select: { title: 'nombre', tipo: 'tipo', media: 'imagenPrincipal' },
+    prepare: ({ title, tipo, media }) => ({
+      title,
+      subtitle: tipo === 'fotografia' ? 'Photography' : 'Catering',
+      media,
+    }),
+  },
 });

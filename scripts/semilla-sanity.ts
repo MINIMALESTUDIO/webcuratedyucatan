@@ -6,10 +6,18 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import type { BloqueTexto, Imagen, TextoLocalizado } from '../src/lib/contenido/tipos';
-import { categoriasDemo } from '../src/lib/demo/categorias';
+import type {
+  BloquesLocalizados,
+  BloqueTexto,
+  Capitulo,
+  ElementoLista,
+  Imagen,
+  SeccionEditorial,
+} from '../src/lib/contenido/tipos';
+import { coleccionesDemo } from '../src/lib/demo/colecciones';
 import { configuracionDemo } from '../src/lib/demo/configuracion';
-import { episodioDemo, guiaDemo, historiasDemo } from '../src/lib/demo/editorial';
+import { disenoDemo } from '../src/lib/demo/diseno';
+import { articulosDemo, descubreDemo, paginasDemo } from '../src/lib/demo/editorial';
 import { proveedoresDemo } from '../src/lib/demo/proveedores';
 import { regionesDemo } from '../src/lib/demo/regiones';
 import { venuesDemo } from '../src/lib/demo/venues';
@@ -29,29 +37,45 @@ function imagen(img: Imagen, clave?: string) {
   };
 }
 
-const referencia = (id: string, clave?: string) => ({
-  _type: 'reference',
-  _ref: id,
-  ...(clave ? { _key: clave } : {}),
-});
+const imagenes = (lista: Imagen[], prefijo: string) =>
+  lista.map((img, i) => imagen(img, img._key ?? `${prefijo}${i + 1}`));
 
+const referencia = (id: string) => ({ _type: 'reference', _ref: id });
 const slug = (valor: string) => ({ _type: 'slug', current: valor });
 
-function bloquesDe(
-  prefijo: string,
-  texto: TextoLocalizado,
-): { en: BloqueTexto[]; es: BloqueTexto[] } {
-  const bloque = (idioma: string, contenido: string): BloqueTexto => ({
-    _type: 'block',
-    _key: `${prefijo}-${idioma}`,
-    style: 'normal',
-    markDefs: [],
-    children: [{ _type: 'span', _key: `${prefijo}-${idioma}-s`, text: contenido, marks: [] }],
-  });
-  return { en: [bloque('en', texto.en)], es: [bloque('es', texto.es ?? texto.en)] };
+/** Portable Text con markDefs y marks explícitos, como los guarda el Studio. */
+function bloques(valor: BloquesLocalizados) {
+  const normalizar = (lista: BloqueTexto[] = []) =>
+    lista.map((b) => ({
+      ...b,
+      markDefs: b.markDefs ?? [],
+      children: b.children.map((hijo) => ({
+        ...hijo,
+        marks: (hijo as { marks?: string[] }).marks ?? [],
+      })),
+    }));
+  return { en: normalizar(valor.en), es: normalizar(valor.es) };
 }
 
+const lista = (elementos: ElementoLista[]) =>
+  elementos.map((e) => ({ _type: 'elementoLista', _key: e._key, texto: e.texto }));
+const capitulos = (lista: Capitulo[]) => lista.map((c) => ({ _type: 'capitulo', ...c }));
+
 const documentos: Documento[] = [];
+
+for (const c of coleccionesDemo) {
+  documentos.push({
+    _id: c._id,
+    _type: 'coleccion',
+    nombre: c.nombre,
+    slug: slug(c.slug),
+    lema: c.lema,
+    descripcion: c.descripcion,
+    resultado: c.resultado,
+    imagen: imagen(c.imagen),
+    orden: c.orden,
+  });
+}
 
 for (const r of regionesDemo) {
   documentos.push({
@@ -59,40 +83,11 @@ for (const r of regionesDemo) {
     _type: 'region',
     nombre: r.nombre,
     slug: slug(r.slug),
-    descripcion: r.descripcion,
-    imagen: imagen(r.imagen),
     orden: r.orden,
   });
 }
 
-for (const c of categoriasDemo) {
-  documentos.push({
-    _id: c._id,
-    _type: 'categoriaProveedor',
-    nombre: c.nombre,
-    slug: slug(c.slug),
-    icono: c.icono,
-    orden: c.orden,
-  });
-}
-
-for (const p of proveedoresDemo) {
-  documentos.push({
-    _id: p._id,
-    _type: 'proveedor',
-    nombre: p.nombre,
-    slug: slug(p.slug),
-    categoria: referencia(`categoria-${p.categoria.slug}`),
-    resumen: p.resumen,
-    descripcion: p.descripcion,
-    imagenes: p.imagenes.map((img, i) => imagen(img, `img${i + 1}`)),
-    regionesQueCubre: p.regionesQueCubre.map((r) => referencia(`region-${r.slug}`, r.slug)),
-    destacado: p.destacado,
-  });
-}
-
 for (const v of venuesDemo) {
-  const { ubicacion, ...ficha } = v.fichaTecnica;
   documentos.push({
     _id: v._id,
     _type: 'venue',
@@ -100,38 +95,138 @@ for (const v of venuesDemo) {
     slug: slug(v.slug),
     publicado: v.publicado,
     destacado: v.destacado,
-    nivelListado: v.nivelListado,
+    coleccion: referencia(`coleccion-${v.coleccion.slug}`),
     region: referencia(`region-${v.region.slug}`),
-    tipos: v.tipos,
+    localidad: v.localidad,
     resumen: v.resumen,
-    descripcion: v.descripcion,
-    fichaTecnica: { ...ficha, ubicacion: { _type: 'geopoint', ...ubicacion } },
-    media: {
-      imagenHero: imagen(v.media.imagenHero),
-      galeria: v.media.galeria.map((img, i) => imagen(img, `g${i + 1}`)),
-    },
-    ...(v.entrevista
-      ? {
-          entrevista: {
-            youtubeId: v.entrevista.youtubeId,
-            titulo: v.entrevista.titulo,
-            capitulos: v.entrevista.capitulos.map((c) => ({ _type: 'capitulo', ...c })),
-          },
-        }
-      : {}),
-    citasDestacadas: v.citasDestacadas.map((c) => ({ _type: 'cita', ...c })),
+    descripcion: bloques(v.descripcion),
+    atributos: v.atributos,
+    fichaTecnica: v.fichaTecnica,
     espacios: v.espacios.map((e) => ({
       _type: 'espacio',
       _key: e._key,
       nombre: e.nombre,
       descripcion: e.descripcion,
       interiorExterior: e.interiorExterior,
-      capacidadCeremonia: e.capacidadCeremonia,
-      capacidadCoctel: e.capacidadCoctel,
-      capacidadBanquete: e.capacidadBanquete,
-      imagenes: e.imagenes.map((img, i) => imagen(img, `${e._key}-i${i + 1}`)),
+      capacidad: e.capacidad,
+      imagenes: imagenes(e.imagenes, `${e._key}-i`),
     })),
-    proveedoresRecomendados: v.proveedoresRecomendados.map((p) => referencia(p._id, p.slug)),
+    notasCurated: v.notasCurated.map((n) => ({ _type: 'notaCurated', ...n })),
+    media: {
+      imagenHero: imagen(v.media.imagenHero),
+      galeria: imagenes(v.media.galeria, 'g'),
+    },
+    ...(v.pelicula
+      ? {
+          pelicula: {
+            youtubeId: v.pelicula.youtubeId,
+            titulo: v.pelicula.titulo,
+            capitulos: capitulos(v.pelicula.capitulos),
+          },
+        }
+      : {}),
+  });
+}
+
+for (const p of proveedoresDemo) {
+  documentos.push({
+    _id: p._id,
+    _type: 'proveedor',
+    tipo: p.tipo,
+    nombre: p.nombre,
+    slug: slug(p.slug),
+    especialidad: p.especialidad,
+    resumen: p.resumen,
+    estilosFotografia: p.estilosFotografia,
+    orden: p.orden,
+    descripcion: bloques(p.descripcion),
+    servicios: lista(p.servicios),
+    estilo: p.estilo,
+    experiencia: p.experiencia,
+    ciudadBase: p.ciudadBase,
+    cobertura: p.cobertura,
+    sitioWeb: p.sitioWeb,
+    instagram: p.instagram,
+    imagenPrincipal: imagen(p.imagenPrincipal),
+    galeria: imagenes(p.galeria, 'g'),
+  });
+}
+
+documentos.push({
+  _id: 'disenoProduccion',
+  _type: 'disenoProduccion',
+  nombre: disenoDemo.nombre,
+  lema: disenoDemo.lema,
+  descripcion: bloques(disenoDemo.descripcion),
+  imagenPrincipal: imagen(disenoDemo.imagenPrincipal),
+  areas: disenoDemo.areas.map((a) => ({
+    _type: 'areaDiseno',
+    _key: a._key,
+    nombre: a.nombre,
+    descripcion: a.descripcion,
+    imagenes: imagenes(a.imagenes, `${a._key}-i`),
+  })),
+  servicios: lista(disenoDemo.servicios),
+  estilo: disenoDemo.estilo,
+  experiencia: disenoDemo.experiencia,
+  ciudadBase: disenoDemo.ciudadBase,
+  cobertura: disenoDemo.cobertura,
+  sitioWeb: disenoDemo.sitioWeb,
+  instagram: disenoDemo.instagram,
+});
+
+for (const a of articulosDemo) {
+  documentos.push({
+    _id: a._id,
+    _type: 'articulo',
+    titulo: a.titulo,
+    slug: slug(a.slug),
+    imagenPortada: imagen(a.imagenPortada),
+    extracto: a.extracto,
+    cuerpo: bloques(a.cuerpo),
+    fechaPublicacion: a.fechaPublicacion,
+  });
+}
+
+documentos.push({
+  _id: 'descubreYucatan',
+  _type: 'descubreYucatan',
+  titulo: descubreDemo.titulo,
+  entradilla: descubreDemo.entradilla,
+  imagenPrincipal: imagen(descubreDemo.imagenPrincipal),
+  secciones: descubreDemo.secciones.map((s) => ({
+    _type: 'seccionDescubre',
+    _key: s._key,
+    ancla: s.ancla,
+    titulo: s.titulo,
+    // Las etiquetas son opcionales: se omiten si vienen vacías.
+    ...(s.etiquetas.en ? { etiquetas: s.etiquetas } : {}),
+    texto: bloques(s.texto),
+    imagenes: imagenes(s.imagenes, `${s._key}-i`),
+  })),
+});
+
+function seccion(s: SeccionEditorial) {
+  switch (s._type) {
+    case 'seccionTexto':
+      return { ...s, texto: bloques(s.texto) };
+    case 'seccionImagen':
+      return { ...s, imagen: imagen(s.imagen) };
+    case 'seccionPreguntas':
+      return { ...s, preguntas: s.preguntas.map((p) => ({ _type: 'pregunta', ...p })) };
+    case 'seccionLlamado':
+      return s;
+  }
+}
+
+for (const p of paginasDemo) {
+  documentos.push({
+    _id: p._id,
+    _type: 'paginaEditorial',
+    titulo: p.titulo,
+    entradilla: p.entradilla,
+    ...(p.imagen ? { imagen: imagen(p.imagen) } : {}),
+    secciones: p.secciones.map(seccion),
   });
 }
 
@@ -139,67 +234,40 @@ const cfg = configuracionDemo;
 documentos.push({
   _id: 'configuracionSitio',
   _type: 'configuracionSitio',
-  fraseHero: cfg.fraseHero,
-  subtituloHero: cfg.subtituloHero,
+  lema: cfg.lema,
   imagenHero: imagen(cfg.imagenHero),
-  porQueYucatan: {
-    ...cfg.porQueYucatan,
-    puntos: cfg.porQueYucatan.puntos.map((p) => ({ _type: 'punto', ...p })),
-  },
-  sello: { ...cfg.sello, pasos: cfg.sello.pasos.map((p) => ({ _type: 'paso', ...p })) },
-  tradiciones: {
-    ...cfg.tradiciones,
-    elementos: cfg.tradiciones.elementos.map((e) => ({
-      _type: 'tradicion',
-      ...e,
-      imagen: imagen(e.imagen),
+  queEsCurated: cfg.queEsCurated,
+  descubre: {
+    texto: cfg.descubre.texto,
+    temas: cfg.descubre.temas.map((t) => ({
+      _type: 'temaDescubre',
+      ...t,
+      imagen: imagen(t.imagen),
     })),
   },
-  metricas: cfg.metricas,
+  exploraCurated: {
+    texto: cfg.exploraCurated.texto,
+    areas: cfg.exploraCurated.areas.map((a) => ({
+      _type: 'areaExplora',
+      ...a,
+      imagen: imagen(a.imagen),
+    })),
+  },
+  planea: {
+    texto: cfg.planea.texto,
+    ...(cfg.planea.imagen ? { imagen: imagen(cfg.planea.imagen) } : {}),
+  },
 });
-
-documentos.push({
-  _id: episodioDemo._id,
-  _type: 'episodio',
-  titulo: episodioDemo.titulo,
-  youtubeId: episodioDemo.youtubeId,
-  descripcion: episodioDemo.descripcion,
-  fechaPublicacion: episodioDemo.fechaPublicacion,
-});
-
-// La guía DEMO no tiene PDF: el Studio marcará el campo como pendiente.
-documentos.push({
-  _id: guiaDemo._id,
-  _type: 'guia',
-  edicion: guiaDemo.edicion,
-  portada: imagen(guiaDemo.portada),
-  descripcion: guiaDemo.descripcion,
-  activa: guiaDemo.activa,
-});
-
-for (const h of historiasDemo) {
-  documentos.push({
-    _id: h._id,
-    _type: 'historia',
-    titulo: h.titulo,
-    slug: slug(h.slug),
-    tipo: h.tipo,
-    imagenPortada: imagen(h.imagenPortada),
-    extracto: h.extracto,
-    cuerpo: bloquesDe(h._id, h.extracto),
-    fechaPublicacion: h.fechaPublicacion,
-  });
-}
 
 // Contactos privados (D-012): correos de ejemplo en example.com, dominio reservado para pruebas.
 documentos.push({
   _id: 'privado.contactosLeads',
   _type: 'contactosLeads',
-  contactos: venuesDemo.map((v, i) => ({
+  contactos: [...venuesDemo, ...proveedoresDemo].map((d, i) => ({
     _type: 'contacto',
     _key: `c${i + 1}`,
-    referencia: { _type: 'reference', _ref: v._id, _weak: true },
-    correo: `demo+${v.slug}@example.com`,
+    referencia: { _type: 'reference', _ref: d._id, _weak: true },
+    correo: `demo+${d.slug}@example.com`,
   })),
 });
 
