@@ -34,8 +34,10 @@ export function useFormularioPiloto<T>(
       setErrores(nuevos);
       setValidado(false);
       const primero = Object.keys(nuevos)[0];
+      // En los grupos de opciones namedItem devuelve un RadioNodeList: se enfoca la primera.
       const campo = primero ? formulario.elements.namedItem(primero) : null;
-      if (campo instanceof HTMLElement) campo.focus();
+      const destino = campo instanceof RadioNodeList ? campo[0] : campo;
+      if (destino instanceof HTMLElement) destino.focus();
       return;
     }
 

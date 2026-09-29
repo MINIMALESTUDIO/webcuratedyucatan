@@ -1,8 +1,31 @@
-import { metadatosPendiente, PaginaPendiente } from '@/components/secciones/PaginaPendiente';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { stegaClean } from 'next-sanity';
+import { hasLocale } from 'next-intl';
+import { routing } from '@/i18n/routing';
+import { obtenerPaginaEditorial } from '@/lib/contenido';
+import { localizar } from '@/lib/i18n/localizar';
+import { alternativas } from '@/lib/seo/metadatos';
+import { PaginaEditorialVista } from '@/components/secciones/PaginaEditorialVista';
 
-export const generateMetadata = metadatosPendiente;
+export async function generateMetadata({
+  params,
+}: PageProps<'/[locale]/privacidad'>): Promise<Metadata> {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) return {};
+  const pagina = await obtenerPaginaEditorial('privacidad');
+  if (!pagina) return {};
+  return {
+    title: stegaClean(localizar(pagina.seo?.titulo ?? pagina.titulo, locale)),
+    description: pagina.seo?.descripcion
+      ? stegaClean(localizar(pagina.seo.descripcion, locale))
+      : undefined,
+    alternates: alternativas('/privacidad', locale),
+  };
+}
 
-// Ruta fuera del piloto (D-029).
-export default function Pagina() {
-  return <PaginaPendiente seccion="privacidad" />;
+export default async function Pagina() {
+  const pagina = await obtenerPaginaEditorial('privacidad');
+  if (!pagina) notFound();
+  return <PaginaEditorialVista pagina={pagina} />;
 }

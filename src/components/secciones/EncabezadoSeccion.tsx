@@ -6,11 +6,14 @@ interface Props {
   sobretitulo?: string;
   titulo: string;
   entradilla?: string;
-  /** Enlace o botón que acompaña al título (p. ej. "Ver todos"). */
+  /** Enlace o botón que acompaña al título (p. ej. "View all"). */
   accion?: ReactNode;
   id?: string;
   className?: string;
-  tono?: 'oscuro' | 'claro';
+  /** Centrado, como los títulos del libro, o alineado a la izquierda con la acción a un lado. */
+  alineacion?: 'centro' | 'izquierda';
+  /** Nivel del título según la jerarquía de la página. */
+  nivel?: 'h1' | 'h2';
 }
 
 export function EncabezadoSeccion({
@@ -20,33 +23,28 @@ export function EncabezadoSeccion({
   accion,
   id,
   className,
-  tono = 'oscuro',
+  alineacion = 'centro',
+  nivel = 'h2',
 }: Props) {
+  const Titulo = nivel;
+  const centro = alineacion === 'centro';
   return (
     <div
-      className={cx('flex flex-col gap-6 md:flex-row md:items-end md:justify-between', className)}
+      className={cx(
+        centro
+          ? 'mx-auto flex max-w-2xl flex-col items-center text-center'
+          : 'flex flex-col gap-6 md:flex-row md:items-end md:justify-between',
+        className,
+      )}
     >
-      <div className="max-w-2xl">
-        {sobretitulo && (
-          <Sobretitulo className={tono === 'claro' ? 'text-piedra' : undefined}>
-            {sobretitulo}
-          </Sobretitulo>
-        )}
-        <h2 id={id} className="mt-3 text-titulo-1">
+      <div className={centro ? 'flex flex-col items-center' : 'max-w-2xl'}>
+        {sobretitulo && <Sobretitulo className="mb-4">{sobretitulo}</Sobretitulo>}
+        <Titulo id={id} className={nivel === 'h1' ? 'text-titulo-1' : 'text-titulo-2'}>
           {titulo}
-        </h2>
-        {entradilla && (
-          <p
-            className={cx(
-              'mt-4 text-destacado',
-              tono === 'claro' ? 'text-piedra' : 'text-tinta-suave',
-            )}
-          >
-            {entradilla}
-          </p>
-        )}
+        </Titulo>
+        {entradilla && <p className="mt-6 text-destacado text-tinta-suave">{entradilla}</p>}
       </div>
-      {accion && <div className="shrink-0">{accion}</div>}
+      {accion && <div className={centro ? 'mt-8' : 'shrink-0'}>{accion}</div>}
     </div>
   );
 }

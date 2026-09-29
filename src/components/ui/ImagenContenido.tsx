@@ -17,6 +17,11 @@ interface Props {
   className?: string;
   /** Campo de Sanity que se abre al hacer clic en la imagen en "Editar en la página". */
   edicion?: OrigenEdicion;
+  /**
+   * Imagen dentro de un control cuyo texto ya dice lo mismo (opciones de Find Your Yucatán,
+   * colecciones): alt vacío para no repetir el nombre accesible.
+   */
+  decorativa?: boolean;
 }
 
 /**
@@ -25,16 +30,26 @@ interface Props {
  * Las imágenes de Sanity se redimensionan en su CDN (sin trabajo en el servidor, D-025); las
  * locales pasan por el optimizador de Next.
  */
-export function ImagenContenido({ imagen, sizes, preload = false, className, edicion }: Props) {
+export function ImagenContenido({
+  imagen,
+  sizes,
+  preload = false,
+  className,
+  edicion,
+  decorativa = false,
+}: Props) {
   const idioma = useLocale();
   const deSanity = imagen.url.startsWith('https://cdn.sanity.io/');
   return (
     <Image
       src={imagen.url}
-      alt={localizar(imagen.alt, idioma)}
+      alt={decorativa ? '' : localizar(imagen.alt, idioma)}
       fill
       sizes={sizes}
       preload={preload}
+      // `preload` no sube la prioridad de la petición: sin esto la imagen principal compite
+      // con fuentes y scripts y el LCP se retrasa.
+      fetchPriority={preload ? 'high' : undefined}
       loader={deSanity ? imageLoader : undefined}
       className={className ?? 'object-cover'}
       style={

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 import { stegaClean } from 'next-sanity';
 import { hasLocale } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { getPathname } from '@/i18n/navigation';
 import {
@@ -16,17 +16,16 @@ import { alternativas } from '@/lib/seo/metadatos';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { Migas } from '@/components/ui/Migas';
 import { BarraCtaMovil } from '@/components/secciones/venue/BarraCtaMovil';
-import { FichaTecnica } from '@/components/secciones/venue/FichaTecnica';
+import { DatosClave } from '@/components/secciones/venue/DatosClave';
 import { Galeria } from '@/components/secciones/venue/Galeria';
 import { HeroVenue } from '@/components/secciones/venue/HeroVenue';
 import {
-  DescripcionVenue,
-  SeccionCitas,
-  SeccionDisponibilidad,
-  SeccionEntrevista,
   SeccionEspacios,
-  SeccionProveedores,
+  SeccionNotas,
+  SeccionPelicula,
   SeccionSimilares,
+  SeccionSolicitud,
+  SobreVenue,
 } from '@/components/secciones/venue/SeccionesVenue';
 
 // Todas las fichas se generan en el build (D-024).
@@ -51,12 +50,17 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * Perfil de venue con la estructura base del documento (sección 7): Hero, Quick facts, About,
+ * Spaces, Curated Notes, Gallery y Request information. Se suman la película de la serie
+ * "El Lugar de Tu Historia" (libro) y más venues de la misma colección.
+ */
 export default async function PaginaVenue({ params }: PageProps<'/[locale]/venues/[slug]'>) {
   const { slug } = await params;
   const venue = await obtenerVenue(slug);
   if (!venue) {
     // Slug cambiado en Sanity: redirección permanente 308 al vigente (D-020).
-    const slugActual = await obtenerSlugActual(slug);
+    const slugActual = await obtenerSlugActual('venue', slug);
     if (slugActual) {
       const { locale } = await params;
       permanentRedirect(
@@ -69,14 +73,14 @@ export default async function PaginaVenue({ params }: PageProps<'/[locale]/venue
     notFound();
   }
 
-  const [similares, tn, tv] = await Promise.all([
+  const [similares, tn, tv, idioma] = await Promise.all([
     obtenerVenuesSimilares(venue),
     getTranslations('Navegacion'),
     getTranslations('Venues'),
+    getLocale(),
   ]);
 
-  // El espacio para la barra fija móvil lo reserva globales.css (body:has([data-barra-fija])),
-  // así tampoco tapa el pie.
+  // El espacio para la barra fija móvil lo reserva globales.css (body:has([data-barra-fija])).
   return (
     <>
       <Contenedor className="py-2">
@@ -89,27 +93,17 @@ export default async function PaginaVenue({ params }: PageProps<'/[locale]/venue
         />
       </Contenedor>
       <HeroVenue venue={venue} />
-
-      <section className="py-seccion">
-        <Contenedor className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7">
-            <DescripcionVenue venue={venue} />
-          </div>
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24">
-              <FichaTecnica ficha={venue.fichaTecnica} venueId={venue._id} />
-            </div>
-          </div>
-        </Contenedor>
-      </section>
-
-      <SeccionEntrevista venue={venue} />
+      <DatosClave venue={venue} />
+      <SobreVenue venue={venue} />
+      <SeccionPelicula venue={venue} />
       <SeccionEspacios venue={venue} />
-      <Galeria imagenes={venue.media.galeria} venueId={venue._id} />
-      <SeccionCitas venue={venue} />
-      <SeccionProveedores venue={venue} />
-      <SeccionDisponibilidad venue={venue} />
-      <SeccionSimilares venues={similares} />
+      <SeccionNotas venue={venue} />
+      <Galeria
+        imagenes={venue.media.galeria}
+        origen={{ id: venue._id, tipo: 'venue', arreglo: 'media.galeria' }}
+      />
+      <SeccionSolicitud venue={venue} />
+      <SeccionSimilares venues={similares} coleccion={localizar(venue.coleccion.nombre, idioma)} />
       <BarraCtaMovil />
     </>
   );

@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { sanityConfigurado } from '@/lib/sanity/configuracion';
 import { EdicionVisual } from '@/components/edicion/EdicionVisual';
-import { ajustesTipograficos, clasesTipograficas } from '@/estilos/tipografia';
+import { clasesTipograficas } from '@/estilos/tipografia';
 import { sitioIndexable, urlSitio } from '@/lib/sitio';
 import { elegir } from '@/lib/utilidades';
 import { Encabezado } from '@/components/secciones/Encabezado';
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: LayoutProps<'/[locale]'>): Pr
 }
 
 export const viewport: Viewport = {
-  themeColor: '#f7f3ec',
+  themeColor: '#ffffff',
   colorScheme: 'light',
 };
 
@@ -44,10 +44,10 @@ const MENSAJES_CLIENTE = [
   'Comun',
   'Navegacion',
   'Inicio',
-  'Tipos',
-  'Catering',
   'Venues',
   'Venue',
+  'Proveedores',
+  'Encuentra',
   'Formularios',
 ] as const;
 
@@ -64,11 +64,11 @@ export default async function LayoutRaiz({ children, params }: LayoutProps<'/[lo
   const vistaPrevia = sanityConfigurado() && (await draftMode()).isEnabled;
 
   return (
-    <html lang={locale} className={clasesTipograficas} style={ajustesTipograficos}>
-      <body className="bg-cal text-tinta">
+    <html lang={locale} className={clasesTipograficas}>
+      <body className="bg-papel text-tinta">
         <a
           href="#contenido"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-tinta focus:px-4 focus:py-3 focus:text-cal"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-tinta focus:px-4 focus:py-3 focus:text-papel"
         >
           {t('saltarAlContenido')}
         </a>

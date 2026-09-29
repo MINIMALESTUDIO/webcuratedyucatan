@@ -6,7 +6,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
-import type { RutaEstatica } from '@/lib/navegacion';
+import { CTA_PRINCIPAL, ENLACE_ENCUENTRA, type RutaEstatica } from '@/lib/navegacion';
 import { clasesBoton } from '@/components/ui/Boton';
 import { Icono } from '@/components/ui/Icono';
 import { SelectorIdioma } from './SelectorIdioma';
@@ -33,7 +33,7 @@ export function MenuMovil({
         type="button"
         onClick={() => dialogo.current?.showModal()}
         aria-haspopup="dialog"
-        className="-mr-2 inline-flex size-11 items-center justify-center xl:hidden"
+        className="-mr-2 inline-flex size-11 items-center justify-center lg:hidden"
       >
         <Icono nombre="menu" className="size-6" />
         <span className="sr-only">{t('abrirMenu')}</span>
@@ -42,7 +42,7 @@ export function MenuMovil({
       <dialog
         ref={dialogo}
         aria-label={t('menu')}
-        className="m-0 h-dvh max-h-none w-full max-w-none bg-cal p-0 text-tinta"
+        className="m-0 h-dvh max-h-none w-full max-w-none bg-papel p-0 text-tinta"
       >
         <div className="flex min-h-full flex-col px-margen pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <div className="flex h-16 items-center justify-end">
@@ -57,25 +57,35 @@ export function MenuMovil({
           </div>
 
           <nav aria-label={t('principal')}>
-            <ul className="divide-y divide-piedra border-y border-piedra">
+            <ul className="divide-y divide-linea border-y border-linea">
               {enlaces.map((enlace) => (
                 <li key={enlace.href}>
                   <Link
                     href={enlace.href}
                     onClick={cerrar}
-                    className="flex min-h-14 items-center justify-between py-3 font-titulo text-titulo-3"
+                    className="flex min-h-14 items-center py-3 font-marca text-base tracking-[0.2em] uppercase"
                   >
                     {enlace.etiqueta}
-                    <Icono nombre="flechaDerecha" className="text-almagre" />
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="mt-auto flex flex-col gap-4 pt-8">
-            <Link href="/asesoria" onClick={cerrar} className={clasesBoton('primario', 'w-full')}>
-              {t('ctaAsesoria')}
+          <div className="mt-auto flex flex-col gap-4 pt-10">
+            <Link
+              href={CTA_PRINCIPAL.href}
+              onClick={cerrar}
+              className={clasesBoton('primario', 'w-full')}
+            >
+              {t(CTA_PRINCIPAL.clave)}
+            </Link>
+            <Link
+              href={ENLACE_ENCUENTRA.href}
+              onClick={cerrar}
+              className={clasesBoton('secundario', 'w-full')}
+            >
+              {t(ENLACE_ENCUENTRA.clave)}
             </Link>
             <SelectorIdioma className="self-center" />
           </div>

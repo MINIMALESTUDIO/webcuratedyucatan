@@ -73,7 +73,7 @@ export function VideoHero({
       <button
         type="button"
         onClick={alternar}
-        className="absolute right-4 bottom-4 z-10 inline-flex size-11 items-center justify-center rounded-full bg-tinta/60 text-cal foco-claro"
+        className="absolute right-4 bottom-4 z-10 inline-flex size-11 items-center justify-center rounded-full bg-tinta/60 text-papel foco-claro"
       >
         <Icono nombre={pausado ? 'play' : 'pausa'} />
         <span className="sr-only">{pausado ? t('reproducirVideo') : t('pausarVideo')}</span>

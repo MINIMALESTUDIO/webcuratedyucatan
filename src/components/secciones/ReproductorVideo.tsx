@@ -26,7 +26,7 @@ interface Props {
 }
 
 export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes, edicion }: Props) {
-  const t = useTranslations('Venue.entrevista');
+  const t = useTranslations('Venue.pelicula');
   const idioma = useLocale();
   // `clave` cambia en cada clic para volver a montar el iframe aunque se repita el capítulo.
   const [reproduccion, setReproduccion] = useState<{ inicio: number; clave: number } | null>(null);
@@ -40,7 +40,7 @@ export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes, edi
 
   return (
     <div data-sanity={atributoEdicion(edicion)}>
-      <div className="relative aspect-video overflow-hidden bg-tinta">
+      <div className="relative aspect-video overflow-hidden bg-arena">
         {src && reproduccion ? (
           <iframe
             key={reproduccion.clave}
@@ -64,9 +64,9 @@ export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes, edi
               sizes={sizes}
               className="object-cover"
             />
-            <span className="absolute inset-0 bg-tinta/30 transition-colors duration-300 group-hover:bg-tinta/15" />
-            <span className="absolute top-1/2 left-1/2 flex size-18 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-almagre text-cal shadow-lg transition-transform duration-300 group-hover:scale-105">
-              <Icono nombre="play" className="size-8 translate-x-0.5" />
+            <span className="velo absolute inset-0 transition-opacity duration-500 group-hover:opacity-70" />
+            <span className="absolute top-1/2 left-1/2 flex size-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-papel text-papel transition-transform duration-500 group-hover:scale-105">
+              <Icono nombre="play" className="size-7 translate-x-0.5" />
             </span>
             <span className="sr-only">{t('reproducir', { titulo })}</span>
           </button>
@@ -74,30 +74,28 @@ export function ReproductorVideo({ youtubeId, titulo, capitulos = [], sizes, edi
       </div>
 
       {capitulos.length > 0 && (
-        <div className="mt-6">
-          <h3 className="font-texto text-xs font-semibold tracking-[0.16em] uppercase">
-            {t('capitulos')}
-          </h3>
-          <ol className="mt-2 divide-y divide-cal/15 border-y border-cal/15">
+        <div className="mt-8">
+          <h3 className="etiqueta font-texto">{t('capitulos')}</h3>
+          <ol className="mt-3 divide-y divide-linea border-y border-linea">
             {capitulos.map((capitulo) => {
               const tiempo = formatearTiempo(capitulo.segundoInicio);
               const activo = reproduccion?.inicio === capitulo.segundoInicio;
               return (
                 <li key={capitulo.segundoInicio}>
+                  {/* El nombre accesible es el texto visible con un prefijo solo para lectores de
+                      pantalla ("Reproducir desde 1:35 …"): sin aria-label (WCAG 2.5.3). */}
                   <button
                     type="button"
                     onClick={() => reproducir(capitulo.segundoInicio)}
                     aria-current={activo ? 'true' : undefined}
-                    aria-label={t('irACapitulo', { tiempo, titulo: capitulo.titulo })}
                     className={cx(
-                      'flex min-h-12 w-full items-baseline gap-4 py-3 text-left foco-claro hover:text-piedra',
-                      activo && 'text-piedra',
+                      'flex min-h-12 w-full items-baseline gap-4 py-3 text-left text-sm hover:underline',
+                      activo && 'font-semibold',
                     )}
                   >
-                    <span className="w-14 shrink-0 text-sm text-piedra tabular-nums">{tiempo}</span>
-                    <span className={cx(activo && 'underline underline-offset-4')}>
-                      {capitulo.titulo}
-                    </span>
+                    <span className="sr-only">{t('reproducirDesde')} </span>
+                    <span className="w-14 shrink-0 text-tinta-suave tabular-nums">{tiempo}</span>
+                    <span>{capitulo.titulo}</span>
                   </button>
                 </li>
               );

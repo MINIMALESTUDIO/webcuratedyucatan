@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 import { cx } from '@/lib/utilidades';
 
-/** Texto pequeño en versalitas que antecede a un título. */
+/** Microetiqueta que antecede a un título, como "VENUE OVERVIEW" en el libro. */
 export function Sobretitulo({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <p className={cx('text-xs font-semibold tracking-[0.16em] text-almagre uppercase', className)}>
+    <p className={cx('font-marca text-xs tracking-[0.24em] text-tinta-suave uppercase', className)}>
       {children}
     </p>
   );

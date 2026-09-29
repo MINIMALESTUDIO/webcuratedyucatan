@@ -1,93 +1,63 @@
-import { PortableText, type PortableTextComponents } from '@portabletext/react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import type { Venue, VenueTarjeta } from '@/lib/contenido/tipos';
 import { formatearNumero } from '@/lib/formato';
 import { localizar, localizarBloques } from '@/lib/i18n/localizar';
-import { rutaElemento } from '@/lib/sanity/edicion';
-import { Chip } from '@/components/ui/Chip';
+import { atributoEdicion, rutaElemento } from '@/lib/sanity/edicion';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 import { Sobretitulo } from '@/components/ui/Sobretitulo';
-import { FormularioDisponibilidad } from '@/components/formularios/FormularioDisponibilidad';
+import { FormularioSolicitud } from '@/components/formularios/FormularioSolicitud';
 import { EncabezadoSeccion } from '../EncabezadoSeccion';
 import { ReproductorVideo } from '../ReproductorVideo';
-import { TarjetaProveedor } from '../TarjetaProveedor';
 import { TarjetaVenue } from '../TarjetaVenue';
+import { TextoEnriquecido } from '../TextoEnriquecido';
 
-/** Estilos del texto enriquecido de Sanity (párrafos, subtítulos, listas y enlaces). */
-const componentesTexto: PortableTextComponents = {
-  block: {
-    normal: ({ children }) => <p>{children}</p>,
-    h3: ({ children }) => <h3 className="mt-2 text-titulo-3">{children}</h3>,
-  },
-  list: {
-    bullet: ({ children }) => <ul className="list-disc space-y-2 pl-6">{children}</ul>,
-    number: ({ children }) => <ol className="list-decimal space-y-2 pl-6">{children}</ol>,
-  },
-  marks: {
-    link: ({ value, children }) => {
-      const href = typeof value?.href === 'string' ? value.href : '#';
-      const externo = href.startsWith('http');
-      return (
-        <a
-          href={href}
-          className="text-almagre underline underline-offset-4"
-          {...(externo ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-        >
-          {children}
-        </a>
-      );
-    },
-  },
-};
-
-/** Descripción en texto enriquecido (Portable Text). */
-export async function DescripcionVenue({ venue }: { venue: Venue }) {
-  const t = await getTranslations('Venue.descripcion');
+/** About: descripción editorial del venue. */
+export async function SobreVenue({ venue }: { venue: Venue }) {
+  const t = await getTranslations('Venue.sobre');
   const idioma = await getLocale();
   return (
-    <div>
-      <h2 className="text-titulo-2">{t('titulo')}</h2>
-      <div className="mt-6 flex max-w-lectura flex-col gap-5 text-destacado">
-        <PortableText
-          value={localizarBloques(venue.descripcion, idioma)}
-          components={componentesTexto}
+    <section aria-labelledby="sobre" className="py-seccion">
+      <Contenedor className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+        <h2 id="sobre" className="text-titulo-2 lg:col-span-4">
+          {t('titulo')}
+        </h2>
+        <TextoEnriquecido
+          valor={localizarBloques(venue.descripcion, idioma)}
+          className="text-destacado lg:col-span-8"
         />
-      </div>
-    </div>
+      </Contenedor>
+    </section>
   );
 }
 
-export async function SeccionEntrevista({ venue }: { venue: Venue }) {
-  const entrevista = venue.entrevista;
-  if (!entrevista) return null;
-  const t = await getTranslations('Venue.entrevista');
+/** La película del venue en la serie "El Lugar de Tu Historia" (libro, pág. 43). */
+export async function SeccionPelicula({ venue }: { venue: Venue }) {
+  const pelicula = venue.pelicula;
+  if (!pelicula) return null;
+  const t = await getTranslations('Venue.pelicula');
   const idioma = await getLocale();
 
   return (
-    <section
-      id="entrevista"
-      aria-labelledby="titulo-entrevista"
-      className="bg-tinta py-seccion text-cal"
-    >
+    <section id="pelicula" aria-labelledby="titulo-pelicula" className="bg-papel-calido py-seccion">
       <Contenedor className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
-          <Sobretitulo className="text-piedra">{t('sobretitulo')}</Sobretitulo>
-          <h2 id="titulo-entrevista" className="mt-4 text-titulo-2">
-            {t('titulo', { nombre: venue.nombre })}
+          <Sobretitulo>{t('serie')}</Sobretitulo>
+          <h2 id="titulo-pelicula" className="mt-4 text-titulo-2">
+            {t('titulo')}
           </h2>
-          {entrevista.esDemo && <p className="mt-5 text-sm text-piedra">{t('notaDemo')}</p>}
+          {pelicula.esDemo && <p className="mt-5 text-sm text-tinta-suave">{t('notaDemo')}</p>}
         </div>
         <div className="lg:col-span-8">
           <ReproductorVideo
-            youtubeId={entrevista.youtubeId}
-            titulo={localizar(entrevista.titulo, idioma)}
-            capitulos={entrevista.capitulos.map((capitulo) => ({
+            youtubeId={pelicula.youtubeId}
+            titulo={localizar(pelicula.titulo, idioma)}
+            capitulos={pelicula.capitulos.map((capitulo) => ({
               titulo: localizar(capitulo.titulo, idioma),
               segundoInicio: capitulo.segundoInicio,
             }))}
             sizes="(min-width: 1280px) 820px, (min-width: 1024px) 65vw, 100vw"
-            edicion={{ id: venue._id, tipo: 'venue', ruta: 'entrevista' }}
+            edicion={{ id: venue._id, tipo: 'venue', ruta: 'pelicula' }}
           />
         </div>
       </Contenedor>
@@ -95,26 +65,24 @@ export async function SeccionEntrevista({ venue }: { venue: Venue }) {
   );
 }
 
+/** Spaces: áreas disponibles y capacidades, como la lista "Capacity & spaces" del libro. */
 export async function SeccionEspacios({ venue }: { venue: Venue }) {
+  if (venue.espacios.length === 0) return null;
   const t = await getTranslations('Venue.espacios');
+  const tc = await getTranslations('Comun');
   const idioma = await getLocale();
-  const formatos = [
-    { etiqueta: t('ceremonia'), clave: 'capacidadCeremonia' },
-    { etiqueta: t('coctel'), clave: 'capacidadCoctel' },
-    { etiqueta: t('banquete'), clave: 'capacidadBanquete' },
-  ] as const;
 
   return (
     <section aria-labelledby="espacios" className="py-seccion">
       <Contenedor>
-        <EncabezadoSeccion id="espacios" sobretitulo={t('sobretitulo')} titulo={t('titulo')} />
-        <ul className="mt-12 grid gap-12 md:grid-cols-2 xl:grid-cols-3 lg:gap-10">
+        <EncabezadoSeccion id="espacios" titulo={t('titulo')} />
+        <ul className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 xl:grid-cols-3">
           {venue.espacios.map((espacio) => {
             const imagen = espacio.imagenes[0];
             return (
               <li key={espacio._key} className="flex flex-col">
                 {imagen && (
-                  <div className="relative aspect-[3/2] overflow-hidden bg-piedra">
+                  <div className="relative aspect-[3/2] overflow-hidden bg-arena">
                     <ImagenContenido
                       imagen={imagen}
                       edicion={{
@@ -130,40 +98,18 @@ export async function SeccionEspacios({ venue }: { venue: Venue }) {
                     />
                   </div>
                 )}
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <h3 className="text-titulo-3">{localizar(espacio.nombre, idioma)}</h3>
-                  <Chip className="shrink-0 text-henequen">{t(espacio.interiorExterior)}</Chip>
-                </div>
-                <p className="mt-2 text-sm text-tinta-suave">
-                  {localizar(espacio.descripcion, idioma)}
+                <h3 className="mt-6 text-titulo-3">{localizar(espacio.nombre, idioma)}</h3>
+                <p className="etiqueta mt-2 text-tinta-suave">
+                  {t(espacio.interiorExterior)}
+                  {espacio.capacidad
+                    ? ` · ${tc('invitados', { cantidad: formatearNumero(espacio.capacidad, idioma) })}`
+                    : ''}
                 </p>
-                <table className="mt-4 w-full text-sm">
-                  <thead className="sr-only">
-                    <tr>
-                      <th scope="col">{t('formato')}</th>
-                      <th scope="col">{t('capacidad')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {formatos.map((formato) => {
-                      const valor = espacio[formato.clave];
-                      return (
-                        <tr key={formato.clave} className="border-t border-piedra">
-                          <th scope="row" className="py-2 text-left font-normal text-tinta-suave">
-                            {formato.etiqueta}
-                          </th>
-                          <td className="py-2 text-right font-semibold tabular-nums">
-                            {valor ? (
-                              formatearNumero(valor, idioma)
-                            ) : (
-                              <span className="font-normal text-tinta-suave">{t('noAplica')}</span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                {espacio.descripcion && (
+                  <p className="mt-3 text-sm text-tinta-suave">
+                    {localizar(espacio.descripcion, idioma)}
+                  </p>
+                )}
               </li>
             );
           })}
@@ -173,95 +119,79 @@ export async function SeccionEspacios({ venue }: { venue: Venue }) {
   );
 }
 
-export async function SeccionCitas({ venue }: { venue: Venue }) {
-  if (venue.citasDestacadas.length === 0) return null;
-  const t = await getTranslations('Venue.citas');
+/** Curated Notes: información especialmente útil para wedding planners. */
+export async function SeccionNotas({ venue }: { venue: Venue }) {
+  if (venue.notasCurated.length === 0) return null;
+  const t = await getTranslations('Venue.notas');
   const idioma = await getLocale();
 
   return (
-    <section aria-labelledby="citas" className="bg-piedra py-seccion">
+    <section aria-labelledby="notas" className="border-y border-linea py-seccion">
       <Contenedor>
-        <h2 id="citas" className="sr-only">
-          {t('titulo')}
-        </h2>
-        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
-          {venue.citasDestacadas.map((cita) => (
-            <figure key={cita._key} className="flex flex-col gap-5">
-              <span
-                aria-hidden="true"
-                className="font-titulo text-[5rem] leading-[0.5] text-almagre"
-              >
-                “
+        <EncabezadoSeccion id="notas" titulo={t('titulo')} entradilla={t('entradilla')} />
+        <ol
+          className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3"
+          data-sanity={atributoEdicion({ id: venue._id, tipo: 'venue', ruta: 'notasCurated' })}
+        >
+          {venue.notasCurated.map((nota, i) => (
+            <li key={nota._key} className="flex flex-col gap-3 border-t border-tinta pt-6">
+              <span className="font-marca text-xs tracking-[0.2em] text-tinta-suave">
+                {String(i + 1).padStart(2, '0')}
               </span>
-              <blockquote className="font-titulo-italica text-titulo-2 italic">
-                <p>{localizar(cita.texto, idioma)}</p>
-              </blockquote>
-              <figcaption className="text-sm">
-                <span className="font-semibold">{cita.autor}</span>
-                <span className="text-tinta-suave"> · {localizar(cita.cargo, idioma)}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </Contenedor>
-    </section>
-  );
-}
-
-export async function SeccionProveedores({ venue }: { venue: Venue }) {
-  if (venue.proveedoresRecomendados.length === 0) return null;
-  const t = await getTranslations('Venue.proveedores');
-
-  return (
-    <section aria-labelledby="proveedores" className="py-seccion">
-      <Contenedor>
-        <EncabezadoSeccion id="proveedores" sobretitulo={t('sobretitulo')} titulo={t('titulo')} />
-        <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {venue.proveedoresRecomendados.map((proveedor) => (
-            <li key={proveedor._id} className="flex border border-piedra">
-              <TarjetaProveedor proveedor={proveedor} />
+              <h3 className="text-titulo-3">{localizar(nota.titulo, idioma)}</h3>
+              <p className="text-sm text-tinta-suave">{localizar(nota.texto, idioma)}</p>
             </li>
           ))}
-        </ul>
+        </ol>
       </Contenedor>
     </section>
   );
 }
 
-export async function SeccionDisponibilidad({ venue }: { venue: Venue }) {
-  const t = await getTranslations('Venue.disponibilidad');
-
+/** Request information: solicitud mediante Curated, con el venue ya indicado. */
+export async function SeccionSolicitud({ venue }: { venue: Venue }) {
+  const t = await getTranslations('Venue.solicitud');
   return (
     <section
-      id="disponibilidad"
-      aria-labelledby="titulo-disponibilidad"
-      className="bg-piedra py-seccion"
+      id="solicitud"
+      aria-labelledby="titulo-solicitud"
+      className="bg-papel-calido py-seccion"
     >
       <Contenedor className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-4">
-          <Sobretitulo>{t('sobretitulo')}</Sobretitulo>
-          <h2 id="titulo-disponibilidad" className="mt-4 text-titulo-2">
-            {t('titulo', { nombre: venue.nombre })}
+          <h2 id="titulo-solicitud" className="text-titulo-2">
+            {t('titulo')}
           </h2>
-          <p className="mt-5 text-tinta-suave">{t('texto')}</p>
+          <p className="mt-6 text-tinta-suave">{t('texto', { nombre: venue.nombre })}</p>
         </div>
         <div className="lg:col-span-8">
-          <FormularioDisponibilidad venueSlug={venue.slug} />
+          <FormularioSolicitud
+            origen="venue"
+            origenSlug={venue.slug}
+            mostrarBuscando={false}
+            buscandoInicial={['venue']}
+          />
         </div>
       </Contenedor>
     </section>
   );
 }
 
-export async function SeccionSimilares({ venues }: { venues: VenueTarjeta[] }) {
+/** Más venues de la misma colección. */
+export async function SeccionSimilares({
+  venues,
+  coleccion,
+}: {
+  venues: VenueTarjeta[];
+  coleccion: string;
+}) {
   if (venues.length === 0) return null;
   const t = await getTranslations('Venue.similares');
-
   return (
     <section aria-labelledby="similares" className="py-seccion">
       <Contenedor>
-        <EncabezadoSeccion id="similares" titulo={t('titulo')} />
-        <ul className="mt-12 grid gap-12 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        <EncabezadoSeccion id="similares" titulo={t('titulo', { coleccion })} />
+        <ul className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
           {venues.map((venue) => (
             <li key={venue._id} className="flex">
               <TarjetaVenue venue={venue} />

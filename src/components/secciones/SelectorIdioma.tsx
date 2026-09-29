@@ -48,7 +48,7 @@ export function SelectorIdioma({
             {i > 0 && (
               <span
                 aria-hidden="true"
-                className={tono === 'claro' ? 'text-cal/50' : 'text-tinta-suave'}
+                className={tono === 'claro' ? 'text-papel/60' : 'text-tinta-suave'}
               >
                 ·
               </span>
@@ -57,8 +57,8 @@ export function SelectorIdioma({
               <span
                 aria-current="true"
                 className={cx(
-                  'inline-flex min-h-11 min-w-11 items-center justify-center font-semibold underline decoration-2 underline-offset-4',
-                  tono === 'claro' ? 'text-cal' : 'text-tinta',
+                  'inline-flex min-h-11 min-w-11 items-center justify-center text-xs font-semibold tracking-[0.16em] underline underline-offset-4',
+                  tono === 'claro' ? 'text-papel' : 'text-tinta',
                 )}
               >
                 {otro.toUpperCase()}
@@ -74,8 +74,8 @@ export function SelectorIdioma({
                 hrefLang={otro}
                 onClick={(evento) => conservarFiltros(evento, otro)}
                 className={cx(
-                  'inline-flex min-h-11 min-w-11 items-center justify-center hover:underline',
-                  tono === 'claro' ? 'text-cal/85 foco-claro' : 'text-tinta-suave',
+                  'inline-flex min-h-11 min-w-11 items-center justify-center text-xs tracking-[0.16em] hover:underline',
+                  tono === 'claro' ? 'text-papel foco-claro' : 'text-tinta-suave',
                 )}
               >
                 <span aria-hidden="true">{otro.toUpperCase()}</span>
