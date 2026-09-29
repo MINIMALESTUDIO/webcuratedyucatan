@@ -1,54 +1,42 @@
 import type {
-  CategoriaProveedor,
+  Articulo,
+  ArticuloResumen,
+  Coleccion,
   ConfiguracionSitio,
-  Episodio,
-  Guia,
-  HistoriaResumen,
+  DescubreYucatan,
+  DisenoProduccion,
+  PaginaEditorial,
+  PaginaFija,
+  Proveedor,
+  ProveedorResumen,
   Region,
+  TipoProveedor,
   Venue,
   VenueTarjeta,
 } from './tipos';
 
+/** Tipos de documento con slugs anteriores (redirección 308, D-020). */
+export type TipoConSlug = 'venue' | 'proveedor';
+
 /** Contrato común de las fuentes de contenido: DEMO local y Sanity (D-033). */
 export interface FuenteContenido {
   obtenerConfiguracionSitio(): Promise<ConfiguracionSitio>;
+  obtenerColecciones(): Promise<Coleccion[]>;
   obtenerRegiones(): Promise<Region[]>;
-  obtenerCategoriasProveedor(): Promise<CategoriaProveedor[]>;
   obtenerVenuesTarjeta(): Promise<VenueTarjeta[]>;
   obtenerVenuesDestacados(limite: number): Promise<VenueTarjeta[]>;
   /** Slugs publicados, sin stega: para generateStaticParams. */
   obtenerSlugsVenues(): Promise<string[]>;
   obtenerVenue(slug: string): Promise<Venue | null>;
-  /** Slug vigente de un venue que antes usaba `slugAnterior` (redirección 308, D-020). */
-  obtenerSlugActual(slugAnterior: string): Promise<string | null>;
-  obtenerUltimoEpisodio(): Promise<Episodio | null>;
-  obtenerGuiaActiva(): Promise<Guia | null>;
-  obtenerHistoriasRecientes(limite: number): Promise<HistoriaResumen[]>;
-}
-
-/**
- * Venues parecidos: misma región suma 2 puntos y cada tipo en común suma 1. Si no hay
- * suficientes, se completa con los demás, primero los destacados editoriales.
- */
-export function calcularSimilares(
-  base: Pick<Venue, 'slug' | 'region' | 'tipos'>,
-  candidatos: VenueTarjeta[],
-  limite: number,
-): VenueTarjeta[] {
-  return candidatos
-    .filter((otro) => otro.slug !== base.slug)
-    .map((otro) => ({
-      otro,
-      puntos:
-        (otro.region.slug === base.region.slug ? 2 : 0) +
-        otro.tipos.filter((tipo) => base.tipos.includes(tipo)).length,
-    }))
-    .sort(
-      (a, b) =>
-        b.puntos - a.puntos ||
-        Number(b.otro.destacado) - Number(a.otro.destacado) ||
-        a.otro.nombre.localeCompare(b.otro.nombre),
-    )
-    .slice(0, limite)
-    .map(({ otro }) => otro);
+  /** Slug vigente de un documento que antes usaba `slugAnterior` (redirección 308, D-020). */
+  obtenerSlugActual(tipo: TipoConSlug, slugAnterior: string): Promise<string | null>;
+  obtenerProveedores(tipo: TipoProveedor): Promise<ProveedorResumen[]>;
+  obtenerSlugsProveedores(tipo: TipoProveedor): Promise<string[]>;
+  obtenerProveedor(tipo: TipoProveedor, slug: string): Promise<Proveedor | null>;
+  obtenerDisenoProduccion(): Promise<DisenoProduccion>;
+  obtenerArticulos(limite?: number): Promise<ArticuloResumen[]>;
+  obtenerSlugsArticulos(): Promise<string[]>;
+  obtenerArticulo(slug: string): Promise<Articulo | null>;
+  obtenerDescubreYucatan(): Promise<DescubreYucatan>;
+  obtenerPaginaEditorial(pagina: PaginaFija): Promise<PaginaEditorial | null>;
 }

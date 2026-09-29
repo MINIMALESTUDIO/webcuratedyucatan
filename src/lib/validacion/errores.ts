@@ -11,10 +11,7 @@ export const CODIGOS_ERROR = [
   'muyCorto',
   'muyLargo',
   'correoInvalido',
-  'fechaInvalida',
-  'fechaPasada',
-  'fechaOFlexible',
-  'numeroInvalido',
+  'eligeUno',
   'consentimiento',
 ] as const;
 

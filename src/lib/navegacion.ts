@@ -11,50 +11,55 @@ export interface EnlaceNavegacion {
   clave: ClaveNavegacion;
 }
 
-/** Navegación principal de escritorio. */
+/**
+ * Navegación principal (documento de estructura, sección 3). En escritorio "Home" lo cubre el
+ * logotipo; el menú móvil lo muestra.
+ */
 export const NAVEGACION_PRINCIPAL: EnlaceNavegacion[] = [
+  { href: '/descubre-yucatan', clave: 'descubre' },
   { href: '/venues', clave: 'venues' },
-  { href: '/proveedores', clave: 'proveedores' },
-  { href: '/fin-de-semana', clave: 'finDeSemana' },
-  { href: '/planea-tu-boda', clave: 'planeaTuBoda' },
-  { href: '/venue-tours', clave: 'venueTours' },
-  { href: '/guia', clave: 'guia' },
+  { href: '/catering', clave: 'catering' },
+  { href: '/fotografia', clave: 'fotografia' },
+  { href: '/diseno-y-produccion', clave: 'diseno' },
+  { href: '/journal', clave: 'journal' },
+  { href: '/nosotros', clave: 'nosotros' },
 ];
 
-/** El menú móvil agrega secciones que en escritorio viven en el pie. */
 export const NAVEGACION_MOVIL: EnlaceNavegacion[] = [
+  { href: '/', clave: 'inicio' },
   ...NAVEGACION_PRINCIPAL,
-  { href: '/historias', clave: 'historias' },
-  { href: '/aliados', clave: 'aliados' },
 ];
+
+/** CTA principal del encabezado (conversión). */
+export const CTA_PRINCIPAL: EnlaceNavegacion = { href: '/planea-tu-evento', clave: 'planea' };
+
+/** Experiencia de descubrimiento: accesible por CTA y enlaces específicos, además del QR. */
+export const ENLACE_ENCUENTRA: EnlaceNavegacion = {
+  href: '/encuentra-tu-yucatan',
+  clave: 'encuentra',
+};
 
 export const NAVEGACION_PIE: Array<{
-  titulo: 'explorar' | 'planear' | 'nosotros';
+  titulo: 'explorar' | 'curated';
   enlaces: EnlaceNavegacion[];
 }> = [
   {
     titulo: 'explorar',
     enlaces: [
+      { href: '/descubre-yucatan', clave: 'descubre' },
       { href: '/venues', clave: 'venues' },
-      { href: '/proveedores', clave: 'proveedores' },
-      { href: '/fin-de-semana', clave: 'finDeSemana' },
-      { href: '/venue-tours', clave: 'venueTours' },
+      { href: '/catering', clave: 'catering' },
+      { href: '/fotografia', clave: 'fotografia' },
+      { href: '/diseno-y-produccion', clave: 'diseno' },
     ],
   },
   {
-    titulo: 'planear',
+    titulo: 'curated',
     enlaces: [
-      { href: '/planea-tu-boda', clave: 'planeaTuBoda' },
-      { href: '/guia', clave: 'guia' },
-      { href: '/asesoria', clave: 'asesoria' },
-      { href: '/historias', clave: 'historias' },
-    ],
-  },
-  {
-    titulo: 'nosotros',
-    enlaces: [
-      { href: '/aliados', clave: 'aliados' },
-      { href: '/privacidad', clave: 'privacidad' },
+      { href: '/journal', clave: 'journal' },
+      { href: '/nosotros', clave: 'nosotros' },
+      ENLACE_ENCUENTRA,
+      CTA_PRINCIPAL,
     ],
   },
 ];

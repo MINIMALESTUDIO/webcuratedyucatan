@@ -1,6 +1,7 @@
 import type {
   BloquesLocalizados,
   BloqueTexto,
+  ElementoLista,
   Imagen,
   TextoLocalizado,
 } from '@/lib/contenido/tipos';
@@ -35,22 +36,28 @@ export function bloques(prefijo: string, en: string[], es: string[]): BloquesLoc
   return { en: aBloques(`${prefijo}-en`, en), es: aBloques(`${prefijo}-es`, es) };
 }
 
-/** Galería de cinco imágenes DEMO de un venue (mezcla de horizontales y verticales). */
-export function galeriaDemo(numeroVenue: number, nombre: string): Imagen[] {
-  const medidas: Array<[number, number]> = [
-    [1600, 1067],
-    [1067, 1600],
-    [1600, 1067],
-    [1600, 1067],
-    [1067, 1600],
-  ];
-  return medidas.map(([ancho, alto], i) =>
-    imagenDemo(
-      `venue-${numeroVenue}-galeria-${i + 1}.jpg`,
+/** Lista bilingüe con claves estables. */
+export function lista(
+  prefijo: string,
+  elementos: Array<[en: string, es: string]>,
+): ElementoLista[] {
+  return elementos.map(([en, es], i) => ({ _key: `${prefijo}-${i + 1}`, texto: texto(en, es) }));
+}
+
+type Medida = [ancho: number, alto: number];
+export const HORIZONTAL: Medida = [1600, 1067];
+export const VERTICAL: Medida = [1200, 1500];
+
+/** Serie de imágenes DEMO numeradas: `${prefijo}-1.jpg`, `${prefijo}-2.jpg`… */
+export function serieDemo(prefijo: string, medidas: Medida[], nombre: string): Imagen[] {
+  return medidas.map(([ancho, alto], i) => ({
+    ...imagenDemo(
+      `${prefijo}-${i + 1}.jpg`,
       ancho,
       alto,
       `[DEMO] Placeholder photo ${i + 1} of ${nombre}`,
       `[DEMO] Foto de relleno ${i + 1} de ${nombre}`,
     ),
-  );
+    _key: `${prefijo}-${i + 1}`,
+  }));
 }

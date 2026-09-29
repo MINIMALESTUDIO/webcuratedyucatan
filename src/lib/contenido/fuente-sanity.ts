@@ -1,35 +1,50 @@
 import 'server-only';
 import { sanityFetch } from '@/lib/sanity/live';
 import {
-  CONSULTA_CATEGORIAS,
+  CONSULTA_ARTICULO,
+  CONSULTA_ARTICULOS,
+  CONSULTA_COLECCIONES,
   CONSULTA_CONFIGURACION,
-  CONSULTA_GUIA_ACTIVA,
-  CONSULTA_HISTORIAS_RECIENTES,
+  CONSULTA_DESCUBRE,
+  CONSULTA_DISENO,
+  CONSULTA_PAGINA_EDITORIAL,
+  CONSULTA_PROVEEDOR,
+  CONSULTA_PROVEEDORES,
   CONSULTA_REGIONES,
-  CONSULTA_SLUG_ACTUAL,
+  CONSULTA_SLUG_ACTUAL_PROVEEDOR,
+  CONSULTA_SLUG_ACTUAL_VENUE,
+  CONSULTA_SLUGS_ARTICULOS,
+  CONSULTA_SLUGS_PROVEEDORES,
   CONSULTA_SLUGS_VENUES,
-  CONSULTA_ULTIMO_EPISODIO,
   CONSULTA_VENUE,
   CONSULTA_VENUES_DESTACADOS,
   CONSULTA_VENUES_TARJETA,
 } from '@/lib/sanity/consultas';
 import { sinNulos } from '@/lib/sanity/sin-nulos';
+import { entornoDeEspacios } from './derivados';
 import { fuenteDemo } from './fuente-demo';
 import type { FuenteContenido } from './fuente';
-import type {
-  CategoriaProveedor,
-  ConfiguracionSitio,
-  Episodio,
-  Guia,
-  HistoriaResumen,
-  Region,
-  Venue,
-  VenueTarjeta,
+import {
+  PAGINAS_FIJAS,
+  type Articulo,
+  type ArticuloResumen,
+  type Coleccion,
+  type ConfiguracionSitio,
+  type DescubreYucatan,
+  type DisenoProduccion,
+  type InteriorExterior,
+  type PaginaEditorial,
+  type Proveedor,
+  type ProveedorResumen,
+  type Region,
+  type Venue,
+  type VenueTarjeta,
 } from './tipos';
 
 /*
  * Fuente Sanity (D-033). Cada consulta lleva etiquetas por tipo de documento (y por slug en
- * las fichas) que /api/revalidar invalida al publicar (D-010).
+ * las fichas) que /api/revalidar invalida al publicar (D-010). Si falta un documento único,
+ * se usa el DEMO con un aviso en el registro del servidor.
  */
 
 interface Opciones {
@@ -49,38 +64,58 @@ async function consultar<T>(query: string, { params = {}, etiquetas, limpio = fa
   return sinNulos(data) as T;
 }
 
+type TarjetaCruda = Omit<VenueTarjeta, 'entorno'> & { tiposEspacio: InteriorExterior[] };
+
+function aTarjetas(crudas: TarjetaCruda[] | null): VenueTarjeta[] {
+  return (crudas ?? []).map(({ tiposEspacio, ...tarjeta }) => ({
+    ...tarjeta,
+    entorno: entornoDeEspacios(tiposEspacio),
+  }));
+}
+
+/** Documento único con respaldo DEMO si todavía no existe en el dataset. */
+async function unico<T>(
+  query: string,
+  etiqueta: string,
+  respaldo: () => Promise<T>,
+  params: Record<string, unknown> = {},
+): Promise<T> {
+  const documento = await consultar<T | null>(query, { etiquetas: [etiqueta], params });
+  if (documento) return documento;
+  console.warn(`[sanity] Falta el documento de "${etiqueta}"; se usan los textos DEMO.`);
+  return respaldo();
+}
+
+const ETIQUETAS_VENUES = ['venue', 'coleccion', 'region'];
+
 export const fuenteSanity: FuenteContenido = {
   async obtenerConfiguracionSitio() {
-    const configuracion = await consultar<ConfiguracionSitio | null>(CONSULTA_CONFIGURACION, {
-      etiquetas: ['configuracionSitio'],
-    });
-    if (configuracion) return configuracion;
-    console.warn('[sanity] Falta el documento configuracionSitio; se usan los textos DEMO.');
-    return fuenteDemo.obtenerConfiguracionSitio();
+    return unico<ConfiguracionSitio>(CONSULTA_CONFIGURACION, 'configuracionSitio', () =>
+      fuenteDemo.obtenerConfiguracionSitio(),
+    );
+  },
+  async obtenerColecciones() {
+    return (
+      (await consultar<Coleccion[] | null>(CONSULTA_COLECCIONES, { etiquetas: ['coleccion'] })) ??
+      []
+    );
   },
   async obtenerRegiones() {
     return (await consultar<Region[] | null>(CONSULTA_REGIONES, { etiquetas: ['region'] })) ?? [];
   },
-  async obtenerCategoriasProveedor() {
-    return (
-      (await consultar<CategoriaProveedor[] | null>(CONSULTA_CATEGORIAS, {
-        etiquetas: ['categoriaProveedor'],
-      })) ?? []
-    );
-  },
   async obtenerVenuesTarjeta() {
-    return (
-      (await consultar<VenueTarjeta[] | null>(CONSULTA_VENUES_TARJETA, {
-        etiquetas: ['venue', 'region'],
-      })) ?? []
+    return aTarjetas(
+      await consultar<TarjetaCruda[] | null>(CONSULTA_VENUES_TARJETA, {
+        etiquetas: ETIQUETAS_VENUES,
+      }),
     );
   },
   async obtenerVenuesDestacados(limite) {
-    return (
-      (await consultar<VenueTarjeta[] | null>(CONSULTA_VENUES_DESTACADOS, {
+    return aTarjetas(
+      await consultar<TarjetaCruda[] | null>(CONSULTA_VENUES_DESTACADOS, {
         params: { limite },
-        etiquetas: ['venue', 'region'],
-      })) ?? []
+        etiquetas: ETIQUETAS_VENUES,
+      }),
     );
   },
   async obtenerSlugsVenues() {
@@ -94,30 +129,76 @@ export const fuenteSanity: FuenteContenido = {
   async obtenerVenue(slug) {
     return consultar<Venue | null>(CONSULTA_VENUE, {
       params: { slug },
-      etiquetas: ['venue', `venue:${slug}`, 'region', 'proveedor', 'categoriaProveedor'],
+      etiquetas: [...ETIQUETAS_VENUES, `venue:${slug}`],
     });
   },
-  async obtenerSlugActual(slugAnterior) {
-    return consultar<string | null>(CONSULTA_SLUG_ACTUAL, {
-      params: { slug: slugAnterior },
-      etiquetas: ['venue'],
-      limpio: true,
-    });
+  async obtenerSlugActual(tipo, slugAnterior) {
+    return consultar<string | null>(
+      tipo === 'venue' ? CONSULTA_SLUG_ACTUAL_VENUE : CONSULTA_SLUG_ACTUAL_PROVEEDOR,
+      { params: { slug: slugAnterior }, etiquetas: [tipo], limpio: true },
+    );
   },
-  async obtenerUltimoEpisodio() {
-    return consultar<Episodio | null>(CONSULTA_ULTIMO_EPISODIO, {
-      etiquetas: ['episodio', 'venue'],
-    });
-  },
-  async obtenerGuiaActiva() {
-    return consultar<Guia | null>(CONSULTA_GUIA_ACTIVA, { etiquetas: ['guia'] });
-  },
-  async obtenerHistoriasRecientes(limite) {
+  async obtenerProveedores(tipo) {
     return (
-      (await consultar<HistoriaResumen[] | null>(CONSULTA_HISTORIAS_RECIENTES, {
-        params: { limite },
-        etiquetas: ['historia'],
+      (await consultar<ProveedorResumen[] | null>(CONSULTA_PROVEEDORES, {
+        params: { tipo },
+        etiquetas: ['proveedor'],
       })) ?? []
+    );
+  },
+  async obtenerSlugsProveedores(tipo) {
+    return (
+      (await consultar<string[] | null>(CONSULTA_SLUGS_PROVEEDORES, {
+        params: { tipo },
+        etiquetas: ['proveedor'],
+        limpio: true,
+      })) ?? []
+    );
+  },
+  async obtenerProveedor(tipo, slug) {
+    return consultar<Proveedor | null>(CONSULTA_PROVEEDOR, {
+      params: { tipo, slug },
+      etiquetas: ['proveedor', `proveedor:${slug}`],
+    });
+  },
+  async obtenerDisenoProduccion() {
+    return unico<DisenoProduccion>(CONSULTA_DISENO, 'disenoProduccion', () =>
+      fuenteDemo.obtenerDisenoProduccion(),
+    );
+  },
+  async obtenerArticulos(limite) {
+    return (
+      (await consultar<ArticuloResumen[] | null>(CONSULTA_ARTICULOS, {
+        params: { limite: limite ?? 1000 },
+        etiquetas: ['articulo'],
+      })) ?? []
+    );
+  },
+  async obtenerSlugsArticulos() {
+    return (
+      (await consultar<string[] | null>(CONSULTA_SLUGS_ARTICULOS, {
+        etiquetas: ['articulo'],
+        limpio: true,
+      })) ?? []
+    );
+  },
+  async obtenerArticulo(slug) {
+    return consultar<Articulo | null>(CONSULTA_ARTICULO, {
+      params: { slug },
+      etiquetas: ['articulo', `articulo:${slug}`],
+    });
+  },
+  async obtenerDescubreYucatan() {
+    return unico<DescubreYucatan>(CONSULTA_DESCUBRE, 'descubreYucatan', () =>
+      fuenteDemo.obtenerDescubreYucatan(),
+    );
+  },
+  async obtenerPaginaEditorial(pagina) {
+    return unico<PaginaEditorial | null>(
+      CONSULTA_PAGINA_EDITORIAL,
+      'paginaEditorial',
+      () => fuenteDemo.obtenerPaginaEditorial(pagina),
+      { id: PAGINAS_FIJAS[pagina] },
     );
   },
 };

@@ -1,17 +1,24 @@
 {
   "Metadatos": {
     "tituloSitio": "Curated Yucatán",
-    "descripcionSitio": "Bodas de destino en Yucatán, México: venues y proveedores curados, entrevistas en video con cada venue y una guía para planear.",
-    "inicioTitulo": "Bodas en Yucatán, con curaduría",
-    "venuesTitulo": "Venues para bodas en Yucatán",
-    "venuesDescripcion": "Haciendas, casonas coloniales, playas y cenotes. Filtra por región, tipo de venue, capacidad, hospedaje, catering e inversión.",
-    "pendienteTitulo": "Próximamente",
+    "descripcionSitio": "Tu guía experta para celebrar en Yucatán: descubre el destino, explora venues y aliados curados y planea tu evento.",
+    "inicioTitulo": "Tu guía experta para celebrar en Yucatán",
+    "descubreDescripcion": "Mérida, haciendas, cultura, gastronomía, naturaleza y experiencias: descubre Yucatán antes de planear una celebración.",
+    "venuesTitulo": "Venues en Yucatán",
+    "venuesDescripcion": "Una colección curada de venues en Yucatán: Contemporary Sanctuaries, Organic Estates y Timeless Venues.",
+    "cateringTitulo": "Catering en Yucatán",
+    "cateringDescripcion": "Una selección curada de empresas de catering para celebraciones en Yucatán.",
+    "fotografiaTitulo": "Fotografía en Yucatán",
+    "fotografiaDescripcion": "Una selección curada de fotógrafos y estudios para celebraciones en Yucatán.",
+    "disenoDescripcion": "Minimal, el partner curado de diseño y producción: mobiliario, mesa, diseño floral, decoración y producción.",
+    "journalDescripcion": "Historias editoriales y guías prácticas para planear celebraciones en Yucatán.",
+    "encuentraDescripcion": "Responde unas preguntas y descubre qué Yucatán va con tu celebración.",
+    "planeaDescripcion": "Cuéntanos de tu evento y empieza a planear tu celebración en Yucatán con Curated.",
     "noEncontradoTitulo": "Página no encontrada"
   },
   "Comun": {
     "saltarAlContenido": "Saltar al contenido",
     "marca": "Curated Yucatán",
-    "fotoPendiente": "[DEMO] Foto pendiente",
     "cerrar": "Cerrar",
     "anterior": "Anterior",
     "siguiente": "Siguiente",
@@ -22,7 +29,8 @@
       "en": "English",
       "es": "Español"
     },
-    "salirVistaPrevia": "Salir de la vista previa"
+    "salirVistaPrevia": "Salir de la vista previa",
+    "invitados": "Hasta {cantidad} invitados"
   },
   "Navegacion": {
     "principal": "Principal",
@@ -30,272 +38,325 @@
     "cerrarMenu": "Cerrar menú",
     "menu": "Menú",
     "inicio": "Inicio",
+    "descubre": "Descubre Yucatán",
     "venues": "Venues",
-    "proveedores": "Proveedores",
-    "finDeSemana": "Fin de semana",
-    "planeaTuBoda": "Planea tu boda",
-    "venueTours": "Venue tours",
-    "guia": "Guía",
-    "historias": "Historias",
-    "asesoria": "Asesoría",
-    "ctaAsesoria": "Planea con nosotros",
-    "aliados": "Aliados",
-    "miLista": "Mi lista",
+    "catering": "Catering",
+    "fotografia": "Fotografía",
+    "diseno": "Diseño y producción",
+    "journal": "Curated Journal",
+    "nosotros": "Nosotros",
+    "encuentra": "Encuentra tu Yucatán",
+    "planea": "Planea tu evento",
     "privacidad": "Privacidad",
     "migas": "Ruta de navegación"
   },
   "Pie": {
-    "descripcion": "Bodas de destino en Yucatán, con venues y proveedores seleccionados por nuestro equipo.",
-    "explorar": "Explorar",
-    "planear": "Planear",
-    "nosotros": "Curated Yucatán",
+    "descripcion": "Tu guía experta para celebrar en Yucatán.",
+    "explorar": "Explora",
+    "curated": "Curated",
     "contacto": "Contacto",
+    "serieVideo": "El Lugar de Tu Historia · serie de video",
+    "partner": "Curated Partner en diseño y producción",
     "derechos": "© {anio} Curated Yucatán",
-    "avisoPiloto": "Piloto con datos de ejemplo [DEMO]. Los formularios todavía no envían nada."
+    "avisoPiloto": "Piloto con contenido de ejemplo [DEMO]. Los formularios todavía no envían nada."
   },
   "Inicio": {
     "hero": {
-      "sobretitulo": "Bodas de destino en Yucatán",
-      "ctaVenues": "Explorar venues",
-      "ctaGuia": "Descargar la guía",
+      "cta": "Explora Yucatán",
       "pausarVideo": "Pausar el video de fondo",
       "reproducirVideo": "Reproducir el video de fondo"
     },
-    "porQue": {
-      "sobretitulo": "Por qué Yucatán"
+    "queEs": {
+      "titulo": "¿Qué es Curated?",
+      "cta": "Sobre Curated"
     },
-    "sello": {
-      "sobretitulo": "El sello curated",
-      "textoSello": "Curated · Yucatán · Visitado · Filmado ·"
+    "descubre": {
+      "titulo": "Descubre Yucatán",
+      "cta": "Descubre el destino"
     },
-    "paisajes": {
-      "sobretitulo": "Explora por paisaje",
-      "titulo": "Encuentra tu escenario",
-      "tipos": "O explora por tipo de venue",
-      "verVenuesRegion": "Ver venues en {region}"
+    "explora": {
+      "titulo": "Explora Curated"
     },
     "destacados": {
-      "sobretitulo": "Venues destacados",
-      "titulo": "Empieza por estos venues",
+      "titulo": "Venues destacados",
       "verTodos": "Ver todos los venues"
     },
-    "episodio": {
-      "sobretitulo": "Último episodio",
-      "verTodos": "Todos los venue tours"
+    "journal": {
+      "titulo": "Curated Journal",
+      "cta": "Explora el journal"
     },
-    "guia": {
-      "sobretitulo": "La guía",
-      "edicion": "Edición {edicion}",
-      "portadaAlt": "Portada de la guía Curated Yucatán, edición {edicion}"
-    },
-    "tradiciones": {
-      "sobretitulo": "Tradiciones yucatecas"
-    },
-    "categorias": {
-      "sobretitulo": "Proveedores",
-      "titulo": "Todo para tu fin de semana de boda",
-      "verTodos": "Ver todos los proveedores"
-    },
-    "historias": {
-      "sobretitulo": "Historias",
-      "titulo": "Historias recientes",
-      "verTodas": "Todas las historias",
-      "minutosLectura": "{minutos} min de lectura",
-      "tipo": {
-        "articulo": "Artículo",
-        "boda-real": "Boda real",
-        "lista": "Lista"
-      }
-    },
-    "metricas": {
-      "sobretitulo": "En cifras",
-      "venuesVisitados": "venues visitados",
-      "horasEntrevista": "horas de entrevista",
-      "edicionesImpresas": "ediciones impresas",
-      "nota": "[DEMO] Cifras de ejemplo"
+    "planea": {
+      "titulo": "Planea tu evento",
+      "cta": "Planea tu evento",
+      "encuentra": "O encuentra tu Yucatán"
     }
-  },
-  "Tipos": {
-    "hacienda": "Hacienda",
-    "ciudad-colonial": "Ciudad colonial",
-    "playa": "Playa",
-    "cenote-selva": "Cenote y selva",
-    "boutique": "Boutique",
-    "otro": "Otro"
-  },
-  "Catering": {
-    "propio": "Catering propio",
-    "externo": "Catering externo",
-    "ambos": "Catering propio o externo"
   },
   "Venues": {
     "titulo": "Venues",
-    "entradilla": "Haciendas, casonas coloniales, playas y cenotes, cada uno con su ficha técnica y, cuando existe, una entrevista en video.",
-    "resultados": "{cantidad, plural, =0 {Ningún venue} one {# venue} other {# venues}}",
+    "entradilla": "Una colección curada de lugares en Yucatán, organizada para descubrirse de forma visual: por atmósfera, luz y paisaje.",
+    "colecciones": "La colección",
+    "todas": "Todos los venues",
     "filtros": "Filtros",
-    "abrirFiltros": "{cantidad, plural, =0 {Filtros} other {Filtros (#)}}",
-    "verResultados": "{cantidad, plural, =0 {No hay venues que mostrar} one {Ver # venue} other {Ver # venues}}",
+    "abrirFiltros": "{cantidad, plural, =0 {Filtros} one {Filtros (#)} other {Filtros (#)}}",
     "limpiar": "Quitar filtros",
-    "ordenarPor": "Ordenar por",
-    "orden": {
-      "destacados": "Destacados",
-      "capacidad": "Capacidad",
-      "nombre": "Nombre"
-    },
+    "verResultados": "{cantidad, plural, =0 {Sin venues} one {Ver # venue} other {Ver # venues}}",
+    "resultados": "{cantidad, plural, =0 {Sin venues} one {# venue} other {# venues}}",
     "grupos": {
-      "region": "Región",
-      "tipo": "Tipo de venue",
-      "capacidad": "Capacidad de banquete",
+      "estilo": "Estilo",
+      "capacidad": "Capacidad",
       "hospedaje": "Hospedaje",
-      "catering": "Catering",
-      "inversion": "Inversión desde"
+      "ubicacion": "Ubicación",
+      "entorno": "Interior / exterior"
     },
-    "hospedajeEnSitio": "Hospedaje en el venue",
-    "cateringPropio": "Catering propio",
-    "cateringExterno": "Permite catering externo",
     "rangosCapacidad": {
-      "hasta-100": "Hasta 100",
-      "100-200": "100–200",
-      "200-350": "200–350",
-      "mas-350": "Más de 350"
+      "hasta-200": "Hasta 200",
+      "200-400": "200–400",
+      "mas-400": "Más de 400"
     },
-    "rangosInversion": {
-      "menos-10k": "Menos de USD 10k",
-      "10-20k": "USD 10k–20k",
-      "20-35k": "USD 20k–35k",
-      "mas-35k": "USD 35k o más"
+    "hospedajeEnSitio": "Hospedaje en el lugar",
+    "entornos": {
+      "interior": "Interior",
+      "exterior": "Exterior"
     },
-    "notaRangos": "[DEMO] Rangos por definir",
+    "notaRangos": "[DEMO] Rangos de ejemplo.",
     "vacioTitulo": "Ningún venue coincide con estos filtros",
-    "vacioTexto": "Prueba quitando uno o dos filtros, o pídenos una recomendación.",
-    "vacioAsesoria": "Pedir una recomendación",
+    "vacioTexto": "Prueba quitando un filtro, o cuéntanos de tu evento y te sugerimos lugares.",
+    "vacioPlanea": "Planea tu evento",
     "tarjeta": {
-      "banquete": "Banquete",
-      "invitados": "{cantidad} invitados",
-      "hospedaje": "Hospedaje",
-      "habitaciones": "{cantidad, plural, one {# habitación} other {# habitaciones}}",
-      "sinHospedaje": "Sin hospedaje",
-      "entrevista": "Entrevista"
+      "explorar": "Explorar venue",
+      "minutos": "A {minutos} min de Mérida"
     }
   },
   "Venue": {
-    "solicitarDisponibilidad": "Solicitar disponibilidad",
-    "verEntrevista": "Ver la entrevista",
-    "ficha": {
-      "titulo": "Ficha técnica",
+    "resumen": "Ficha del venue",
+    "datos": {
+      "titulo": "Datos clave",
+      "ubicacion": "Ubicación",
       "capacidad": "Capacidad",
-      "ceremonia": "Ceremonia",
-      "coctel": "Cóctel",
-      "banquete": "Banquete",
-      "invitados": "{cantidad} invitados",
       "hospedaje": "Hospedaje",
-      "habitacionesHuespedes": "{habitaciones, plural, one {# habitación} other {# habitaciones}} · hasta {huespedes} huéspedes",
-      "sinHospedaje": "Sin hospedaje en el venue",
-      "catering": "Catering",
-      "musica": "Música hasta",
-      "traslados": "Traslados",
-      "aeropuerto": "Desde el aeropuerto MID",
-      "centro": "Desde el centro de Mérida",
-      "inversion": "Inversión desde",
-      "sinInversion": "A consultar",
-      "temporada": "Mejor temporada",
-      "mapa": "Abrir en Google Maps",
-      "notaDemo": "[DEMO] Cifras de ejemplo"
+      "estilo": "Estilo",
+      "entorno": "Interior / exterior",
+      "minutosCentro": "A {minutos} min del centro de Mérida",
+      "kilometros": "{km} km",
+      "habitaciones": "{habitaciones, plural, one {# habitación} other {# habitaciones}} · hasta {huespedes} huéspedes",
+      "sinHospedaje": "No en el lugar"
     },
-    "descripcion": {
-      "titulo": "Sobre el venue"
-    },
-    "entrevista": {
-      "sobretitulo": "Entrevista",
-      "titulo": "Conoce a quienes están detrás de {nombre}",
-      "capitulos": "Capítulos",
-      "reproducir": "Reproducir video: {titulo}",
-      "irACapitulo": "Reproducir desde {tiempo}: {titulo}",
-      "tituloIframe": "Video: {titulo}",
-      "notaDemo": "[DEMO] Video de muestra de Google for Developers (documentación de la API de YouTube). No es una entrevista real."
-    },
-    "espacios": {
-      "sobretitulo": "Espacios",
-      "titulo": "Espacios y capacidades",
+    "entorno": {
       "interior": "Interior",
       "exterior": "Exterior",
-      "mixto": "Interior y exterior",
-      "formato": "Formato",
-      "capacidad": "Invitados",
-      "ceremonia": "Ceremonia",
-      "coctel": "Cóctel",
-      "banquete": "Banquete",
-      "noAplica": "No disponible"
+      "ambos": "Interior y exterior"
+    },
+    "sobre": {
+      "titulo": "Sobre el venue"
+    },
+    "pelicula": {
+      "serie": "El Lugar de Tu Historia",
+      "titulo": "La película",
+      "notaDemo": "[DEMO] Video de muestra. Aquí irá la película del venue en la serie.",
+      "reproducir": "Reproducir video: {titulo}",
+      "tituloIframe": "Video: {titulo}",
+      "capitulos": "Capítulos",
+      "reproducirDesde": "Reproducir desde"
+    },
+    "espacios": {
+      "titulo": "Espacios",
+      "interior": "Interior",
+      "exterior": "Exterior",
+      "mixto": "Interior y exterior"
+    },
+    "notas": {
+      "titulo": "Curated Notes",
+      "entradilla": "Notas prácticas para wedding planners."
     },
     "galeria": {
       "titulo": "Galería",
-      "abrir": "Abrir imagen {numero} de {total}",
-      "visor": "Visor de imágenes",
-      "contador": "{actual} de {total}"
+      "abrir": "Abrir la foto {numero} de {total}",
+      "visor": "Visor de fotos",
+      "contador": "{actual} / {total}"
     },
-    "citas": {
-      "titulo": "En sus palabras"
-    },
-    "proveedores": {
-      "sobretitulo": "Proveedores recomendados",
-      "titulo": "Proveedores que conocen este venue"
+    "solicitud": {
+      "titulo": "Solicita información",
+      "texto": "Cuéntanos de tu evento. Curated te conecta con {nombre} y te ayuda a planear."
     },
     "similares": {
-      "titulo": "Venues similares"
-    },
-    "disponibilidad": {
-      "sobretitulo": "Disponibilidad",
-      "titulo": "Consulta fechas en {nombre}",
-      "texto": "Cuéntanos de tu boda: la fecha, el número de invitados y lo que quieras que el venue sepa."
-    },
-    "favorito": {
-      "guardar": "Guardar en mi lista",
-      "avisoPiloto": "Mi lista llega en la fase 6. No se guardó nada."
+      "titulo": "Más {coleccion}"
     }
   },
+  "Proveedores": {
+    "catering": {
+      "titulo": "Catering",
+      "entradilla": "Una selección curada de empresas de catering, elegidas por su cocina, su servicio y su experiencia en celebraciones en Yucatán."
+    },
+    "fotografia": {
+      "titulo": "Fotografía",
+      "entradilla": "Una selección curada de fotógrafos y estudios con mirada editorial para la arquitectura, la luz y la gente de Yucatán."
+    },
+    "estilos": {
+      "editorial": "Editorial",
+      "documental": "Documental",
+      "fine-art": "Fine Art",
+      "cinematografico": "Cinematográfico"
+    },
+    "perfil": {
+      "servicios": "Servicios",
+      "estilo": "Estilo y enfoque",
+      "experiencia": "Experiencia en bodas destino",
+      "cobertura": "Con base en {ciudad}",
+      "galeria": "Galería",
+      "enlaces": "En línea",
+      "sitioWeb": "Sitio web",
+      "instagram": "Instagram",
+      "externo": "(se abre en otra pestaña)",
+      "cta": "Solicita información",
+      "ctaTexto": "Planea tu evento con Curated y te conectamos con {nombre}.",
+      "ver": "Ver perfil"
+    }
+  },
+  "Diseno": {
+    "titulo": "Diseño y producción",
+    "areas": "Lo que cubre Minimal",
+    "servicios": "Servicios",
+    "estilo": "Estilo y enfoque",
+    "experiencia": "Experiencia en bodas destino",
+    "cobertura": "Con base en {ciudad}",
+    "cta": "Planea tu evento",
+    "ctaTexto": "Diseño y producción para tu celebración, con la misma mirada curada."
+  },
+  "Journal": {
+    "titulo": "Curated Journal",
+    "entradilla": "Historias editoriales y guías prácticas para celebrar en Yucatán.",
+    "leer": "Leer artículo",
+    "minutosLectura": "{minutos} min de lectura",
+    "mas": "Más del journal"
+  },
+  "Descubre": {
+    "cta": "Explora los venues",
+    "ctaTexto": "Lugares donde la historia, la arquitectura y el paisaje se vuelven parte de la celebración."
+  },
+  "Encuentra": {
+    "titulo": "Encuentra tu Yucatán",
+    "entradilla": "Unas preguntas para descubrir el Yucatán que va con tu celebración. Toma alrededor de un minuto.",
+    "empezar": "Comenzar",
+    "paso": "Pregunta {actual} de {total}",
+    "atras": "Atrás",
+    "preguntas": {
+      "evento": {
+        "titulo": "¿Qué estás planeando?",
+        "opciones": {
+          "boda": "Boda",
+          "cena-bienvenida": "Cena de bienvenida",
+          "celebracion": "Celebración"
+        }
+      },
+      "atmosfera": {
+        "titulo": "¿Qué atmósfera te atrae?"
+      },
+      "hospedaje": {
+        "titulo": "Hospedaje",
+        "opciones": {
+          "requerido": "Indispensable",
+          "preferido": "Preferible",
+          "no-necesario": "No es necesario"
+        }
+      },
+      "entorno": {
+        "titulo": "¿Interior o exterior?",
+        "opciones": {
+          "interior": "Interior",
+          "exterior": "Exterior",
+          "indistinto": "Cualquiera"
+        }
+      },
+      "prioridad": {
+        "titulo": "¿Qué es lo más importante?",
+        "opciones": {
+          "arquitectura": "Arquitectura",
+          "naturaleza": "Naturaleza",
+          "gastronomia": "Gastronomía",
+          "privacidad": "Privacidad",
+          "ubicacion": "Ubicación"
+        }
+      },
+      "invitados": {
+        "titulo": "Número de invitados"
+      }
+    },
+    "resultado": {
+      "sobretitulo": "Tu Yucatán es…",
+      "lugares": "Lugares para empezar a explorar",
+      "verColeccion": "Ver todos los {coleccion}",
+      "reiniciar": "Empezar de nuevo",
+      "guardar": {
+        "titulo": "¿Quieres guardar tu selección Curated?",
+        "texto": "Te enviamos estos lugares a tu correo para que sigas explorando."
+      }
+    }
+  },
+  "Planea": {
+    "titulo": "Planea tu evento",
+    "entradilla": "Cuéntanos qué estás planeando. Curated te guía hacia los lugares y aliados adecuados en Yucatán."
+  },
   "Formularios": {
-    "nombre": "Nombre completo",
+    "preguntas": {
+      "tipoEvento": "¿Qué estás planeando?",
+      "invitados": "¿Cuántos invitados estimas?",
+      "buscando": "Busco",
+      "contacto": "Contacto"
+    },
+    "opciones": {
+      "tipoEvento": {
+        "boda": "Boda",
+        "fiesta-bienvenida": "Fiesta de bienvenida",
+        "cena-ensayo": "Cena de ensayo",
+        "otro": "Otro"
+      },
+      "invitados": {
+        "menos-50": "Menos de 50",
+        "50-100": "50–100",
+        "100-200": "100–200",
+        "200-400": "200–400",
+        "mas-400": "Más de 400"
+      },
+      "buscando": {
+        "venue": "Venue",
+        "catering": "Catering",
+        "fotografia": "Fotografía",
+        "diseno-produccion": "Diseño y producción",
+        "no-seguro": "Aún no lo sé"
+      }
+    },
+    "buscandoAyuda": "Elige todas las que apliquen.",
+    "nombre": "Nombre",
+    "empresa": "Empresa",
+    "pais": "País",
     "correo": "Correo electrónico",
     "telefono": "Teléfono",
-    "opcional": "opcional",
-    "pais": "País de residencia",
-    "fechaBoda": "Fecha de la boda",
-    "fechaFlexible": "Mi fecha es flexible",
-    "invitados": "Número aproximado de invitados",
+    "fechaAproximada": "Fecha aproximada",
+    "fechaAyuda": "Por ejemplo: marzo de 2027.",
     "mensaje": "Mensaje",
-    "consentimientoVenue": "Acepto el aviso de privacidad y que Curated Yucatán comparta mi solicitud con este venue.",
-    "consentimientoGuia": "Acepto el aviso de privacidad.",
-    "novedades": "Quiero recibir novedades ocasionales de Curated Yucatán.",
+    "opcional": "opcional",
+    "consentimiento": "Acepto el aviso de privacidad y que Curated Yucatán me contacte sobre esta solicitud.",
+    "consentimientoSeleccion": "Acepto el aviso de privacidad.",
     "leerAviso": "Leer el aviso de privacidad",
-    "enviarSolicitud": "Enviar solicitud",
-    "enviarGuia": "Enviarme la guía",
+    "enviar": "Enviar mi solicitud",
+    "guardarSeleccion": "Guardar mi selección",
     "errores": {
       "resumen": "{cantidad, plural, one {Revisa # campo.} other {Revisa # campos.}}",
       "requerido": "Este campo es obligatorio.",
       "muyCorto": "Escribe al menos 2 caracteres.",
       "muyLargo": "El texto es demasiado largo.",
       "correoInvalido": "Escribe un correo válido, como nombre@ejemplo.com.",
-      "fechaInvalida": "Escribe una fecha válida.",
-      "fechaPasada": "La fecha de la boda debe ser futura.",
-      "fechaOFlexible": "Escribe una fecha o márcala como flexible.",
-      "numeroInvalido": "Escribe un número entero entre 1 y 2,000.",
+      "eligeUno": "Elige al menos una opción.",
       "consentimiento": "Necesitas aceptar el aviso de privacidad para continuar."
     },
     "piloto": {
-      "titulo": "Piloto: envío desactivado",
-      "texto": "Tus datos pasaron la validación, pero no se enviaron. Los formularios se conectan en la fase 4."
+      "titulo": "Gracias. Esto es un piloto: no se envió nada.",
+      "texto": "Tus datos pasaron la validación. Cuando los formularios estén conectados recibirás una confirmación por correo."
     }
-  },
-  "Pendiente": {
-    "sobretitulo": "[PENDIENTE]",
-    "titulo": "Esta sección llega pronto",
-    "texto": "Forma parte de una fase posterior del proyecto. El piloto incluye el inicio, el listado de venues y las fichas de venue.",
-    "volver": "Volver al inicio",
-    "verVenues": "Explorar venues"
   },
   "NoEncontrado": {
     "titulo": "No encontramos esa página",
-    "texto": "Puede que la dirección tenga un error o que la página haya cambiado de lugar.",
+    "texto": "Puede que la dirección tenga un error o que la página se haya movido.",
     "volver": "Volver al inicio"
   }
 }

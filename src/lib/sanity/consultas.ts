@@ -17,70 +17,67 @@ const IMAGEN = /* groq */ `{
 
 const VIDEO = /* groq */ `{ "url": asset->url, "mimeType": asset->mimeType, "pesoBytes": asset->size }`;
 
-const REGION_RESUMEN = /* groq */ `{ nombre, "slug": slug.current }`;
+const RESUMEN_REGION = /* groq */ `{ nombre, "slug": slug.current }`;
+const RESUMEN_COLECCION = /* groq */ `{ nombre, "slug": slug.current, resultado }`;
 
+/** Tarjeta de venue; "tiposEspacio" se convierte en `entorno` al recibir los datos. */
 const VENUE_TARJETA = /* groq */ `{
   _id,
   nombre,
   "slug": slug.current,
-  destacado,
-  nivelListado,
-  "region": region->${REGION_RESUMEN},
-  "tipos": coalesce(tipos, []),
-  resumen,
+  "destacado": destacado == true,
+  "coleccion": coleccion->${RESUMEN_COLECCION},
+  "region": region->${RESUMEN_REGION},
+  localidad,
+  "minutosCentroMerida": coalesce(fichaTecnica.minutosCentroMerida, 0),
   "imagen": media.imagenHero${IMAGEN},
-  "capacidadBanqueteMax": coalesce(fichaTecnica.capacidadBanqueteMax, 0),
+  "capacidadMax": coalesce(fichaTecnica.capacidadMax, 0),
   "tieneHospedaje": fichaTecnica.hospedaje.tieneHospedaje == true,
   "habitaciones": fichaTecnica.hospedaje.habitaciones,
-  "catering": fichaTecnica.catering,
-  "inversionDesdeUSD": fichaTecnica.inversionDesdeUSD,
-  "tieneEntrevista": nivelListado != "basico" && defined(entrevista.youtubeId)
+  "tiposEspacio": coalesce(espacios[].interiorExterior, []),
+  "atributos": coalesce(atributos, [])
 }`;
 
-// Solo venues completos: sin foto principal, región o ficha técnica, la tarjeta no se puede dibujar.
+// Solo venues completos: sin foto, colección, región o capacidad la tarjeta no se puede dibujar.
 const FILTRO_VENUE = /* groq */ `_type == "venue" && publicado != false && defined(slug.current)
-  && defined(media.imagenHero.asset) && defined(region._ref) && defined(fichaTecnica.capacidadBanqueteMax)`;
+  && defined(media.imagenHero.asset) && defined(coleccion._ref) && defined(region._ref)
+  && defined(localidad) && defined(fichaTecnica.capacidadMax)`;
+
+const FILTRO_PROVEEDOR = /* groq */ `_type == "proveedor" && tipo == $tipo && defined(slug.current)
+  && defined(imagenPrincipal.asset)`;
 
 export const CONSULTA_CONFIGURACION = defineQuery(`*[_id == "configuracionSitio"][0]{
   _id,
   _type,
-  fraseHero,
-  subtituloHero,
+  lema,
   "imagenHero": imagenHero${IMAGEN},
   "videoHero": { "escritorio": videoHero.escritorio${VIDEO}, "movil": videoHero.movil${VIDEO} },
-  "porQueYucatan": {
-    "titulo": porQueYucatan.titulo,
-    "entradilla": porQueYucatan.entradilla,
-    "puntos": coalesce(porQueYucatan.puntos[]{ _key, titulo, texto }, [])
+  "queEsCurated": { "texto": queEsCurated.texto },
+  "descubre": {
+    "texto": descubre.texto,
+    "temas": coalesce(descubre.temas[]{ _key, titulo, "imagen": imagen${IMAGEN}, ancla }, [])
   },
-  "sello": {
-    "titulo": sello.titulo,
-    "texto": sello.texto,
-    "pasos": coalesce(sello.pasos[]{ _key, titulo, texto }, [])
+  "exploraCurated": {
+    "texto": exploraCurated.texto,
+    "areas": coalesce(exploraCurated.areas[]{ _key, destino, texto, "imagen": imagen${IMAGEN} }, [])
   },
-  "tradiciones": {
-    "titulo": tradiciones.titulo,
-    "entradilla": tradiciones.entradilla,
-    "elementos": coalesce(tradiciones.elementos[]{ _key, titulo, texto, "imagen": imagen${IMAGEN} }, [])
-  },
-  "metricas": {
-    "venuesVisitados": coalesce(metricas.venuesVisitados, 0),
-    "horasEntrevista": coalesce(metricas.horasEntrevista, 0),
-    "edicionesImpresas": coalesce(metricas.edicionesImpresas, 0)
-  },
+  "planea": { "texto": planea.texto, "imagen": planea.imagen${IMAGEN} },
   "redes": { "instagram": redes.instagram, "youtube": redes.youtube },
   correoContacto
 }`);
 
-export const CONSULTA_REGIONES =
-  defineQuery(`*[_type == "region" && defined(slug.current) && defined(imagen.asset)] | order(orden asc){
-  _id, _type, nombre, "slug": slug.current, descripcion, "imagen": imagen${IMAGEN}, "orden": coalesce(orden, 0)
+export const CONSULTA_COLECCIONES =
+  defineQuery(`*[_type == "coleccion" && defined(slug.current) && defined(imagen.asset)] | order(orden asc){
+  _id, _type, nombre, "slug": slug.current, lema, descripcion, resultado,
+  "imagen": imagen${IMAGEN}, "orden": coalesce(orden, 0)
 }`);
 
-export const CONSULTA_CATEGORIAS =
-  defineQuery(`*[_type == "categoriaProveedor" && defined(slug.current)] | order(orden asc){
-  _id, _type, nombre, "slug": slug.current, icono, "orden": coalesce(orden, 0)
+export const CONSULTA_REGIONES =
+  defineQuery(`*[_type == "region" && defined(slug.current)] | order(orden asc){
+  _id, _type, nombre, "slug": slug.current, "orden": coalesce(orden, 0)
 }`);
+
+// --- Venues ----------------------------------------------------------------------------
 
 export const CONSULTA_VENUES_TARJETA = defineQuery(
   `*[${FILTRO_VENUE}] | order(nombre asc)${VENUE_TARJETA}`,
@@ -93,7 +90,7 @@ export const CONSULTA_VENUES_DESTACADOS = defineQuery(
 export const CONSULTA_SLUGS_VENUES = defineQuery(`*[${FILTRO_VENUE}].slug.current`);
 
 /** Slug vigente de un venue a partir de un slug anterior (redirección 308, D-020). */
-export const CONSULTA_SLUG_ACTUAL = defineQuery(
+export const CONSULTA_SLUG_ACTUAL_VENUE = defineQuery(
   `*[${FILTRO_VENUE} && $slug in slugsAnteriores][0].slug.current`,
 );
 
@@ -103,67 +100,125 @@ export const CONSULTA_VENUE = defineQuery(`*[${FILTRO_VENUE} && slug.current == 
   nombre,
   "slug": slug.current,
   slugsAnteriores,
-  destacado,
-  nivelListado,
-  publicado,
-  "region": region->${REGION_RESUMEN},
-  "tipos": coalesce(tipos, []),
+  "publicado": publicado != false,
+  "destacado": destacado == true,
+  "coleccion": coleccion->${RESUMEN_COLECCION},
+  "region": region->${RESUMEN_REGION},
+  localidad,
   resumen,
   descripcion,
-  fichaTecnica,
+  "fichaTecnica": {
+    "capacidadMax": fichaTecnica.capacidadMax,
+    "hospedaje": {
+      "tieneHospedaje": fichaTecnica.hospedaje.tieneHospedaje == true,
+      "habitaciones": fichaTecnica.hospedaje.habitaciones,
+      "huespedesMax": fichaTecnica.hospedaje.huespedesMax
+    },
+    "minutosCentroMerida": coalesce(fichaTecnica.minutosCentroMerida, 0),
+    "kmCentroMerida": fichaTecnica.kmCentroMerida
+  },
+  "espacios": coalesce(espacios[]{
+    _key, nombre, descripcion, interiorExterior, capacidad,
+    "imagenes": coalesce(imagenes[]${IMAGEN}, [])
+  }, []),
+  "notasCurated": coalesce(notasCurated[]{ _key, titulo, texto }, []),
+  "atributos": coalesce(atributos, []),
   "media": {
     "imagenHero": media.imagenHero${IMAGEN},
     "videoLoop": media.videoLoop${VIDEO},
     "videoLoopMovil": media.videoLoopMovil${VIDEO},
     "galeria": coalesce(media.galeria[]${IMAGEN}, [])
   },
-  "entrevista": select(
-    nivelListado != "basico" && defined(entrevista.youtubeId) => {
-      "youtubeId": entrevista.youtubeId,
-      "titulo": coalesce(entrevista.titulo, { "en": nombre }),
-      "capitulos": coalesce(entrevista.capitulos[]{ _key, titulo, segundoInicio }, [])
+  "pelicula": select(
+    defined(pelicula.youtubeId) => {
+      "youtubeId": pelicula.youtubeId,
+      "titulo": coalesce(pelicula.titulo, { "en": nombre }),
+      "capitulos": coalesce(pelicula.capitulos[]{ _key, titulo, segundoInicio }, [])
     }
   ),
-  "citasDestacadas": coalesce(citasDestacadas[]{ _key, texto, autor, cargo }, []),
-  "espacios": coalesce(espacios[]{
-    _key, nombre, descripcion, interiorExterior,
-    capacidadCeremonia, capacidadCoctel, capacidadBanquete,
-    "imagenes": coalesce(imagenes[]${IMAGEN}, [])
-  }, []),
-  "proveedoresRecomendados": coalesce(proveedoresRecomendados[]->{
-    _id, nombre, "slug": slug.current,
-    "categoria": categoria->{ nombre, "slug": slug.current, icono },
-    resumen,
-    "imagen": imagenes[0]${IMAGEN}
-  }, []),
   seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);
 
-export const CONSULTA_ULTIMO_EPISODIO =
-  defineQuery(`*[_type == "episodio"] | order(fechaPublicacion desc)[0]{
-  _id, _type, titulo, youtubeId, descripcion,
-  "capitulos": coalesce(capitulos[]{ _key, titulo, segundoInicio }, []),
-  "venue": venue->{ nombre, "slug": slug.current },
-  fechaPublicacion
+// --- Catering y Photography ------------------------------------------------------------
+
+export const CONSULTA_PROVEEDORES =
+  defineQuery(`*[${FILTRO_PROVEEDOR}] | order(orden asc, nombre asc){
+  _id, tipo, nombre, "slug": slug.current, especialidad, resumen,
+  "estilosFotografia": coalesce(estilosFotografia, []),
+  "imagen": imagenPrincipal${IMAGEN}
 }`);
 
-export const CONSULTA_GUIA_ACTIVA =
-  defineQuery(`*[_type == "guia" && activa == true] | order(edicion desc)[0]{
-  _id, _type, edicion,
-  "portada": portada${IMAGEN},
-  "archivoPDF": { "en": archivoPDF.en.asset->url, "es": archivoPDF.es.asset->url },
-  "paginasMuestra": coalesce(paginasMuestra[]${IMAGEN}, []),
-  descripcion,
-  activa
+export const CONSULTA_SLUGS_PROVEEDORES = defineQuery(`*[${FILTRO_PROVEEDOR}].slug.current`);
+
+export const CONSULTA_SLUG_ACTUAL_PROVEEDOR = defineQuery(
+  `*[_type == "proveedor" && defined(slug.current) && $slug in slugsAnteriores][0].slug.current`,
+);
+
+export const CONSULTA_PROVEEDOR = defineQuery(`*[${FILTRO_PROVEEDOR} && slug.current == $slug][0]{
+  _id, _type, tipo, nombre, "slug": slug.current, slugsAnteriores,
+  especialidad, resumen, descripcion,
+  "servicios": coalesce(servicios[]{ _key, texto }, []),
+  estilo,
+  "estilosFotografia": coalesce(estilosFotografia, []),
+  ciudadBase, cobertura, experiencia, sitioWeb, instagram,
+  "logotipo": logotipo${IMAGEN},
+  "imagenPrincipal": imagenPrincipal${IMAGEN},
+  "galeria": coalesce(galeria[]${IMAGEN}, []),
+  "orden": coalesce(orden, 0),
+  seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);
+
+export const CONSULTA_DISENO = defineQuery(`*[_id == "disenoProduccion"][0]{
+  _id, _type, nombre, lema, descripcion,
+  "imagenPrincipal": imagenPrincipal${IMAGEN},
+  "areas": coalesce(areas[]{ _key, nombre, descripcion, "imagenes": coalesce(imagenes[]${IMAGEN}, []) }, []),
+  "servicios": coalesce(servicios[]{ _key, texto }, []),
+  estilo, experiencia, ciudadBase, cobertura, sitioWeb, instagram,
+  "logotipo": logotipo${IMAGEN}
+}`);
+
+// --- Curated Journal ---------------------------------------------------------------------
 
 /** El tiempo de lectura se calcula del cuerpo en inglés: ~1000 caracteres por minuto. */
-export const CONSULTA_HISTORIAS_RECIENTES =
-  defineQuery(`*[_type == "historia" && defined(slug.current)]
-  | order(fechaPublicacion desc)[0...$limite]{
-    _id, titulo, "slug": slug.current, tipo,
-    "imagenPortada": imagenPortada${IMAGEN},
-    extracto,
-    fechaPublicacion,
-    "tiempoLectura": select(length(pt::text(cuerpo.en)) > 1000 => round(length(pt::text(cuerpo.en)) / 1000), 1)
-  }`);
+const ARTICULO_RESUMEN = /* groq */ `
+  _id, titulo, "slug": slug.current,
+  "imagenPortada": imagenPortada${IMAGEN},
+  extracto,
+  fechaPublicacion,
+  "tiempoLectura": select(length(pt::text(cuerpo.en)) > 1000 => round(length(pt::text(cuerpo.en)) / 1000), 1)`;
+
+const FILTRO_ARTICULO = /* groq */ `_type == "articulo" && defined(slug.current) && defined(imagenPortada.asset)`;
+
+export const CONSULTA_ARTICULOS = defineQuery(
+  `*[${FILTRO_ARTICULO}] | order(fechaPublicacion desc)[0...$limite]{${ARTICULO_RESUMEN}}`,
+);
+
+export const CONSULTA_SLUGS_ARTICULOS = defineQuery(`*[${FILTRO_ARTICULO}].slug.current`);
+
+export const CONSULTA_ARTICULO = defineQuery(`*[${FILTRO_ARTICULO} && slug.current == $slug][0]{
+  _type, ${ARTICULO_RESUMEN},
+  cuerpo,
+  seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
+}`);
+
+// --- Discover Yucatán y páginas editoriales -------------------------------------------------
+
+export const CONSULTA_DESCUBRE = defineQuery(`*[_id == "descubreYucatan"][0]{
+  _id, _type, titulo, entradilla,
+  "imagenPrincipal": imagenPrincipal${IMAGEN},
+  "secciones": coalesce(secciones[]{
+    _key, ancla, titulo, "etiquetas": coalesce(etiquetas, { "en": "" }), texto,
+    "imagenes": coalesce(imagenes[]${IMAGEN}, [])
+  }, [])
+}`);
+
+export const CONSULTA_PAGINA_EDITORIAL = defineQuery(`*[_id == $id][0]{
+  _id, _type, titulo, entradilla,
+  "imagen": imagen${IMAGEN},
+  "secciones": coalesce(secciones[]{
+    ...,
+    _type == "seccionImagen" => { "imagen": imagen${IMAGEN} },
+    _type == "seccionPreguntas" => { "preguntas": coalesce(preguntas[]{ _key, pregunta, respuesta }, []) }
+  }, []),
+  seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
+}`);
