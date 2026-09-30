@@ -15,6 +15,8 @@ export default defineConfig({
   retries: process.env.CI ? 1 : 0,
   // Con más workers, WebKit se satura en este equipo y las pruebas fallan por tiempo.
   workers: 4,
+  // Con imágenes del CDN de Sanity, WebKit hidrata después de los 5 s por defecto.
+  expect: { timeout: 10_000 },
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: `http://localhost:${PUERTO}`,

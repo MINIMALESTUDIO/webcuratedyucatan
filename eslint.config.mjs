@@ -17,6 +17,7 @@ const eslintConfig = defineConfig([
     'test-results/**',
     'docs/**',
     'studio-dist/**',
+    'dist/**',
     '.sanity/**',
   ]),
 ]);

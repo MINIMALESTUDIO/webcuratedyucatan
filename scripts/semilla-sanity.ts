@@ -1,7 +1,7 @@
 // Convierte los datos DEMO locales en documentos de Sanity (NDJSON) con sus imágenes.
 // Uso:
 //   npm run sanity:semilla
-//   npx sanity dataset import sanity/semilla/demo.ndjson production --replace
+//   npx sanity dataset import sanity/semilla/demo.ndjson --dataset production --replace
 // La importación sube las imágenes de public/demo/ (sin duplicarlas) y usa la sesión de la CLI.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -275,5 +275,5 @@ mkdirSync(join(RAIZ, 'sanity', 'semilla'), { recursive: true });
 writeFileSync(DESTINO, documentos.map((d) => JSON.stringify(d)).join('\n') + '\n');
 console.log(`[semilla] ${documentos.length} documentos en sanity/semilla/demo.ndjson`);
 console.log(
-  '[semilla] Siguiente paso: npx sanity dataset import sanity/semilla/demo.ndjson production --replace',
+  '[semilla] Siguiente paso: npx sanity dataset import sanity/semilla/demo.ndjson --dataset production --replace',
 );

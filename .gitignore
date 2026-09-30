@@ -33,6 +33,8 @@ npm-debug.log*
 
 # Build del Studio de Sanity
 /studio-dist
+# Build del Studio que genera `sanity deploy`
+/dist
 /.sanity
 
 # Semilla de Sanity generada (rutas locales de archivos)
