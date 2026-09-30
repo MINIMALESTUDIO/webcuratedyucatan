@@ -28,22 +28,30 @@ async function contar(conToken: boolean): Promise<number> {
   return result;
 }
 
-const anonimo = await contar(false);
-console.log(
-  `[privados] Consulta anónima: ${anonimo} documento(s) privado(s) visibles (esperado: 0)`,
-);
-
-if (token) {
-  const conToken = await contar(true);
+// tsx ejecuta este archivo como CommonJS (sin await de nivel superior): todo va en main().
+async function main() {
+  const anonimo = await contar(false);
   console.log(
-    `[privados] Consulta con token del servidor: ${conToken} documento(s) (esperado: 1 o más)`,
+    `[privados] Consulta anónima: ${anonimo} documento(s) privado(s) visibles (esperado: 0)`,
   );
-} else {
-  console.log('[privados] Sin SANITY_API_READ_TOKEN: se omite la comprobación con token.');
+
+  if (token) {
+    const conToken = await contar(true);
+    console.log(
+      `[privados] Consulta con token del servidor: ${conToken} documento(s) (esperado: 1 o más)`,
+    );
+  } else {
+    console.log('[privados] Sin SANITY_API_READ_TOKEN: se omite la comprobación con token.');
+  }
+
+  if (anonimo !== 0) {
+    console.error('[privados] FALLA: los contactos de leads son visibles sin token.');
+    process.exit(1);
+  }
+  console.log('[privados] Correcto: los contactos de leads no son públicos.');
 }
 
-if (anonimo !== 0) {
-  console.error('[privados] FALLA: los contactos de leads son visibles sin token.');
+main().catch((error: unknown) => {
+  console.error('[privados] Error al consultar Sanity:', error);
   process.exit(1);
-}
-console.log('[privados] Correcto: los contactos de leads no son públicos.');
+});
