@@ -12,7 +12,7 @@ import { tiposEsquema } from './sanity/schemas';
  * La CLI de Sanity carga las variables SANITY_STUDIO_* desde .env.local.
  */
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'sin-proyecto';
+const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'bx8gqx3p';
 const dataset = process.env.SANITY_STUDIO_DATASET || 'production';
 /** Sitio que se abre dentro de "Editar en la página". */
 const urlSitio = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000';
