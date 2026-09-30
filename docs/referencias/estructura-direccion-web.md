@@ -6,7 +6,7 @@
 ## 1. Concepto general
 
 **CURATED YUCATÁN**
-*Your insider guide to celebrating in Yucatán.*
+_Your insider guide to celebrating in Yucatán._
 
 Curated Yucatán es una plataforma digital de descubrimiento y consulta sobre Yucatán dirigida principalmente a wedding planners y profesionales internacionales de la industria de bodas y eventos.
 
@@ -57,31 +57,38 @@ Esta última puede ser accesible mediante CTA y enlaces específicos, además de
 El Home debe presentar Curated de manera principalmente **visual y editorial**. No se busca saturar al usuario con información desde el inicio.
 
 ### 01 — Hero
+
 Video corto / contenido audiovisual de: Haciendas · Arquitectura · Mérida · Naturaleza · Gastronomía · Montajes · Diseño.
-Texto principal: **CURATED YUCATÁN** — *Your insider guide to celebrating in Yucatán.*
+Texto principal: **CURATED YUCATÁN** — _Your insider guide to celebrating in Yucatán._
 CTA: **EXPLORE YUCATÁN**. Debe dirigir a **Discover Yucatán**.
 
 ### 02 — What is Curated?
+
 Explicación breve de Curated. No debe convertirse en un About completo. La intención es que el usuario comprenda rápidamente qué es la plataforma y continúe explorando.
 CTA: **ABOUT CURATED**
 
 ### 03 — Discover Yucatán
+
 Introducción visual al destino mediante: **Architecture · Culture · Gastronomy · History · Nature · Haciendas · Experiences**. Debe utilizar principalmente fotografía.
 CTA: **DISCOVER THE DESTINATION**
 
 ### 04 — Explore Curated
+
 Presentar cuatro grandes áreas: **VENUES · CATERING · PHOTOGRAPHY · DESIGN & PRODUCTION**.
 Cada categoría debe presentarse mediante fotografía, no únicamente mediante logotipos.
 
 ### 05 — Featured venues
+
 Mostrar inicialmente entre **4 y 6 venues destacados**. Cada uno deberá mostrar: **Fotografía, Nombre, Ubicación, Estilo, Capacidad**.
 CTA individual: **EXPLORE VENUE**. CTA general: **VIEW ALL VENUES**
 
 ### 06 — Curated Journal
+
 Mostrar **3 artículos destacados**. Fotografía + título + acceso al artículo.
 CTA: **EXPLORE THE JOURNAL**
 
 ### 07 — Plan your event
+
 Último bloque del Home y principal punto de conversión.
 CTA: **PLAN YOUR EVENT**. Debe permitir que el usuario pase de explorar Curated a iniciar una solicitud.
 
@@ -109,6 +116,7 @@ La información inicial proviene de la investigación y fichas ya realizadas par
 El libro ya establece tres categorías para navegar la colección y las describe como una forma visual e intuitiva de descubrir los espacios.
 
 ### Categorías
+
 - **CONTEMPORARY SANCTUARIES** — Architecture, light and landscape.
 - **ORGANIC ESTATES** — Nature, texture and authenticity.
 - **TIMELESS VENUES** — Heritage and elegance.
@@ -116,9 +124,11 @@ El libro ya establece tres categorías para navegar la colección y las describe
 Estas mismas categorías deberán relacionarse posteriormente con los resultados de **Find Your Yucatán**.
 
 ### Vista general de Venues
+
 Cada tarjeta incluirá: **Imagen, Nombre, Ubicación, Capacidad, Estilo**.
 
 ### Filtros
+
 Los filtros deben aparecer de manera limpia y progresiva: **Style, Capacity, Accommodation, Location, Indoor / Outdoor**.
 
 No queremos que la sección se sienta como un buscador comercial o un directorio saturado.

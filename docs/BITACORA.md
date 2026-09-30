@@ -305,3 +305,58 @@ Lighthouse móvil, mediana de 3 corridas, en modo DEMO con 4G simulada:
 - **Sanity:** crear el proyecto (tu `npx sanity login`), importar la semilla, validar los documentos contra el esquema y probar la edición en la página de punta a punta.
 - **Decisiones abiertas:** 2 o 3 colecciones; MasQueAyer dentro o fuera de Design & Production; destino del QR 03 y del QR de la videoteca; fecha de LOVE MÉXICO.
 - **Fase C** (constructor de bloques): replantear sobre esta estructura.
+
+---
+
+## Fase 2 — CMS: proyecto de Sanity conectado (2026-09-30)
+
+**Estado:** puesta en marcha completa. Falta tu prueba de "Editar en la página" desde el Studio publicado; el webhook y la URL de vista previa definitiva esperan el despliegue en Hostinger.
+
+### Resumen
+
+El titular creó el proyecto `bx8gqx3p` en sanity.io e inició sesión en la CLI. Desde la línea de comandos se hizo lo siguiente:
+
+- se importaron los datos DEMO;
+- se validaron contra el esquema y se comprobó la privacidad de los contactos;
+- se creó el token de solo lectura y se configuraron los orígenes permitidos (CORS);
+- se conectó el sitio y se publicó el Studio en https://curatedyucatan.sanity.studio.
+
+No se usó el asistente "npm create sanity" que sugiere Sanity: el Studio ya vivía en el repositorio con los esquemas de la Fase R (D-013), y ese asistente habría creado un segundo Studio vacío.
+
+### Archivos modificados
+
+- `sanity.cli.ts` y `sanity.config.ts`: el proyecto `bx8gqx3p` como valor por defecto (el ID es público) y el `appId` del Studio publicado.
+- `scripts/verificar-privados-sanity.ts`: corregido. Nunca se había podido ejecutar: usaba await de nivel superior y tsx lo corre como CommonJS.
+- `scripts/semilla-sanity.ts`: la instrucción de importación usa `--dataset` (el argumento posicional está obsoleto).
+- `playwright.config.ts`: espera de 10 s por comprobación, porque con las imágenes del CDN de Sanity WebKit hidrata después de los 5 s por defecto.
+- `.gitignore`, `.prettierignore`, `eslint.config.mjs` y `tsconfig.json`: excluyen `dist/`, donde `sanity deploy` compila el Studio.
+- `docs/DESPLIEGUE.md`: sección 7.1 con el estado real de cada paso.
+- `.env.local` (no se sube): ID de proyecto, token de lectura y secreto del webhook.
+
+### Verificación
+
+| Comprobación                                                 | Resultado real                                                                                    |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| `npx sanity dataset import … --dataset production --replace` | 31 documentos y 114 imágenes                                                                      |
+| `npx sanity documents validate --dataset production`         | 31 válidos, 0 errores, 0 avisos                                                                   |
+| `npm run sanity:verificar-privados`                          | 0 documentos privados visibles sin token y 1 con el token del servidor (D-012)                    |
+| Token de lectura                                             | creado con rol Viewer, guardado en `.env.local` sin imprimirse                                    |
+| CORS                                                         | `localhost:3333`, `localhost:3000` y `https://curatedyucatan.sanity.studio`, con credenciales     |
+| `npm run build` con `NEXT_PUBLIC_SANITY_PROJECT_ID`          | correcto; todas las páginas estáticas con los slugs de Sanity, sin avisos de documentos faltantes |
+| `npm run test:e2e` contra el sitio con Sanity                | 27 de 27                                                                                          |
+| `/api/draft-mode/enable` con secreto falso                   | 401 "Invalid secret", sin cookie                                                                  |
+| `/api/revalidar` con la firma del secreto real               | 200 y etiquetas `venue` y `venue:demo-casona-ejemplo-centro`                                      |
+| Imágenes de la ficha                                         | 136 referencias al CDN `cdn.sanity.io/images/bx8gqx3p`                                            |
+| `npx sanity deploy`                                          | https://curatedyucatan.sanity.studio (responde con redirección al login de Sanity)                |
+| Build publicado del Studio                                   | revisados 144 archivos: sin token ni secreto; solo el ID de proyecto y la URL de vista previa     |
+
+### Pendientes
+
+- **Tu prueba de "Editar en la página"** con el sitio local encendido. Verifica que funcione el refresco de los borradores sin token en el navegador (D-034).
+- **Con la URL de Hostinger:**
+  - volver a publicar el Studio con `SANITY_STUDIO_PREVIEW_URL`;
+  - agregar esa URL a CORS;
+  - crear el webhook (sección 7.2);
+  - cargar en hPanel `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` y `SANITY_REVALIDATE_SECRET`.
+- **Invitar al equipo** que editará contenido desde sanity.io/manage (Members).
+- **Build del Studio:** copia `public/demo/` (2 MB) porque Vite toma `public/` como carpeta estática. No afecta al sitio; se revisará si molesta.

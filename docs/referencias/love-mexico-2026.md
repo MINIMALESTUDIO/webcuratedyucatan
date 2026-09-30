@@ -40,11 +40,11 @@ El libro de Venues ya desarrollado es la pieza editorial física oficial. Existe
 
 ### Tres rutas de QR
 
-| QR | Nombre | Dónde | Función | Objetivo |
-|---|---|---|---|---|
-| 01 | Explore Curated | Stand · pantalla · elementos gráficos | Lleva directamente a HOME | Que cualquier visitante conozca Curated |
-| 02 | Find Your Yucatán | Stand | Inicia la experiencia interactiva de descubrimiento | Descubrir qué Yucatán o venue corresponde mejor al proyecto del visitante |
-| 03 | Continue Exploring | Asociado al libro impreso | Conecta la edición impresa con la plataforma digital | Consultar información actualizada, nuevos venues y contenido fuera de la edición física |
+| QR  | Nombre             | Dónde                                 | Función                                              | Objetivo                                                                                |
+| --- | ------------------ | ------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| 01  | Explore Curated    | Stand · pantalla · elementos gráficos | Lleva directamente a HOME                            | Que cualquier visitante conozca Curated                                                 |
+| 02  | Find Your Yucatán  | Stand                                 | Inicia la experiencia interactiva de descubrimiento  | Descubrir qué Yucatán o venue corresponde mejor al proyecto del visitante               |
+| 03  | Continue Exploring | Asociado al libro impreso             | Conecta la edición impresa con la plataforma digital | Consultar información actualizada, nuevos venues y contenido fuera de la edición física |
 
 ## 04 — Experiencia del visitante (completo)
 

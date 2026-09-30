@@ -95,28 +95,39 @@ El Studio se publica aparte en `https://curatedyucatan.sanity.studio` (D-013). E
 
 ### 7.1 Puesta en marcha (una sola vez)
 
-1. **Iniciar sesión en la CLI** (lo hace el titular, abre el navegador): `npx sanity login` en `C:\curatedyucatan`.
-2. **Crear el proyecto y el dataset** `production` (público; los contactos de leads son privados por su ID, D-012).
-3. **Variables locales** en `.env.local` (plantilla en `.env.example`): `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN`, `SANITY_REVALIDATE_SECRET` y las `SANITY_STUDIO_*`.
-4. **Token de lectura** (rol _Viewer_) → `SANITY_API_READ_TOKEN`. Solo en el servidor.
-5. **CORS** (con credenciales): `http://localhost:3000` y la URL pública de Hostinger. El Studio publicado se autoriza solo.
-6. **Datos DEMO**: `npm run sanity:semilla` y `npx sanity dataset import sanity/semilla/demo.ndjson production --replace` (sube las 53 imágenes sin duplicarlas).
-7. **Comprobar la privacidad de los contactos**: `npm run sanity:verificar-privados` (debe decir "Correcto").
-8. **Publicar el Studio**: `npm run studio:deploy` con `SANITY_STUDIO_PREVIEW_URL` apuntando a la URL pública del sitio.
+Hecha el 2026-09-30. Proyecto **`bx8gqx3p`** ("curated yucatan"), dataset **`production`** (público; los contactos de leads son privados por su ID, D-012).
+
+| Paso                                                         | Comando o acción                                                                                                                               | Estado |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| 1. Sesión de la CLI (el titular, abre el navegador)          | `npx sanity login` en `C:curatedyucatan`                                                                                                       | ✅     |
+| 2. Proyecto y dataset                                        | creados en sanity.io                                                                                                                           | ✅     |
+| 3. Variables locales                                         | `.env.local` (plantilla en `.env.example`); el ID de proyecto también es el valor por defecto del Studio                                       | ✅     |
+| 4. Token de lectura (rol _Viewer_) → `SANITY_API_READ_TOKEN` | `npx sanity tokens add "Sitio Curated Yucatan (lectura)" --role viewer`. Solo en el servidor                                                   | ✅     |
+| 5. CORS con credenciales                                     | `localhost:3333`, `localhost:3000` y `https://curatedyucatan.sanity.studio`. **Falta la URL de Hostinger**                                     | 🟡     |
+| 6. Datos DEMO                                                | `npm run sanity:semilla` y `npx sanity dataset import sanity/semilla/demo.ndjson --dataset production --replace`: 31 documentos y 114 imágenes | ✅     |
+| 7. Validar los documentos                                    | `npx sanity documents validate --dataset production --yes`: 31 válidos, 0 errores, 0 avisos                                                    | ✅     |
+| 8. Privacidad de los contactos                               | `npm run sanity:verificar-privados`: 0 visibles sin token y 1 con token                                                                        | ✅     |
+| 9. Publicar el Studio                                        | `npm run studio:deploy` → https://curatedyucatan.sanity.studio (appId en `sanity.cli.ts`)                                                      | ✅     |
+
+**Al tener la URL de Hostinger:**
+
+- Volver a publicar el Studio con `SANITY_STUDIO_PREVIEW_URL=<url pública>`. Hoy "Editar en la página" abre `http://localhost:3000`.
+- Agregar esa URL a CORS.
+- Crear el webhook (7.2).
 
 ### 7.2 Webhook de revalidación (D-010)
 
 En sanity.io/manage → API → Webhooks:
 
-| Campo        | Valor                                                                                                                              |
-| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| URL          | `https://<dominio>/api/revalidar`                                                                                                  |
-| Dataset      | `production`                                                                                                                       |
-| Disparadores | Crear, actualizar y borrar                                                                                                         |
+| Campo        | Valor                                                                                                                                        |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| URL          | `https://<dominio>/api/revalidar`                                                                                                            |
+| Dataset      | `production`                                                                                                                                 |
+| Disparadores | Crear, actualizar y borrar                                                                                                                   |
 | Filtro       | `_type in ["venue","coleccion","region","proveedor","articulo","paginaEditorial","descubreYucatan","disenoProduccion","configuracionSitio"]` |
-| Proyección   | `{ _type, "slug": slug.current }`                                                                                                  |
-| Método       | POST                                                                                                                               |
-| Secreto      | el mismo valor que `SANITY_REVALIDATE_SECRET`                                                                                      |
+| Proyección   | `{ _type, "slug": slug.current }`                                                                                                            |
+| Método       | POST                                                                                                                                         |
+| Secreto      | el mismo valor que `SANITY_REVALIDATE_SECRET`                                                                                                |
 
 El endpoint responde `{ ok: true, datos: { etiquetas } }` y regenera las páginas que usan ese tipo de documento (y la ficha, si trae slug) en la siguiente visita.
 

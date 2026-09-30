@@ -25,12 +25,14 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 ## C1 — Constructor de páginas por bloques
 
 ### Modelo
+
 - Nuevo documento `pagina` (bilingüe, slug único, SEO) con campo `secciones`: arreglo reordenable de bloques.
 - El inicio se convierte en una `pagina` marcada como página de inicio (singleton o referencia desde `configuracionSitio`; propón la opción y justifícala).
 - `paginaEditorial` se integra en `pagina` o se migra; propón cuál y documenta la migración.
 - Conectar a `pagina` las rutas que hoy muestran `PaginaPendiente` y son editoriales: planea tu boda, fin de semana, aliados, privacidad. Las rutas de catálogo (venues, proveedores, historias, guía) siguen con su lógica actual.
 
 ### Ajustes comunes a todos los bloques (objeto `ajustesBloque`)
+
 - `fondo`: opción de la paleta (cal, piedra, almagre, tinta, henequén) o imagen. El color del texto se decide automáticamente según el fondo para garantizar contraste AA.
 - `espaciado`: compacto, normal, amplio.
 - `ancho`: lectura, contenido, completo.
@@ -38,31 +40,33 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - `visible`: interruptor para ocultar sin borrar.
 
 ### Bloques (mínimo)
-| Bloque | Notas |
-|---|---|
-| Portada | Imagen (con versión móvil opcional), video opcional, sobretítulo, frase, subtítulo y hasta 2 botones |
-| Texto | Sobretítulo, título y texto enriquecido (C4) |
-| Texto con imagen | Variantes: imagen izquierda o derecha, forma arco o rectángulo, proporción 50/50 o 40/60 |
-| Galería | Cuadrícula o carrusel; visor a pantalla completa |
-| Mosaico de fotos | Composición editorial de 3 a 5 imágenes |
-| Imagen a sangre | Con pie de foto y crédito |
-| Venues destacados | Automático (los marcados como destacados) o selección manual; número a mostrar |
-| Video / episodio | Referencia a `episodio` o ID de YouTube, con capítulos |
-| Guía | Usa la guía activa |
-| Historias | Automático (recientes) o selección manual |
-| Categorías de proveedores | |
-| Cita destacada | Texto, autor y cargo |
-| Métricas | Hasta 4 cifras con etiqueta |
-| Preguntas frecuentes | Con datos estructurados FAQ para SEO |
-| Llamado a la acción | Título, texto y botón con destino interno por referencia |
-| Formulario | Elegir: asesoría, disponibilidad o guía |
-| Separador | Patrón de pasta, línea o espacio |
+
+| Bloque                    | Notas                                                                                                |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Portada                   | Imagen (con versión móvil opcional), video opcional, sobretítulo, frase, subtítulo y hasta 2 botones |
+| Texto                     | Sobretítulo, título y texto enriquecido (C4)                                                         |
+| Texto con imagen          | Variantes: imagen izquierda o derecha, forma arco o rectángulo, proporción 50/50 o 40/60             |
+| Galería                   | Cuadrícula o carrusel; visor a pantalla completa                                                     |
+| Mosaico de fotos          | Composición editorial de 3 a 5 imágenes                                                              |
+| Imagen a sangre           | Con pie de foto y crédito                                                                            |
+| Venues destacados         | Automático (los marcados como destacados) o selección manual; número a mostrar                       |
+| Video / episodio          | Referencia a `episodio` o ID de YouTube, con capítulos                                               |
+| Guía                      | Usa la guía activa                                                                                   |
+| Historias                 | Automático (recientes) o selección manual                                                            |
+| Categorías de proveedores |                                                                                                      |
+| Cita destacada            | Texto, autor y cargo                                                                                 |
+| Métricas                  | Hasta 4 cifras con etiqueta                                                                          |
+| Preguntas frecuentes      | Con datos estructurados FAQ para SEO                                                                 |
+| Llamado a la acción       | Título, texto y botón con destino interno por referencia                                             |
+| Formulario                | Elegir: asesoría, disponibilidad o guía                                                              |
+| Separador                 | Patrón de pasta, línea o espacio                                                                     |
 
 - Los títulos de sección que hoy viven en `src/i18n/mensajes/*.json` (sobretítulos del inicio) pasan a ser campos de cada bloque. Los textos de interfaz (formularios, errores, navegación accesible, ARIA) **se quedan** en los JSON.
 - Límite razonable de bloques por página (propón uno) para proteger rendimiento.
 - En el selector de bloques del Studio, mostrar miniaturas o descripciones claras de cada bloque (usa la opción de menú de inserción con vista en cuadrícula si la versión de Sanity lo soporta).
 
 ### Aceptación C1
+
 - El inicio migrado se ve idéntico al actual (capturas antes/después en 360, 768 y 1440 px).
 - Puedo reordenar, ocultar, duplicar y agregar bloques desde el Studio y verlo en la vista previa.
 - Una página de prueba `[DEMO] Todos los bloques` en ambos idiomas, con Lighthouse móvil y axe sin violaciones serias.
@@ -80,6 +84,7 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - El menú móvil existente sigue siendo accesible (foco, Escape, bloqueo de scroll).
 
 ### Aceptación C2
+
 - Cambiar el menú, el pie y la barra desde el Studio se refleja tras publicar.
 - Pruebas e2e del menú en móvil y escritorio con los datos del CMS.
 
@@ -97,6 +102,7 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - Prueba unitaria de la función de contraste con casos conocidos.
 
 ### Aceptación C3
+
 - Cambiar un color válido se refleja en todo el sitio sin recompilar.
 - Un color que rompe contraste no se puede publicar (evidencia en el reporte).
 - Restaurar "Original" devuelve exactamente la paleta de D-006.
@@ -113,6 +119,7 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - Aplicar en: `pagina` (bloque Texto y Texto con imagen), `historia`, `venue.descripcion`, `proveedor.descripcion`.
 
 ### Aceptación C4
+
 - Una historia `[DEMO]` que use todos los elementos, en ambos idiomas, con axe limpio.
 - Un enlace interno sigue funcionando después de cambiar el slug del destino.
 
@@ -126,6 +133,7 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - Advertencia en el Studio si se sube una imagen de menos de 2000 px de ancho para portadas.
 
 ### Aceptación C5
+
 - Subir una foto una vez y usarla en un venue y en una página.
 - La portada muestra la versión móvil en 360 px cuando existe.
 
@@ -140,6 +148,7 @@ Que el equipo de Curated Yucatán pueda componer y personalizar el sitio desde S
 - No implementes hasta que apruebe el enfoque.
 
 ### Aceptación C6
+
 - Cambiar de combinación desde el Studio sin recompilar, sin CLS perceptible y dentro del presupuesto de rendimiento.
 
 ---

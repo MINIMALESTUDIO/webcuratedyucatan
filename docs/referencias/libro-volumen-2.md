@@ -7,25 +7,25 @@
 
 ## 1. Estructura del libro
 
-| Págs. | Sección | Contenido |
-|---|---|---|
-| 1–3 | Portada | "CURATED YUCATÁN" · "YUCATÁN'S VENUES COLLECTION" · "EDITION 1 - VOLUME II" |
-| 4 | Índice | Con marcadores sin llenar ("H———", "S———", "C———") |
-| 5 | Credits & sources | Declaración editorial: los venues proporcionaron y verificaron textos y fotos, y **autorizaron su uso "for editorial purposes"** |
-| 6 | Prologue | Dirigido a parejas; cierra con "At Minimal 4.0, we're happy to help you — with no obligation" |
-| 7 | Guide for couples & wedding planners | Explica los **2 estilos** de la colección; ofrece un **eBook exclusivo por venue** (galerías extendidas, inspiración y especificaciones) pidiéndolo al correo y teléfono de Minimal 4.0 |
-| 8 | Why Yucatán | Dirigido a planners: "a venue is never simply the setting. It becomes part of the story." |
-| 9 | Understanding Haciendas & Colonial Houses | Historia del henequén, restauración y casonas de Mérida |
-| 10 | Wedding seasons | Peak (nov–abr) · Tropical (may–ago) · Rainy (jun–oct) · Year-round. Tropical y lluvias se traslapan |
-| 11 | Apertura "HERITAGE SPACES" | "Where history continues to shape today's most memorable celebrations." |
-| 12–29 | 9 fichas de Heritage Spaces | Cada venue: página de ficha + página de mosaico de fotos |
-| 31 | Apertura "DISTINCTIVE VENUES" | "A curated selection of places defined by their unique character." |
-| 32–43 | 6 fichas de Distinctive Venues | Mismo patrón |
-| 45 | Epilogue: "The Collection Continues" | "Future volumes will continue expanding this archive…" · "Stay curious. The journey continues." |
-| 46 | About us | **Minimal 4.0** (mobiliario y ambientes) y **MasQueAyer** (diseño floral), cada uno con logo y QR |
-| 47 | Explore the full video series | Serie audiovisual **"El Lugar de Tu Historia"**: un video cinematográfico por venue y un QR a la videoteca |
-| 48 | Upcoming venues | ~50 venues "featured in future editions" + nota interna de trabajo |
-| 49–51 | Cierre | Ilustración a tinta, página en blanco, contraportada con el logo de Minimal 4.0 |
+| Págs. | Sección                                   | Contenido                                                                                                                                                                               |
+| ----- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1–3   | Portada                                   | "CURATED YUCATÁN" · "YUCATÁN'S VENUES COLLECTION" · "EDITION 1 - VOLUME II"                                                                                                             |
+| 4     | Índice                                    | Con marcadores sin llenar ("H———", "S———", "C———")                                                                                                                                      |
+| 5     | Credits & sources                         | Declaración editorial: los venues proporcionaron y verificaron textos y fotos, y **autorizaron su uso "for editorial purposes"**                                                        |
+| 6     | Prologue                                  | Dirigido a parejas; cierra con "At Minimal 4.0, we're happy to help you — with no obligation"                                                                                           |
+| 7     | Guide for couples & wedding planners      | Explica los **2 estilos** de la colección; ofrece un **eBook exclusivo por venue** (galerías extendidas, inspiración y especificaciones) pidiéndolo al correo y teléfono de Minimal 4.0 |
+| 8     | Why Yucatán                               | Dirigido a planners: "a venue is never simply the setting. It becomes part of the story."                                                                                               |
+| 9     | Understanding Haciendas & Colonial Houses | Historia del henequén, restauración y casonas de Mérida                                                                                                                                 |
+| 10    | Wedding seasons                           | Peak (nov–abr) · Tropical (may–ago) · Rainy (jun–oct) · Year-round. Tropical y lluvias se traslapan                                                                                     |
+| 11    | Apertura "HERITAGE SPACES"                | "Where history continues to shape today's most memorable celebrations."                                                                                                                 |
+| 12–29 | 9 fichas de Heritage Spaces               | Cada venue: página de ficha + página de mosaico de fotos                                                                                                                                |
+| 31    | Apertura "DISTINCTIVE VENUES"             | "A curated selection of places defined by their unique character."                                                                                                                      |
+| 32–43 | 6 fichas de Distinctive Venues            | Mismo patrón                                                                                                                                                                            |
+| 45    | Epilogue: "The Collection Continues"      | "Future volumes will continue expanding this archive…" · "Stay curious. The journey continues."                                                                                         |
+| 46    | About us                                  | **Minimal 4.0** (mobiliario y ambientes) y **MasQueAyer** (diseño floral), cada uno con logo y QR                                                                                       |
+| 47    | Explore the full video series             | Serie audiovisual **"El Lugar de Tu Historia"**: un video cinematográfico por venue y un QR a la videoteca                                                                              |
+| 48    | Upcoming venues                           | ~50 venues "featured in future editions" + nota interna de trabajo                                                                                                                      |
+| 49–51 | Cierre                                    | Ilustración a tinta, página en blanco, contraportada con el logo de Minimal 4.0                                                                                                         |
 
 ## 2. Anatomía de una ficha de venue
 
@@ -50,13 +50,14 @@ Maquetaciones que alterna: texto a un lado y foto a media página al otro; banda
 
 ### Tipografía (fuentes incrustadas)
 
-| Familia | Rol en el libro | Tamaños (pt) | Estilo |
-|---|---|---|---|
+| Familia            | Rol en el libro                                                                                                                               | Tamaños (pt)      | Estilo                                               |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------- |
 | **Century Gothic** | Voz de marca: portada, títulos de sección (PROLOGUE, WHY YUCATÁN, EPILOGUE, ABOUT US…), aperturas de estilo (HERITAGE SPACES), microetiquetas | 6 · 10–14 · 33–35 | Mayúsculas, muy espaciada; índice en negrita itálica |
-| **Cinzel** | Solo nombres de venues | 23–26 | Mayúsculas (la fuente solo tiene mayúsculas) |
-| **Montserrat** | Cuerpo, etiquetas (LOCATION), frases de apertura, subtítulos en itálica o negrita itálica | 6–10 | Cuerpo 7 pt justificado; etiquetas en mayúsculas |
+| **Cinzel**         | Solo nombres de venues                                                                                                                        | 23–26             | Mayúsculas (la fuente solo tiene mayúsculas)         |
+| **Montserrat**     | Cuerpo, etiquetas (LOCATION), frases de apertura, subtítulos en itálica o negrita itálica                                                     | 6–10              | Cuerpo 7 pt justificado; etiquetas en mayúsculas     |
 
 **Proporciones respecto al cuerpo (7 pt):**
+
 - Nombre de venue: ×3.3.
 - Título de estilo: ×4.7.
 - Portada: ×5.
@@ -64,6 +65,7 @@ Maquetaciones que alterna: texto a un lado y foto a media página al otro; banda
 - Microetiqueta: ×0.85.
 
 **Otras medidas:**
+
 - Interlineado del cuerpo: 1.42.
 - Todo el texto va levemente espaciado, y Century Gothic más.
 
