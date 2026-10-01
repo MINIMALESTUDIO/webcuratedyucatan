@@ -6,8 +6,8 @@ import { Contenedor } from '@/components/ui/Contenedor';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 
 /**
- * 07 — Plan your event: último bloque del inicio y principal punto de conversión. Ofrece además
- * Find Your Yucatán para quien todavía está descubriendo.
+ * 07 — Plan your event: último bloque del inicio y principal punto de conversión. El documento
+ * pide únicamente título, texto y un botón (sin enlaces adicionales).
  */
 export async function SeccionPlanea({ configuracion }: { configuracion: ConfiguracionSitio }) {
   const t = await getTranslations('Inicio.planea');
@@ -33,14 +33,9 @@ export async function SeccionPlanea({ configuracion }: { configuracion: Configur
           <p className="mt-6 max-w-md text-destacado text-tinta-suave">
             {localizar(texto, idioma)}
           </p>
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-            <BotonEnlace href="/planea-tu-evento" variante="primario">
-              {t('cta')}
-            </BotonEnlace>
-            <BotonEnlace href="/encuentra-tu-yucatan" variante="texto">
-              {t('encuentra')}
-            </BotonEnlace>
-          </div>
+          <BotonEnlace href="/planea-tu-evento" variante="primario" className="mt-10">
+            {t('cta')}
+          </BotonEnlace>
         </div>
       </Contenedor>
     </section>

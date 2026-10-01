@@ -3,7 +3,19 @@ import { imagenDemo, texto } from './ayudantes';
 
 /*
  * Singleton configuracionSitio: textos e imágenes del inicio (documento de estructura,
- * sección 4). El lema y los temas son del documento; los demás textos son [DEMO].
+ * sección 4).
+ *
+ * Copy real tomado de 01_WEB/01_HOME (Drive, 2026-10-01) para los bloques que no requieren
+ * páginas o fichas adicionales: hero, "What is Curated?", la entradilla de "Discover Yucatán",
+ * "Explore Curated" y el cierre "Plan your event". Las traducciones al español son nuestras.
+ *
+ * Quedan en [DEMO] a propósito (piden contenido que aún no existe):
+ * - los 7 temas de "Discover Yucatán" (el documento define 6 categorías distintas —
+ *   Architecture, Culture, Gastronomy, History, Nature, Experiences— con sus propias páginas,
+ *   que todavía no están construidas; cambiar solo las etiquetas sin esas páginas generaría
+ *   enlaces rotos, así que se deja la sección completa como estaba);
+ * - "Featured Venues": el documento pide 4 haciendas reales con ficha propia (colección,
+ *   fotos); los venues reales siguen sin cargarse.
  */
 
 // Temas de "Discover Yucatán" en el inicio y la sección de la página a la que llevan.
@@ -17,19 +29,40 @@ const TEMAS: Array<[clave: string, en: string, es: string, ancla: string]> = [
   ['experiencias', 'Experiences', 'Experiencias', 'experiencias'],
 ];
 
+// Microdescripción de cada área, tal como aparece en 01_WEB/01_HOME/04 — EXPLORE CURATED.
 const AREAS = [
-  ['venues', 'venues'],
-  ['catering', 'catering'],
-  ['fotografia', 'fotografia'],
-  ['diseno-produccion', 'diseno'],
+  [
+    'venues',
+    'venues',
+    'Discover remarkable settings for celebrations across Yucatán.',
+    'Descubre escenarios excepcionales para celebraciones en Yucatán.',
+  ],
+  [
+    'catering',
+    'catering',
+    'Explore the flavors and culinary talent behind celebrations in Yucatán.',
+    'Explora los sabores y el talento culinario detrás de las celebraciones en Yucatán.',
+  ],
+  [
+    'fotografia',
+    'fotografia',
+    'Discover photographers with a distinct point of view and a story to tell.',
+    'Descubre fotógrafos con una mirada propia y una historia que contar.',
+  ],
+  [
+    'diseno-produccion',
+    'diseno',
+    'Explore the creative direction, design and production that bring celebrations to life.',
+    'Explora la dirección creativa, el diseño y la producción que dan vida a las celebraciones.',
+  ],
 ] as const;
 
 export const configuracionDemo: ConfiguracionSitio = {
   _id: 'configuracionSitio',
   _type: 'configuracionSitio',
   lema: texto(
-    'Your insider guide to celebrating in Yucatán.',
-    'Tu guía experta para celebrar en Yucatán.',
+    'An editorial guide to destination weddings, remarkable venues and local talent in Yucatán.',
+    'Una guía editorial de bodas de destino, venues excepcionales y talento local en Yucatán.',
   ),
   imagenHero: imagenDemo(
     'inicio-hero.jpg',
@@ -42,14 +75,15 @@ export const configuracionDemo: ConfiguracionSitio = {
   videoHero: undefined,
   queEsCurated: {
     texto: texto(
-      '[DEMO] A short explanation of Curated Yucatán: a platform to discover Yucatán, explore its venues and partners, and connect to start planning an event.',
-      '[DEMO] Una explicación breve de Curated Yucatán: una plataforma para descubrir Yucatán, explorar sus venues y aliados, y conectar para empezar a planear un evento.',
+      'Curated Yucatán is an editorial destination guide created for those looking to celebrate in Yucatán. We bring together the places, local talent and essential insight that make the destination easier to discover, understand and navigate — all through a carefully curated point of view.',
+      'Curated Yucatán es una guía editorial del destino, creada para quienes buscan celebrar en Yucatán. Reunimos los lugares, el talento local y la información esencial que hacen más fácil descubrir, entender y recorrer el destino, todo desde una mirada cuidadosamente curada.',
     ),
   },
   descubre: {
+    // La entradilla es del documento; los 6 temas de la página siguen en [DEMO] (ver nota arriba).
     texto: texto(
-      '[DEMO] Sample text introducing the destination through its architecture, culture and landscapes.',
-      '[DEMO] Texto de ejemplo que presenta el destino a través de su arquitectura, cultura y paisajes.',
+      'There is more to Yucatán than the celebration itself. Discover the culture, flavors, stories and landscapes that give this destination its unmistakable sense of place.',
+      'Yucatán es mucho más que el escenario de una celebración. Descubre la cultura, los sabores, las historias y los paisajes que le dan a este destino su carácter inconfundible.',
     ),
     temas: TEMAS.map(([clave, en, es, ancla]) => ({
       _key: `tema-${clave}`,
@@ -66,16 +100,13 @@ export const configuracionDemo: ConfiguracionSitio = {
   },
   exploraCurated: {
     texto: texto(
-      '[DEMO] Four areas, one curated selection.',
-      '[DEMO] Cuatro áreas, una sola selección curada.',
+      'Start bringing your celebration to life. Explore a curated selection of venues and local talent across Yucatán.',
+      'Empieza a darle vida a tu celebración. Explora una selección curada de venues y talento local en Yucatán.',
     ),
-    areas: AREAS.map(([destino, archivo]) => ({
+    areas: AREAS.map(([destino, archivo, en, es]) => ({
       _key: `area-${destino}`,
       destino,
-      texto: texto(
-        '[DEMO] One line that describes this area of the collection.',
-        '[DEMO] Una línea que describe esta área de la colección.',
-      ),
+      texto: texto(en, es),
       imagen: imagenDemo(
         `explora-${archivo}.jpg`,
         1600,
@@ -87,8 +118,8 @@ export const configuracionDemo: ConfiguracionSitio = {
   },
   planea: {
     texto: texto(
-      '[DEMO] From exploring to planning: tell us about your event and we will guide you to the right places and partners.',
-      '[DEMO] De explorar a planear: cuéntanos de tu evento y te guiamos hacia los lugares y aliados adecuados.',
+      "Tell us what you're planning and what you're looking for. We'll help connect you with the places and local talent that fit your celebration.",
+      'Cuéntanos qué estás planeando y qué buscas. Te ayudamos a conectar con los lugares y el talento local que van con tu celebración.',
     ),
     imagen: imagenDemo(
       'inicio-planea.jpg',

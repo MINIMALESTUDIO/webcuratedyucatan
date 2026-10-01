@@ -121,7 +121,7 @@ for (const area of ['mobiliario', 'mesa', 'floral', 'decoracion', 'produccion'])
   imagenes.push([`diseno-${area}-2.jpg`, ...V, `${area} · 2`]);
 }
 
-for (let n = 1; n <= 5; n++) imagenes.push([`articulo-${n}.jpg`, ...H, `Journal ${n}`]);
+for (let n = 1; n <= 6; n++) imagenes.push([`articulo-${n}.jpg`, ...H, `Journal ${n}`]);
 imagenes.push(['nosotros.jpg', ...H, 'About Curated']);
 
 await rm(DESTINO, { recursive: true, force: true });

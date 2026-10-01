@@ -68,7 +68,7 @@
     },
     "queEs": {
       "titulo": "What is Curated?",
-      "cta": "About Curated"
+      "cta": "Discover Curated"
     },
     "descubre": {
       "titulo": "Discover Yucatán",
@@ -79,7 +79,7 @@
     },
     "destacados": {
       "titulo": "Featured venues",
-      "verTodos": "View all venues"
+      "verTodos": "Explore all venues"
     },
     "journal": {
       "titulo": "Curated Journal",
@@ -87,8 +87,7 @@
     },
     "planea": {
       "titulo": "Plan your event",
-      "cta": "Plan your event",
-      "encuentra": "Or find your Yucatán"
+      "cta": "Plan your event"
     }
   },
   "Venues": {

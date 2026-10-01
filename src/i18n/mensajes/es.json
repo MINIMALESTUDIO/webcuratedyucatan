@@ -68,7 +68,7 @@
     },
     "queEs": {
       "titulo": "¿Qué es Curated?",
-      "cta": "Sobre Curated"
+      "cta": "Descubre Curated"
     },
     "descubre": {
       "titulo": "Descubre Yucatán",
@@ -79,7 +79,7 @@
     },
     "destacados": {
       "titulo": "Venues destacados",
-      "verTodos": "Ver todos los venues"
+      "verTodos": "Explorar todos los venues"
     },
     "journal": {
       "titulo": "Curated Journal",
@@ -87,8 +87,7 @@
     },
     "planea": {
       "titulo": "Planea tu evento",
-      "cta": "Planea tu evento",
-      "encuentra": "O encuentra tu Yucatán"
+      "cta": "Planea tu evento"
     }
   },
   "Venues": {

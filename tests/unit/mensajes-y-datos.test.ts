@@ -99,9 +99,18 @@ describe('datos DEMO', () => {
       expect(venue.resumen.es?.startsWith('[DEMO]')).toBe(true);
       for (const nota of venue.notasCurated) expect(nota.texto.en.startsWith('[DEMO]')).toBe(true);
     }
-    for (const articulo of articulosDemo)
-      expect(articulo.extracto.en.startsWith('[DEMO]')).toBe(true);
-    expect(configuracionDemo.queEsCurated.texto.en.startsWith('[DEMO]')).toBe(true);
+  });
+
+  it('el Curated Journal es copy real (sin [DEMO]) de 01_WEB/07_CURATED JOURNAL', () => {
+    expect(articulosDemo).toHaveLength(6);
+    for (const articulo of articulosDemo) {
+      expect(articulo.titulo.en.startsWith('[DEMO]')).toBe(false);
+      expect(articulo.extracto.en.startsWith('[DEMO]')).toBe(false);
+      // Real y sin traducir todavía: se apoya en el respaldo a inglés (D-008), no en un
+      // texto en español inventado.
+      expect(articulo.titulo.es).toBeUndefined();
+      expect(articulo.cuerpo.en.length).toBeGreaterThan(5);
+    }
   });
 
   it('los temas del inicio llevan a secciones existentes de Discover Yucatán', () => {
