@@ -123,26 +123,40 @@ export async function SeccionEspacios({ venue }: { venue: Venue }) {
 export async function SeccionNotas({ venue }: { venue: Venue }) {
   if (venue.notasCurated.length === 0) return null;
   const t = await getTranslations('Venue.notas');
+  const unica = venue.notasCurated.length === 1 ? venue.notasCurated[0] : undefined;
   const idioma = await getLocale();
 
   return (
     <section aria-labelledby="notas" className="border-y border-linea py-seccion">
       <Contenedor>
         <EncabezadoSeccion id="notas" titulo={t('titulo')} entradilla={t('entradilla')} />
-        <ol
-          className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3"
-          data-sanity={atributoEdicion({ id: venue._id, tipo: 'venue', ruta: 'notasCurated' })}
-        >
-          {venue.notasCurated.map((nota, i) => (
-            <li key={nota._key} className="flex flex-col gap-3 border-t border-tinta pt-6">
-              <span className="font-marca text-xs tracking-[0.2em] text-tinta-suave">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <h3 className="text-titulo-3">{localizar(nota.titulo, idioma)}</h3>
-              <p className="text-sm text-tinta-suave">{localizar(nota.texto, idioma)}</p>
-            </li>
-          ))}
-        </ol>
+        {unica ? (
+          // Una sola nota (el caso de las fichas reales): párrafo a lo ancho de lectura.
+          <div
+            className="mt-14 max-w-3xl border-t border-tinta pt-6"
+            data-sanity={atributoEdicion({ id: venue._id, tipo: 'venue', ruta: 'notasCurated' })}
+          >
+            {unica.titulo && <h3 className="text-titulo-3">{localizar(unica.titulo, idioma)}</h3>}
+            <p className={unica.titulo ? 'mt-3 text-tinta-suave' : 'text-tinta-suave'}>
+              {localizar(unica.texto, idioma)}
+            </p>
+          </div>
+        ) : (
+          <ol
+            className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3"
+            data-sanity={atributoEdicion({ id: venue._id, tipo: 'venue', ruta: 'notasCurated' })}
+          >
+            {venue.notasCurated.map((nota, i) => (
+              <li key={nota._key} className="flex flex-col gap-3 border-t border-tinta pt-6">
+                <span className="font-marca text-xs tracking-[0.2em] text-tinta-suave">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {nota.titulo && <h3 className="text-titulo-3">{localizar(nota.titulo, idioma)}</h3>}
+                <p className="text-sm text-tinta-suave">{localizar(nota.texto, idioma)}</p>
+              </li>
+            ))}
+          </ol>
+        )}
       </Contenedor>
     </section>
   );

@@ -68,7 +68,16 @@ describe('Find Your Yucatán', () => {
     expect(puntuar(venue, base)).toBe(1);
   });
 
-  it('con los datos DEMO siempre devuelve 3 venues y empieza por la colección elegida', () => {
+  it('el entorno indicado en la ficha manda sobre el de los espacios (D-047)', () => {
+    const yaxcopoil = venuesDemo.find((v) => v.slug === 'hacienda-yaxcopoil');
+    // Solo nombra la capilla (interior), pero la ficha dice "Indoor and outdoor spaces".
+    expect(yaxcopoil && entornoDeEspacios(yaxcopoil.espacios.map((x) => x.interiorExterior))).toBe(
+      'interior',
+    );
+    expect(yaxcopoil && aTarjeta(yaxcopoil).entorno).toBe('ambos');
+  });
+
+  it('con los venues reales siempre devuelve 3 venues y empieza por la colección elegida', () => {
     const tarjetas = venuesDemo.map(aTarjeta);
     for (const atmosfera of ['contemporary', 'organic', 'timeless']) {
       const resultado = recomendarVenues(tarjetas, { ...base, atmosfera, invitados: 'mas-400' });

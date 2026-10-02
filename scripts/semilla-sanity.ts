@@ -98,6 +98,7 @@ for (const v of venuesDemo) {
     coleccion: referencia(`coleccion-${v.coleccion.slug}`),
     region: referencia(`region-${v.region.slug}`),
     localidad: v.localidad,
+    direccion: v.direccion,
     resumen: v.resumen,
     descripcion: bloques(v.descripcion),
     atributos: v.atributos,

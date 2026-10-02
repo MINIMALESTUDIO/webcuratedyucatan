@@ -76,12 +76,12 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   await page.getByRole('link', { name: 'Explore venues' }).last().click();
   await expect(page).toHaveURL(/\/venues$/);
   await esperarListadoInteractivo(page);
-  await expect(page.getByText('6 venues', { exact: true })).toBeVisible();
+  await expect(page.getByText('18 venues', { exact: true })).toBeVisible();
 
   // Colección como entrada visual
-  await page.getByRole('button', { name: /Timeless Venues/ }).click();
-  await expect(page).toHaveURL(/\?estilo=timeless$/);
-  await expect(page.getByText('2 venues', { exact: true })).toBeVisible();
+  await page.getByRole('button', { name: /Organic Estates/ }).click();
+  await expect(page).toHaveURL(/\?estilo=organic$/);
+  await expect(page.getByText('6 venues', { exact: true })).toBeVisible();
 
   // Panel de filtros: capacidad hasta 200
   await page.getByRole('button', { name: 'Filters', exact: true }).click();
@@ -90,7 +90,7 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   await panel.getByRole('button', { name: 'Up to 200', exact: true }).click();
   await panel.getByRole('button', { name: 'See 1 venue' }).click();
   await expect(panel).toBeHidden();
-  await expect(page).toHaveURL(/\?estilo=timeless&capacidad=hasta-200$/);
+  await expect(page).toHaveURL(/\?estilo=organic&capacidad=hasta-200$/);
   await expect(page.getByText('1 venue', { exact: true })).toBeVisible();
 
   // El filtro vive en la URL: sobrevive a una recarga
@@ -99,13 +99,17 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   await expect(page.getByText('1 venue', { exact: true })).toBeVisible();
 
   // A la ficha: estructura base del documento
-  await page.getByRole('link', { name: '[DEMO] Casona Ejemplo Centro' }).click();
-  await expect(page).toHaveURL(/\/venues\/demo-casona-ejemplo-centro$/);
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('[DEMO] Casona Ejemplo Centro');
+  await page.getByRole('link', { name: 'Hacienda Sac Chich' }).click();
+  await expect(page).toHaveURL(/\/venues\/hacienda-sac-chich$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Hacienda Sac Chich');
   for (const titulo of ['Quick facts', 'About', 'Spaces', 'Curated Notes', 'Gallery']) {
     await expect(page.getByRole('heading', { level: 2, name: titulo, exact: true })).toBeAttached();
   }
-  await expect(page.getByText('Timeless Venues').first()).toBeVisible();
+  await expect(page.getByText('Organic Estates').first()).toBeVisible();
+  // Quick facts con el texto de la ficha real (D-047)
+  const datos = page.locator('dl').filter({ hasText: 'Accommodation' });
+  await expect(datos).toContainText('Colonial architecture with contemporary design');
+  await expect(datos).toContainText('8 rooms · up to 21 guests');
 
   // Barra fija con CTA: visible solo en móvil y lleva a la solicitud
   const barra = page.getByTestId('barra-cta-movil');
@@ -123,22 +127,11 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   // Volver atrás conserva los filtros
   await page.goBack();
   if (movil) await page.goBack();
-  await expect(page).toHaveURL(/\?estilo=timeless&capacidad=hasta-200$/);
-});
-
-test('película: al elegir un capítulo se carga el reproductor en ese segundo', async ({ page }) => {
-  await page.goto('/venues/demo-hacienda-ejemplo-norte');
-  const seccion = page.locator('#pelicula');
-  // El nombre accesible incluye el texto visible del capítulo (WCAG 2.5.3).
-  await seccion.getByRole('button', { name: 'Play from 5:10 Spaces and light' }).click();
-  await expect(seccion.locator('iframe')).toHaveAttribute(
-    'src',
-    /youtube-nocookie\.com\/embed\/M7lc1UVf-VE\?.*start=310/,
-  );
+  await expect(page).toHaveURL(/\?estilo=organic&capacidad=hasta-200$/);
 });
 
 test('solicitud de información en la ficha: errores asociados y confirmación', async ({ page }) => {
-  await page.goto('/venues/demo-casona-ejemplo-centro');
+  await page.goto('/venues/hacienda-sac-chich');
   const formulario = page.locator('#solicitud form');
   await expect(formulario).toHaveAttribute('data-hidratado', 'si');
 
@@ -200,9 +193,9 @@ test('español: rutas traducidas y cambio de idioma que conserva la página', as
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { level: 2, name: '¿Qué es Curated?' })).toBeVisible();
 
-  await page.goto('/venues/demo-casona-ejemplo-centro');
+  await page.goto('/venues/hacienda-sac-chich');
   await page.getByRole('contentinfo').getByRole('link', { name: 'Español' }).click();
-  await expect(page).toHaveURL(/\/es\/venues\/demo-casona-ejemplo-centro$/);
+  await expect(page).toHaveURL(/\/es\/venues\/hacienda-sac-chich$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { name: 'Datos clave' })).toBeAttached();
 
@@ -238,7 +231,7 @@ test('accesibilidad: axe sin violaciones serias ni críticas (WCAG 2.1 AA)', asy
     '/',
     '/discover-yucatan',
     '/venues',
-    '/venues/demo-hacienda-ejemplo-norte',
+    '/venues/hacienda-xtepen',
     '/catering',
     '/photography/demo-estudio-ejemplo',
     '/design-production',

@@ -138,6 +138,8 @@
       "minutosCentro": "{minutos} min from downtown Mérida",
       "kilometros": "{km} km",
       "habitaciones": "{habitaciones, plural, one {# room} other {# rooms}} · up to {huespedes} guests",
+      "soloHabitaciones": "{habitaciones, plural, one {# room} other {# rooms}}",
+      "conHospedaje": "On site",
       "sinHospedaje": "Not on site"
     },
     "entorno": {

@@ -48,7 +48,9 @@ export function TarjetaVenue({
           </Link>
         </Titulo>
         <p className="text-sm text-tinta-suave">
-          {venue.localidad} · {t('minutos', { minutos: venue.minutosCentroMerida })}
+          {venue.localidad}
+          {venue.minutosCentroMerida !== undefined &&
+            ` · ${t('minutos', { minutos: venue.minutosCentroMerida })}`}
         </p>
         <p className="text-sm">
           {tc('invitados', { cantidad: formatearNumero(venue.capacidadMax, idioma) })}

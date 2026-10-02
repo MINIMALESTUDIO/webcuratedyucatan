@@ -32,6 +32,7 @@ import {
   type ConfiguracionSitio,
   type DescubreYucatan,
   type DisenoProduccion,
+  type Entorno,
   type InteriorExterior,
   type PaginaEditorial,
   type Proveedor,
@@ -64,12 +65,16 @@ async function consultar<T>(query: string, { params = {}, etiquetas, limpio = fa
   return sinNulos(data) as T;
 }
 
-type TarjetaCruda = Omit<VenueTarjeta, 'entorno'> & { tiposEspacio: InteriorExterior[] };
+type TarjetaCruda = Omit<VenueTarjeta, 'entorno'> & {
+  tiposEspacio: InteriorExterior[];
+  entornoFicha?: Entorno;
+};
 
 function aTarjetas(crudas: TarjetaCruda[] | null): VenueTarjeta[] {
-  return (crudas ?? []).map(({ tiposEspacio, ...tarjeta }) => ({
+  return (crudas ?? []).map(({ tiposEspacio, entornoFicha, ...tarjeta }) => ({
     ...tarjeta,
-    entorno: entornoDeEspacios(tiposEspacio),
+    // El entorno indicado en la ficha manda sobre el cálculo por espacios (D-047).
+    entorno: entornoFicha ?? entornoDeEspacios(tiposEspacio),
   }));
 }
 

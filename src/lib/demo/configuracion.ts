@@ -9,13 +9,13 @@ import { imagenDemo, texto } from './ayudantes';
  * páginas o fichas adicionales: hero, "What is Curated?", la entradilla de "Discover Yucatán",
  * "Explore Curated" y el cierre "Plan your event". Las traducciones al español son nuestras.
  *
- * Quedan en [DEMO] a propósito (piden contenido que aún no existe):
- * - los 7 temas de "Discover Yucatán" (el documento define 6 categorías distintas —
- *   Architecture, Culture, Gastronomy, History, Nature, Experiences— con sus propias páginas,
- *   que todavía no están construidas; cambiar solo las etiquetas sin esas páginas generaría
- *   enlaces rotos, así que se deja la sección completa como estaba);
- * - "Featured Venues": el documento pide 4 haciendas reales con ficha propia (colección,
- *   fotos); los venues reales siguen sin cargarse.
+ * "Featured Venues" sale de los venues marcados como destacados: los cuatro del documento
+ * (src/lib/demo/venues.ts, 2026-10-02).
+ *
+ * Quedan en [DEMO] a propósito: los 7 temas de "Discover Yucatán". El documento define 6
+ * categorías distintas (Architecture, Culture, Gastronomy, History, Nature, Experiences) con sus
+ * propias páginas, que todavía no están construidas; cambiar solo las etiquetas sin esas páginas
+ * generaría enlaces rotos, así que se deja la sección completa como estaba.
  */
 
 // Temas de "Discover Yucatán" en el inicio y la sección de la página a la que llevan.

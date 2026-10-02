@@ -119,15 +119,26 @@ export const ATRIBUTOS_VENUE = [
 export type AtributoVenue = (typeof ATRIBUTOS_VENUE)[number];
 
 export interface FichaTecnica {
-  /** Capacidad máxima del venue, en su espacio más grande. */
+  /** Capacidad máxima del venue, en su espacio o formato más grande. */
   capacidadMax: number;
+  /** "Capacity" de la ficha cuando distingue formatos ("Banquet up to 280 / Cocktail up to 300"). */
+  capacidadDetalle?: TextoLocalizado;
   hospedaje: {
     tieneHospedaje: boolean;
     habitaciones?: number;
     huespedesMax?: number;
+    /** Texto de la ficha ("Casitas (2–4 guests)…"); si existe, se muestra en lugar del cálculo. */
+    descripcion?: TextoLocalizado;
   };
-  minutosCentroMerida: number;
+  /** Opcional: algunas fichas no traen el traslado desde el centro. */
+  minutosCentroMerida?: number;
   kmCentroMerida?: number;
+  /** "Style" de la ficha; si falta se muestra el nombre de la colección. */
+  estilo?: TextoLocalizado;
+  /** "Indoor / Outdoor" de la ficha, tal cual; si falta se muestra el valor calculado. */
+  interiorExterior?: TextoLocalizado;
+  /** Manda sobre el cálculo por espacios en filtros y Find Your Yucatán (D-047). */
+  entorno?: Entorno;
 }
 
 export interface Espacio {
@@ -142,7 +153,8 @@ export interface Espacio {
 /** Nota práctica para wedding planners ("Curated Notes"). */
 export interface NotaCurated {
   _key: string;
-  titulo: TextoLocalizado;
+  /** Opcional: las fichas reales traen una sola nota sin título. */
+  titulo?: TextoLocalizado;
   texto: TextoLocalizado;
 }
 
@@ -169,6 +181,8 @@ export interface Venue {
   region: RegionResumen;
   /** Municipio o localidad, nombre propio ("Chocholá"). */
   localidad: string;
+  /** Dirección completa de la ficha ("Name + Location"). */
+  direccion?: string;
   /** Máximo 200 caracteres. */
   resumen: TextoLocalizado;
   descripcion: BloquesLocalizados;
@@ -196,7 +210,7 @@ export interface VenueTarjeta {
   coleccion: ColeccionResumen;
   region: RegionResumen;
   localidad: string;
-  minutosCentroMerida: number;
+  minutosCentroMerida?: number;
   imagen: Imagen;
   capacidadMax: number;
   tieneHospedaje: boolean;

@@ -16,6 +16,13 @@ export function entornoDeEspacios(tipos: readonly InteriorExterior[]): Entorno {
   return interior ? 'interior' : 'exterior';
 }
 
+/** Entorno del venue: el indicado en la ficha (D-047) o, si falta, el calculado por espacios. */
+export function entornoDeVenue(venue: Pick<Venue, 'fichaTecnica' | 'espacios'>): Entorno {
+  return (
+    venue.fichaTecnica.entorno ?? entornoDeEspacios(venue.espacios.map((e) => e.interiorExterior))
+  );
+}
+
 /** ¿El venue sirve para la preferencia interior o exterior? "ambos" sirve para las dos. */
 export function coincideEntorno(entorno: Entorno, preferencia: 'interior' | 'exterior'): boolean {
   return entorno === 'ambos' || entorno === preferencia;
@@ -36,7 +43,7 @@ export function aTarjeta(venue: Venue): VenueTarjeta {
     capacidadMax: venue.fichaTecnica.capacidadMax,
     tieneHospedaje: venue.fichaTecnica.hospedaje.tieneHospedaje,
     habitaciones: venue.fichaTecnica.hospedaje.habitaciones,
-    entorno: entornoDeEspacios(venue.espacios.map((e) => e.interiorExterior)),
+    entorno: entornoDeVenue(venue),
     atributos: venue.atributos,
   };
 }

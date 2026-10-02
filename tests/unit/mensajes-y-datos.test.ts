@@ -60,10 +60,9 @@ describe('mensajes de interfaz', () => {
 });
 
 describe('datos DEMO', () => {
-  it('6 venues y 8 partners, todos marcados [DEMO] y con slug demo-', () => {
-    expect(venuesDemo).toHaveLength(6);
+  it('8 partners, todos marcados [DEMO] y con slug demo-', () => {
     expect(proveedoresDemo).toHaveLength(8);
-    for (const item of [...venuesDemo, ...proveedoresDemo]) {
+    for (const item of proveedoresDemo) {
       expect(item.nombre.startsWith('[DEMO]')).toBe(true);
       expect(item.slug.startsWith('demo-')).toBe(true);
     }
@@ -77,15 +76,16 @@ describe('datos DEMO', () => {
     }
   });
 
-  it('las tres colecciones del documento, cada una con dos venues', () => {
+  it('las tres colecciones del documento con los venues de FICHAS DE VENUES (4, 6 y 8)', () => {
     expect(coleccionesDemo.map((c) => c.nombre.en)).toEqual([
       'Contemporary Sanctuaries',
       'Organic Estates',
       'Timeless Venues',
     ]);
-    for (const coleccion of coleccionesDemo) {
-      expect(venuesDemo.filter((v) => v.coleccion.slug === coleccion.slug)).toHaveLength(2);
-    }
+    const porColeccion = coleccionesDemo.map(
+      (coleccion) => venuesDemo.filter((v) => v.coleccion.slug === coleccion.slug).length,
+    );
+    expect(porColeccion).toEqual([4, 6, 8]);
   });
 
   it('los slugs son únicos', () => {
@@ -93,12 +93,40 @@ describe('datos DEMO', () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it('los textos de ejemplo llevan [DEMO] en ambos idiomas', () => {
+  it('los venues son copy real de 01_WEB/03_VENUES (sin [DEMO] salvo las fotos)', () => {
+    expect(venuesDemo).toHaveLength(18);
     for (const venue of venuesDemo) {
-      expect(venue.resumen.en.startsWith('[DEMO]')).toBe(true);
-      expect(venue.resumen.es?.startsWith('[DEMO]')).toBe(true);
-      for (const nota of venue.notasCurated) expect(nota.texto.en.startsWith('[DEMO]')).toBe(true);
+      const textos = [
+        venue.nombre,
+        venue.resumen.en,
+        ...venue.notasCurated.map((n) => n.texto.en),
+        ...venue.espacios.map((e) => e.nombre.en),
+      ];
+      for (const t of textos) expect(t.includes('[DEMO]'), t).toBe(false);
+      expect(venue.slug.startsWith('demo-')).toBe(false);
+      // Real y sin traducir todavía: respaldo a inglés (D-008), no un español inventado.
+      expect(venue.resumen.es).toBeUndefined();
+      expect(venue.resumen.en.length).toBeLessThanOrEqual(200);
+      expect(venue.descripcion.en).toHaveLength(3);
+      expect(venue.notasCurated).toHaveLength(1);
+      expect(venue.pelicula).toBeUndefined();
+      // Las fotos siguen siendo marcadores hasta que lleguen las de FOTOS VENUES.
+      expect(venue.media.imagenHero.esDemo).toBe(true);
     }
+  });
+
+  it('los destacados son los cuatro de Home > Featured Venues', () => {
+    expect(
+      venuesDemo
+        .filter((v) => v.destacado)
+        .map((v) => v.slug)
+        .sort(),
+    ).toEqual([
+      'hacienda-chable',
+      'hacienda-sac-chich',
+      'hacienda-san-antonio-hool',
+      'hacienda-san-diego-cutz',
+    ]);
   });
 
   it('el Curated Journal es copy real (sin [DEMO]) de 01_WEB/07_CURATED JOURNAL', () => {
@@ -145,7 +173,7 @@ describe('datos DEMO', () => {
 
 describe('capa de contenido', () => {
   it('devuelve tarjetas, de 4 a 6 destacados y artículos ordenados', async () => {
-    expect(await obtenerVenuesTarjeta()).toHaveLength(6);
+    expect(await obtenerVenuesTarjeta()).toHaveLength(18);
     const destacados = await obtenerVenuesDestacados();
     expect(destacados.length).toBeGreaterThanOrEqual(4);
     expect(destacados.length).toBeLessThanOrEqual(6);
@@ -158,10 +186,10 @@ describe('capa de contenido', () => {
   });
 
   it('venues similares excluyen al propio venue y priorizan la colección', async () => {
-    const venue = await obtenerVenue('demo-hacienda-ejemplo-norte');
+    const venue = await obtenerVenue('hacienda-xtepen');
     expect(venue).not.toBeNull();
     const similares = await obtenerVenuesSimilares(venue!);
-    expect(similares.map((v) => v.slug)).not.toContain('demo-hacienda-ejemplo-norte');
+    expect(similares.map((v) => v.slug)).not.toContain('hacienda-xtepen');
     expect(similares[0]?.coleccion.slug).toBe('timeless');
   });
 

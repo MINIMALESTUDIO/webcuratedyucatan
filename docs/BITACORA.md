@@ -360,3 +360,54 @@ No se usó el asistente "npm create sanity" que sugiere Sanity: el Studio ya viv
   - cargar en hPanel `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` y `SANITY_REVALIDATE_SECRET`.
 - **Invitar al equipo** que editará contenido desde sanity.io/manage (Members).
 - **Build del Studio:** copia `public/demo/` (2 MB) porque Vite toma `public/` como carpeta estática. No afecta al sitio; se revisará si molesta.
+
+## Contenido real: venues desde el Drive (2026-10-02)
+
+**Estado:** hecho y verificado en modo DEMO. Sanity todavía tiene los venues de ejemplo; falta importar la semilla (ver Pendientes).
+
+### Resumen
+
+Se volvió a leer "FICHAS DE VENUES" (solo lectura, sin tocar el Drive). Ahora trae 18 venues: 4 en Contemporary Sanctuaries, 6 en Organic Estates y 8 en Timeless Venues. Reemplazan a los seis venues de ejemplo con su nombre, dirección, datos rápidos, About, espacios y Curated Note reales (D-047). Los destacados del inicio son los cuatro de Home > Featured Venues: Sac Chich, Chablé, San Antonio Hool y San Diego Cutz.
+
+### Archivos modificados
+
+- `src/lib/demo/venues.ts`: los 18 venues. El comentario inicial explica qué es copy real, qué se derivó y qué sigue en DEMO.
+- `src/lib/contenido/tipos.ts`, `derivados.ts`, `fuente-sanity.ts`, `src/lib/sanity/consultas.ts`, `sanity/schemas/objetos.ts` y `sanity/schemas/documentos/venue.ts`: campos opcionales nuevos (D-047).
+- `src/components/secciones/venue/DatosClave.tsx`: Quick facts con los textos de la ficha, la dirección, y los minutos solo si existen.
+- `SeccionesVenue.tsx`: una nota única sin título se muestra como párrafo a lo ancho de lectura.
+- `TarjetaVenue.tsx`: los minutos son opcionales.
+- `src/app/[locale]/venues/page.tsx`: el filtro Location solo ofrece regiones con venues.
+- `src/i18n/mensajes/*.json`: `Venue.datos.soloHabitaciones` y `conHospedaje`. Corrige el "up to 0 guests" que salía cuando había habitaciones sin cifra de huéspedes.
+- Pruebas: datos reales (18 venues, colecciones 4/6/8, destacados), entorno de la ficha, y recorrido e2e por Organic Estates → "Up to 200" → Hacienda Sac Chich con comprobación de sus Quick facts.
+
+### Verificación
+
+| Comprobación                                      | Resultado real                                                                                                      |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `tsc`, ESLint                                     | sin errores                                                                                                         |
+| Vitest                                            | 53 de 53                                                                                                            |
+| `npm run build` en modo DEMO (con `.next` limpio) | correcto, 36 fichas de venue (18 × 2 idiomas)                                                                       |
+| Playwright (móvil, escritorio, WebKit)            | 24 de 24, incluido axe en 13 páginas (la prueba de la película se retiró, D-047)                                    |
+| Revisión visual                                   | Quick facts de Chablé con dirección, hospedaje, estilo e interior/exterior de la ficha; listado móvil con 18 venues |
+
+Nota: el primer build reutilizó componentes compilados viejos y mostraba los Quick facts anteriores aunque las pruebas pasaban. Borrar `.next` lo resolvió, y el e2e ahora comprueba esos textos.
+
+### No se muestran (líneas de la ficha que no son espacios ni datos rápidos)
+
+- San Antonio Hool: "Catering service: Available for up to 150 guests."
+- Yaxcopoil: "Civil or symbolic ceremony: 100–600 guests." Los formatos de banquete y cóctel (800) quedan cubiertos por la capacidad.
+- Casa Faller: "Cocktail: Up to 300 guests."
+- San Juan Opichén: "Cocktail: Up to 250 guests" y "Covered areas: 3 / Outdoor areas: 4". Sus espacios con nombre sí se muestran.
+- San Pedro Ochil: "historic event spaces" (sin nombre).
+- Dzibikak: el desglose de las 6 habitaciones. Se muestra "6 rooms · up to 20 guests".
+
+### Pendientes
+
+- **Fotos:** FOTOS VENUES está vacía; los marcadores `[DEMO]` siguen hasta que lleguen.
+- **Por confirmar con el equipo:**
+  - Xtepén dice "8 rooms, including Deluxe, Junior Suite and Master Suites", la misma frase que San Antonio Hool (la versión anterior de la ficha no mencionaba hospedaje);
+  - San Pedro Ochil, San Antonio Millet y San Juan Opichén muestran "Not specified" en hospedaje, tal como lo dice la ficha;
+  - Santa Rosa de Lima, Casona 333 y San Juan Opichén no traen minutos al centro;
+  - los atributos y el tipo de cada espacio son derivados (D-047).
+- **Traducción al español** del copy de venues.
+- **Sanity:** `npm run sanity:semilla` ya genera los 18 venues. Importarlos con `--replace` sobrescribe lo que se haya editado en el Studio, así que se hará cuando lo apruebes.

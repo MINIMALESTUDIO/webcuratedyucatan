@@ -40,10 +40,13 @@ export default async function PaginaVenues() {
     lema: localizar(c.lema, idioma),
     imagen: c.imagen,
   }));
-  const opcionesRegion = regiones.map((r) => ({
-    slug: r.slug,
-    nombre: localizar(r.nombre, idioma),
-  }));
+  // Solo las ubicaciones con algún venue: una opción sin resultados no ayuda a filtrar.
+  const opcionesRegion = regiones
+    .filter((r) => venues.some((v) => v.region.slug === r.slug))
+    .map((r) => ({
+      slug: r.slug,
+      nombre: localizar(r.nombre, idioma),
+    }));
 
   return (
     <>

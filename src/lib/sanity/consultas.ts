@@ -20,7 +20,7 @@ const VIDEO = /* groq */ `{ "url": asset->url, "mimeType": asset->mimeType, "pes
 const RESUMEN_REGION = /* groq */ `{ nombre, "slug": slug.current }`;
 const RESUMEN_COLECCION = /* groq */ `{ nombre, "slug": slug.current, resultado }`;
 
-/** Tarjeta de venue; "tiposEspacio" se convierte en `entorno` al recibir los datos. */
+/** Tarjeta de venue; "entornoFicha" o "tiposEspacio" se convierten en `entorno` al recibir los datos. */
 const VENUE_TARJETA = /* groq */ `{
   _id,
   nombre,
@@ -29,12 +29,13 @@ const VENUE_TARJETA = /* groq */ `{
   "coleccion": coleccion->${RESUMEN_COLECCION},
   "region": region->${RESUMEN_REGION},
   localidad,
-  "minutosCentroMerida": coalesce(fichaTecnica.minutosCentroMerida, 0),
+  "minutosCentroMerida": fichaTecnica.minutosCentroMerida,
   "imagen": media.imagenHero${IMAGEN},
   "capacidadMax": coalesce(fichaTecnica.capacidadMax, 0),
   "tieneHospedaje": fichaTecnica.hospedaje.tieneHospedaje == true,
   "habitaciones": fichaTecnica.hospedaje.habitaciones,
   "tiposEspacio": coalesce(espacios[].interiorExterior, []),
+  "entornoFicha": fichaTecnica.entorno,
   "atributos": coalesce(atributos, [])
 }`;
 
@@ -105,17 +106,23 @@ export const CONSULTA_VENUE = defineQuery(`*[${FILTRO_VENUE} && slug.current == 
   "coleccion": coleccion->${RESUMEN_COLECCION},
   "region": region->${RESUMEN_REGION},
   localidad,
+  direccion,
   resumen,
   descripcion,
   "fichaTecnica": {
     "capacidadMax": fichaTecnica.capacidadMax,
+    "capacidadDetalle": fichaTecnica.capacidadDetalle,
     "hospedaje": {
       "tieneHospedaje": fichaTecnica.hospedaje.tieneHospedaje == true,
       "habitaciones": fichaTecnica.hospedaje.habitaciones,
-      "huespedesMax": fichaTecnica.hospedaje.huespedesMax
+      "huespedesMax": fichaTecnica.hospedaje.huespedesMax,
+      "descripcion": fichaTecnica.hospedaje.descripcion
     },
-    "minutosCentroMerida": coalesce(fichaTecnica.minutosCentroMerida, 0),
-    "kmCentroMerida": fichaTecnica.kmCentroMerida
+    "minutosCentroMerida": fichaTecnica.minutosCentroMerida,
+    "kmCentroMerida": fichaTecnica.kmCentroMerida,
+    "estilo": fichaTecnica.estilo,
+    "interiorExterior": fichaTecnica.interiorExterior,
+    "entorno": fichaTecnica.entorno
   },
   "espacios": coalesce(espacios[]{
     _key, nombre, descripcion, interiorExterior, capacidad,

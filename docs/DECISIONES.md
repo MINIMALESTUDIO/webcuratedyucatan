@@ -394,3 +394,27 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - en ambas, accesibilidad, buenas prácticas y SEO 100, y CLS 0.
 
   El LCP observado es 1.3 s. La diferencia es el JavaScript del framework (React y el runtime de Next, ~350 KB sin comprimir) que la simulación ejecuta con la CPU 4 veces más lenta antes del pintado. **Pendiente:** evaluar imágenes renderizadas en el servidor (loader global) para reducir la hidratación, y medir en Hostinger.
+
+### D-047 — Venues reales de "FICHAS DE VENUES"
+
+- Fecha: 2026-10-02
+- Contexto: la ficha del Drive (01_WEB/03_VENUES) ya trae 18 venues completos en las tres colecciones. Cada uno tiene dirección, datos rápidos, About, espacios y una Curated Note. No trae fotos (FOTOS VENUES está vacía) ni traducción.
+- Decisión:
+  - El copy se usa tal cual, solo en inglés: el español cae al inglés con aviso (D-008).
+  - El resumen de los cuatro destacados es la "Short description" de Home > Featured Venues. El de los demás es la primera frase de su About.
+  - El modelo gana campos opcionales para no reescribir la ficha:
+    - `direccion`;
+    - `fichaTecnica.estilo`, `interiorExterior`, `capacidadDetalle` y `hospedaje.descripcion` (el texto de "Quick Facts");
+    - `fichaTecnica.entorno`, que manda sobre el cálculo por espacios.
+
+    Además, `minutosCentroMerida` y el título de las notas pasan a ser opcionales.
+
+  - Datos derivados de la ficha (editables en Sanity, por confirmar con el equipo):
+    - **interior / exterior de cada espacio:** cerrado = interior (capilla, salón, casa de máquinas); abierto = exterior (jardín, patio, terraza, anfiteatro); techado y abierto, o "interior y exterior" explícito = mixto (corredores, terrazas techadas, Salón de los Arcos). `fichaTecnica.entorno` solo se fija cuando la ficha dice "Indoor and outdoor" y únicamente nombra la capilla (Yaxcopoil, San José Cholul);
+    - **atributos de "What matters most?":** solo los que el About o la Curated Note mencionan de forma explícita (por ejemplo, "architecture, nature and privacy" en Sac Chich, o "within the city" para ubicación);
+    - **región del filtro Location:** Mérida cuando la ficha ubica el venue en Mérida (San Antonio Hool, Xcanatún, Casa Faller, Casona 333, San Juan Opichén); Alrededores de Mérida para los demás.
+  - Las fotos siguen siendo marcadores `[DEMO]` (se reutilizan los seis juegos existentes). Ningún venue tiene película hasta tener los videos de la serie.
+- Consecuencias:
+  - el listado oculta las regiones sin venues (Costa);
+  - la prueba e2e del reproductor con capítulos se retira hasta que haya una película real;
+  - las líneas de la ficha que no son espacios ni datos rápidos no se muestran (ver bitácora).

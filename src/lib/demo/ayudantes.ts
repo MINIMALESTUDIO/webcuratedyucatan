@@ -36,6 +36,14 @@ export function bloques(prefijo: string, en: string[], es: string[]): BloquesLoc
   return { en: aBloques(`${prefijo}-en`, en), es: aBloques(`${prefijo}-es`, es) };
 }
 
+/**
+ * Texto enriquecido solo en inglés: copy real todavía sin traducir. El español se apoya en el
+ * respaldo a inglés (D-008) en lugar de un texto inventado.
+ */
+export function bloquesIngles(prefijo: string, en: string[]): BloquesLocalizados {
+  return { en: aBloques(`${prefijo}-en`, en) };
+}
+
 /** Lista bilingüe con claves estables. */
 export function lista(
   prefijo: string,

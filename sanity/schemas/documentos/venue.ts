@@ -74,6 +74,14 @@ export const venue = defineType({
       group: 'general',
       validation: (r) => r.required().max(60),
     }),
+    defineField({
+      name: 'direccion',
+      title: 'Dirección',
+      description: 'Dirección completa, como aparece en la ficha.',
+      type: 'string',
+      group: 'general',
+      validation: (r) => r.max(160),
+    }),
     campoLocalizado({
       name: 'resumen',
       title: 'Resumen',

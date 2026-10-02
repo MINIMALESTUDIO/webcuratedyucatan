@@ -13,7 +13,7 @@ const PAGINAS = [
   { nombre: 'inicio', ruta: '/' },
   { nombre: 'descubre', ruta: '/discover-yucatan' },
   { nombre: 'listado', ruta: '/venues' },
-  { nombre: 'ficha', ruta: '/venues/demo-hacienda-ejemplo-norte' },
+  { nombre: 'ficha', ruta: '/venues/hacienda-xtepen' },
   { nombre: 'catering', ruta: '/catering' },
   { nombre: 'perfil-fotografia', ruta: '/photography/demo-estudio-ejemplo' },
   { nombre: 'diseno', ruta: '/design-production' },

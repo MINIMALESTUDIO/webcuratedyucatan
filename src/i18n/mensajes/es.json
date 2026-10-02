@@ -138,6 +138,8 @@
       "minutosCentro": "A {minutos} min del centro de Mérida",
       "kilometros": "{km} km",
       "habitaciones": "{habitaciones, plural, one {# habitación} other {# habitaciones}} · hasta {huespedes} huéspedes",
+      "soloHabitaciones": "{habitaciones, plural, one {# habitación} other {# habitaciones}}",
+      "conHospedaje": "En el lugar",
       "sinHospedaje": "No en el lugar"
     },
     "entorno": {

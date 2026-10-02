@@ -136,6 +136,14 @@ export const fichaTecnica = defineType({
       type: 'number',
       validation: (r) => r.required().integer().min(1).max(5000),
     }),
+    campoLocalizado({
+      name: 'capacidadDetalle',
+      title: 'Texto de capacidad',
+      description:
+        'Opcional, cuando hay formatos distintos ("Banquet up to 280 guests / Cocktail up to 300 guests").',
+      max: 120,
+      requerido: false,
+    }),
     defineField({
       name: 'hospedaje',
       title: 'Hospedaje',
@@ -162,6 +170,14 @@ export const fichaTecnica = defineType({
           hidden: ({ parent }) => !parent?.tieneHospedaje,
           validation: (r) => r.integer().min(0),
         }),
+        campoLocalizado({
+          name: 'descripcion',
+          title: 'Texto de hospedaje',
+          description:
+            'Opcional. Si se llena, la ficha muestra este texto (por ejemplo "Casitas (2–4 guests)…").',
+          max: 160,
+          requerido: false,
+        }),
       ],
     }),
     defineField({
@@ -169,7 +185,8 @@ export const fichaTecnica = defineType({
       title: 'Minutos',
       type: 'number',
       fieldset: 'traslado',
-      validation: (r) => r.required().integer().min(0),
+      description: 'Opcional: si falta, la ficha no muestra el traslado.',
+      validation: (r) => r.integer().min(0),
     }),
     defineField({
       name: 'kmCentroMerida',
@@ -177,6 +194,36 @@ export const fichaTecnica = defineType({
       type: 'number',
       fieldset: 'traslado',
       validation: (r) => r.min(0),
+    }),
+    campoLocalizado({
+      name: 'estilo',
+      title: 'Estilo (Style)',
+      description: 'Opcional. Si falta, la ficha muestra el nombre de la colección.',
+      max: 120,
+      requerido: false,
+    }),
+    campoLocalizado({
+      name: 'interiorExterior',
+      title: 'Texto de Indoor / Outdoor',
+      description: 'Opcional. Si falta, la ficha muestra el valor calculado por los espacios.',
+      max: 120,
+      requerido: false,
+    }),
+    defineField({
+      name: 'entorno',
+      title: 'Interior / exterior para filtros',
+      description:
+        'Opcional. Manda sobre el cálculo por espacios en el filtro y en Find Your Yucatán (D-047).',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Interior', value: 'interior' },
+          { title: 'Exterior', value: 'exterior' },
+          { title: 'Ambos', value: 'ambos' },
+        ],
+        layout: 'radio',
+        direction: 'horizontal',
+      },
     }),
   ],
 });
@@ -187,10 +234,16 @@ export const notaCurated = defineType({
   title: 'Nota',
   type: 'object',
   fields: [
-    campoLocalizado({ name: 'titulo', title: 'Título', max: 60 }),
-    campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 320 }),
+    campoLocalizado({ name: 'titulo', title: 'Título', max: 60, requerido: false }),
+    campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 600 }),
   ],
-  preview: { select: { title: 'titulo.en', subtitle: 'texto.en' } },
+  preview: {
+    select: { titulo: 'titulo.en', texto: 'texto.en' },
+    prepare: ({ titulo, texto }) => ({
+      title: titulo ?? texto,
+      subtitle: titulo ? texto : undefined,
+    }),
+  },
 });
 
 export const seo = defineType({

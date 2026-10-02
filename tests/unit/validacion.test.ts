@@ -77,7 +77,7 @@ describe('esquemaSeleccion (Find Your Yucatán)', () => {
     pais: 'Canada',
     consentimientoPrivacidad: true,
     resultado: 'timeless',
-    venues: ['demo-hacienda-ejemplo-norte'],
+    venues: ['hacienda-xtepen'],
     idioma: 'es',
   };
 
