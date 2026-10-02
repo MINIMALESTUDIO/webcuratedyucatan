@@ -17,7 +17,8 @@ import type {
 import { coleccionesDemo } from '../src/lib/demo/colecciones';
 import { configuracionDemo } from '../src/lib/demo/configuracion';
 import { disenoDemo } from '../src/lib/demo/diseno';
-import { articulosDemo, descubreDemo, paginasDemo } from '../src/lib/demo/editorial';
+import { categoriasDescubreDemo, descubreDemo } from '../src/lib/demo/descubre';
+import { articulosDemo, paginasDemo } from '../src/lib/demo/editorial';
 import { proveedoresDemo } from '../src/lib/demo/proveedores';
 import { regionesDemo } from '../src/lib/demo/regiones';
 import { venuesDemo } from '../src/lib/demo/venues';
@@ -195,17 +196,30 @@ documentos.push({
   titulo: descubreDemo.titulo,
   entradilla: descubreDemo.entradilla,
   imagenPrincipal: imagen(descubreDemo.imagenPrincipal),
-  secciones: descubreDemo.secciones.map((s) => ({
-    _type: 'seccionDescubre',
-    _key: s._key,
-    ancla: s.ancla,
-    titulo: s.titulo,
-    // Las etiquetas son opcionales: se omiten si vienen vacías.
-    ...(s.etiquetas.en ? { etiquetas: s.etiquetas } : {}),
-    texto: bloques(s.texto),
-    imagenes: imagenes(s.imagenes, `${s._key}-i`),
-  })),
 });
+
+// Páginas de categoría de Discover Yucatán (D-048).
+for (const c of categoriasDescubreDemo) {
+  documentos.push({
+    _id: c._id,
+    _type: 'categoriaDescubre',
+    titulo: c.titulo,
+    slug: slug(c.slug),
+    orden: c.orden,
+    resumen: c.resumen,
+    imagenPrincipal: imagen(c.imagenPrincipal),
+    titular: c.titular,
+    entradilla: c.entradilla,
+    secciones: c.secciones.map((seccion) => ({
+      _type: 'seccionCategoria',
+      _key: seccion._key,
+      titulo: seccion.titulo,
+      texto: bloques(seccion.texto),
+      imagenes: imagenes(seccion.imagenes, `${seccion._key}-i`),
+    })),
+    relacionadas: c.relacionadas.map((r) => ({ ...referencia(r._id), _key: r._id })),
+  });
+}
 
 function seccion(s: SeccionEditorial) {
   switch (s._type) {
@@ -238,14 +252,7 @@ documentos.push({
   lema: cfg.lema,
   imagenHero: imagen(cfg.imagenHero),
   queEsCurated: cfg.queEsCurated,
-  descubre: {
-    texto: cfg.descubre.texto,
-    temas: cfg.descubre.temas.map((t) => ({
-      _type: 'temaDescubre',
-      ...t,
-      imagen: imagen(t.imagen),
-    })),
-  },
+  descubre: { texto: cfg.descubre.texto },
   exploraCurated: {
     texto: cfg.exploraCurated.texto,
     areas: cfg.exploraCurated.areas.map((a) => ({

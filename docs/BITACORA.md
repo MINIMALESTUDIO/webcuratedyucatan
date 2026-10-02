@@ -411,3 +411,46 @@ Nota: el primer build reutilizó componentes compilados viejos y mostraba los Qu
   - los atributos y el tipo de cada espacio son derivados (D-047).
 - **Traducción al español** del copy de venues.
 - **Sanity:** `npm run sanity:semilla` ya genera los 18 venues. Importarlos con `--replace` sobrescribe lo que se haya editado en el Studio, así que se hará cuando lo apruebes.
+
+## Discover Yucatán: páginas de categoría (2026-10-02)
+
+**Estado:** hecho y verificado en modo DEMO. Sanity necesita `sanity deploy` y la importación de la semilla para editar las categorías (ver Pendientes).
+
+### Resumen
+
+Se leyeron (solo lectura) los siete documentos de 01_WEB/02_DISCOVER YUCATAN. "00 — ESTRUCTURA GENERAL" define la portada y las seis categorías con su microdescripción. Cada categoría tiene un documento con hero, 6 a 8 secciones y "Continue exploring". Las carpetas MEDIA solo traen la lista de fotos necesarias.
+
+- **Seis páginas nuevas:** `/discover-yucatan/architecture`, `culture`, `gastronomy`, `history`, `nature` y `experiences` (en español, bajo `/es/descubre-yucatan/…`). Llevan el copy completo de su documento (D-048).
+- **Portada:** el mismo diseño, con las seis categorías como bloques que llevan a su página. Su entradilla `[DEMO]` pasa a ser el texto real del hero de "00 — ESTRUCTURA GENERAL".
+- **Inicio:** el mosaico de Discover muestra las seis categorías (antes eran siete temas con anclas) y cada una lleva a su página.
+
+### Archivos
+
+- Nuevos:
+  - `src/lib/demo/descubre.ts`: portada y seis categorías;
+  - `src/app/[locale]/descubre-yucatan/[categoria]/page.tsx`;
+  - `src/components/secciones/descubre/NavegacionCategorias.tsx` y `TarjetaCategoria.tsx`.
+- Modificados:
+  - `src/app/[locale]/descubre-yucatan/page.tsx`, `src/app/[locale]/page.tsx` y `SeccionDescubre.tsx` (mosaico de 6);
+  - `src/i18n/routing.ts` (16 rutas) y los mensajes `Descubre.categorias`, `descubrir` y `continua`, en ambos idiomas;
+  - `tipos.ts`, las fuentes DEMO y Sanity, `consultas.ts`, los esquemas (`categoriaDescubre`; sin `descubreYucatan.secciones` ni `descubre.temas`), `estructura.ts` (Discover Yucatán → Portada / Categorías) y `presentacion.ts`;
+  - `scripts/generar-imagenes-demo.mjs` (hero y 4 fotos por categoría) y `scripts/semilla-sanity.ts`;
+  - pruebas: rutas, copy real sin notas internas, relacionadas, imágenes, capa de contenido, recorrido e2e por Discover y axe en `/discover-yucatan/architecture`.
+
+### Verificación
+
+| Comprobación                                      | Resultado real                                                                                                              |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `tsc`, ESLint                                     | sin errores                                                                                                                 |
+| Vitest                                            | 54 de 54                                                                                                                    |
+| `npm run build` en modo DEMO (con `.next` limpio) | correcto, 12 páginas de categoría (6 × 2 idiomas)                                                                           |
+| Playwright (móvil, escritorio, WebKit)            | 27 de 27, incluido axe en 14 páginas                                                                                        |
+| Revisión visual                                   | portada sin cambios de diseño; mosaico del inicio sin huecos en escritorio y móvil; hero, navegación y "Continue exploring" |
+
+Se corrigió en la revisión visual el sobretítulo del hero, que salía gris sobre la foto: el color del componente ganaba al blanco.
+
+### Pendientes
+
+- **Fotos** de las seis categorías (MEDIA).
+- **Traducción al español** del copy.
+- **Sanity:** `npx sanity deploy` para publicar el esquema nuevo e importar la semilla. La semilla ya trae las seis categorías y los 18 venues; la importación espera tu aprobación porque sobrescribe lo editado en el Studio.

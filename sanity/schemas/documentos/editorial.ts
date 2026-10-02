@@ -164,33 +164,69 @@ export const descubreYucatan = defineType({
       type: 'imagenConAlt',
       validation: (r) => r.required(),
     }),
+  ],
+  preview: { prepare: () => ({ title: 'Discover Yucatán' }) },
+});
+
+/**
+ * Página individual de Discover Yucatán: Architecture, Culture, Gastronomy, History, Nature y
+ * Experiences (D-048). La portada y el inicio las listan por su orden.
+ */
+export const categoriaDescubre = defineType({
+  name: 'categoriaDescubre',
+  title: 'Categoría de Discover Yucatán',
+  type: 'document',
+  groups: [
+    { name: 'portada', title: 'Portada', default: true },
+    { name: 'pagina', title: 'Página' },
+    { name: 'seo', title: 'SEO' },
+  ],
+  fields: [
+    campoLocalizado({ name: 'titulo', title: 'Nombre', max: 30, group: 'portada' }),
+    campoSlug('titulo.en', 'portada'),
+    defineField({
+      name: 'orden',
+      title: 'Orden',
+      description: 'Posición en la portada de Discover Yucatán y en el inicio.',
+      type: 'number',
+      group: 'portada',
+      validation: (r) => r.required().integer().min(1),
+    }),
+    campoLocalizado({
+      name: 'resumen',
+      title: 'Microdescripción',
+      description: 'Una frase: se muestra en la portada de Discover Yucatán.',
+      largo: true,
+      max: 120,
+      group: 'portada',
+    }),
+    defineField({
+      name: 'imagenPrincipal',
+      title: 'Imagen principal',
+      description: 'Hero de la página, portada de Discover Yucatán, inicio y "Continue exploring".',
+      type: 'imagenConAlt',
+      group: 'portada',
+      validation: (r) => r.required(),
+    }),
+    campoLocalizado({ name: 'titular', title: 'Titular (hero)', max: 90, group: 'pagina' }),
+    campoLocalizado({
+      name: 'entradilla',
+      title: 'Entradilla (hero)',
+      largo: true,
+      max: 360,
+      group: 'pagina',
+    }),
     defineField({
       name: 'secciones',
       title: 'Secciones',
-      description: 'Mérida, Haciendas, Culture, Gastronomy, Nature, Experiences.',
       type: 'array',
+      group: 'pagina',
       of: [
         defineArrayMember({
-          name: 'seccionDescubre',
+          name: 'seccionCategoria',
           type: 'object',
           fields: [
-            defineField({
-              name: 'ancla',
-              title: 'Ancla',
-              description:
-                'Identificador en la URL (#merida): minúsculas, sin espacios. Lo usan los temas del inicio.',
-              type: 'string',
-              validation: (r) =>
-                r.required().regex(/^[a-z0-9-]+$/, { name: 'minúsculas, números y guiones' }),
-            }),
-            campoLocalizado({ name: 'titulo', title: 'Título', max: 40 }),
-            campoLocalizado({
-              name: 'etiquetas',
-              title: 'Etiquetas',
-              description: '"City · Architecture · Gastronomy · Lifestyle". Opcional.',
-              max: 80,
-              requerido: false,
-            }),
+            campoLocalizado({ name: 'titulo', title: 'Título', max: 60 }),
             campoBloquesLocalizados({ name: 'texto', title: 'Texto' }),
             defineField({
               name: 'imagenes',
@@ -198,13 +234,24 @@ export const descubreYucatan = defineType({
               description: 'Una o dos fotografías.',
               type: 'array',
               of: [defineArrayMember({ type: 'imagenConAlt' })],
-              validation: (r) => r.min(1).max(2),
+              validation: (r) => r.max(2),
             }),
           ],
-          preview: { select: { title: 'titulo.en', subtitle: 'ancla', media: 'imagenes.0' } },
+          preview: { select: { title: 'titulo.en', media: 'imagenes.0' } },
         }),
       ],
     }),
+    defineField({
+      name: 'relacionadas',
+      title: 'Continue exploring',
+      description: 'Las tres categorías que se sugieren al final de la página.',
+      type: 'array',
+      group: 'pagina',
+      of: [defineArrayMember({ type: 'reference', to: [{ type: 'categoriaDescubre' }] })],
+      validation: (r) => r.unique().max(3),
+    }),
+    defineField({ name: 'seo', title: 'SEO', type: 'seo', group: 'seo' }),
   ],
-  preview: { prepare: () => ({ title: 'Discover Yucatán' }) },
+  orderings: [{ title: 'Orden', name: 'orden', by: [{ field: 'orden', direction: 'asc' }] }],
+  preview: { select: { title: 'titulo.en', subtitle: 'resumen.en', media: 'imagenPrincipal' } },
 });

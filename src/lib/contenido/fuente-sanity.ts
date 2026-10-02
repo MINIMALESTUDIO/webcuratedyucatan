@@ -5,7 +5,10 @@ import {
   CONSULTA_ARTICULOS,
   CONSULTA_COLECCIONES,
   CONSULTA_CONFIGURACION,
+  CONSULTA_CATEGORIA_DESCUBRE,
+  CONSULTA_CATEGORIAS_DESCUBRE,
   CONSULTA_DESCUBRE,
+  CONSULTA_SLUGS_CATEGORIAS_DESCUBRE,
   CONSULTA_DISENO,
   CONSULTA_PAGINA_EDITORIAL,
   CONSULTA_PROVEEDOR,
@@ -28,6 +31,8 @@ import {
   PAGINAS_FIJAS,
   type Articulo,
   type ArticuloResumen,
+  type CategoriaDescubre,
+  type CategoriaDescubreResumen,
   type Coleccion,
   type ConfiguracionSitio,
   type DescubreYucatan,
@@ -92,6 +97,22 @@ async function unico<T>(
 }
 
 const ETIQUETAS_VENUES = ['venue', 'coleccion', 'region'];
+
+/**
+ * Categorías de Discover Yucatán: mientras el dataset no tenga ninguna, se usan las DEMO (con
+ * aviso), igual que los documentos únicos. Así el sitio no pierde la sección antes de importar.
+ */
+async function categoriasEnSanity(): Promise<CategoriaDescubreResumen[]> {
+  return (
+    (await consultar<CategoriaDescubreResumen[] | null>(CONSULTA_CATEGORIAS_DESCUBRE, {
+      etiquetas: ['categoriaDescubre'],
+    })) ?? []
+  );
+}
+
+function avisarCategoriasDemo() {
+  console.warn('[sanity] No hay categorías de Discover Yucatán; se usan las DEMO.');
+}
 
 export const fuenteSanity: FuenteContenido = {
   async obtenerConfiguracionSitio() {
@@ -197,6 +218,30 @@ export const fuenteSanity: FuenteContenido = {
     return unico<DescubreYucatan>(CONSULTA_DESCUBRE, 'descubreYucatan', () =>
       fuenteDemo.obtenerDescubreYucatan(),
     );
+  },
+  async obtenerCategoriasDescubre() {
+    const categorias = await categoriasEnSanity();
+    if (categorias.length > 0) return categorias;
+    avisarCategoriasDemo();
+    return fuenteDemo.obtenerCategoriasDescubre();
+  },
+  async obtenerSlugsCategoriasDescubre() {
+    const slugs =
+      (await consultar<string[] | null>(CONSULTA_SLUGS_CATEGORIAS_DESCUBRE, {
+        etiquetas: ['categoriaDescubre'],
+        limpio: true,
+      })) ?? [];
+    return slugs.length > 0 ? slugs : fuenteDemo.obtenerSlugsCategoriasDescubre();
+  },
+  async obtenerCategoriaDescubre(slug) {
+    const categoria = await consultar<CategoriaDescubre | null>(CONSULTA_CATEGORIA_DESCUBRE, {
+      params: { slug },
+      etiquetas: ['categoriaDescubre', `categoriaDescubre:${slug}`],
+    });
+    if (categoria) return categoria;
+    if ((await categoriasEnSanity()).length > 0) return null;
+    avisarCategoriasDemo();
+    return fuenteDemo.obtenerCategoriaDescubre(slug);
   },
   async obtenerPaginaEditorial(pagina) {
     return unico<PaginaEditorial | null>(

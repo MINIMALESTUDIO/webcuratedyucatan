@@ -62,17 +62,6 @@ const imagenes = [
   ['inicio-planea.jpg', 2400, 1400, 'Plan your event', true],
 ];
 
-for (const tema of [
-  'arquitectura',
-  'cultura',
-  'gastronomia',
-  'historia',
-  'naturaleza',
-  'haciendas',
-  'experiencias',
-]) {
-  imagenes.push([`tema-${tema}.jpg`, ...V, `Discover · ${tema}`]);
-}
 for (const area of ['venues', 'catering', 'fotografia', 'diseno']) {
   imagenes.push([`explora-${area}.jpg`, 1600, 1200, `Explore · ${area}`]);
 }
@@ -88,17 +77,20 @@ for (let n = 1; n <= 6; n++) {
   });
 }
 
+// Discover Yucatán: portada y, por categoría (D-048), el hero y cuatro fotos para sus secciones.
 imagenes.push(['descubre-hero.jpg', 2400, 1500, 'Discover Yucatán', true]);
-for (const ancla of [
-  'merida',
-  'haciendas',
-  'cultura',
-  'gastronomia',
-  'naturaleza',
-  'experiencias',
+for (const categoria of [
+  'architecture',
+  'culture',
+  'gastronomy',
+  'history',
+  'nature',
+  'experiences',
 ]) {
-  imagenes.push([`descubre-${ancla}-1.jpg`, ...H, `${ancla} · 1`]);
-  imagenes.push([`descubre-${ancla}-2.jpg`, ...V, `${ancla} · 2`]);
+  imagenes.push([`descubre-${categoria}-hero.jpg`, 2400, 1500, `Discover · ${categoria}`, true]);
+  [H, V, H, V].forEach(([ancho, alto], k) => {
+    imagenes.push([`descubre-${categoria}-${k + 1}.jpg`, ancho, alto, `${categoria} · ${k + 1}/4`]);
+  });
 }
 
 for (const tipo of ['catering', 'fotografia']) {

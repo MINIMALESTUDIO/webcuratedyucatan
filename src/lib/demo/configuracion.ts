@@ -9,25 +9,12 @@ import { imagenDemo, texto } from './ayudantes';
  * páginas o fichas adicionales: hero, "What is Curated?", la entradilla de "Discover Yucatán",
  * "Explore Curated" y el cierre "Plan your event". Las traducciones al español son nuestras.
  *
- * "Featured Venues" sale de los venues marcados como destacados: los cuatro del documento
- * (src/lib/demo/venues.ts, 2026-10-02).
- *
- * Quedan en [DEMO] a propósito: los 7 temas de "Discover Yucatán". El documento define 6
- * categorías distintas (Architecture, Culture, Gastronomy, History, Nature, Experiences) con sus
- * propias páginas, que todavía no están construidas; cambiar solo las etiquetas sin esas páginas
- * generaría enlaces rotos, así que se deja la sección completa como estaba.
+ * Los bloques que salen de otros documentos:
+ * - "Featured Venues": los venues marcados como destacados, que son los cuatro del documento
+ *   (src/lib/demo/venues.ts, 2026-10-02);
+ * - los temas de "Discover Yucatán": las seis categorías con página propia
+ *   (src/lib/demo/descubre.ts, D-048).
  */
-
-// Temas de "Discover Yucatán" en el inicio y la sección de la página a la que llevan.
-const TEMAS: Array<[clave: string, en: string, es: string, ancla: string]> = [
-  ['arquitectura', 'Architecture', 'Arquitectura', 'merida'],
-  ['cultura', 'Culture', 'Cultura', 'cultura'],
-  ['gastronomia', 'Gastronomy', 'Gastronomía', 'gastronomia'],
-  ['historia', 'History', 'Historia', 'haciendas'],
-  ['naturaleza', 'Nature', 'Naturaleza', 'naturaleza'],
-  ['haciendas', 'Haciendas', 'Haciendas', 'haciendas'],
-  ['experiencias', 'Experiences', 'Experiencias', 'experiencias'],
-];
 
 // Microdescripción de cada área, tal como aparece en 01_WEB/01_HOME/04 — EXPLORE CURATED.
 const AREAS = [
@@ -80,23 +67,10 @@ export const configuracionDemo: ConfiguracionSitio = {
     ),
   },
   descubre: {
-    // La entradilla es del documento; los 6 temas de la página siguen en [DEMO] (ver nota arriba).
     texto: texto(
       'There is more to Yucatán than the celebration itself. Discover the culture, flavors, stories and landscapes that give this destination its unmistakable sense of place.',
       'Yucatán es mucho más que el escenario de una celebración. Descubre la cultura, los sabores, las historias y los paisajes que le dan a este destino su carácter inconfundible.',
     ),
-    temas: TEMAS.map(([clave, en, es, ancla]) => ({
-      _key: `tema-${clave}`,
-      titulo: texto(en, es),
-      imagen: imagenDemo(
-        `tema-${clave}.jpg`,
-        1200,
-        1500,
-        `[DEMO] Placeholder photo: ${en}`,
-        `[DEMO] Foto de relleno: ${es}`,
-      ),
-      ancla,
-    })),
   },
   exploraCurated: {
     texto: texto(

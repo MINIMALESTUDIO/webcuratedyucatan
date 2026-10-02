@@ -16,6 +16,10 @@ export const routing = defineRouting({
   pathnames: {
     '/': '/',
     '/descubre-yucatan': { en: '/discover-yucatan', es: '/descubre-yucatan' },
+    '/descubre-yucatan/[categoria]': {
+      en: '/discover-yucatan/[categoria]',
+      es: '/descubre-yucatan/[categoria]',
+    },
     '/venues': '/venues',
     '/venues/[slug]': '/venues/[slug]',
     '/catering': '/catering',

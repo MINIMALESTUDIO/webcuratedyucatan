@@ -2,7 +2,8 @@ import 'server-only';
 import { coleccionesDemo } from '@/lib/demo/colecciones';
 import { configuracionDemo } from '@/lib/demo/configuracion';
 import { disenoDemo } from '@/lib/demo/diseno';
-import { articulosDemo, descubreDemo, paginasDemo } from '@/lib/demo/editorial';
+import { categoriasDescubreDemo, descubreDemo } from '@/lib/demo/descubre';
+import { articulosDemo, paginasDemo } from '@/lib/demo/editorial';
 import { proveedoresDemo, resumenProveedor } from '@/lib/demo/proveedores';
 import { regionesDemo } from '@/lib/demo/regiones';
 import { venuesDemo } from '@/lib/demo/venues';
@@ -80,6 +81,24 @@ export const fuenteDemo: FuenteContenido = {
   },
   async obtenerDescubreYucatan() {
     return descubreDemo;
+  },
+  async obtenerCategoriasDescubre() {
+    return categoriasDescubreDemo
+      .map(({ _id, titulo, slug, orden, resumen, imagenPrincipal }) => ({
+        _id,
+        titulo,
+        slug,
+        orden,
+        resumen,
+        imagenPrincipal,
+      }))
+      .sort((a, b) => a.orden - b.orden);
+  },
+  async obtenerSlugsCategoriasDescubre() {
+    return categoriasDescubreDemo.map((c) => c.slug);
+  },
+  async obtenerCategoriaDescubre(slug) {
+    return categoriasDescubreDemo.find((c) => c.slug === slug) ?? null;
   },
   async obtenerPaginaEditorial(pagina) {
     return paginasDemo.find((p) => p._id === PAGINAS_FIJAS[pagina]) ?? null;

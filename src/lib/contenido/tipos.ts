@@ -326,25 +326,50 @@ export interface Articulo extends ArticuloResumen {
 
 // --- Discover Yucatán ----------------------------------------------------------------
 
-export interface SeccionDescubre {
-  _key: string;
-  /** Identificador de la sección en la URL (#merida). */
-  ancla: string;
-  titulo: TextoLocalizado;
-  /** "City · Architecture · Gastronomy · Lifestyle". */
-  etiquetas: TextoLocalizado;
-  texto: BloquesLocalizados;
-  imagenes: Imagen[];
-}
-
+/** Portada de Discover Yucatán: las categorías se listan desde sus propios documentos (D-048). */
 export interface DescubreYucatan {
   _id: 'descubreYucatan';
   _type: 'descubreYucatan';
   titulo: TextoLocalizado;
   entradilla: TextoLocalizado;
   imagenPrincipal: Imagen;
-  secciones: SeccionDescubre[];
 }
+
+/** Bloque editorial de una página de categoría: título, texto y fotos. */
+export interface SeccionCategoria {
+  _key: string;
+  titulo: TextoLocalizado;
+  texto: BloquesLocalizados;
+  imagenes: Imagen[];
+}
+
+/**
+ * Página individual de Discover Yucatán (Architecture, Culture, Gastronomy, History, Nature,
+ * Experiences), con ruta /discover-yucatan/[slug] (D-048).
+ */
+export interface CategoriaDescubre {
+  _id: string;
+  _type: 'categoriaDescubre';
+  /** "Architecture". */
+  titulo: TextoLocalizado;
+  slug: string;
+  orden: number;
+  /** Microdescripción de la portada y del inicio. */
+  resumen: TextoLocalizado;
+  imagenPrincipal: Imagen;
+  /** Headline del hero: "Architecture shaped by time, climate and place." */
+  titular: TextoLocalizado;
+  entradilla: TextoLocalizado;
+  secciones: SeccionCategoria[];
+  /** "Continue exploring": las categorías que sugiere el documento para esta página. */
+  relacionadas: CategoriaDescubreResumen[];
+  seo?: Seo;
+}
+
+export type CategoriaDescubreResumen = Pick<
+  CategoriaDescubre,
+  '_id' | 'titulo' | 'slug' | 'orden' | 'resumen' | 'imagenPrincipal'
+>;
 
 // --- Páginas editoriales (About, Privacy) --------------------------------------------
 
@@ -396,14 +421,6 @@ export type PaginaFija = keyof typeof PAGINAS_FIJAS;
 export const DESTINOS_EXPLORA = ['venues', 'catering', 'fotografia', 'diseno-produccion'] as const;
 export type DestinoExplora = (typeof DESTINOS_EXPLORA)[number];
 
-export interface TemaDescubre {
-  _key: string;
-  titulo: TextoLocalizado;
-  imagen: Imagen;
-  /** Sección de Discover Yucatán a la que lleva (ancla). */
-  ancla: string;
-}
-
 export interface AreaExplora {
   _key: string;
   destino: DestinoExplora;
@@ -419,7 +436,8 @@ export interface ConfiguracionSitio {
   imagenHero: Imagen;
   videoHero?: { escritorio?: ArchivoVideo; movil?: ArchivoVideo };
   queEsCurated: { texto: TextoLocalizado };
-  descubre: { texto: TextoLocalizado; temas: TemaDescubre[] };
+  /** Los temas del bloque son las categorías de Discover Yucatán (D-048). */
+  descubre: { texto: TextoLocalizado };
   exploraCurated: { texto: TextoLocalizado; areas: AreaExplora[] };
   planea: { texto: TextoLocalizado; imagen?: Imagen };
   redes: { instagram?: string; youtube?: string };

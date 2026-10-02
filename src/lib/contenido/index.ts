@@ -85,6 +85,18 @@ export async function obtenerDescubreYucatan() {
   return (await fuente()).obtenerDescubreYucatan();
 }
 
+export async function obtenerCategoriasDescubre() {
+  return (await fuente()).obtenerCategoriasDescubre();
+}
+
+export async function obtenerSlugsCategoriasDescubre() {
+  return (await fuente()).obtenerSlugsCategoriasDescubre();
+}
+
+export async function obtenerCategoriaDescubre(slug: string) {
+  return (await fuente()).obtenerCategoriaDescubre(slug);
+}
+
 export async function obtenerPaginaEditorial(pagina: PaginaFija) {
   return (await fuente()).obtenerPaginaEditorial(pagina);
 }

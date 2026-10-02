@@ -43,7 +43,24 @@ export const estructura: StructureResolver = (S) => {
     .title('Contenido')
     .items([
       unico('configuracionSitio', 'Inicio y configuración'),
-      unico('descubreYucatan', 'Discover Yucatán'),
+      S.listItem()
+        .title('Discover Yucatán')
+        .id('discover')
+        .child(
+          S.list()
+            .title('Discover Yucatán')
+            .items([
+              unico('descubreYucatan', 'Portada'),
+              S.listItem()
+                .title('Categorías')
+                .id('categorias-descubre')
+                .child(
+                  S.documentTypeList('categoriaDescubre')
+                    .title('Categorías')
+                    .defaultOrdering([{ field: 'orden', direction: 'asc' }]),
+                ),
+            ]),
+        ),
       S.divider(),
       S.documentTypeListItem('venue').title('Venues'),
       S.documentTypeListItem('coleccion').title('Colecciones'),

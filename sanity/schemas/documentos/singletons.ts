@@ -70,42 +70,11 @@ export const configuracionSitio = defineType({
     defineField({
       name: 'descubre',
       title: '03 · Discover Yucatán',
+      description:
+        'Los temas del bloque son las categorías de Discover Yucatán, en su orden (D-048).',
       type: 'object',
       group: 'inicio',
-      fields: [
-        campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240 }),
-        defineField({
-          name: 'temas',
-          title: 'Temas',
-          description:
-            'Architecture, Culture, Gastronomy, History, Nature, Haciendas, Experiences.',
-          type: 'array',
-          of: [
-            defineArrayMember({
-              name: 'temaDescubre',
-              type: 'object',
-              fields: [
-                campoLocalizado({ name: 'titulo', title: 'Título', max: 30 }),
-                defineField({
-                  name: 'imagen',
-                  title: 'Imagen',
-                  type: 'imagenConAlt',
-                  validation: (r) => r.required(),
-                }),
-                defineField({
-                  name: 'ancla',
-                  title: 'Sección de Discover Yucatán',
-                  description: 'El ancla de la sección a la que lleva (merida, haciendas…).',
-                  type: 'string',
-                  validation: (r) => r.required().regex(/^[a-z0-9-]+$/),
-                }),
-              ],
-              preview: { select: { title: 'titulo.en', subtitle: 'ancla', media: 'imagen' } },
-            }),
-          ],
-          validation: (r) => r.max(7),
-        }),
-      ],
+      fields: [campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240 })],
     }),
     defineField({
       name: 'exploraCurated',

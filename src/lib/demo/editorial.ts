@@ -2,10 +2,9 @@ import type {
   Articulo,
   BloqueTexto,
   BloquesLocalizados,
-  DescubreYucatan,
   PaginaEditorial,
 } from '@/lib/contenido/tipos';
-import { bloques, HORIZONTAL, imagenDemo, serieDemo, texto, VERTICAL } from './ayudantes';
+import { bloques, HORIZONTAL, imagenDemo, texto } from './ayudantes';
 
 // --- Curated Journal -------------------------------------------------------------------
 
@@ -708,79 +707,6 @@ export const articulosDemo: Articulo[] = ARTICULOS.map((a, i) => ({
   tiempoLectura: tiempoLecturaDe(a.secciones),
   cuerpo: cuerpoArticulo(`articulo-${i + 1}`, a.secciones),
 }));
-
-// --- Discover Yucatán --------------------------------------------------------------------
-
-// Secciones y etiquetas del documento de estructura (sección 5); los textos son [DEMO].
-const SECCIONES_DESCUBRE: Array<
-  [ancla: string, en: string, es: string, etEn: string, etEs: string]
-> = [
-  [
-    'merida',
-    'Mérida',
-    'Mérida',
-    'City · Architecture · Gastronomy · Lifestyle',
-    'Ciudad · Arquitectura · Gastronomía · Estilo de vida',
-  ],
-  [
-    'haciendas',
-    'Haciendas',
-    'Haciendas',
-    'History · Architecture · Character',
-    'Historia · Arquitectura · Características',
-  ],
-  ['cultura', 'Culture', 'Cultura', '', ''],
-  ['gastronomia', 'Gastronomy', 'Gastronomía', '', ''],
-  [
-    'naturaleza',
-    'Nature',
-    'Naturaleza',
-    'Cenotes · Coast · Vegetation',
-    'Cenotes · Costa · Vegetación',
-  ],
-  [
-    'experiencias',
-    'Experiences',
-    'Experiencias',
-    'To complement a wedding weekend',
-    'Para complementar un fin de semana de boda',
-  ],
-];
-
-export const descubreDemo: DescubreYucatan = {
-  _id: 'descubreYucatan',
-  _type: 'descubreYucatan',
-  titulo: texto('Discover Yucatán', 'Descubre Yucatán'),
-  entradilla: texto(
-    '[DEMO] Sample introduction: the destination before the services — its cities, estates, culture, cuisine and landscapes.',
-    '[DEMO] Entradilla de ejemplo: el destino antes que los servicios — sus ciudades, haciendas, cultura, cocina y paisajes.',
-  ),
-  imagenPrincipal: imagenDemo(
-    'descubre-hero.jpg',
-    2400,
-    1500,
-    '[DEMO] Placeholder photo of Yucatán',
-    '[DEMO] Foto de relleno de Yucatán',
-  ),
-  secciones: SECCIONES_DESCUBRE.map(([ancla, en, es, etEn, etEs]) => ({
-    _key: `seccion-${ancla}`,
-    ancla,
-    titulo: texto(en, es),
-    etiquetas: texto(etEn, etEs),
-    texto: bloques(
-      `descubre-${ancla}`,
-      [
-        `[DEMO] Sample editorial text about ${en}. The final text will come from the Curated Yucatán editorial team.`,
-        '[DEMO] A second paragraph adds detail and a practical note for planners.',
-      ],
-      [
-        `[DEMO] Texto editorial de ejemplo sobre ${es}. El texto final lo escribirá el equipo editorial de Curated Yucatán.`,
-        '[DEMO] Un segundo párrafo agrega detalle y una nota práctica para planners.',
-      ],
-    ),
-    imagenes: serieDemo(`descubre-${ancla}`, [HORIZONTAL, VERTICAL], en),
-  })),
-};
 
 // --- Páginas editoriales -------------------------------------------------------------------
 

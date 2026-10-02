@@ -44,6 +44,10 @@ export const resolverPresentacion: PresentationPluginOptions['resolve'] = {
     ...ambas(RUTAS.nosotros, `_id == "pagina-nosotros"`),
     ...ambas(RUTAS.privacidad, `_id == "pagina-privacidad"`),
     ...ambas(
+      { en: '/discover-yucatan/:slug', es: '/es/descubre-yucatan/:slug' },
+      `_type == "categoriaDescubre" && slug.current == $slug`,
+    ),
+    ...ambas(
       { en: '/venues/:slug', es: '/es/venues/:slug' },
       `_type == "venue" && slug.current == $slug`,
     ),
@@ -67,6 +71,21 @@ export const resolverPresentacion: PresentationPluginOptions['resolve'] = {
     }),
     descubreYucatan: defineLocations({
       locations: enAmbosIdiomas('Discover Yucatán', RUTAS.descubre),
+    }),
+    categoriaDescubre: defineLocations({
+      select: { titulo: 'titulo.en', slug: 'slug.current' },
+      resolve: (doc) => ({
+        locations: doc?.slug
+          ? [
+              ...enAmbosIdiomas(doc.titulo ?? 'Categoría', {
+                en: `${RUTAS.descubre.en}/${doc.slug}`,
+                es: `${RUTAS.descubre.es}/${doc.slug}`,
+              }),
+              { title: 'Discover Yucatán', href: RUTAS.descubre.en },
+              { title: 'Inicio', href: RUTAS.inicio.en },
+            ]
+          : [],
+      }),
     }),
     disenoProduccion: defineLocations({
       locations: enAmbosIdiomas('Design & Production', RUTAS.diseno),

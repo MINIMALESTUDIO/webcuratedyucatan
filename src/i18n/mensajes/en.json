@@ -3,7 +3,7 @@
     "tituloSitio": "Curated Yucatán",
     "descripcionSitio": "Your insider guide to celebrating in Yucatán: discover the destination, explore curated venues and partners, and plan your event.",
     "inicioTitulo": "Your insider guide to celebrating in Yucatán",
-    "descubreDescripcion": "Mérida, haciendas, culture, gastronomy, nature and experiences: discover Yucatán before planning a celebration.",
+    "descubreDescripcion": "Architecture, culture, gastronomy, history, nature and experiences: discover Yucatán beyond the celebration.",
     "venuesTitulo": "Venues in Yucatán",
     "venuesDescripcion": "A curated collection of venues in Yucatán: Contemporary Sanctuaries, Organic Estates and Timeless Venues.",
     "cateringTitulo": "Catering in Yucatán",
@@ -232,7 +232,10 @@
   },
   "Descubre": {
     "cta": "Explore venues",
-    "ctaTexto": "Places where history, architecture and landscape become part of the celebration."
+    "ctaTexto": "Places where history, architecture and landscape become part of the celebration.",
+    "categorias": "Categories",
+    "descubrir": "Discover {categoria}",
+    "continua": "Continue exploring the destination."
   },
   "Encuentra": {
     "titulo": "Find your Yucatán",

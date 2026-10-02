@@ -188,6 +188,61 @@ test('Find your Yucatán: seis preguntas, resultado y tres venues', async ({ pag
   ).toBeVisible();
 });
 
+test('Discover Yucatán: inicio y portada llevan a las páginas de categoría', async ({ page }) => {
+  // Tema del inicio → página de la categoría
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Nature', exact: true }).click();
+  await expect(page).toHaveURL(/\/discover-yucatan\/nature$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'A landscape shaped above and below the surface.',
+  );
+
+  // Portada: el bloque de cada categoría lleva a su página
+  await page.goto('/discover-yucatan');
+  for (const nombre of [
+    'Architecture',
+    'Culture',
+    'Gastronomy',
+    'History',
+    'Nature',
+    'Experiences',
+  ]) {
+    await expect(page.getByRole('heading', { level: 2, name: nombre, exact: true })).toBeVisible();
+  }
+  await page.getByRole('link', { name: 'Discover Culture' }).click();
+  await expect(page).toHaveURL(/\/discover-yucatan\/culture$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'A culture that is lived, not simply remembered.',
+  );
+  await expect(
+    page.getByRole('heading', { level: 2, name: 'Worn across generations' }),
+  ).toBeVisible();
+
+  // Continue exploring: Gastronomy, History y Experiences, según el documento
+  const continua = page.locator('section', {
+    has: page.getByRole('heading', { name: 'Continue exploring the destination.' }),
+  });
+  await expect(continua.getByRole('link')).toHaveText(['Gastronomy', 'History', 'Experiences']);
+  await continua.getByRole('link', { name: 'History' }).click();
+  await expect(page).toHaveURL(/\/discover-yucatan\/history$/);
+
+  // Arriba: regreso a la portada y la categoría actual marcada
+  const categorias = page.getByRole('navigation', { name: 'Categories' });
+  await expect(categorias.getByRole('link', { name: 'History' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await page
+    .getByRole('navigation', { name: 'Breadcrumb' })
+    .getByRole('link', { name: 'Discover Yucatán' })
+    .click();
+  await expect(page).toHaveURL(/\/discover-yucatan$/);
+
+  // En español la ruta se traduce y el nombre de la categoría también
+  await page.goto('/es/descubre-yucatan/history');
+  await expect(page.getByRole('navigation', { name: 'Categorías' })).toContainText('Historia');
+});
+
 test('español: rutas traducidas y cambio de idioma que conserva la página', async ({ page }) => {
   await page.goto('/es');
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
@@ -230,6 +285,7 @@ test('accesibilidad: axe sin violaciones serias ni críticas (WCAG 2.1 AA)', asy
   const rutas = [
     '/',
     '/discover-yucatan',
+    '/discover-yucatan/architecture',
     '/venues',
     '/venues/hacienda-xtepen',
     '/catering',

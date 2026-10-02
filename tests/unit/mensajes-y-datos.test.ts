@@ -6,6 +6,8 @@ import es from '@/i18n/mensajes/es.json';
 import { routing } from '@/i18n/routing';
 import {
   obtenerArticulos,
+  obtenerCategoriaDescubre,
+  obtenerCategoriasDescubre,
   obtenerColecciones,
   obtenerPaginaEditorial,
   obtenerProveedores,
@@ -18,7 +20,8 @@ import type { Imagen } from '@/lib/contenido/tipos';
 import { coleccionesDemo } from '@/lib/demo/colecciones';
 import { configuracionDemo } from '@/lib/demo/configuracion';
 import { disenoDemo } from '@/lib/demo/diseno';
-import { articulosDemo, descubreDemo, paginasDemo } from '@/lib/demo/editorial';
+import { categoriasDescubreDemo, descubreDemo } from '@/lib/demo/descubre';
+import { articulosDemo, paginasDemo } from '@/lib/demo/editorial';
 import { proveedoresDemo } from '@/lib/demo/proveedores';
 import { venuesDemo } from '@/lib/demo/venues';
 
@@ -46,7 +49,12 @@ describe('mensajes de interfaz', () => {
   });
 
   it('las rutas cubren el mapa general del documento de estructura', () => {
-    expect(Object.keys(routing.pathnames)).toHaveLength(15);
+    expect(Object.keys(routing.pathnames)).toHaveLength(16);
+    // Páginas individuales de Discover Yucatán (00 — ESTRUCTURA GENERAL, D-048).
+    expect(routing.pathnames['/descubre-yucatan/[categoria]']).toEqual({
+      en: '/discover-yucatan/[categoria]',
+      es: '/descubre-yucatan/[categoria]',
+    });
     // URL estables de los QR de LOVE MÉXICO (Home y Find Your Yucatán).
     expect(routing.pathnames['/encuentra-tu-yucatan']).toEqual({
       en: '/find-your-yucatan',
@@ -141,16 +149,45 @@ describe('datos DEMO', () => {
     }
   });
 
-  it('los temas del inicio llevan a secciones existentes de Discover Yucatán', () => {
-    const anclas = descubreDemo.secciones.map((s) => s.ancla);
-    for (const tema of configuracionDemo.descubre.temas) expect(anclas).toContain(tema.ancla);
-    expect(configuracionDemo.descubre.temas).toHaveLength(7);
+  it('Discover Yucatán: las seis categorías del documento con copy real (D-048)', () => {
+    expect(categoriasDescubreDemo.map((c) => c.slug)).toEqual([
+      'architecture',
+      'culture',
+      'gastronomy',
+      'history',
+      'nature',
+      'experiences',
+    ]);
+    const slugs = new Set(categoriasDescubreDemo.map((c) => c.slug));
+    for (const categoria of categoriasDescubreDemo) {
+      const textos = [
+        categoria.resumen.en,
+        categoria.titular.en,
+        categoria.entradilla.en,
+        ...categoria.secciones.flatMap((seccion) => [
+          seccion.titulo.en,
+          ...seccion.texto.en.flatMap((b) => b.children.map((h) => (h as { text: string }).text)),
+        ]),
+      ];
+      for (const t of textos) {
+        expect(t.includes('[DEMO]'), t).toBe(false);
+        // Sin las notas internas del documento ("Texto pegado", comentarios de investigación).
+        expect(/Texto pegado|investigación|research/i.test(t), t).toBe(false);
+      }
+      expect(categoria.secciones.length).toBeGreaterThanOrEqual(6);
+      // "Continue exploring": tres categorías distintas de la propia.
+      expect(categoria.relacionadas).toHaveLength(3);
+      for (const r of categoria.relacionadas) {
+        expect(slugs.has(r.slug)).toBe(true);
+        expect(r.slug).not.toBe(categoria.slug);
+      }
+    }
+    expect(descubreDemo.entradilla.en.startsWith('[DEMO]')).toBe(false);
   });
 
   it('todas las imágenes tienen texto alternativo en ambos idiomas y el archivo existe', () => {
     const imagenes: Imagen[] = [
       configuracionDemo.imagenHero,
-      ...configuracionDemo.descubre.temas.map((t) => t.imagen),
       ...configuracionDemo.exploraCurated.areas.map((a) => a.imagen),
       ...(configuracionDemo.planea.imagen ? [configuracionDemo.planea.imagen] : []),
       ...coleccionesDemo.map((c) => c.imagen),
@@ -159,7 +196,10 @@ describe('datos DEMO', () => {
       disenoDemo.imagenPrincipal,
       ...disenoDemo.areas.flatMap((a) => a.imagenes),
       descubreDemo.imagenPrincipal,
-      ...descubreDemo.secciones.flatMap((s) => s.imagenes),
+      ...categoriasDescubreDemo.flatMap((c) => [
+        c.imagenPrincipal,
+        ...c.secciones.flatMap((seccion) => seccion.imagenes),
+      ]),
       ...articulosDemo.map((a) => a.imagenPortada),
       ...paginasDemo.flatMap((p) => (p.imagen ? [p.imagen] : [])),
     ];
@@ -197,6 +237,17 @@ describe('capa de contenido', () => {
     expect((await obtenerProveedores('catering')).every((p) => p.tipo === 'catering')).toBe(true);
     expect((await obtenerColecciones()).map((c) => c.orden)).toEqual([1, 2, 3]);
     expect((await obtenerPaginaEditorial('nosotros'))?._id).toBe('pagina-nosotros');
+  });
+
+  it('categorías de Discover Yucatán por orden y página individual', async () => {
+    expect((await obtenerCategoriasDescubre()).map((c) => c.orden)).toEqual([1, 2, 3, 4, 5, 6]);
+    const arquitectura = await obtenerCategoriaDescubre('architecture');
+    expect(arquitectura?.relacionadas.map((r) => r.slug)).toEqual([
+      'culture',
+      'history',
+      'experiences',
+    ]);
+    expect(await obtenerCategoriaDescubre('no-existe')).toBeNull();
   });
 
   it('un slug inexistente devuelve null', async () => {

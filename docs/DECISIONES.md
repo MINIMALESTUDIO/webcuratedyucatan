@@ -418,3 +418,25 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - el listado oculta las regiones sin venues (Costa);
   - la prueba e2e del reproductor con capítulos se retira hasta que haya una película real;
   - las líneas de la ficha que no son espacios ni datos rápidos no se muestran (ver bitácora).
+
+### D-048 — Páginas individuales de Discover Yucatán
+
+- Fecha: 2026-10-02
+- Contexto: "00 — ESTRUCTURA GENERAL" (Drive, 01_WEB/02_DISCOVER YUCATAN) define Discover Yucatán como portada que dirige a seis páginas editoriales: Architecture, Culture, Gastronomy, History, Nature y Experiences. Cada una tiene su documento de contenido completo, que termina con "Continue exploring". Reemplaza a la parte de D-044 que hacía de Discover un único documento con secciones.
+- Decisión:
+  - **Nuevo tipo `categoriaDescubre`:**
+    - campos: nombre, slug, orden, microdescripción, imagen principal, titular, entradilla, secciones (título, texto y hasta 2 fotos), tres categorías relacionadas y SEO;
+    - ruta: `/discover-yucatan/[slug]` en inglés y `/es/descubre-yucatan/[slug]` en español. El slug es el mismo en ambos idiomas (D-017): `architecture`, `culture`, etc., como sugiere el documento.
+  - **Portada:** se conserva tal como estaba (hero, entradilla, bloques alternados y cierre "Explore venues"). Sus bloques ahora son las seis categorías, cada uno clickeable completo hacia su página. La navegación bajo la entradilla también lleva a las páginas.
+  - **Datos que se retiran:** `descubreYucatan.secciones` y `configuracionSitio.descubre.temas`. La portada y el mosaico del inicio leen las categorías por su orden, así una categoría se edita en un solo lugar.
+  - **Página de categoría:**
+    - arriba, migas (regreso a Discover Yucatán) y las seis categorías con la actual marcada;
+    - hero con "Discover Yucatán / Categoría" y el titular;
+    - secciones alternadas imagen/texto;
+    - "Continue exploring" con las tres categorías que indica cada documento.
+  - **Copy:** real y solo en inglés (D-008). Se quitaron las notas internas del documento (comentarios en español sobre la investigación y "Texto pegado"). Los nombres de las categorías sí se traducen.
+  - **Fotos:** `[DEMO]`. Las carpetas MEDIA solo traen "Fotos necesarias".
+  - Mientras Sanity no tenga categorías, el sitio usa las DEMO con aviso en el log, igual que los documentos únicos.
+- Consecuencias:
+  - para verlas en Sanity hay que volver a hacer `sanity deploy` (esquemas) e importar la semilla;
+  - los campos retirados quedan en el dataset como "campos desconocidos" hasta esa importación.

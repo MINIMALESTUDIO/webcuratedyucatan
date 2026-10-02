@@ -3,7 +3,7 @@
     "tituloSitio": "Curated Yucatán",
     "descripcionSitio": "Tu guía experta para celebrar en Yucatán: descubre el destino, explora venues y aliados curados y planea tu evento.",
     "inicioTitulo": "Tu guía experta para celebrar en Yucatán",
-    "descubreDescripcion": "Mérida, haciendas, cultura, gastronomía, naturaleza y experiencias: descubre Yucatán antes de planear una celebración.",
+    "descubreDescripcion": "Arquitectura, cultura, gastronomía, historia, naturaleza y experiencias: descubre Yucatán más allá de la celebración.",
     "venuesTitulo": "Venues en Yucatán",
     "venuesDescripcion": "Una colección curada de venues en Yucatán: Contemporary Sanctuaries, Organic Estates y Timeless Venues.",
     "cateringTitulo": "Catering en Yucatán",
@@ -232,7 +232,10 @@
   },
   "Descubre": {
     "cta": "Explora los venues",
-    "ctaTexto": "Lugares donde la historia, la arquitectura y el paisaje se vuelven parte de la celebración."
+    "ctaTexto": "Lugares donde la historia, la arquitectura y el paisaje se vuelven parte de la celebración.",
+    "categorias": "Categorías",
+    "descubrir": "Descubre {categoria}",
+    "continua": "Sigue explorando el destino."
   },
   "Encuentra": {
     "titulo": "Encuentra tu Yucatán",

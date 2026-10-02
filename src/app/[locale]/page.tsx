@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import {
   obtenerArticulos,
+  obtenerCategoriasDescubre,
   obtenerConfiguracionSitio,
   obtenerVenuesDestacados,
 } from '@/lib/contenido';
@@ -33,8 +34,9 @@ export async function generateMetadata({ params }: PageProps<'/[locale]'>): Prom
  * Featured venues, Curated Journal y Plan your event.
  */
 export default async function Inicio() {
-  const [configuracion, destacados, articulos] = await Promise.all([
+  const [configuracion, categorias, destacados, articulos] = await Promise.all([
     obtenerConfiguracionSitio(),
+    obtenerCategoriasDescubre(),
     obtenerVenuesDestacados(6),
     obtenerArticulos(3),
   ]);
@@ -43,7 +45,7 @@ export default async function Inicio() {
     <>
       <HeroInicio configuracion={configuracion} />
       <SeccionQueEs configuracion={configuracion} />
-      <SeccionDescubre configuracion={configuracion} />
+      <SeccionDescubre configuracion={configuracion} categorias={categorias} />
       <SeccionExplora configuracion={configuracion} />
       <SeccionDestacados venues={destacados} />
       <SeccionJournal articulos={articulos} />

@@ -54,10 +54,7 @@ export const CONSULTA_CONFIGURACION = defineQuery(`*[_id == "configuracionSitio"
   "imagenHero": imagenHero${IMAGEN},
   "videoHero": { "escritorio": videoHero.escritorio${VIDEO}, "movil": videoHero.movil${VIDEO} },
   "queEsCurated": { "texto": queEsCurated.texto },
-  "descubre": {
-    "texto": descubre.texto,
-    "temas": coalesce(descubre.temas[]{ _key, titulo, "imagen": imagen${IMAGEN}, ancla }, [])
-  },
+  "descubre": { "texto": descubre.texto },
   "exploraCurated": {
     "texto": exploraCurated.texto,
     "areas": coalesce(exploraCurated.areas[]{ _key, destino, texto, "imagen": imagen${IMAGEN} }, [])
@@ -212,11 +209,31 @@ export const CONSULTA_ARTICULO = defineQuery(`*[${FILTRO_ARTICULO} && slug.curre
 
 export const CONSULTA_DESCUBRE = defineQuery(`*[_id == "descubreYucatan"][0]{
   _id, _type, titulo, entradilla,
-  "imagenPrincipal": imagenPrincipal${IMAGEN},
-  "secciones": coalesce(secciones[]{
-    _key, ancla, titulo, "etiquetas": coalesce(etiquetas, { "en": "" }), texto,
-    "imagenes": coalesce(imagenes[]${IMAGEN}, [])
-  }, [])
+  "imagenPrincipal": imagenPrincipal${IMAGEN}
+}`);
+
+// Categorías completas: sin imagen principal la portada y las tarjetas no se pueden dibujar.
+const FILTRO_CATEGORIA = /* groq */ `_type == "categoriaDescubre" && defined(slug.current)
+  && defined(imagenPrincipal.asset)`;
+
+const CATEGORIA_RESUMEN = /* groq */ `_id, titulo, "slug": slug.current,
+  "orden": coalesce(orden, 0), resumen, "imagenPrincipal": imagenPrincipal${IMAGEN}`;
+
+export const CONSULTA_CATEGORIAS_DESCUBRE = defineQuery(
+  `*[${FILTRO_CATEGORIA}] | order(orden asc){ ${CATEGORIA_RESUMEN} }`,
+);
+
+export const CONSULTA_SLUGS_CATEGORIAS_DESCUBRE = defineQuery(
+  `*[${FILTRO_CATEGORIA}].slug.current`,
+);
+
+export const CONSULTA_CATEGORIA_DESCUBRE =
+  defineQuery(`*[${FILTRO_CATEGORIA} && slug.current == $slug][0]{
+  _type, ${CATEGORIA_RESUMEN},
+  titular, entradilla,
+  "secciones": coalesce(secciones[]{ _key, titulo, texto, "imagenes": coalesce(imagenes[]${IMAGEN}, []) }, []),
+  "relacionadas": coalesce(relacionadas[]->[${FILTRO_CATEGORIA}]{ ${CATEGORIA_RESUMEN} }, []),
+  seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);
 
 export const CONSULTA_PAGINA_EDITORIAL = defineQuery(`*[_id == $id][0]{

@@ -2,16 +2,15 @@ import type { Metadata } from 'next';
 import { hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { obtenerDescubreYucatan } from '@/lib/contenido';
-import { localizar, localizarBloques } from '@/lib/i18n/localizar';
+import { obtenerCategoriasDescubre, obtenerDescubreYucatan } from '@/lib/contenido';
+import { localizar } from '@/lib/i18n/localizar';
 import { alternativas } from '@/lib/seo/metadatos';
 import { cx } from '@/lib/utilidades';
 import { BotonEnlace } from '@/components/ui/Boton';
 import { Contenedor } from '@/components/ui/Contenedor';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 import { Sobretitulo } from '@/components/ui/Sobretitulo';
-import { Mosaico } from '@/components/secciones/Mosaico';
-import { TextoEnriquecido } from '@/components/secciones/TextoEnriquecido';
+import { NavegacionCategorias } from '@/components/secciones/descubre/NavegacionCategorias';
 
 export async function generateMetadata({
   params,
@@ -30,10 +29,12 @@ export async function generateMetadata({
 /**
  * Discover Yucatán (documento de estructura, sección 5): presenta y vende el destino antes que
  * los servicios. Editorial y muy visual; termina conectando con Explore venues.
+ * Es la portada de la sección: cada categoría lleva a su página individual (D-048).
  */
 export default async function PaginaDescubre() {
-  const [descubre, t, idioma] = await Promise.all([
+  const [descubre, categorias, t, idioma] = await Promise.all([
     obtenerDescubreYucatan(),
+    obtenerCategoriasDescubre(),
     getTranslations('Descubre'),
     getLocale(),
   ]);
@@ -58,48 +59,55 @@ export default async function PaginaDescubre() {
 
       <Contenedor ancho="lectura" className="py-seccion text-center">
         <p className="text-destacado">{localizar(descubre.entradilla, idioma)}</p>
-        <nav aria-label={localizar(descubre.titulo, idioma)} className="mt-10">
-          <ul className="flex flex-wrap justify-center gap-x-6 gap-y-1">
-            {descubre.secciones.map((seccion) => (
-              <li key={seccion._key}>
-                <a href={`#${seccion.ancla}`} className="enlace-accion">
-                  {localizar(seccion.titulo, idioma)}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="mt-10">
+          <NavegacionCategorias categorias={categorias} />
+        </div>
       </Contenedor>
 
-      {descubre.secciones.map((seccion, i) => {
-        const etiquetas = localizar(seccion.etiquetas, idioma);
+      {categorias.map((categoria, i) => {
+        const titulo = localizar(categoria.titulo, idioma);
         return (
           <section
-            key={seccion._key}
-            id={seccion.ancla}
-            aria-labelledby={`titulo-${seccion.ancla}`}
+            key={categoria._id}
+            id={categoria.slug}
+            aria-labelledby={`titulo-${categoria.slug}`}
             className="border-t border-linea py-seccion"
           >
-            <Contenedor className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-              <div className={cx('lg:col-span-7', i % 2 === 1 && 'lg:order-2')}>
-                <Mosaico
-                  imagenes={seccion.imagenes}
-                  origen={{
-                    id: descubre._id,
-                    tipo: 'descubreYucatan',
-                    arreglo: `secciones[_key=="${seccion._key}"].imagenes`,
+            {/* El bloque completo es clickeable: el enlace del botón lo cubre (documento, 03). */}
+            <Contenedor className="group relative grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+              <div
+                className={cx(
+                  'relative aspect-[3/2] overflow-hidden bg-arena lg:col-span-7',
+                  i % 2 === 1 && 'lg:order-2',
+                )}
+              >
+                <ImagenContenido
+                  imagen={categoria.imagenPrincipal}
+                  edicion={{
+                    id: categoria._id,
+                    tipo: 'categoriaDescubre',
+                    ruta: 'imagenPrincipal',
                   }}
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  className="object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <div className="lg:col-span-5">
-                {etiquetas && <Sobretitulo>{etiquetas}</Sobretitulo>}
-                <h2 id={`titulo-${seccion.ancla}`} className="mt-4 text-titulo-1">
-                  {localizar(seccion.titulo, idioma)}
+                <Sobretitulo>{String(i + 1).padStart(2, '0')}</Sobretitulo>
+                <h2 id={`titulo-${categoria.slug}`} className="mt-4 text-titulo-1">
+                  {titulo}
                 </h2>
-                <TextoEnriquecido
-                  valor={localizarBloques(seccion.texto, idioma)}
-                  className="mt-8 text-tinta-suave"
-                />
+                <p className="mt-8 text-tinta-suave">{localizar(categoria.resumen, idioma)}</p>
+                <BotonEnlace
+                  href={{
+                    pathname: '/descubre-yucatan/[categoria]',
+                    params: { categoria: categoria.slug },
+                  }}
+                  variante="texto"
+                  className="mt-8 after:absolute after:inset-0"
+                >
+                  {t('descubrir', { categoria: titulo })}
+                </BotonEnlace>
               </div>
             </Contenedor>
           </section>

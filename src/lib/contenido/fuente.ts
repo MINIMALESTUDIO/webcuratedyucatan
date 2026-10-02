@@ -1,6 +1,8 @@
 import type {
   Articulo,
   ArticuloResumen,
+  CategoriaDescubre,
+  CategoriaDescubreResumen,
   Coleccion,
   ConfiguracionSitio,
   DescubreYucatan,
@@ -38,5 +40,9 @@ export interface FuenteContenido {
   obtenerSlugsArticulos(): Promise<string[]>;
   obtenerArticulo(slug: string): Promise<Articulo | null>;
   obtenerDescubreYucatan(): Promise<DescubreYucatan>;
+  /** Categorías de Discover Yucatán por orden (D-048). */
+  obtenerCategoriasDescubre(): Promise<CategoriaDescubreResumen[]>;
+  obtenerSlugsCategoriasDescubre(): Promise<string[]>;
+  obtenerCategoriaDescubre(slug: string): Promise<CategoriaDescubre | null>;
   obtenerPaginaEditorial(pagina: PaginaFija): Promise<PaginaEditorial | null>;
 }

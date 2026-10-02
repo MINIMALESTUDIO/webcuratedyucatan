@@ -9,7 +9,12 @@ import {
   youtube,
 } from './objetos';
 import { coleccion, proveedor, region } from './documentos/catalogos';
-import { articulo, descubreYucatan, paginaEditorial } from './documentos/editorial';
+import {
+  articulo,
+  categoriaDescubre,
+  descubreYucatan,
+  paginaEditorial,
+} from './documentos/editorial';
 import { configuracionSitio, contactosLeads, disenoProduccion } from './documentos/singletons';
 import { venue } from './documentos/venue';
 
@@ -32,6 +37,7 @@ export const tiposEsquema = [
   articulo,
   paginaEditorial,
   descubreYucatan,
+  categoriaDescubre,
   configuracionSitio,
   disenoProduccion,
   contactosLeads,
