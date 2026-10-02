@@ -454,3 +454,34 @@ Se corrigió en la revisión visual el sobretítulo del hero, que salía gris so
 - **Fotos** de las seis categorías (MEDIA).
 - **Traducción al español** del copy.
 - **Sanity:** `npx sanity deploy` para publicar el esquema nuevo e importar la semilla. La semilla ya trae las seis categorías y los 18 venues; la importación espera tu aprobación porque sobrescribe lo editado en el Studio.
+
+## Versión provisional en línea: Railway (2026-10-02)
+
+**Estado:** en línea y verificada en https://sitio-production-4d31.up.railway.app (D-049).
+
+### Resumen
+
+Con los conectores de Railway y GitHub se hizo lo siguiente:
+
+- se creó el proyecto `curatedyucatan` con el servicio `sitio`;
+- se generó la URL pública;
+- se cargaron solo `NEXT_PUBLIC_SITE_URL` y `SITIO_INDEXABLE=false`;
+- se conectó el repositorio en `main`.
+
+El primer build tardó unos 2 minutos. Desde ahora, cada `git push` a `main` vuelve a publicar. El sitio usa el contenido local (los 18 venues y Discover con sus seis páginas) y no lleva secretos.
+
+### Verificación
+
+Ver DESPLIEGUE.md, sección 8.1:
+
+- 13 rutas en 200 y una inexistente en 404;
+- robots y `noindex` activos;
+- WebP en `/_next/image`;
+- sin redirección por idioma;
+- Playwright contra la URL remota: 24 de 27. Las 3 fallas son una prueba que exige `localhost` en la URL; esa comprobación se hizo con curl.
+
+### Pendientes
+
+- Conectar Sanity aquí después de importar la semilla (DESPLIEGUE.md, sección 8.2).
+- Dominio y QR: después, siempre con el dominio definitivo.
+- Mudanza a Hostinger (DESPLIEGUE.md, sección 8.3).

@@ -440,3 +440,15 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - para verlas en Sanity hay que volver a hacer `sanity deploy` (esquemas) e importar la semilla;
   - los campos retirados quedan en el dataset como "campos desconocidos" hasta esa importación.
+
+### D-049 — Versión provisional en Railway
+
+- Fecha: 2026-10-02
+- Contexto: el equipo necesita ver el sitio sin depender de la computadora del titular, y Hostinger todavía no está configurado.
+- Decisión:
+  - Se publica en Railway desde `main` (proyecto `curatedyucatan`, servicio `sitio`) con la URL generada `*.up.railway.app`.
+  - Va sin indexar (`SITIO_INDEXABLE=false`) y en modo DEMO: sin variables de Sanity ni secretos, porque el contenido local es hoy el más actual.
+  - El dominio y los QR quedan para después. Los QR deben apuntar al dominio definitivo, nunca a la URL de Railway.
+- Consecuencias:
+  - el destino final sigue siendo Hostinger (docs/PROMPT.md). La app no depende de Railway: la mudanza es copiar variables, cambiar URLs en Sanity y apuntar el dominio (DESPLIEGUE.md, sección 8.3);
+  - costo: el uso del plan de Railway mientras dure.

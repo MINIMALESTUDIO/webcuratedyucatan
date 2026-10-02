@@ -146,3 +146,42 @@ El endpoint responde `{ ok: true, datos: { etiquetas } }` y regenera las página
 ### 7.4 Cómo funciona "Editar en la página"
 
 El Studio abre el sitio en un iframe y llama a `/api/draft-mode/enable`, que valida el secreto de vista previa con el token del servidor y activa el modo borrador. En ese modo el sitio lee borradores, marca los textos editables (stega) y carga `VisualEditing`. Para salir: el botón "Salir de la vista previa" o `/api/draft-mode/disable`. Ningún token llega al navegador (D-034).
+
+## 8. Versión provisional en Railway (D-049)
+
+Mientras se prepara Hostinger, el sitio está en línea en Railway para que el equipo lo revise sin depender de una computadora local.
+
+- **URL:** https://sitio-production-4d31.up.railway.app (sin indexar: `noindex` y `robots.txt` con `Disallow: /`).
+- **Proyecto:** `curatedyucatan`, servicio `sitio`, entorno `production`, en el espacio de trabajo de saraseit.
+- **Origen:** repositorio `Saraseit/curatedyucatan`, rama `main`. Cada `git push` vuelve a publicar.
+- **Build:** Railpack detecta Node 24 por `.nvmrc` y ejecuta `npm install`, `npm run build` y `npm run start`. `next start` escucha en el `PORT` que asigna Railway. No hay `railway.toml`: Railway ya no lo lee en servicios nuevos, así que la configuración vive en el servicio.
+- **Variables:** solo `NEXT_PUBLIC_SITE_URL` (la URL de arriba) y `SITIO_INDEXABLE=false`.
+  - Sin variables de Sanity el sitio usa el contenido local (D-033), que hoy es el más actual: los 18 venues y las páginas de Discover todavía no están importados en Sanity.
+  - Sin secretos: no hay token de lectura ni secreto del webhook.
+
+### 8.1 Verificación (2026-10-02)
+
+| Comprobación                            | Resultado real                                                                                                                |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 13 rutas clave en inglés y español      | 200; ruta inexistente 404                                                                                                     |
+| `robots.txt` y metadatos                | `Disallow: /`, `noindex, nofollow` y canonical con la URL de Railway                                                          |
+| `/_next/image` con `Accept: image/webp` | 200 `image/webp`                                                                                                              |
+| Navegador con `Accept-Language: es`     | 200 en `/`, `lang="en"`, sin redirección                                                                                      |
+| Playwright contra la URL de Railway     | 24 de 27. Las 3 fallas son la misma prueba, que exige `localhost` en la URL; su comprobación se hizo con curl (fila anterior) |
+| Secretos en el HTML del inicio          | ninguno                                                                                                                       |
+
+### 8.2 Conectar Sanity aquí (cuando se importe la semilla)
+
+1. Importar la semilla y publicar el Studio con `SANITY_STUDIO_PREVIEW_URL` apuntando a la URL de Railway.
+2. En Railway: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` y `SANITY_REVALIDATE_SECRET`. Las `NEXT_PUBLIC_` se leen en el build, así que el cambio redespliega.
+3. En sanity.io/manage: agregar la URL a CORS (con credenciales) y crear el webhook de la sección 7.2 hacia `/api/revalidar`.
+
+### 8.3 Mudanza a Hostinger
+
+Es la misma app, así que basta con:
+
+1. seguir las secciones 2, 3 y 7.3;
+2. cambiar la URL en CORS, en el webhook y en la vista previa del Studio;
+3. apuntar el dominio a Hostinger.
+
+Cuando Hostinger sirva el sitio, se puede borrar el proyecto de Railway.
