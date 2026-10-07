@@ -29,7 +29,7 @@ Estado: **Fase P (piloto visual)**. Este documento separa lo verificado (con fue
 Solo el titular de la cuenta puede hacerlo, porque requiere autorizar GitHub.
 
 1. hPanel → **Sitios web** → **Agregar sitio web** → **App web Node.js**.
-2. **Importar repositorio de Git** → autorizar GitHub (cuenta `Saraseit`) → repositorio `curatedyucatan`, rama `main`.
+2. **Importar repositorio de Git** → autorizar GitHub (cuenta institucional `MINIMALESTUDIO`) → repositorio `webcuratedyucatan`, rama `main`. Ver la sección 9 sobre los dos repositorios.
 3. Dominio: el temporal que ofrece Hostinger o un subdominio propio.
 4. Configuración de build:
 
@@ -185,3 +185,18 @@ Es la misma app, así que basta con:
 3. apuntar el dominio a Hostinger.
 
 Cuando Hostinger sirva el sitio, se puede borrar el proyecto de Railway.
+
+## 9. Repositorios: institucional y personal (2026-10-07)
+
+- **Institucional:** `MINIMALESTUDIO/webcuratedyucatan`, del que despliega Hostinger. Se creó con una copia del código en un solo commit ("Initial commit", `a244dce`), idéntica a `61fb537`.
+- **Personal:** `Saraseit/curatedyucatan`, del que despliega Railway (sección 8).
+- **Cómo se unieron:** el commit `7d7e234` une ambos historiales sin reemplazar el "Initial commit" ni cambiar archivos (mismo árbol). Desde ahí los dos repos comparten historial y se actualizan sin forzar.
+- **Subida a los dos:** en la copia local, `origin` tiene dos URL de subida, así que `git push origin main` sube a ambos repos:
+
+  ```sh
+  git remote set-url --push origin https://github.com/Saraseit/curatedyucatan.git
+  git remote set-url --add --push origin https://github.com/MINIMALESTUDIO/webcuratedyucatan.git
+  ```
+
+- **Permisos:** `Saraseit` es colaborador del repo institucional. Los commits siguen firmados con la cuenta personal.
+- **Al terminar la mudanza:** cuando Hostinger sirva el sitio y se borre Railway, se puede dejar solo el institucional con `git remote set-url origin https://github.com/MINIMALESTUDIO/webcuratedyucatan.git`.
