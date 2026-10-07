@@ -452,3 +452,17 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - el destino final sigue siendo Hostinger (docs/PROMPT.md). La app no depende de Railway: la mudanza es copiar variables, cambiar URLs en Sanity y apuntar el dominio (DESPLIEGUE.md, sección 8.3);
   - costo: el uso del plan de Railway mientras dure.
+
+### D-050 — Build de Hostinger con webpack y 2 procesos
+
+- Fecha: 2026-10-07
+- Contexto: el primer build en Hostinger falló en el CSS. El error fue `TurbopackInternalError … globales.css … node process exited before we could connect to it`: Turbopack abre un proceso de Node aparte para PostCSS (Tailwind) y el entorno de build de Hostinger lo cerró de inmediato. La memoria no fue el problema (pico de 920 MB). Además, Hostinger reporta 48 CPU, y Next abre un proceso por CPU para generar las páginas.
+- Decisión: solo en `npm run build:medido` (el comando de build de Hostinger):
+  - `next build --webpack`: webpack procesa el CSS dentro del mismo proceso;
+  - `NEXT_BUILD_CPUS=2`, salvo que se defina otro valor. `next.config.ts` lo pasa a `experimental.cpus`.
+
+  El build local y el de Railway (`npm run build`) siguen con Turbopack.
+
+- Consecuencias:
+  - el build de webpack es más lento (2 min en local frente a 25 s), pero produce el mismo sitio: 105 páginas, Vitest 54/54 y Playwright 27/27 sobre ese build;
+  - si Hostinger corrige el límite, se puede volver a Turbopack quitando `--webpack`.

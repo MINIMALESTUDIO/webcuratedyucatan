@@ -33,15 +33,15 @@ Solo el titular de la cuenta puede hacerlo, porque requiere autorizar GitHub.
 3. Dominio: el temporal que ofrece Hostinger o un subdominio propio.
 4. Configuración de build:
 
-   | Campo                  | Valor                                                                |
-   | ---------------------- | -------------------------------------------------------------------- |
-   | Framework              | Next.js                                                              |
-   | Versión de Node.js     | 24.x                                                                 |
-   | Directorio raíz        | `/`                                                                  |
-   | Comando de instalación | `npm ci`                                                             |
-   | Comando de build       | `npm run build:medido` (mide la memoria, ver D-030)                  |
-   | Comando de arranque    | `npm run start` (si la app no responde: `npm run start -- -p $PORT`) |
-   | Directorio de salida   | `.next`                                                              |
+   | Campo                  | Valor                                                                                    |
+   | ---------------------- | ---------------------------------------------------------------------------------------- |
+   | Framework              | Next.js                                                                                  |
+   | Versión de Node.js     | 24.x                                                                                     |
+   | Directorio raíz        | `/`                                                                                      |
+   | Comando de instalación | `npm ci`                                                                                 |
+   | Comando de build       | `npm run build:medido` (mide la memoria, ver D-030; usa webpack y 2 procesos, ver D-050) |
+   | Comando de arranque    | `npm run start` (si la app no responde: `npm run start -- -p $PORT`)                     |
+   | Directorio de salida   | `.next`                                                                                  |
 
 5. Variables de entorno (sección 3) y **Desplegar**.
 6. Cada `git push` a `main` vuelve a desplegar.
@@ -58,6 +58,13 @@ El resto de variables de `.env.example` no se usan todavía.
 ## 4. Resultados del despliegue del piloto
 
 **Línea base local** (2026-09-28, Windows 11, Node 24.19.0, 16 CPU, build limpio sin caché): `npm run build:medido` → memoria pico del árbol de procesos **2177 MB**, **25 s**. En Windows la suma de _working sets_ cuenta la memoria compartida entre procesos más de una vez, así que la cifra real es algo menor. Next reparte la generación de páginas en tantos procesos como CPU haya, así que con las 2 CPU del plan se espera menos memoria y más tiempo.
+
+**Primer intento en Hostinger** (2026-10-07, commit `8861668`):
+
+- entorno: Node v24.6.0 linux/x64, 48 CPU, sin límite de contenedor visible;
+- `npm install` tardó 1 min 34 s;
+- falló el build: `TurbopackInternalError` en `globales.css`, porque el proceso de Node que abre Turbopack para PostCSS se cerró antes de conectarse. Pico de 920 MB, 55 s;
+- se corrigió con D-050 (webpack y 2 procesos).
 
 **En Hostinger** — _por completar tras el primer despliegue:_
 

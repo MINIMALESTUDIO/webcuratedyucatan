@@ -1,6 +1,11 @@
 // Ejecuta `next build` y muestra la memoria pico del árbol de procesos (decisión D-030).
 // Uso: npm run build:medido  (es el comando de build configurado en Hostinger)
 // La medición nunca hace fallar el build: el código de salida es el de `next build`.
+//
+// Ajustes para el plan compartido de Hostinger (D-050), que limita los procesos por cuenta:
+// - `--webpack`: Turbopack abre un proceso de Node aparte para PostCSS (Tailwind) y Hostinger lo
+//   cierra antes de conectarse; webpack procesa el CSS dentro del mismo proceso.
+// - NEXT_BUILD_CPUS=2 (si no viene definido): menos procesos para generar las páginas.
 import { execFile, spawn } from 'node:child_process';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -105,10 +110,16 @@ console.log(
     `memoria del sistema: ${aMB(os.totalmem())} (libre ${aMB(os.freemem())}) · límite del contenedor: ${limiteCgroup()}`,
 );
 
+const argumentos = ['build', '--webpack', ...process.argv.slice(2)];
+const entorno = { ...process.env, NEXT_BUILD_CPUS: process.env.NEXT_BUILD_CPUS || '2' };
+console.log(
+  `[medir-build] next ${argumentos.join(' ')} · NEXT_BUILD_CPUS=${entorno.NEXT_BUILD_CPUS}`,
+);
+
 const inicio = Date.now();
-const hijo = spawn(process.execPath, [require.resolve('next/dist/bin/next'), 'build'], {
+const hijo = spawn(process.execPath, [require.resolve('next/dist/bin/next'), ...argumentos], {
   stdio: 'inherit',
-  env: process.env,
+  env: entorno,
 });
 
 let pico = 0;
