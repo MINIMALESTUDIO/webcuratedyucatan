@@ -1,0 +1,366 @@
+{
+  "Metadatos": {
+    "tituloSitio": "Curated Yucatán",
+    "descripcionSitio": "Your insider guide to celebrating in Yucatán: discover the destination, explore curated venues and partners, and plan your event.",
+    "inicioTitulo": "Your insider guide to celebrating in Yucatán",
+    "descubreDescripcion": "Architecture, culture, gastronomy, history, nature and experiences: discover Yucatán beyond the celebration.",
+    "venuesTitulo": "Venues in Yucatán",
+    "venuesDescripcion": "A curated collection of venues in Yucatán: Contemporary Sanctuaries, Organic Estates and Timeless Venues.",
+    "cateringTitulo": "Catering in Yucatán",
+    "cateringDescripcion": "A curated selection of catering partners for celebrations in Yucatán.",
+    "fotografiaTitulo": "Photography in Yucatán",
+    "fotografiaDescripcion": "A curated selection of photographers and studios for celebrations in Yucatán.",
+    "disenoDescripcion": "Minimal, the Curated Design & Production Partner: furniture, tabletop, floral design, décor and production.",
+    "journalDescripcion": "Editorial stories and practical guides for planning celebrations in Yucatán.",
+    "encuentraDescripcion": "Answer a few questions and discover which Yucatán fits your celebration.",
+    "planeaDescripcion": "Tell us about your event and start planning your celebration in Yucatán with Curated.",
+    "noEncontradoTitulo": "Page not found"
+  },
+  "Comun": {
+    "saltarAlContenido": "Skip to content",
+    "marca": "Curated Yucatán",
+    "cerrar": "Close",
+    "anterior": "Previous",
+    "siguiente": "Next",
+    "minutos": "{minutos} min",
+    "idioma": "Language",
+    "idiomaActual": "Current language: {idioma}",
+    "nombreIdioma": {
+      "en": "English",
+      "es": "Español"
+    },
+    "salirVistaPrevia": "Exit preview",
+    "invitados": "Up to {cantidad} guests"
+  },
+  "Navegacion": {
+    "principal": "Main",
+    "abrirMenu": "Open menu",
+    "cerrarMenu": "Close menu",
+    "menu": "Menu",
+    "inicio": "Home",
+    "descubre": "Discover Yucatán",
+    "venues": "Venues",
+    "catering": "Catering",
+    "fotografia": "Photography",
+    "diseno": "Design & Production",
+    "journal": "Curated Journal",
+    "nosotros": "About",
+    "encuentra": "Find your Yucatán",
+    "planea": "Plan your event",
+    "privacidad": "Privacy",
+    "migas": "Breadcrumb"
+  },
+  "Pie": {
+    "descripcion": "Your insider guide to celebrating in Yucatán.",
+    "explorar": "Explore",
+    "curated": "Curated",
+    "contacto": "Contact",
+    "serieVideo": "El Lugar de Tu Historia · video series",
+    "partner": "Curated Partner in Design & Production",
+    "derechos": "© {anio} Curated Yucatán",
+    "avisoPiloto": "Pilot with sample [DEMO] content. Forms don't send anything yet."
+  },
+  "Inicio": {
+    "hero": {
+      "cta": "Explore Yucatán",
+      "pausarVideo": "Pause background video",
+      "reproducirVideo": "Play background video"
+    },
+    "queEs": {
+      "titulo": "What is Curated?",
+      "cta": "Discover Curated"
+    },
+    "descubre": {
+      "titulo": "Discover Yucatán",
+      "cta": "Discover the destination"
+    },
+    "explora": {
+      "titulo": "Explore Curated"
+    },
+    "destacados": {
+      "titulo": "Featured venues",
+      "verTodos": "Explore all venues"
+    },
+    "journal": {
+      "titulo": "Curated Journal",
+      "cta": "Explore the journal"
+    },
+    "planea": {
+      "titulo": "Plan your event",
+      "cta": "Plan your event"
+    }
+  },
+  "Venues": {
+    "titulo": "Venues",
+    "entradilla": "A curated collection of places in Yucatán, organized to be discovered visually: by atmosphere, light and landscape.",
+    "colecciones": "The collection",
+    "todas": "All venues",
+    "filtros": "Filters",
+    "abrirFiltros": "{cantidad, plural, =0 {Filters} one {Filters (#)} other {Filters (#)}}",
+    "limpiar": "Clear filters",
+    "verResultados": "{cantidad, plural, =0 {No venues} one {See # venue} other {See # venues}}",
+    "resultados": "{cantidad, plural, =0 {No venues} one {# venue} other {# venues}}",
+    "grupos": {
+      "estilo": "Style",
+      "capacidad": "Capacity",
+      "hospedaje": "Accommodation",
+      "ubicacion": "Location",
+      "entorno": "Indoor / Outdoor"
+    },
+    "rangosCapacidad": {
+      "hasta-200": "Up to 200",
+      "200-400": "200–400",
+      "mas-400": "400+"
+    },
+    "hospedajeEnSitio": "On-site accommodation",
+    "entornos": {
+      "interior": "Indoor",
+      "exterior": "Outdoor"
+    },
+    "notaRangos": "[DEMO] Sample ranges.",
+    "vacioTitulo": "No venues match these filters",
+    "vacioTexto": "Try removing a filter, or tell us about your event and we will suggest places.",
+    "vacioPlanea": "Plan your event",
+    "tarjeta": {
+      "explorar": "Explore venue",
+      "minutos": "{minutos} min from Mérida"
+    }
+  },
+  "Venue": {
+    "resumen": "Venue overview",
+    "datos": {
+      "titulo": "Quick facts",
+      "ubicacion": "Location",
+      "capacidad": "Capacity",
+      "hospedaje": "Accommodation",
+      "estilo": "Style",
+      "entorno": "Indoor / Outdoor",
+      "minutosCentro": "{minutos} min from downtown Mérida",
+      "kilometros": "{km} km",
+      "habitaciones": "{habitaciones, plural, one {# room} other {# rooms}} · up to {huespedes} guests",
+      "soloHabitaciones": "{habitaciones, plural, one {# room} other {# rooms}}",
+      "conHospedaje": "On site",
+      "sinHospedaje": "Not on site"
+    },
+    "entorno": {
+      "interior": "Indoor",
+      "exterior": "Outdoor",
+      "ambos": "Indoor & outdoor"
+    },
+    "sobre": {
+      "titulo": "About"
+    },
+    "pelicula": {
+      "serie": "El Lugar de Tu Historia",
+      "titulo": "The film",
+      "notaDemo": "[DEMO] Sample video. The venue's film from the series will go here.",
+      "reproducir": "Play video: {titulo}",
+      "tituloIframe": "Video: {titulo}",
+      "capitulos": "Chapters",
+      "reproducirDesde": "Play from"
+    },
+    "espacios": {
+      "titulo": "Spaces",
+      "interior": "Indoor",
+      "exterior": "Outdoor",
+      "mixto": "Indoor & outdoor"
+    },
+    "notas": {
+      "titulo": "Curated Notes",
+      "entradilla": "Practical notes for wedding planners."
+    },
+    "galeria": {
+      "titulo": "Gallery",
+      "abrir": "Open photo {numero} of {total}",
+      "visor": "Photo viewer",
+      "contador": "{actual} / {total}"
+    },
+    "solicitud": {
+      "titulo": "Request information",
+      "texto": "Tell us about your event. Curated will connect you with {nombre} and help you plan."
+    },
+    "similares": {
+      "titulo": "More {coleccion}"
+    }
+  },
+  "Proveedores": {
+    "catering": {
+      "titulo": "Catering",
+      "entradilla": "A curated selection of catering partners, chosen for their cuisine, service and experience with celebrations in Yucatán."
+    },
+    "fotografia": {
+      "titulo": "Photography",
+      "entradilla": "A curated selection of photographers and studios with an editorial eye for Yucatán's architecture, light and people."
+    },
+    "estilos": {
+      "editorial": "Editorial",
+      "documental": "Documentary",
+      "fine-art": "Fine Art",
+      "cinematografico": "Cinematic"
+    },
+    "perfil": {
+      "servicios": "Services",
+      "estilo": "Style & approach",
+      "experiencia": "Destination experience",
+      "cobertura": "Based in {ciudad}",
+      "galeria": "Gallery",
+      "enlaces": "Online",
+      "sitioWeb": "Website",
+      "instagram": "Instagram",
+      "externo": "(opens in a new tab)",
+      "cta": "Request information",
+      "ctaTexto": "Plan your event with Curated and we will connect you with {nombre}.",
+      "ver": "View profile"
+    }
+  },
+  "Diseno": {
+    "titulo": "Design & Production",
+    "areas": "What Minimal covers",
+    "servicios": "Services",
+    "estilo": "Style & approach",
+    "experiencia": "Destination experience",
+    "cobertura": "Based in {ciudad}",
+    "cta": "Plan your event",
+    "ctaTexto": "Design and production for your celebration, with the same curated approach."
+  },
+  "Journal": {
+    "titulo": "Curated Journal",
+    "entradilla": "Editorial stories and practical guides about celebrating in Yucatán.",
+    "leer": "Read article",
+    "minutosLectura": "{minutos} min read",
+    "mas": "More from the journal"
+  },
+  "Descubre": {
+    "cta": "Explore venues",
+    "ctaTexto": "Places where history, architecture and landscape become part of the celebration.",
+    "categorias": "Categories",
+    "descubrir": "Discover {categoria}",
+    "continua": "Continue exploring the destination."
+  },
+  "Encuentra": {
+    "titulo": "Find your Yucatán",
+    "entradilla": "A few questions to discover the Yucatán that fits your celebration. It takes about a minute.",
+    "empezar": "Begin",
+    "paso": "Question {actual} of {total}",
+    "atras": "Back",
+    "preguntas": {
+      "evento": {
+        "titulo": "What are you planning?",
+        "opciones": {
+          "boda": "Wedding",
+          "cena-bienvenida": "Welcome Dinner",
+          "celebracion": "Celebration"
+        }
+      },
+      "atmosfera": {
+        "titulo": "What atmosphere are you drawn to?"
+      },
+      "hospedaje": {
+        "titulo": "Accommodation",
+        "opciones": {
+          "requerido": "Required",
+          "preferido": "Preferred",
+          "no-necesario": "Not necessary"
+        }
+      },
+      "entorno": {
+        "titulo": "Indoor or outdoor?",
+        "opciones": {
+          "interior": "Indoor",
+          "exterior": "Outdoor",
+          "indistinto": "Either"
+        }
+      },
+      "prioridad": {
+        "titulo": "What matters most?",
+        "opciones": {
+          "arquitectura": "Architecture",
+          "naturaleza": "Nature",
+          "gastronomia": "Gastronomy",
+          "privacidad": "Privacy",
+          "ubicacion": "Location"
+        }
+      },
+      "invitados": {
+        "titulo": "Guest count"
+      }
+    },
+    "resultado": {
+      "sobretitulo": "Your Yucatán is…",
+      "lugares": "Places to start exploring",
+      "verColeccion": "View all {coleccion}",
+      "reiniciar": "Start again",
+      "guardar": {
+        "titulo": "Want to save your Curated selection?",
+        "texto": "We will send these places to your inbox so you can keep exploring."
+      }
+    }
+  },
+  "Planea": {
+    "titulo": "Plan your event",
+    "entradilla": "Tell us what you are planning. Curated will guide you to the right places and partners in Yucatán."
+  },
+  "Formularios": {
+    "preguntas": {
+      "tipoEvento": "What are you planning?",
+      "invitados": "Estimated guests?",
+      "buscando": "Looking for",
+      "contacto": "Contact"
+    },
+    "opciones": {
+      "tipoEvento": {
+        "boda": "Wedding",
+        "fiesta-bienvenida": "Welcome Party",
+        "cena-ensayo": "Rehearsal Dinner",
+        "otro": "Other"
+      },
+      "invitados": {
+        "menos-50": "Fewer than 50",
+        "50-100": "50–100",
+        "100-200": "100–200",
+        "200-400": "200–400",
+        "mas-400": "400+"
+      },
+      "buscando": {
+        "venue": "Venue",
+        "catering": "Catering",
+        "fotografia": "Photography",
+        "diseno-produccion": "Design & Production",
+        "no-seguro": "Not sure yet"
+      }
+    },
+    "buscandoAyuda": "Choose all that apply.",
+    "nombre": "Name",
+    "empresa": "Company",
+    "pais": "Country",
+    "correo": "Email",
+    "telefono": "Phone",
+    "fechaAproximada": "Approximate date",
+    "fechaAyuda": "For example: March 2027.",
+    "mensaje": "Message",
+    "opcional": "optional",
+    "consentimiento": "I accept the privacy notice and agree that Curated Yucatán contacts me about this request.",
+    "consentimientoSeleccion": "I accept the privacy notice.",
+    "leerAviso": "Read the privacy notice",
+    "enviar": "Send my request",
+    "guardarSeleccion": "Save my selection",
+    "errores": {
+      "resumen": "{cantidad, plural, one {Please check # field.} other {Please check # fields.}}",
+      "requerido": "This field is required.",
+      "muyCorto": "Please enter at least 2 characters.",
+      "muyLargo": "This text is too long.",
+      "correoInvalido": "Enter a valid email address, like name@example.com.",
+      "eligeUno": "Choose at least one option.",
+      "consentimiento": "You need to accept the privacy notice to continue."
+    },
+    "piloto": {
+      "titulo": "Thank you. This is a pilot: nothing was sent.",
+      "texto": "Your details passed validation. When forms are connected, you will receive a confirmation by email."
+    }
+  },
+  "NoEncontrado": {
+    "titulo": "We couldn't find that page",
+    "texto": "The address may be mistyped, or the page may have moved.",
+    "volver": "Back to home"
+  }
+}

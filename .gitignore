@@ -1,0 +1,41 @@
+# Dependencias
+/node_modules
+/.pnp
+.pnp.*
+
+# Pruebas
+/coverage
+/playwright-report
+/test-results
+/blob-report
+/.lighthouseci
+
+# Next.js
+/.next/
+/out/
+/build
+
+# Varios
+.DS_Store
+*.pem
+*.tsbuildinfo
+next-env.d.ts
+
+# Logs
+npm-debug.log*
+
+# Variables de entorno: nunca se versionan; .env.example sí
+.env*
+!.env.example
+
+# Vercel
+.vercel
+
+# Build del Studio de Sanity
+/studio-dist
+# Build del Studio que genera `sanity deploy`
+/dist
+/.sanity
+
+# Semilla de Sanity generada (rutas locales de archivos)
+/sanity/semilla
