@@ -227,12 +227,14 @@ export const CONSULTA_SLUGS_CATEGORIAS_DESCUBRE = defineQuery(
   `*[${FILTRO_CATEGORIA}].slug.current`,
 );
 
+// En "relacionadas", los paréntesis hacen que el filtro se aplique a los documentos ya
+// resueltos; sin ellos, GROQ lo toma como acceso a un atributo y devuelve null.
 export const CONSULTA_CATEGORIA_DESCUBRE =
   defineQuery(`*[${FILTRO_CATEGORIA} && slug.current == $slug][0]{
   _type, ${CATEGORIA_RESUMEN},
   titular, entradilla,
   "secciones": coalesce(secciones[]{ _key, titulo, texto, "imagenes": coalesce(imagenes[]${IMAGEN}, []) }, []),
-  "relacionadas": coalesce(relacionadas[]->[${FILTRO_CATEGORIA}]{ ${CATEGORIA_RESUMEN} }, []),
+  "relacionadas": coalesce((relacionadas[]->)[${FILTRO_CATEGORIA}]{ ${CATEGORIA_RESUMEN} }, []),
   seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);
 

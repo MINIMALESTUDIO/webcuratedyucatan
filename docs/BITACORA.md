@@ -514,3 +514,27 @@ Ver DESPLIEGUE.md, sección 8.1:
 - Conectar Sanity aquí después de importar la semilla (DESPLIEGUE.md, secciones 7.2 y 7.3).
 - Dominio propio y verificar que se sirva el `robots.txt` de la app.
 - Decidir cuándo borrar Railway.
+
+## Sanity con el contenido real y conectado a Hostinger (2026-10-08)
+
+**Estado:** Sanity tiene el contenido real (18 venues, 6 categorías de Discover, 6 artículos), el Studio está publicado apuntando a Hostinger, y CORS y el webhook están listos. Para que el sitio lea de Sanity solo falta importar `.env.hostinger` en hPanel y volver a desplegar.
+
+### Resumen
+
+Detalle en DESPLIEGUE.md, sección 10:
+
+- respaldo previo; no había ediciones ni borradores que se perdieran;
+- importación de 50 documentos y borrado de 8 sobrantes de la semilla anterior;
+- validación (0 errores y 0 avisos) y comprobación de privacidad;
+- Studio publicado con la vista previa en Hostinger;
+- CORS y webhook.
+
+### Corrección encontrada al probar con Sanity
+
+"Continue exploring" salía vacío en las páginas de categoría: en modo DEMO no se notaba. En GROQ, `relacionadas[]->[filtro]` se interpreta como acceso a un atributo y devuelve `null`. La forma correcta es `(relacionadas[]->)[filtro]`, que además conserva el orden del documento. Con la corrección, Playwright pasa 27 de 27 en modo Sanity.
+
+### Pendientes
+
+- **Tú:** importar `.env.hostinger` en hPanel y volver a desplegar.
+- **Yo, después del despliegue:** verificar que Hostinger lea de Sanity, que funcionen "Editar en la página" (draft mode con secreto real), la firma del webhook y que un cambio publicado se refleje.
+- Railway sigue en modo DEMO. Se puede conectar igual (sección 8.2) o borrar.

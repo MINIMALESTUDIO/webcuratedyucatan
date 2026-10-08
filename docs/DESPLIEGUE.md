@@ -145,15 +145,15 @@ Hecha el 2026-09-30. Proyecto **`bx8gqx3p`** ("curated yucatan"), dataset **`pro
 
 En sanity.io/manage → API → Webhooks:
 
-| Campo        | Valor                                                                                                                                        |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| URL          | `https://<dominio>/api/revalidar`                                                                                                            |
-| Dataset      | `production`                                                                                                                                 |
-| Disparadores | Crear, actualizar y borrar                                                                                                                   |
-| Filtro       | `_type in ["venue","coleccion","region","proveedor","articulo","paginaEditorial","descubreYucatan","disenoProduccion","configuracionSitio"]` |
-| Proyección   | `{ _type, "slug": slug.current }`                                                                                                            |
-| Método       | POST                                                                                                                                         |
-| Secreto      | el mismo valor que `SANITY_REVALIDATE_SECRET`                                                                                                |
+| Campo        | Valor                                                                                                                                                            |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| URL          | `https://<dominio>/api/revalidar`                                                                                                                                |
+| Dataset      | `production`                                                                                                                                                     |
+| Disparadores | Crear, actualizar y borrar                                                                                                                                       |
+| Filtro       | `_type in ["venue","coleccion","region","proveedor","articulo","paginaEditorial","descubreYucatan","categoriaDescubre","disenoProduccion","configuracionSitio"]` |
+| Proyección   | `{ _type, "slug": slug.current }`                                                                                                                                |
+| Método       | POST                                                                                                                                                             |
+| Secreto      | el mismo valor que `SANITY_REVALIDATE_SECRET`                                                                                                                    |
 
 El endpoint responde `{ ok: true, datos: { etiquetas } }` y regenera las páginas que usan ese tipo de documento (y la ficha, si trae slug) en la siguiente visita.
 
@@ -226,3 +226,21 @@ Cuando Hostinger sirva el sitio, se puede borrar el proyecto de Railway.
 
 - **Permisos:** `Saraseit` es colaborador del repo institucional. Los commits siguen firmados con la cuenta personal.
 - **Al terminar la mudanza:** cuando Hostinger sirva el sitio y se borre Railway, se puede dejar solo el institucional con `git remote set-url origin https://github.com/MINIMALESTUDIO/webcuratedyucatan.git`.
+
+## 10. Sanity conectado a Hostinger (2026-10-08)
+
+| Paso                           | Resultado real                                                                                                                                                                                           |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Respaldo previo                | `npx sanity dataset export production` → 1 MB, guardado fuera del repo. No había borradores ni ediciones posteriores a la importación del 30 sep.                                                        |
+| Importación                    | `npx sanity dataset import sanity/semilla/demo.ndjson --dataset production --replace` → 50 documentos                                                                                                    |
+| Limpieza                       | Se borraron 8 documentos de la semilla anterior que `--replace` no toca: 6 venues de ejemplo y 2 artículos de ejemplo. El dataset quedó idéntico a la semilla.                                           |
+| Validación                     | `npx sanity documents validate` → 0 errores y 0 avisos (el máximo del lema pasa de 70 a 100 por el copy real)                                                                                            |
+| Privacidad                     | `npm run sanity:verificar-privados` → 0 privados visibles sin token                                                                                                                                      |
+| Studio                         | `SANITY_STUDIO_PREVIEW_URL=https://ivory-kingfisher-466902.hostingersite.com npx sanity deploy`. "Editar en la página" abre Hostinger. Se revisaron 156 archivos del build sin encontrar ningún secreto. |
+| CORS                           | se agregó `https://ivory-kingfisher-466902.hostingersite.com` con credenciales                                                                                                                           |
+| Webhook                        | "Revalidar sitio (Hostinger)" (id `jCFc9PCk9nBf5BJp`) hacia `/api/revalidar`, con el filtro de la sección 7.2. Se creó con la API de webhooks usando la sesión de la CLI.                                |
+| Sitio en modo Sanity, en local | `build:medido` correcto (105 páginas, imágenes del CDN de Sanity, sin respaldo DEMO) y Playwright 27 de 27                                                                                               |
+
+**Variables de Hostinger:** se genera `.env.hostinger` en la raíz de la copia local. Git lo ignora por el patrón `.env*` y se importa en hPanel. Lleva `NEXT_PUBLIC_SITE_URL`, `SITIO_INDEXABLE=false`, `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` y `SANITY_REVALIDATE_SECRET`. Nunca lleva el token de escritura ni las `SANITY_STUDIO_*`.
+
+**Para volver a importar la semilla en el futuro:** `--replace` sobrescribe lo editado en el Studio. Haz antes un respaldo con `dataset export`.

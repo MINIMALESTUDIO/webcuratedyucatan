@@ -17,8 +17,8 @@ export const configuracionSitio = defineType({
     campoLocalizado({
       name: 'lema',
       title: 'Lema',
-      description: '"Your insider guide to celebrating in Yucatán."',
-      max: 70,
+      description: 'Frase del hero del inicio (01_WEB/01_HOME).',
+      max: 100,
       group: 'hero',
     }),
     defineField({
