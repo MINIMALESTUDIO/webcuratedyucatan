@@ -485,3 +485,32 @@ Ver DESPLIEGUE.md, sección 8.1:
 - Conectar Sanity aquí después de importar la semilla (DESPLIEGUE.md, sección 8.2).
 - Dominio y QR: después, siempre con el dominio definitivo.
 - Mudanza a Hostinger (DESPLIEGUE.md, sección 8.3).
+
+## Hostinger en línea (2026-10-07)
+
+**Estado:** el sitio está en https://ivory-kingfisher-466902.hostingersite.com (dominio temporal, sin indexar), desplegado desde `MINIMALESTUDIO/webcuratedyucatan`.
+
+### Resumen
+
+- **Repositorios:** el repo institucional se creó con una copia del código en un solo commit. Se unió el historial con el merge `7d7e234`, sin reemplazar ese commit, y `git push origin main` sube a los dos repos (DESPLIEGUE.md, sección 9).
+- **Intento 1:** falló porque Turbopack no pudo abrir el proceso de PostCSS. Se corrigió compilando con webpack y 2 procesos (D-050).
+- **Intento 2:** falló con `Invalid URL`, porque `NEXT_PUBLIC_SITE_URL` estaba sin `https://`. `urlSitio()` ahora agrega el protocolo (4 pruebas nuevas).
+- **Intento 3:** correcto. Ver DESPLIEGUE.md, sección 4.
+
+### Verificación
+
+| Comprobación                                       | Resultado real                                            |
+| -------------------------------------------------- | --------------------------------------------------------- |
+| Vitest local                                       | 58 de 58                                                  |
+| `build:medido` local con la variable sin protocolo | correcto, 105 páginas, canonical con https                |
+| Rutas en Hostinger                                 | 13 en 200, una inexistente en 404                         |
+| Imágenes, idioma, `noindex`, secretos              | WebP; sin redirección; `noindex` en todas; ningún secreto |
+| Playwright contra Hostinger                        | 24 de 27 (las 3 fallas: la prueba que exige `localhost`)  |
+
+### Pendientes
+
+- Corregir en hPanel `NEXT_PUBLIC_SITE_URL` con `https://`. Ya no rompe el build, pero así queda limpio.
+- Anotar la memoria del build correcto (última línea `[medir-build]`).
+- Conectar Sanity aquí después de importar la semilla (DESPLIEGUE.md, secciones 7.2 y 7.3).
+- Dominio propio y verificar que se sirva el `robots.txt` de la app.
+- Decidir cuándo borrar Railway.

@@ -72,16 +72,29 @@ El resto de variables de `.env.example` no se usan todavía.
 - falló al prerenderizar `/en` con `TypeError: Invalid URL`, porque `NEXT_PUBLIC_SITE_URL` estaba cargada sin protocolo (`ivory-kingfisher-466902.hostingersite.com`);
 - desde entonces `urlSitio()` agrega `https://` cuando falta. Aun así, en hPanel conviene escribir la URL completa.
 
-**En Hostinger** — _por completar tras el primer despliegue:_
+**En Hostinger** (tercer intento, commit `ac9b5c1`, 2026-10-07: correcto):
 
-| Dato                                               | Resultado     | Cómo se obtiene                                                                                                                         |
-| -------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| URL pública                                        | por confirmar | hPanel                                                                                                                                  |
-| Versión de Node y límite de memoria del contenedor | por confirmar | primera línea `[medir-build]` del log de build                                                                                          |
-| Memoria pico y duración del build                  | por confirmar | última línea `[medir-build]` del log                                                                                                    |
-| Comando de arranque que funciona                   | por confirmar | `npm run start` o `npm run start -- -p $PORT`                                                                                           |
-| `next/image` (sharp)                               | por confirmar | `curl -I "https://<dominio>/_next/image?url=%2Fdemo%2Fvenue-1-hero.jpg&w=640&q=75"` debe responder `200` con `content-type: image/webp` |
-| Tiempo de respuesta del HTML                       | por confirmar | `curl -w "%{time_starttransfer}"` sobre `/`                                                                                             |
+| Dato                                               | Resultado                                                                                                       | Cómo se obtiene                                                                                                                         |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| URL pública                                        | https://ivory-kingfisher-466902.hostingersite.com (dominio temporal)                                            | hPanel                                                                                                                                  |
+| Versión de Node y límite de memoria del contenedor | Node v24.6.0, linux/x64, 48 CPU visibles, límite de contenedor no visible                                       | primera línea `[medir-build]` del log de build                                                                                          |
+| Memoria pico y duración del build                  | intento 2 (falló al prerenderizar): 2089 MB, 48 s. Intento 3: por anotar (última línea `[medir-build]` del log) | última línea `[medir-build]` del log                                                                                                    |
+| Comando de arranque que funciona                   | `npm run start`                                                                                                 | `npm run start` o `npm run start -- -p $PORT`                                                                                           |
+| `next/image` (sharp)                               | 200 `image/webp`                                                                                                | `curl -I "https://<dominio>/_next/image?url=%2Fdemo%2Fvenue-1-hero.jpg&w=640&q=75"` debe responder `200` con `content-type: image/webp` |
+| Tiempo de respuesta del HTML                       | TTFB de 0.29 a 0.50 s en `/` (3 mediciones)                                                                     | `curl -w "%{time_starttransfer}"` sobre `/`                                                                                             |
+
+Otras comprobaciones del tercer intento:
+
+- 13 rutas en inglés y español en 200, y una inexistente en 404;
+- `noindex, nofollow` y canonical con https en todas las páginas;
+- sin redirección por `Accept-Language: es`;
+- sin secretos en el HTML;
+- Playwright contra la URL: 24 de 27. Las 3 fallas son la prueba que exige `localhost`, igual que en Railway.
+
+Dos comportamientos de Hostinger que conviene conocer:
+
+- **`robots.txt`:** en el dominio temporal (`*.hostingersite.com`) lo sirve la CDN de Hostinger (`Server: hcdn`) en lugar del de la app, y permite todo salvo a Googlebot. Las páginas siguen con `noindex`. Con el dominio propio hay que volver a verificar que se sirva el de la app.
+- **Caché de la CDN:** con `x-hcdn-cache-status: DYNAMIC` la CDN no guarda el HTML, así que un despliegue o una revalidación se ven de inmediato.
 
 ## 4.1 Caché de imágenes optimizadas
 
