@@ -66,6 +66,12 @@ El resto de variables de `.env.example` no se usan todavía.
 - falló el build: `TurbopackInternalError` en `globales.css`, porque el proceso de Node que abre Turbopack para PostCSS se cerró antes de conectarse. Pico de 920 MB, 55 s;
 - se corrigió con D-050 (webpack y 2 procesos).
 
+**Segundo intento** (commit `0838cb1`):
+
+- webpack y 2 procesos funcionaron: compilación en 29.5 s y 105 páginas en curso;
+- falló al prerenderizar `/en` con `TypeError: Invalid URL`, porque `NEXT_PUBLIC_SITE_URL` estaba cargada sin protocolo (`ivory-kingfisher-466902.hostingersite.com`);
+- desde entonces `urlSitio()` agrega `https://` cuando falta. Aun así, en hPanel conviene escribir la URL completa.
+
 **En Hostinger** — _por completar tras el primer despliegue:_
 
 | Dato                                               | Resultado     | Cómo se obtiene                                                                                                                         |
