@@ -244,3 +244,25 @@ Cuando Hostinger sirva el sitio, se puede borrar el proyecto de Railway.
 **Variables de Hostinger:** se genera `.env.hostinger` en la raíz de la copia local. Git lo ignora por el patrón `.env*` y se importa en hPanel. Lleva `NEXT_PUBLIC_SITE_URL`, `SITIO_INDEXABLE=false`, `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `NEXT_PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` y `SANITY_REVALIDATE_SECRET`. Nunca lleva el token de escritura ni las `SANITY_STUDIO_*`.
 
 **Para volver a importar la semilla en el futuro:** `--replace` sobrescribe lo editado en el Studio. Haz antes un respaldo con `dataset export`.
+
+## 11. Dominio curatedyucatan.com (2026-10-09)
+
+El dominio quedó vinculado a Hostinger. Estado comprobado:
+
+| Comprobación                                                    | Resultado real                                                                                              |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `https://curatedyucatan.com` y `https://www.curatedyucatan.com` | 200 con certificado válido                                                                                  |
+| `http://curatedyucatan.com`                                     | 301 a https                                                                                                 |
+| `robots.txt`                                                    | lo sirve la app (`Disallow: /`), no la CDN como en el dominio temporal                                      |
+| Sanity CORS                                                     | se agregaron `https://curatedyucatan.com` y `https://www.curatedyucatan.com` con credenciales               |
+| Webhook "Revalidar sitio" (`jCFc9PCk9nBf5BJp`)                  | URL cambiada a `https://curatedyucatan.com/api/revalidar`. Petición firmada: 200; sin firma: 401            |
+| Studio                                                          | publicado con `SANITY_STUDIO_PREVIEW_URL=https://curatedyucatan.com`: "Editar en la página" abre el dominio |
+| `/api/draft-mode/enable` con secreto falso                      | 401                                                                                                         |
+| Encabezados                                                     | sin `X-Frame-Options` ni `frame-ancestors`, así que el Studio puede mostrar el sitio                        |
+
+**Pendientes:**
+
+- En hPanel, `NEXT_PUBLIC_SITE_URL=https://curatedyucatan.com` (ya está en `.env.hostinger`) y volver a desplegar. Hasta entonces, la URL canónica y los enlaces de idioma apuntan al dominio temporal.
+- `www` responde 200 en vez de redirigir al dominio sin `www`. Conviene una redirección 301 en hPanel; la URL canónica ya evita contenido duplicado una vez corregida la variable.
+- `SITIO_INDEXABLE` sigue en `false` hasta el lanzamiento (D-028).
+- Los QR deben apuntar a `https://curatedyucatan.com/…`. Las rutas en inglés son estables: `/` y `/find-your-yucatan`.
