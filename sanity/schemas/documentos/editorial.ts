@@ -288,6 +288,13 @@ export const categoriaDescubre = defineType({
       group: 'portada',
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: 'imagenHero',
+      title: 'Foto del hero',
+      description: 'Opcional. Si falta, el hero usa la imagen principal.',
+      type: 'imagenConAlt',
+      group: 'pagina',
+    }),
     campoLocalizado({ name: 'titular', title: 'Titular (hero)', max: 90, group: 'pagina' }),
     campoLocalizado({
       name: 'entradilla',

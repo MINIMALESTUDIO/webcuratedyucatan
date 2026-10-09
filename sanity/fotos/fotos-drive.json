@@ -1,0 +1,1507 @@
+{
+  "descripcion": "Fotos del Drive (CURATED X LOVE MEXICO) y su destino en Sanity (D-051). Lo usa scripts/fotos-drive.ts. Revisado el 2026-10-09.",
+  "grupos": [
+    {
+      "destino": "configuracionSitio",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1qsmsXSjAzxltMznLMiOocxxRqCzo--1j",
+          "origen": "01_HOME/01 — HERO/MEDIA/alexandersix16-cenote-10225212_1920.jpg",
+          "alt": {
+            "en": "Turquoise water inside a cenote cave in Yucatán",
+            "es": "Agua turquesa dentro de un cenote de caverna en Yucatán"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "queEsCurated.imagen",
+      "fotos": [
+        {
+          "drive": "1RPRRukHg2-L2rZe5I0nx0_eYLjOP7vSQ",
+          "origen": "01_HOME/02 — WHAT IS CURATED?/MEDIA/EDITADA ARM TM-1365.jpg",
+          "alt": {
+            "en": "A garden ceremony aisle lined with wooden chairs and floral arrangements under the trees",
+            "es": "Pasillo de ceremonia en un jardín con sillas de madera y arreglos florales bajo los árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "exploraCurated.areas[_key==\"area-venues\"].imagen",
+      "fotos": [
+        {
+          "drive": "1l_iwHwEUpB5ULnh3nJHcGTTnP4QrFOAb",
+          "origen": "01_HOME/04 — EXPLORE CURATED/MEDIA/VENUES",
+          "alt": {
+            "en": "A red hacienda chapel framed by palm trees and a green lawn",
+            "es": "Capilla roja de hacienda entre palmeras y un jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "exploraCurated.areas[_key==\"area-catering\"].imagen",
+      "fotos": [
+        {
+          "drive": "1NkHi8Bk0HXmEcq0DQPTN1x-pqCQEqvh0",
+          "origen": "01_HOME/04 — EXPLORE CURATED/MEDIA/CATERING",
+          "alt": {
+            "en": "Canapés served in small terracotta bowls",
+            "es": "Bocadillos servidos en pequeños cuencos de barro"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "exploraCurated.areas[_key==\"area-fotografia\"].imagen",
+      "fotos": [
+        {
+          "drive": "1iptOnLyI5UYms194Fy1bDa0wyYqo5IxE",
+          "origen": "01_HOME/04 — EXPLORE CURATED/MEDIA/PHOTOGRAPHY",
+          "alt": {
+            "en": "A couple’s hands raising a white bouquet against a dark red background",
+            "es": "Manos de una pareja alzando un ramo blanco sobre un fondo rojo oscuro"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "exploraCurated.areas[_key==\"area-diseno-produccion\"].imagen",
+      "fotos": [
+        {
+          "drive": "1hwOoHpoDfsPPO_HIkZC1JTuCICX6-v7s",
+          "origen": "01_HOME/04 — EXPLORE CURATED/MEDIA/DESIGN & PRODUCTION",
+          "alt": {
+            "en": "A garden floral installation with tropical flowers around a sculptural centerpiece",
+            "es": "Instalación floral en un jardín con flores tropicales alrededor de una pieza escultórica"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "planea.imagen",
+      "fotos": [
+        {
+          "drive": "1t7uMoZB6dyLHprak8uOuBFFus2pnHWaZ",
+          "origen": "01_HOME/07 — PLAN YOUR EVENT/Foto para home page",
+          "alt": {
+            "en": "A couple in traditional dress during a ceremony beneath a floral arch, surrounded by guests",
+            "es": "Pareja con vestimenta tradicional en una ceremonia bajo un arco floral, rodeada de invitados"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1PfGU8rt02eqe2ra4sXg97abU3gT0Enj8",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/ARQUITECTURE",
+          "alt": {
+            "en": "Horse-drawn carriages in front of Mérida Cathedral in golden light",
+            "es": "Calesas frente a la catedral de Mérida con luz dorada"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1QxztRfEfXlm-2F9AG37FDb5cZcDO0bIk",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/00_HERO_01",
+          "alt": {
+            "en": "An ornate early-twentieth-century mansion framed by palm trees in Mérida",
+            "es": "Una mansión ornamentada de principios del siglo XX entre palmeras en Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1xl0dp3-WUwGBqXsJphICTgLasE0DlqLy",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/CULTURE",
+          "alt": {
+            "en": "Jarana dancers in traditional dress performing in a plaza",
+            "es": "Bailadores de jarana con traje tradicional en una plaza"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1UpaWzUA6HXjsDOftcxSvCPWvYh3xhZaz",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/00_HERO_01",
+          "alt": {
+            "en": "An elderly woman in an embroidered hipil resting beneath a tree",
+            "es": "Una señora mayor con hipil bordado descansando bajo un árbol"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1u76Fgs-zVjZ2U62lovmUonbP0fXP6C9Y",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/GASTRONOMY",
+          "alt": {
+            "en": "Cochinita pibil tacos with pickled red onion, citrus and banana leaves",
+            "es": "Tacos de cochinita pibil con cebolla morada encurtida, cítricos y hojas de plátano"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1FrGwvSmeMUcXmFXsKUwsJtiFON1DUFOt",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/00_HERO_01",
+          "alt": {
+            "en": "Tomatoes, chiles and a comal over a wood fire in a traditional kitchen",
+            "es": "Jitomates, chiles y un comal sobre fogón de leña en una cocina tradicional"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1uFaUSGZO05qgTIkZpWqsKQJRsfaijzqS",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/HISTORY",
+          "alt": {
+            "en": "The Nunnery Quadrangle at Uxmal with the Pyramid of the Magician in the distance",
+            "es": "El Cuadrángulo de las Monjas en Uxmal con la Pirámide del Adivino al fondo"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1UwN2I4pm6i6ZmfD9dX72bEf8B8b1jvkS",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/00_HERO_01",
+          "alt": {
+            "en": "Aerial view of Mérida’s main square and historic center",
+            "es": "Vista aérea de la plaza principal y el centro histórico de Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1CrjGEYiNjovRhYwNDkhuyOcRyCI5PNO2",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/NATURE",
+          "alt": {
+            "en": "Aerial view of a round cenote surrounded by jungle",
+            "es": "Vista aérea de un cenote redondo rodeado de selva"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1wq1DpZvDeUdzS2O31Dp5-41JUYIFtOmZ",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/00_HERO_01",
+          "alt": {
+            "en": "Clear turquoise water in a cenote framed by roots and ferns",
+            "es": "Agua turquesa y cristalina en un cenote entre raíces y helechos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1LPYzuw_8v7NDrIO0UJZLRMrzfs-nfpxP",
+          "origen": "01_HOME/03 — DISCOVER YUCATÁN/MEDIA/EXPERIENCES",
+          "alt": {
+            "en": "El Castillo at Chichén Itzá under a blue sky with clouds",
+            "es": "El Castillo de Chichén Itzá bajo un cielo azul con nubes"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1sbJ4j7RtCPcm_YfvBmkh35sS_9L8O5BE",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/01_LANGUAGE_LAYERS_01",
+          "alt": {
+            "en": "Mérida Cathedral seen through a stone arch",
+            "es": "La catedral de Mérida vista a través de un arco de piedra"
+          }
+        },
+        {
+          "drive": "15gH_swPN--85nBa4ZmRPdN8doD-AQm6M",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/01_LANGUAGE_LAYERS_02",
+          "alt": {
+            "en": "Colorful colonial façades with balconies in Mérida",
+            "es": "Fachadas coloniales de colores con balcones en Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "134y2wZk9ufguv_CbMTQlXcoAMRoVIres",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/02_CLIMATE_01",
+          "alt": {
+            "en": "A shaded colonnade opening onto a courtyard pool",
+            "es": "Un corredor sombreado con columnas que se abre a una alberca en un patio"
+          }
+        },
+        {
+          "drive": "12ElDZ53jD6bJ6oHq204Vh_6MHuSVQFEw",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/02_CLIMATE_02",
+          "alt": {
+            "en": "An arcaded hacienda courtyard with tropical plants",
+            "es": "Patio de hacienda con arcadas y plantas tropicales"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1G0lXuo08-_rV269v95TNmWK9z0_tiavO",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/03_MATERIALS_02",
+          "alt": {
+            "en": "Patterned cement tiles in the shade of a column",
+            "es": "Mosaico de pasta con dibujos a la sombra de una columna"
+          }
+        },
+        {
+          "drive": "1_WZVEdG3UPKOK378oCcmPxSW51iwNO-w",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/03_MATERIALS_03",
+          "alt": {
+            "en": "A weathered blue wooden door on a yellow wall",
+            "es": "Una puerta de madera azul desgastada en un muro amarillo"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1hkdA8HbeSnlLxFXoeJx0p8yYefB_w3Gw",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/04_BEHIND_FACADE_01",
+          "alt": {
+            "en": "Arcaded façades in ochre and yellow along a street",
+            "es": "Fachadas con arcadas en ocre y amarillo a lo largo de una calle"
+          }
+        },
+        {
+          "drive": "1Tsf5vRMKTE1OdCHl35uyy8VVHAMX2E-z",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/04_BEHIND_FACADE_02",
+          "alt": {
+            "en": "A stone arch opening into a garden",
+            "es": "Un arco de piedra que se abre hacia un jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1A-bqXpCl6VxEvFLLiZKrD7Jfd3mMIEv8",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/05_HACIENDA_LANDSCAPE_01",
+          "alt": {
+            "en": "A restored hacienda chapel among trees",
+            "es": "Capilla de hacienda restaurada entre árboles"
+          }
+        },
+        {
+          "drive": "1Buba2qQbC7TTw8KjHy3-1y6nZEbc6rOR",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/05_HACIENDA_LANDSCAPE_02",
+          "alt": {
+            "en": "Henequen machinery beneath a hacienda arcade",
+            "es": "Maquinaria henequenera bajo la arcada de una hacienda"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-architecture",
+      "campo": "secciones[_key==\"architecture-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1HCH3INT9_BgGmzmrNUTqlMu8NWDMqfE5",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/06_STILL_EVOLVING_01",
+          "alt": {
+            "en": "Aerial view of a courtyard garden with a geometric layout",
+            "es": "Vista aérea de un jardín con trazo geométrico en un patio"
+          }
+        },
+        {
+          "drive": "10jL2-4qcym1sUnXgtG8al10mkjDzW8jN",
+          "origen": "02_DISCOVER YUCATAN/01 — ARCHITECTURE/MEDIA/06_STILL_EVOLVING_02",
+          "alt": {
+            "en": "A contemporary pavilion beside a pool shaded by trees",
+            "es": "Un pabellón contemporáneo junto a una alberca a la sombra de árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1BbSj4dnuLlaVVO2SjEYWA9ugQ9F6jYpn",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/01_LIVING_MAYA_01",
+          "alt": {
+            "en": "A woman embroidering under a thatched shelter",
+            "es": "Una mujer bordando bajo una palapa"
+          }
+        },
+        {
+          "drive": "1gPfPSeQZFhb4mkO_rple6QANMDKnYhI4",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/01_LIVING_MAYA_02",
+          "alt": {
+            "en": "A couple in traditional Yucatecan dress in a park",
+            "es": "Una pareja con traje tradicional yucateco en un parque"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1W-ZrXxBEyKOTOcLa43M2W8a1zKCYLWD8",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/02_LANGUAGE_01",
+          "alt": {
+            "en": "Portrait of an elderly woman in a white embroidered hipil",
+            "es": "Retrato de una señora mayor con hipil blanco bordado"
+          }
+        },
+        {
+          "drive": "1b559PecSxnoJ9jrakOPUUg8zkicwKbhP",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/02_LANGUAGE_02",
+          "alt": {
+            "en": "Carved Maya stone reliefs",
+            "es": "Relieves mayas tallados en piedra"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1UFrGPQ6ox-qPcEaFHcIQIwfEz4Jrz7k7",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/03_WORN_GENERATIONS_01",
+          "alt": {
+            "en": "Two women in embroidered ternos smiling at a celebration",
+            "es": "Dos mujeres con ternos bordados sonriendo en una celebración"
+          }
+        },
+        {
+          "drive": "1xbptk3aQVCVWqTAH3rusb0Ki-xGCYQlF",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/03_WORN_GENERATIONS_02",
+          "alt": {
+            "en": "Close-up of natural henequen fiber",
+            "es": "Detalle de fibra natural de henequén"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "18m-xvhc4aN_5eqCzfmIaO3yPp7XVMf4S",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/04_SOUND_YUCATAN_01",
+          "alt": {
+            "en": "A couple dancing jarana in traditional dress",
+            "es": "Una pareja bailando jarana con traje tradicional"
+          }
+        },
+        {
+          "drive": "174Orv8MvES_u5OIaiqd6FsZtp2J3Q4nk",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/04_SOUND_YUCATAN_02",
+          "alt": {
+            "en": "Musicians walking along a street in Mérida",
+            "es": "Músicos caminando por una calle de Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1xHYps2OqB1gP56KfYamIYIQt1hC1xn_B",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/05_PUBLIC_SQUARE_01",
+          "alt": {
+            "en": "A rainy street in central Mérida seen from above",
+            "es": "Una calle del centro de Mérida bajo la lluvia vista desde arriba"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1Iofx1wfywVX7-vtptI6FhUmmC8LaFQim",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/06_STILL_EVOLVING_01",
+          "alt": {
+            "en": "Horse-drawn carriages on a lit street at night in Mérida",
+            "es": "Calesas en una calle iluminada de noche en Mérida"
+          }
+        },
+        {
+          "drive": "1fWIcO4oMM5W3kx3n99MnFVvNgVnfgORq",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/06_STILL_EVOLVING_02",
+          "alt": {
+            "en": "Carved stone columns among trees",
+            "es": "Columnas de piedra labrada entre árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-culture",
+      "campo": "secciones[_key==\"culture-s7\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "13jM5PgkdkDxez0ZH2arfj5eWzf1g8fYz",
+          "origen": "02_DISCOVER YUCATAN/02 — CULTURE/MEDIA/07_CURIOSITY_01",
+          "alt": {
+            "en": "A man resting on a bench in a shaded plaza",
+            "es": "Un hombre descansando en una banca de una plaza sombreada"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1mW6xt5VEJYx5Xx8oAI01ibqKlBiaSlhc",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/01_CUISINE_LAYERS_01",
+          "alt": {
+            "en": "A woman making tortillas on a comal over a wood fire",
+            "es": "Una mujer haciendo tortillas en un comal sobre fogón de leña"
+          }
+        },
+        {
+          "drive": "1qv8IT8kVcPsNElDsyN6ycP-XT4al4nSQ",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/01_CUISINE_LAYERS_02",
+          "alt": {
+            "en": "Food wrapped in banana leaves, ready to cook",
+            "es": "Alimentos envueltos en hojas de plátano, listos para cocinarse"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ACSugARt78Gbogjp7l6mDlGLbObw9v9L",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/02_FLAVORS_01",
+          "alt": {
+            "en": "Achiote pods on the plant",
+            "es": "Frutos de achiote en la planta"
+          }
+        },
+        {
+          "drive": "1JmHWJIHSvKU1ng6SDQBDCHeiRhHZLN5B",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/02_FLAVORS_02",
+          "alt": {
+            "en": "Habanero peppers at a market stall",
+            "es": "Chiles habaneros en un puesto de mercado"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1FF-T87idmcR9IhQqZrKaJ3xZOHyFxp3G",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/03_EARTH_FIRE_01",
+          "alt": {
+            "en": "Smoke rising from an underground pib oven",
+            "es": "Humo que sale de un horno de pib bajo tierra"
+          }
+        },
+        {
+          "drive": "1A3PNlmwJ5AVYyW6wYNoOdBWKUe8Eu64s",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/03_EARTH_FIRE_02",
+          "alt": {
+            "en": "A cook preparing food in a traditional kitchen",
+            "es": "Una cocinera preparando comida en una cocina tradicional"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1tmqMdC9eEj-B7R1wevezX0LY9hRNDd3Q",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/04_DISHES_STORY_01",
+          "alt": {
+            "en": "Cochinita tacos with pickled onion and salsas",
+            "es": "Tacos de cochinita con cebolla encurtida y salsas"
+          }
+        },
+        {
+          "drive": "1GNIaXqOzzTz-jmdTHNZJWKT4rUi2RUn8",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/04_DISHES_STORY_02",
+          "alt": {
+            "en": "Relleno negro with hard-boiled egg on tortillas",
+            "es": "Relleno negro con huevo cocido sobre tortillas"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1--yKXZGPvl8lm80WmNVc6uUCvJ9RB1e9",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/05_MORNING_NIGHT_01",
+          "alt": {
+            "en": "Fruit and vegetable stalls in a traditional market",
+            "es": "Puestos de frutas y verduras en un mercado tradicional"
+          }
+        },
+        {
+          "drive": "1PCgyduQz3dmDqh5oFnAh8925-P_m6GiD",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/05_MORNING_NIGHT_02",
+          "alt": {
+            "en": "A marquesita being rolled with shredded cheese",
+            "es": "Una marquesita enrollándose con queso rallado"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1azFgCsEAqhe7pJLv4NybsaoQvI-vS16i",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/06_MERIDA_TABLE_01",
+          "alt": {
+            "en": "A vendor with limes and produce at a Mérida market",
+            "es": "Una vendedora con limones y verduras en un mercado de Mérida"
+          }
+        },
+        {
+          "drive": "1dGedJKT8y531WIwBkUrnzF155bBV1GA6",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/06_MERIDA_TABLE_02",
+          "alt": {
+            "en": "Plated contemporary dishes ready to serve",
+            "es": "Platillos contemporáneos emplatados listos para servir"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-gastronomy",
+      "campo": "secciones[_key==\"gastronomy-s7\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1FEdA8HjF4oCm2YykT__3e4fhckrGAdun",
+          "origen": "02_DISCOVER YUCATAN/03 — GASTRONOMY/MEDIA/07_TASTE_DESTINATION_01",
+          "alt": {
+            "en": "Sour oranges hanging on a tree",
+            "es": "Naranjas agrias en el árbol"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "17R1jiQNbkWAiNnD08wlDTmBjz1Rpzyhm",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/01_BEFORE_YUCATAN_01",
+          "alt": {
+            "en": "El Castillo at Chichén Itzá behind an agave plant",
+            "es": "El Castillo de Chichén Itzá detrás de un agave"
+          }
+        },
+        {
+          "drive": "1KUn5VULrnr9zyoMJzYJLooDhsjB4WV4i",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/01_BEFORE_YUCATAN_02",
+          "alt": {
+            "en": "Stone columns atop a Maya temple stairway",
+            "es": "Columnas de piedra en lo alto de la escalinata de un templo maya"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1v4dsccQk_2-9wwIT70eDY1TyODo7O-YP",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/02_CONQUEST_01",
+          "alt": {
+            "en": "Colonial arcades on Mérida’s main square",
+            "es": "Arcadas coloniales en la plaza principal de Mérida"
+          }
+        },
+        {
+          "drive": "1auaIoR9ZfhTSAu_FfzPFDoG9MCbAuclS",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/02_CONQUEST_02",
+          "alt": {
+            "en": "Mérida Cathedral at sunset",
+            "es": "La catedral de Mérida al atardecer"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1aQlAgWtGR4rwQ_adL1lZaLJQHhOs-rxW",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/03_REGION_IDENTITY_01",
+          "alt": {
+            "en": "The arcaded Palacio Municipal in Mérida",
+            "es": "El Palacio Municipal de Mérida con sus arcadas"
+          }
+        },
+        {
+          "drive": "1Z8FPeDNjnq0O4IOLakay-uV1LE4taBMy",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/03_REGION_IDENTITY_02",
+          "alt": {
+            "en": "Historic photograph of a Mérida street with early automobiles",
+            "es": "Fotografía histórica de una calle de Mérida con automóviles antiguos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1MbCUPXv6IAF9ThOPCUGsvxLCVhN8v2qM",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/04_CONFLICT_01",
+          "alt": {
+            "en": "Historic photograph of henequen fields and a hacienda",
+            "es": "Fotografía histórica de campos de henequén y una hacienda"
+          }
+        },
+        {
+          "drive": "1ajQ2jNhFACqemyXggqPBn_WMmmyE_Wdg",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/04_CONFLICT_02",
+          "alt": {
+            "en": "Historic photograph of a church and a walled gateway in Yucatán",
+            "es": "Fotografía histórica de una iglesia y un portón en Yucatán"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1moly-SxJFaUz71BV_Ee7_hX8o3WnCnYG",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/05_GREEN_GOLD_01",
+          "alt": {
+            "en": "Henequen plants growing in rows",
+            "es": "Plantas de henequén en hileras"
+          }
+        },
+        {
+          "drive": "14DjeXXSPd61-a10dI0H2QJJTkqVU1loo",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/05_GREEN_GOLD_02",
+          "alt": {
+            "en": "Henequen processing machinery beneath a hacienda arcade",
+            "es": "Maquinaria para procesar henequén bajo la arcada de una hacienda"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1QTUUpWGsYSMxBEslGvf3KLFWs_SytpFP",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/06_AFTER_BOOM_01",
+          "alt": {
+            "en": "Ruins of a former hacienda building",
+            "es": "Ruinas de un antiguo edificio de hacienda"
+          }
+        },
+        {
+          "drive": "1bhrk77_z9FsVhL3Qax2OkVFh1FlfR1ym",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/06_AFTER_BOOM_02",
+          "alt": {
+            "en": "A restored hacienda with orange walls and arches",
+            "es": "Una hacienda restaurada con muros naranjas y arcos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s7\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1I7CkrM735HHQo7wcLjdktswjAqL8AE38",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/07_HISTORY_VISIBLE_01",
+          "alt": {
+            "en": "The Monumento a la Patria in Mérida",
+            "es": "El Monumento a la Patria en Mérida"
+          }
+        },
+        {
+          "drive": "19r2Y2ceWhQK9SFRqtFHqmQ8S_838iGFe",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/07_HISTORY_VISIBLE_02",
+          "alt": {
+            "en": "The yellow convent of San Antonio de Padua in Izamal",
+            "es": "El convento amarillo de San Antonio de Padua en Izamal"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-history",
+      "campo": "secciones[_key==\"history-s8\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1WbALWhzErCrJL2Px_ZwTse4wBqEKXtzy",
+          "origen": "02_DISCOVER YUCATAN/04 — HISTORY/MEDIA/08_STORY_CONTINUES_01",
+          "alt": {
+            "en": "Two women weaving a hammock outdoors",
+            "es": "Dos mujeres tejiendo una hamaca al aire libre"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1r6dQg-t5C_llPwMVIVujs6QLu-yItFJQ",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/01_LIMESTONE_02",
+          "alt": {
+            "en": "Close-up of porous limestone",
+            "es": "Detalle de piedra caliza porosa"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1XMKcRGKTjv0dioM2dHbnd4btSP2YiW5D",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/02_BENEATH_SURFACE_01",
+          "alt": {
+            "en": "A cenote with hanging roots and lush vegetation",
+            "es": "Un cenote con raíces colgantes y vegetación"
+          }
+        },
+        {
+          "drive": "1kHDOcx7GJneg2olv_gFAjyk5UmxsPklf",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/02_BENEATH_SURFACE_02",
+          "alt": {
+            "en": "A beam of light entering a cave cenote",
+            "es": "Un haz de luz que entra en un cenote de caverna"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ZP7tfY0Z2g7Mb2_4Ixx_BNvzPfJWgzUA",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/03_DEEP_TIME_01",
+          "alt": {
+            "en": "An open cenote seen from above with stairs and water",
+            "es": "Un cenote abierto visto desde arriba con escaleras y agua"
+          }
+        },
+        {
+          "drive": "1e3xbWFylTtnvAvzgBDVW3UMCJl22zOb4",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/03_DEEP_TIME_02",
+          "alt": {
+            "en": "Stalactites over a cenote inside a cave",
+            "es": "Estalactitas sobre un cenote dentro de una caverna"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1T-ftNQCiFgB5coXqnkHgm72CBM_H741-",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/04_FOREST_SEASONS_01",
+          "alt": {
+            "en": "Aerial view of dense forest around a pale limestone clearing",
+            "es": "Vista aérea de selva densa alrededor de un claro de piedra caliza"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-chable",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "12M4iYkl9cPvmIKJ9ZeyCUpke4ZzkMu_p",
+          "origen": "01_HOME/05 — FEATURED VENUES/05 — FEATURED VENUES- CONTENT & DEV NOTES/chable/foto principal",
+          "alt": {
+            "en": "Aerial view of the surrounding forest at sunrise, Hacienda Chablé",
+            "es": "Vista aérea de la selva al amanecer, Hacienda Chablé"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-sac-chich",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1BIDKdnH929RQkgnFNmeLA0Vm1akemrK_",
+          "origen": "01_HOME/05 — FEATURED VENUES/05 — FEATURED VENUES- CONTENT & DEV NOTES/sac chic/Foto principal",
+          "alt": {
+            "en": "An ornate stone gateway dressed with orange drapes and flowers at Hacienda Sac Chich",
+            "es": "Portada de piedra ornamentada con cortinas naranjas y flores en Hacienda Sac Chich"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-antonio-hool",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "14T7E5a1FXAm7hBZc2MXstbUb4_PKYSNM",
+          "origen": "01_HOME/05 — FEATURED VENUES/05 — FEATURED VENUES- CONTENT & DEV NOTES/san antonio hool/Foto principal",
+          "alt": {
+            "en": "The yellow main house of Hacienda San Antonio Hool across the lawn",
+            "es": "La casa principal amarilla de Hacienda San Antonio Hool al otro lado del jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-diego-cutz",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1MGustROBGS-FKE13q6XdR6atPwsp0u2N",
+          "origen": "01_HOME/05 — FEATURED VENUES/05 — FEATURED VENUES- CONTENT & DEV NOTES/San diego cutz/Foto principal",
+          "alt": {
+            "en": "Aerial view of Hacienda San Diego Cutz with its red buildings and chimney",
+            "es": "Vista aérea de Hacienda San Diego Cutz con sus edificios rojos y su chimenea"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-why-yucatan-for-a-destination-wedding",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "1QPkAsqVSupt6gj9Wsh4xWCDxMyxkMmzg",
+          "origen": "01_HOME/06 — CURATED JOURNAL/06 - CURATED JOURNAL - CONTENT & DEV NOTES/01_WHY_YUCATAN",
+          "alt": {
+            "en": "A colonial cathedral with twin towers seen from a rooftop terrace",
+            "es": "Una catedral colonial de dos torres vista desde una terraza"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-10-things-to-know-before-planning-a-hacienda-wedding-in-yucatan",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "1PfTeUfGQ15Zi15h8m6ES7E5nwFuqJYyK",
+          "origen": "01_HOME/06 — CURATED JOURNAL/06 - CURATED JOURNAL - CONTENT & DEV NOTES/02_HACIENDA_WEDDING",
+          "alt": {
+            "en": "A red hacienda with arcades among trees",
+            "es": "Una hacienda roja con arcadas entre árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-best-time-to-get-married-in-yucatan",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "11xCoQPCu13k5Sd9xVJKSj67BuAhjDC4i",
+          "origen": "01_HOME/06 — CURATED JOURNAL/06 - CURATED JOURNAL - CONTENT & DEV NOTES/03_BEST_TIME_YUCATAN",
+          "alt": {
+            "en": "A calm lagoon with a wooden pier under a cloudy sky",
+            "es": "Una laguna en calma con un muelle de madera bajo un cielo nublado"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-bravo-catering",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1ZUsUpKL_3YjKzFrOpg-gytniLxmgemRI",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC02539.jpg",
+          "alt": {
+            "en": "Wedding reception tables set in a garden with white umbrellas",
+            "es": "Mesas de recepción montadas en un jardín con sombrillas blancas"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-bravo-catering",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "16ktuhrViRqp_dmJdtSYnnabAvNYVJG6O",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/A7309228.jpg",
+          "alt": {
+            "en": "A plated main course on a burgundy tablecloth",
+            "es": "Plato fuerte servido sobre mantel color vino"
+          }
+        },
+        {
+          "drive": "1gOjGfDrPMpUm6h1L2lAu3f5Hs6zp8no1",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC02562.jpg",
+          "alt": {
+            "en": "Long banquet tables beneath a stone arch and trees",
+            "es": "Mesas de banquete largas bajo un arco de piedra y árboles"
+          }
+        },
+        {
+          "drive": "1gsQlYgH_KsMBUq-i6oGXpmyNrXGJASYV",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/BRAVOCAT_MARZO-06496.jpg",
+          "alt": {
+            "en": "A plated dessert in a nest-like presentation",
+            "es": "Un postre servido en una presentación tipo nido"
+          }
+        },
+        {
+          "drive": "1UOjeacD4sxKio8Vg_iRjTI5EwQvBaH2v",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC00744.jpg",
+          "alt": {
+            "en": "A grazing table along an old stone wall",
+            "es": "Una mesa de botanas junto a un muro de piedra antiguo"
+          }
+        },
+        {
+          "drive": "1EFWfU8nXIYoreaJWVpRJ2vGGNU61j5CZ",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC02568.jpg",
+          "alt": {
+            "en": "A long table with upholstered chairs, flowers and fine tableware",
+            "es": "Mesa larga con sillas tapizadas, flores y vajilla fina"
+          }
+        },
+        {
+          "drive": "19YV3b2GI2zu0dAJsB1hKPlde2PnEmy2P",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC02624.jpg",
+          "alt": {
+            "en": "Appetizers on a wooden board beside a floral centerpiece",
+            "es": "Bocadillos en tabla de madera junto a un centro floral"
+          }
+        },
+        {
+          "drive": "1QOVTTn56xSBJmrd9G_F69wT5o3okPLLh",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC08534.jpg",
+          "alt": {
+            "en": "The service team in a briefing before an event",
+            "es": "El equipo de servicio en una reunión antes del evento"
+          }
+        },
+        {
+          "drive": "1DBNafV8ZNgbnFj9etEJLlsGDC-JA-tjs",
+          "origen": "04_CATERING/Bravo Catering/FOTOS}/DSC09042.jpg",
+          "alt": {
+            "en": "A cheese and fruit display on wooden stands",
+            "es": "Exhibición de quesos y frutas sobre bases de madera"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-experiences-banquetes",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1pU7f1xpmhdm1UCqDtsYgRgsHNHDlnPum",
+          "origen": "04_CATERING/Experiences/FOTOS/5.png",
+          "alt": {
+            "en": "Long banquet tables in a hacienda garden at night",
+            "es": "Mesas de banquete largas en el jardín de una hacienda de noche"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-experiences-banquetes",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1RYXlSh_paBL-F5-cJX9WjvkAlHr6NbLn",
+          "origen": "04_CATERING/Experiences/FOTOS/1.png",
+          "alt": {
+            "en": "Small plates on stone stands along a curved bar",
+            "es": "Platos pequeños sobre bases de piedra a lo largo de una barra curva"
+          }
+        },
+        {
+          "drive": "15eZIsAAOBdH6fk2S-HXvosBbq01G1ISE",
+          "origen": "04_CATERING/Experiences/FOTOS/18.png",
+          "alt": {
+            "en": "A fish crudo with figs on a white plate",
+            "es": "Un crudo de pescado con higos en plato blanco"
+          }
+        },
+        {
+          "drive": "1PfykamQvVlvU0PMsV-8rQrYArDQQuFsp",
+          "origen": "04_CATERING/Experiences/FOTOS/2.png",
+          "alt": {
+            "en": "A regional dish served on a wooden board with sauces",
+            "es": "Platillo regional servido en tabla de madera con salsas"
+          }
+        },
+        {
+          "drive": "1FMDVUKFh7snPW5Ou926CfdHRPmcw8y-t",
+          "origen": "04_CATERING/Experiences/FOTOS/22.png",
+          "alt": {
+            "en": "Zucchini carpaccio with edible flowers",
+            "es": "Carpaccio de calabacita con flores comestibles"
+          }
+        },
+        {
+          "drive": "1V4l_j3JeITiBk2aRLgiFnM1Ftd1aklp2",
+          "origen": "04_CATERING/Experiences/FOTOS/4.png",
+          "alt": {
+            "en": "Bite-size appetizers in molcajete-style bowls",
+            "es": "Bocadillos en cuencos tipo molcajete"
+          }
+        },
+        {
+          "drive": "1Xf0jcnE8DOPt6U1QzNMhMEkZF7pfIOa4",
+          "origen": "04_CATERING/Experiences/FOTOS/6.png",
+          "alt": {
+            "en": "A table setting with a regional dish",
+            "es": "Montaje de mesa con un platillo regional"
+          }
+        },
+        {
+          "drive": "1jkd03zsb9O2b1QQoR1MX9iyH5anrG7za",
+          "origen": "04_CATERING/Experiences/FOTOS/7.png",
+          "alt": {
+            "en": "Appetizers on hexagonal wooden stands",
+            "es": "Bocadillos sobre bases hexagonales de madera"
+          }
+        },
+        {
+          "drive": "1gUCH8lY-umyRG899HzSAJlYfmRri4W-0",
+          "origen": "04_CATERING/Experiences/FOTOS/9.png",
+          "alt": {
+            "en": "Tasting plates on wood and stone with rose petals",
+            "es": "Platos de degustación sobre madera y piedra con pétalos de rosa"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-margo-amalia",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1R_DB5CGkj_46KXyADYotEjuEoaQCKqwV",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/MONTAJES /3F16F6C5-D3FE-4114-9179-D74C84CCE281 2.JPG",
+          "alt": {
+            "en": "A dining table with rattan chairs set on a garden lawn",
+            "es": "Una mesa con sillas de ratán montada sobre el pasto de un jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-margo-amalia",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1NFbUbVtCPyQ5qw9U5w0sNqRjcXo94q-b",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/EXPERIENCIAS/ ALIMENTOS /0416a020-a0c9-4df0-bc5f-93fd562c63eb.jpg",
+          "alt": {
+            "en": "Vegetables and fish hanging over an open fire",
+            "es": "Verduras y pescado colgados sobre fuego abierto"
+          }
+        },
+        {
+          "drive": "10mzkmE7K1f7bkivrs4OooXHUKlqCrude",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/EXPERIENCIAS/ ALIMENTOS /63703DEF-35A3-418E-9D3D-64A28D79C6E9.jpg",
+          "alt": {
+            "en": "A chef grilling over an open fire in a garden",
+            "es": "Un chef asando sobre fuego abierto en un jardín"
+          }
+        },
+        {
+          "drive": "1oDhRfz9QbH3ezkDOQFAE1WigriJvbxDp",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/EXPERIENCIAS/ ALIMENTOS /2Z3A1369.jpg",
+          "alt": {
+            "en": "A plated dessert with berries and cream",
+            "es": "Un postre emplatado con frutos rojos y crema"
+          }
+        },
+        {
+          "drive": "12ZDhVf_i1xMHk_GFQ-YrUEC2s6cCAdAd",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/MONTAJES /25082025-DSC09726.jpg",
+          "alt": {
+            "en": "A long banquet table with flowers and natural linens",
+            "es": "Una mesa de banquete larga con flores y textiles naturales"
+          }
+        },
+        {
+          "drive": "1CpjrI4wSob794RZzJxEcCyIIi55YU0PW",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/MONTAJES /5091e665-5c40-4da5-9524-e5476665ebb1.JPG",
+          "alt": {
+            "en": "A vibrant floral centerpiece in yellow and red tones",
+            "es": "Un centro de mesa floral en tonos amarillos y rojos"
+          }
+        },
+        {
+          "drive": "1_yu_13kLoQ4ACoahouR6KfGDF46As_Wf",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/MONTAJES /7831512B-5580-4894-BB07-2D0B21D4313C.JPG",
+          "alt": {
+            "en": "A long table beneath an arcade with green centerpieces and limes",
+            "es": "Una mesa larga bajo una arcada con centros verdes y limones"
+          }
+        },
+        {
+          "drive": "1ElrtMZ6JASWAqmoeoNhYj3VtVSjbSsxt",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/MONTAJES /CL2A0488.jpeg",
+          "alt": {
+            "en": "A round table with blue glassware and a floral centerpiece",
+            "es": "Una mesa redonda con cristalería azul y centro floral"
+          }
+        },
+        {
+          "drive": "1QAYogftk6T1AS5B3C7gPwOdr05vDnQRL",
+          "origen": "04_CATERING/Margo Amalia/FOTOS/EXPERIENCIAS/ ALIMENTOS /2Z3A1352.jpg",
+          "alt": {
+            "en": "Signature drinks on a tray",
+            "es": "Bebidas de autor en una charola"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-ritualia",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1he3e4Tp25c1_BTwKRnrWqhgAfVC9vcug",
+          "origen": "04_CATERING/Ritualia/fotos/F6B5C19D-8C12-4DF8-858D-DEABCE90447B.png",
+          "alt": {
+            "en": "Roasted cauliflower with almonds on a blue plate",
+            "es": "Coliflor rostizada con almendras en plato azul"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-ritualia",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1XOS9SHAVhIpfCyljErAK6x6_b-QFIr0K",
+          "origen": "04_CATERING/Ritualia/fotos/03AE0E23-8B92-471E-BFA5-2CAAC0FB8578.png",
+          "alt": {
+            "en": "Tostadas topped with pickled onion and microgreens",
+            "es": "Tostadas con cebolla encurtida y brotes"
+          }
+        },
+        {
+          "drive": "1oghY6x5J8EdTJQ_uEqlVWUh9XUqviaAy",
+          "origen": "04_CATERING/Ritualia/fotos/11351C1A-BC6E-477C-8EB0-02E979E1FB74.png",
+          "alt": {
+            "en": "Beef carpaccio with grilled bread",
+            "es": "Carpaccio de res con pan tostado"
+          }
+        },
+        {
+          "drive": "1ErB-F1NYgCCHsPdFTSqKW-4dqPhNF8r7",
+          "origen": "04_CATERING/Ritualia/fotos/59F052FA-6A72-4667-8A84-7781776740EF.png",
+          "alt": {
+            "en": "Beef fillet with glazed vegetables",
+            "es": "Filete de res con verduras glaseadas"
+          }
+        },
+        {
+          "drive": "1rsfUoPNkNGHusr6nH6f702UqkFdYQNn_",
+          "origen": "04_CATERING/Ritualia/fotos/E3D813A0-13B5-4FB5-910E-F48776AC44A5.png",
+          "alt": {
+            "en": "Seared tuna with herb oil",
+            "es": "Atún sellado con aceite de hierbas"
+          }
+        },
+        {
+          "drive": "1dMryHc5YLeMwm4uWrYOLsrrlKlucYnJo",
+          "origen": "04_CATERING/Ritualia/fotos/3680AB64-DF39-4500-A942-CD1C29B66668.png",
+          "alt": {
+            "en": "Savory cones served on a bed of seeds",
+            "es": "Conos salados servidos sobre semillas"
+          }
+        },
+        {
+          "drive": "1tp2CY34-bbPrkZ7Uw-GekncnVfmIWfH0",
+          "origen": "04_CATERING/Ritualia/fotos/IMG_1914.jpeg",
+          "alt": {
+            "en": "A signature cocktail with fresh fruit",
+            "es": "Un cóctel de autor con fruta fresca"
+          }
+        },
+        {
+          "drive": "1RPyFBmAFxnZBxI-C5QRiTCP5MXZR7U5B",
+          "origen": "04_CATERING/Ritualia/fotos/IMG_1922.jpeg",
+          "alt": {
+            "en": "A frosted cocktail in a martini glass",
+            "es": "Un cóctel helado en copa martini"
+          }
+        },
+        {
+          "drive": "1RYhZFBM9pSKaMt0riMFPiljnVxVqjuec",
+          "origen": "04_CATERING/Ritualia/fotos/IMG_1918.jpeg",
+          "alt": {
+            "en": "Canapés and a cocktail on a buffet",
+            "es": "Bocadillos y un cóctel en un bufé"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-gabo-preciado-fotografia",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1ywGqI1Rl4rG9PQZsZDjNbQlMuV_T_yze",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Mayan-Wedding-Monika-and-Andrew-Suytun-Cenote-Yucatan-031.JPG",
+          "alt": {
+            "en": "A bride in a cave cenote surrounded by candles",
+            "es": "Una novia en un cenote de caverna rodeada de velas"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-gabo-preciado-fotografia",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1G8RMGU40GNffVzzC9a2tSNvfoVGUyWQH",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Boda-Adriana-y-Carlos-Playa-del-Secreto-006.jpg",
+          "alt": {
+            "en": "A couple embracing beside a striped wall, in black and white",
+            "es": "Una pareja abrazada junto a un muro rayado, en blanco y negro"
+          }
+        },
+        {
+          "drive": "1Zh9KYkrWdk_l4iTMk7uXgU6F6w6_PjE1",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Boda-Gina-y-Rafa-Hacienda-Chaka-Yucatan-001.jpg",
+          "alt": {
+            "en": "A bride framed by a window on a red wall",
+            "es": "Una novia enmarcada por una ventana en un muro rojo"
+          }
+        },
+        {
+          "drive": "1xKlcsnvng_nUSLjXO1pu055lCXmkIfJZ",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Boda-Kary-y-Chuy-Finca-San-Javier-398.jpg",
+          "alt": {
+            "en": "A couple at an illuminated hacienda entrance at night",
+            "es": "Una pareja en la entrada iluminada de una hacienda de noche"
+          }
+        },
+        {
+          "drive": "1FG68kyysmn8Ul4doLswCKkbuqC_G3rq4",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Margot-and-Stuart-Destination-Wedding-Hacienda-Itzincab-de-Camara-175.jpg",
+          "alt": {
+            "en": "A couple dancing among old hacienda walls",
+            "es": "Una pareja bailando entre muros antiguos de hacienda"
+          }
+        },
+        {
+          "drive": "1RLCsHWg0xRCEIqaFESYuKDrSq5V2dPry",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Mayan-Wedding-Monika-and-Andrew-Suytun-Cenote-Yucatan-036.JPG",
+          "alt": {
+            "en": "A couple in a beam of light inside a cenote",
+            "es": "Una pareja bajo un haz de luz dentro de un cenote"
+          }
+        },
+        {
+          "drive": "1qs3hU-C1B5tq5gRxsETbcXN-dgXXwkmm",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Boda-Yaz-y-Frank-San-Bruno-Villas-Yucatan-610.jpg",
+          "alt": {
+            "en": "Guests reaching for the bouquet at night, in black and white",
+            "es": "Invitados intentando atrapar el ramo de noche, en blanco y negro"
+          }
+        },
+        {
+          "drive": "1mQ1JEk3XEKYMZGD0LfSyg3ikqTq37C0J",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Trash-the-dress-Monika-and-Andrew-Holbox-025.jpg",
+          "alt": {
+            "en": "A couple on a swing in the sea at sunset",
+            "es": "Una pareja en un columpio dentro del mar al atardecer"
+          }
+        },
+        {
+          "drive": "1KiHooF-MAmI5T4WzadtAUTSYBUC8DtkH",
+          "origen": "05_PHOTOGRAPHY/Gabo Preciado /FOTOS/Sesion-Casual-Emanuel-y-Krupa-Centro-Merida-Yucatan-001.jpg",
+          "alt": {
+            "en": "A couple holding decorated skull masks",
+            "es": "Una pareja sosteniendo máscaras de calaveras decoradas"
+          }
+        }
+      ]
+    }
+  ],
+  "vaciar": [
+    {
+      "destino": "venue-hacienda-chable",
+      "campos": [
+        "media.galeria",
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-sac-chich",
+      "campos": [
+        "media.galeria",
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-antonio-hool",
+      "campos": [
+        "media.galeria",
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes",
+        "espacios[_key==\"espacio-4\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-diego-cutz",
+      "campos": [
+        "media.galeria",
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes",
+        "espacios[_key==\"espacio-4\"].imagenes"
+      ]
+    }
+  ]
+}

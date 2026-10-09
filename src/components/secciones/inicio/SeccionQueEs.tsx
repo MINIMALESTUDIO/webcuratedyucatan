@@ -3,6 +3,7 @@ import type { ConfiguracionSitio } from '@/lib/contenido/tipos';
 import { localizar } from '@/lib/i18n/localizar';
 import { BotonEnlace } from '@/components/ui/Boton';
 import { Contenedor } from '@/components/ui/Contenedor';
+import { ImagenContenido } from '@/components/ui/ImagenContenido';
 
 /** 02 — What is Curated? Explicación breve con CTA a About; no es un About completo. */
 export async function SeccionQueEs({ configuracion }: { configuracion: ConfiguracionSitio }) {
@@ -20,6 +21,21 @@ export async function SeccionQueEs({ configuracion }: { configuracion: Configura
           {t('cta')}
         </BotonEnlace>
       </Contenedor>
+      {configuracion.queEsCurated.imagen && (
+        <Contenedor className="mt-16">
+          <div className="relative aspect-[16/9] overflow-hidden bg-arena">
+            <ImagenContenido
+              imagen={configuracion.queEsCurated.imagen}
+              edicion={{
+                id: configuracion._id,
+                tipo: 'configuracionSitio',
+                ruta: 'queEsCurated.imagen',
+              }}
+              sizes="(min-width: 1280px) 1200px, 100vw"
+            />
+          </div>
+        </Contenedor>
+      )}
     </section>
   );
 }

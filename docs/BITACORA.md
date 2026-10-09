@@ -538,3 +538,52 @@ Detalle en DESPLIEGUE.md, sección 10:
 - **Tú:** importar `.env.hostinger` en hPanel y volver a desplegar.
 - **Yo, después del despliegue:** verificar que Hostinger lea de Sanity, que funcionen "Editar en la página" (draft mode con secreto real), la firma del webhook y que un cambio publicado se refleje.
 - Railway sigue en modo DEMO. Se puede conectar igual (sección 8.2) o borrar.
+
+## Actualización del Drive: partners, About, D&P, Find Your Yucatán y fotos (2026-10-09)
+
+**Estado:** hecho y verificado. El contenido está en Sanity con fotos reales; Hostinger lo muestra en cuanto lea de Sanity (`.env.hostinger`).
+
+### Qué había de nuevo en el Drive (revisión del 8 oct, solo lectura)
+
+| Sección             | Novedad                                                                            | Qué se hizo                                                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Catering            | 4 fichas: Bravo Catering, Experiences Banquetes, Margo Amalia, Ritualia            | Reemplazan a los 4 partners [DEMO]: copy, servicios con descripción, Curated Notes, foto principal y 8 de galería cada uno |
+| Photography         | Ficha y 26 fotos de Gabo Preciado                                                  | Partner real, primero del listado. Los otros fotógrafos siguen en [DEMO]                                                   |
+| About               | Contenido completo (7 secciones)                                                   | Página nueva con sobretítulos, firma, enlaces y cierre con dos botones                                                     |
+| Design & Production | Tres marcas; Otro Cielo pendiente en el documento                                  | Estructura nueva (D-052); fotos [DEMO] porque no hay en el Drive                                                           |
+| Find Your Yucatán   | Preguntas, reglas y resultado                                                      | Aplicado (D-053)                                                                                                           |
+| Fotos               | Inicio, Discover (74), 4 venues destacados, 3 artículos, Plan your event, partners | 128 fotos seleccionadas y cargadas en Sanity con texto alternativo (D-051)                                                 |
+| QR LINKS EDITABLES  | Enlaces de Canva de los QR                                                         | Sin cambios en el sitio (son las piezas impresas)                                                                          |
+
+Los contactos comerciales ("NO MOSTRAR") no se publicaron. Los correos de Margo Amalia y Gabo Preciado quedaron en `privado.contactosLeads`; los demás partners solo trajeron teléfono.
+
+### Sanity
+
+- Respaldo previo. No había ediciones en el Studio desde la importación del 8 oct.
+- Importación de 51 documentos y borrado de los 4 caterers de ejemplo.
+- `npm run sanity:fotos`: 128 assets y 19 documentos actualizados.
+- Validación: 51 válidos, 0 errores, 0 avisos. Privacidad correcta.
+- Studio publicado de nuevo con los esquemas nuevos.
+
+### Verificación
+
+| Comprobación                     | Resultado real                                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `tsc`, ESLint, Prettier          | sin errores                                                                                       |
+| Vitest (modo DEMO)               | 60 de 60                                                                                          |
+| Playwright (modo DEMO)           | 27 de 27                                                                                          |
+| `build:medido` leyendo de Sanity | correcto, sin respaldo DEMO; 1657 MB y 141 s en local                                             |
+| Playwright leyendo de Sanity     | 27 de 27                                                                                          |
+| Revisión visual                  | inicio con todas las fotos reales, Discover › Culture, Bravo Catering, Design & Production, About |
+
+### Pendientes
+
+- **Sin fotos en el Drive:**
+  - Design & Production;
+  - Discover › Experiences (secciones) y Nature (secciones 5 a 8);
+  - 14 venues;
+  - 3 artículos;
+  - About.
+- **Otro Cielo:** About, servicios y Curated Notes (pendientes en el propio documento) y enlaces de "Discover" para las tres marcas.
+- **Logotipos de los partners:** están en el Drive, pero el perfil todavía no los muestra.
+- **Traducción al español** del copy nuevo.

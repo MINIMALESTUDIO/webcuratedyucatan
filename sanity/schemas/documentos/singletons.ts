@@ -65,6 +65,7 @@ export const configuracionSitio = defineType({
           largo: true,
           max: 320,
         }),
+        defineField({ name: 'imagen', title: 'Imagen (opcional)', type: 'imagenConAlt' }),
       ],
     }),
     defineField({

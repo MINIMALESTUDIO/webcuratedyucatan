@@ -497,3 +497,20 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - **Prioridades derivadas:** "Large Celebration Spaces" = capacidad desde 800; "Proximity to Mérida" = hasta 30 min del centro o atributo de ubicación.
   - **Interfaz:** indicador 01 / 06; "Continue" en prioridades y "Discover my Yucatán" al final; resultado "Your Yucatán is …" con el texto del documento, sin puntajes.
   - **Lead:** guarda las respuestas junto con la categoría y los venues (`esquemaSeleccion.respuestas`).
+
+### D-051 — Sanity como fuente del contenido y fotos reales del Drive
+
+- Fecha: 2026-10-09
+- Contexto: desde el 8 oct el sitio en Hostinger lee de Sanity. Llegaron unas 300 fotos al Drive (Discover, inicio, venues destacados, Journal y partners). Subirlas al repositorio lo haría pesado y duplicaría lo que Sanity ya resuelve con su CDN.
+- Decisión:
+  - **Fuente del contenido:** Sanity. Los datos DEMO (`src/lib/demo`) siguen como respaldo sin conexión y para las pruebas, con los mismos textos reales, pero sus imágenes son marcadores.
+  - **Fotos reales:** solo en Sanity:
+    - `sanity/fotos/fotos-drive.json` dice qué foto del Drive va a qué campo, con su texto alternativo en inglés y español (escrito revisando cada foto);
+    - `npm run sanity:fotos` (`scripts/fotos-drive.ts`) las descarga, las reduce a 2400 px por lado (JPEG 82), las sube y las asigna. Reutiliza el asset si ya existe (`source.id` = ID de Drive);
+    - en los 4 venues con foto real se quitan la galería y las fotos de espacios de relleno, para no mezclar foto real con marcadores.
+  - **Selección:** la foto principal y hasta 8 por partner. En Discover, hasta 2 por sección, que es lo que muestra el mosaico. Las opciones alternativas del Drive ("opcion 2", terceras fotos) no se usan.
+  - **Campos nuevos:** `categoriaDescubre.imagenHero` (el hero de la página, distinto de la foto del inicio) y `configuracionSitio.queEsCurated.imagen`.
+  - **Contactos comerciales** marcados "NO MOSTRAR": se escriben directo en `privado.contactosLeads`, nunca en el repositorio.
+- Consecuencias:
+  - importar la semilla con `--replace` vuelve a poner los marcadores: después hay que correr `npm run sanity:fotos` y escribir otra vez los correos privados;
+  - antes de cualquier importación, respaldo con `dataset export` y revisión de ediciones hechas en el Studio.

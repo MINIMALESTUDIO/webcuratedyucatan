@@ -102,7 +102,8 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   await page.getByRole('link', { name: 'Hacienda Sac Chich' }).click();
   await expect(page).toHaveURL(/\/venues\/hacienda-sac-chich$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Hacienda Sac Chich');
-  for (const titulo of ['Quick facts', 'About', 'Spaces', 'Curated Notes', 'Gallery']) {
+  // La galería es opcional: los venues con foto real no tienen galería de relleno (D-051).
+  for (const titulo of ['Quick facts', 'About', 'Spaces', 'Curated Notes']) {
     await expect(page.getByRole('heading', { level: 2, name: titulo, exact: true })).toBeAttached();
   }
   await expect(page.getByText('Organic Estates').first()).toBeVisible();

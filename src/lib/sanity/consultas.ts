@@ -53,7 +53,7 @@ export const CONSULTA_CONFIGURACION = defineQuery(`*[_id == "configuracionSitio"
   lema,
   "imagenHero": imagenHero${IMAGEN},
   "videoHero": { "escritorio": videoHero.escritorio${VIDEO}, "movil": videoHero.movil${VIDEO} },
-  "queEsCurated": { "texto": queEsCurated.texto },
+  "queEsCurated": { "texto": queEsCurated.texto, "imagen": queEsCurated.imagen${IMAGEN} },
   "descubre": { "texto": descubre.texto },
   "exploraCurated": {
     "texto": exploraCurated.texto,
@@ -237,6 +237,7 @@ export const CONSULTA_CATEGORIA_DESCUBRE =
   defineQuery(`*[${FILTRO_CATEGORIA} && slug.current == $slug][0]{
   _type, ${CATEGORIA_RESUMEN},
   titular, entradilla,
+  "imagenHero": imagenHero${IMAGEN},
   "secciones": coalesce(secciones[]{ _key, titulo, texto, "imagenes": coalesce(imagenes[]${IMAGEN}, []) }, []),
   "relacionadas": coalesce((relacionadas[]->)[${FILTRO_CATEGORIA}]{ ${CATEGORIA_RESUMEN} }, []),
   seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }

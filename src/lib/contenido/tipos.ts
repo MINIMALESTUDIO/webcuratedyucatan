@@ -371,6 +371,8 @@ export interface CategoriaDescubre {
   /** Microdescripción de la portada y del inicio. */
   resumen: TextoLocalizado;
   imagenPrincipal: Imagen;
+  /** Foto del hero de la página; si falta, se usa la imagen principal. */
+  imagenHero?: Imagen;
   /** Headline del hero: "Architecture shaped by time, climate and place." */
   titular: TextoLocalizado;
   entradilla: TextoLocalizado;
@@ -476,7 +478,8 @@ export interface ConfiguracionSitio {
   lema: TextoLocalizado;
   imagenHero: Imagen;
   videoHero?: { escritorio?: ArchivoVideo; movil?: ArchivoVideo };
-  queEsCurated: { texto: TextoLocalizado };
+  /** La imagen es opcional: 01_HOME/02 — WHAT IS CURATED?/MEDIA. */
+  queEsCurated: { texto: TextoLocalizado; imagen?: Imagen };
   /** Los temas del bloque son las categorías de Discover Yucatán (D-048). */
   descubre: { texto: TextoLocalizado };
   exploraCurated: { texto: TextoLocalizado; areas: AreaExplora[] };

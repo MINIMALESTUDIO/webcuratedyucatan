@@ -23,7 +23,8 @@
     "studio:build": "sanity build studio-dist --yes",
     "studio:deploy": "sanity deploy",
     "sanity:semilla": "tsx scripts/semilla-sanity.ts",
-    "sanity:verificar-privados": "tsx scripts/verificar-privados-sanity.ts"
+    "sanity:verificar-privados": "tsx scripts/verificar-privados-sanity.ts",
+    "sanity:fotos": "sanity exec scripts/fotos-drive.ts --with-user-token"
   },
   "dependencies": {
     "@portabletext/react": "7.0.1",

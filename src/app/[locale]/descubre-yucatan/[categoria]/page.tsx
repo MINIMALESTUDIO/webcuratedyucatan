@@ -85,8 +85,12 @@ export default async function PaginaCategoria({
 
       <section className="relative isolate flex min-h-[70svh] items-center justify-center overflow-hidden bg-tinta text-papel">
         <ImagenContenido
-          imagen={categoria.imagenPrincipal}
-          edicion={{ id: categoria._id, tipo: 'categoriaDescubre', ruta: 'imagenPrincipal' }}
+          imagen={categoria.imagenHero ?? categoria.imagenPrincipal}
+          edicion={{
+            id: categoria._id,
+            tipo: 'categoriaDescubre',
+            ruta: categoria.imagenHero ? 'imagenHero' : 'imagenPrincipal',
+          }}
           sizes="100vw"
           preload
           className="-z-20 object-cover"
