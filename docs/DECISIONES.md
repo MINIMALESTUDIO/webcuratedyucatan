@@ -466,3 +466,34 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - el build de webpack es más lento (2 min en local frente a 25 s), pero produce el mismo sitio: 105 páginas, Vitest 54/54 y Playwright 27/27 sobre ese build;
   - si Hostinger corrige el límite, se puede volver a Turbopack quitando `--webpack`.
+
+### D-052 — Design & Production con tres marcas
+
+- Fecha: 2026-10-08
+- Contexto: "Estructura de design and production e info" (Drive, 01_WEB/06) ya no presenta solo a Minimal con cinco áreas. Presenta tres marcas especializadas con una visión compartida: Minimal (mobiliario y producción), Más que Ayer (diseño floral) y Otro Cielo (mesa).
+- Decisión:
+  - `disenoProduccion` pasa a tener hero (titular, texto, imagen), introducción, `marcas[]`, "Destination experience" y cierre;
+  - cada marca tiene categoría, titular, About, servicios, Curated Notes, fotografías y un enlace opcional para "Discover <marca>". Sin enlace, el botón no se muestra;
+  - Otro Cielo queda `[PENDIENTE]`, como en el propio documento;
+  - se retiran los campos anteriores (nombre, lema, áreas, estilo, cobertura…).
+- Consecuencias:
+  - el h1 de la página es el titular del documento;
+  - la consulta exige `marcas`: mientras Sanity tenga la versión anterior, el sitio usa la DEMO con aviso.
+
+### D-053 — Find Your Yucatán según el documento del Drive
+
+- Fecha: 2026-10-08
+- Contexto: "Estructura y contenido FIND YOUR YUCATÁN" define las seis preguntas con sus opciones, el resultado y reglas explícitas.
+- Decisión:
+  - **Opciones:**
+    - eventos: Wedding, Welcome Party, Rehearsal Dinner, After Party, Other Celebration;
+    - las 3 atmósferas con su descripción;
+    - hospedaje: Yes, it matters / It would be nice / Not necessary;
+    - entorno: Mostly outdoors / A mix / Mostly indoors / Open to either;
+    - **hasta 2 prioridades** de 6 (Architecture & History, Nature & Landscape, Privacy & Intimacy, Accommodation, Large Celebration Spaces, Proximity to Mérida);
+    - invitados: Under 100, 100–200, 200–400, 400–800, 800+.
+  - **Reglas que nunca se rompen:** capacidad confirmada ≥ mínimo del rango, y hospedaje confirmado cuando es "Yes, it matters". "No" y "Not specified" no cuentan.
+  - **Recomendación:** solo venues de la colección elegida que cumplen; se completa con otras colecciones únicamente si ninguno cumple. Puntos: +3 por prioridad cumplida, +1 hospedaje deseado, +1 entorno, +1 destacado.
+  - **Prioridades derivadas:** "Large Celebration Spaces" = capacidad desde 800; "Proximity to Mérida" = hasta 30 min del centro o atributo de ubicación.
+  - **Interfaz:** indicador 01 / 06; "Continue" en prioridades y "Discover my Yucatán" al final; resultado "Your Yucatán is …" con el texto del documento, sin puntajes.
+  - **Lead:** guarda las respuestas junto con la categoría y los venues (`esquemaSeleccion.respuestas`).

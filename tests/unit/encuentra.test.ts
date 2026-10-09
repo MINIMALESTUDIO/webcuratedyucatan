@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { aTarjeta, entornoDeEspacios } from '@/lib/contenido/derivados';
 import {
+  cumplePrioridad,
   puntuar,
   recomendarVenues,
   type RespuestasEncuentra,
@@ -13,7 +14,7 @@ const base: RespuestasEncuentra = {
   atmosfera: 'timeless',
   hospedaje: 'no-necesario',
   entorno: 'indistinto',
-  prioridad: 'arquitectura',
+  prioridades: ['arquitectura-historia'],
   invitados: '100-200',
 };
 
@@ -28,7 +29,7 @@ describe('entornoDeEspacios', () => {
   });
 });
 
-describe('Find Your Yucatán', () => {
+describe('Find Your Yucatán (D-053)', () => {
   const venues = [
     tarjeta({ slug: 't1', nombre: 'T1', atributos: ['arquitectura'], capacidadMax: 300 }),
     tarjeta({ slug: 't2', nombre: 'T2', capacidadMax: 80 }),
@@ -36,23 +37,30 @@ describe('Find Your Yucatán', () => {
     tarjeta({ slug: 'o1', nombre: 'O1', coleccion: coleccion('organic'), capacidadMax: 400 }),
   ];
 
-  it('recomienda de la colección elegida y respeta la capacidad mínima', () => {
+  it('nunca recomienda un venue con capacidad menor que el rango de invitados', () => {
     const resultado = recomendarVenues(venues, base).map((v) => v.slug);
-    // t2 no llega a 100 invitados: va después de los que cumplen, pero sigue en su colección.
-    expect(resultado).toEqual(['t1', 't3', 't2']);
+    // t2 (80) no llega a 100 invitados: queda fuera aunque sea de la colección.
+    expect(resultado).toEqual(['t1', 't3']);
   });
 
-  it('hospedaje requerido descarta a los que no tienen', () => {
+  it('hospedaje "Yes, it matters" descarta a los venues sin hospedaje confirmado', () => {
     const resultado = recomendarVenues(venues, { ...base, hospedaje: 'requerido' }).map(
       (v) => v.slug,
     );
-    expect(resultado[0]).toBe('t3');
+    expect(resultado).toEqual(['t3']);
   });
 
-  it('puntos: prioridad +3, hospedaje preferido +1, entorno +1, destacado +1', () => {
+  it('solo si nada de la colección cumple, busca en las demás', () => {
+    const resultado = recomendarVenues(venues, { ...base, invitados: '400-800' }).map(
+      (v) => v.slug,
+    );
+    expect(resultado).toEqual(['o1']);
+  });
+
+  it('puntos: +3 por prioridad (hasta 2), hospedaje deseado +1, entorno +1, destacado +1', () => {
     const venue = tarjeta({
       slug: 'x',
-      atributos: ['naturaleza'],
+      atributos: ['naturaleza', 'privacidad'],
       tieneHospedaje: true,
       entorno: 'ambos',
       destacado: true,
@@ -60,12 +68,35 @@ describe('Find Your Yucatán', () => {
     expect(
       puntuar(venue, {
         ...base,
-        prioridad: 'naturaleza',
+        prioridades: ['naturaleza-paisaje', 'privacidad'],
         hospedaje: 'preferido',
-        entorno: 'interior',
+        entorno: 'mixto',
       }),
-    ).toBe(6);
+    ).toBe(9);
     expect(puntuar(venue, base)).toBe(1);
+    // "A mix of indoor & outdoor" solo coincide con venues que tienen ambos.
+    expect(
+      puntuar(tarjeta({ slug: 'y', entorno: 'exterior' }), { ...base, entorno: 'mixto' }),
+    ).toBe(0);
+  });
+
+  it('prioridades derivadas: espacios grandes, cercanía a Mérida y hospedaje', () => {
+    expect(cumplePrioridad(tarjeta({ slug: 'a', capacidadMax: 800 }), 'espacios-grandes')).toBe(
+      true,
+    );
+    expect(cumplePrioridad(tarjeta({ slug: 'b', capacidadMax: 750 }), 'espacios-grandes')).toBe(
+      false,
+    );
+    expect(
+      cumplePrioridad(tarjeta({ slug: 'c', minutosCentroMerida: 25 }), 'cercania-merida'),
+    ).toBe(true);
+    expect(
+      cumplePrioridad(
+        tarjeta({ slug: 'd', minutosCentroMerida: undefined, atributos: ['ubicacion'] }),
+        'cercania-merida',
+      ),
+    ).toBe(true);
+    expect(cumplePrioridad(tarjeta({ slug: 'e', tieneHospedaje: true }), 'hospedaje')).toBe(true);
   });
 
   it('el entorno indicado en la ficha manda sobre el de los espacios (D-047)', () => {
@@ -77,12 +108,13 @@ describe('Find Your Yucatán', () => {
     expect(yaxcopoil && aTarjeta(yaxcopoil).entorno).toBe('ambos');
   });
 
-  it('con los venues reales siempre devuelve 3 venues y empieza por la colección elegida', () => {
+  it('con los venues reales, 400–800 invitados da 3 venues de la colección elegida', () => {
     const tarjetas = venuesDemo.map(aTarjeta);
     for (const atmosfera of ['contemporary', 'organic', 'timeless']) {
-      const resultado = recomendarVenues(tarjetas, { ...base, atmosfera, invitados: 'mas-400' });
+      const resultado = recomendarVenues(tarjetas, { ...base, atmosfera, invitados: '400-800' });
       expect(resultado).toHaveLength(3);
-      expect(resultado[0]?.coleccion.slug).toBe(atmosfera);
+      expect(resultado.every((v) => v.coleccion.slug === atmosfera)).toBe(true);
+      expect(resultado.every((v) => v.capacidadMax >= 400)).toBe(true);
     }
   });
 });

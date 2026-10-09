@@ -59,7 +59,12 @@ function bloques(valor: BloquesLocalizados) {
 }
 
 const lista = (elementos: ElementoLista[]) =>
-  elementos.map((e) => ({ _type: 'elementoLista', _key: e._key, texto: e.texto }));
+  elementos.map((e) => ({
+    _type: 'elementoLista',
+    _key: e._key,
+    texto: e.texto,
+    ...(e.detalle ? { detalle: e.detalle } : {}),
+  }));
 const capitulos = (lista: Capitulo[]) => lista.map((c) => ({ _type: 'capitulo', ...c }));
 
 const documentos: Documento[] = [];
@@ -144,6 +149,7 @@ for (const p of proveedoresDemo) {
     descripcion: bloques(p.descripcion),
     servicios: lista(p.servicios),
     estilo: p.estilo,
+    ...(p.notasCurated ? { notasCurated: bloques(p.notasCurated) } : {}),
     experiencia: p.experiencia,
     ciudadBase: p.ciudadBase,
     cobertura: p.cobertura,
@@ -157,24 +163,30 @@ for (const p of proveedoresDemo) {
 documentos.push({
   _id: 'disenoProduccion',
   _type: 'disenoProduccion',
-  nombre: disenoDemo.nombre,
-  lema: disenoDemo.lema,
-  descripcion: bloques(disenoDemo.descripcion),
+  titular: disenoDemo.titular,
+  entradilla: disenoDemo.entradilla,
   imagenPrincipal: imagen(disenoDemo.imagenPrincipal),
-  areas: disenoDemo.areas.map((a) => ({
-    _type: 'areaDiseno',
-    _key: a._key,
-    nombre: a.nombre,
-    descripcion: a.descripcion,
-    imagenes: imagenes(a.imagenes, `${a._key}-i`),
+  introduccion: {
+    titulo: disenoDemo.introduccion.titulo,
+    texto: bloques(disenoDemo.introduccion.texto),
+  },
+  marcas: disenoDemo.marcas.map((m) => ({
+    _type: 'marcaDiseno',
+    _key: m._key,
+    nombre: m.nombre,
+    categoria: m.categoria,
+    titular: m.titular,
+    descripcion: bloques(m.descripcion),
+    servicios: lista(m.servicios),
+    ...(m.notasCurated ? { notasCurated: bloques(m.notasCurated) } : {}),
+    imagenes: imagenes(m.imagenes, `${m._key}-i`),
+    ...(m.sitioWeb ? { sitioWeb: m.sitioWeb } : {}),
   })),
-  servicios: lista(disenoDemo.servicios),
-  estilo: disenoDemo.estilo,
-  experiencia: disenoDemo.experiencia,
-  ciudadBase: disenoDemo.ciudadBase,
-  cobertura: disenoDemo.cobertura,
-  sitioWeb: disenoDemo.sitioWeb,
-  instagram: disenoDemo.instagram,
+  experienciaDestino: {
+    ...disenoDemo.experienciaDestino,
+    texto: bloques(disenoDemo.experienciaDestino.texto),
+  },
+  cierre: disenoDemo.cierre,
 });
 
 for (const a of articulosDemo) {
@@ -229,6 +241,8 @@ function seccion(s: SeccionEditorial) {
       return { ...s, imagen: imagen(s.imagen) };
     case 'seccionPreguntas':
       return { ...s, preguntas: s.preguntas.map((p) => ({ _type: 'pregunta', ...p })) };
+    case 'seccionEnlaces':
+      return { ...s, enlaces: s.enlaces.map((e) => ({ _type: 'enlaceSeccion', ...e })) };
     case 'seccionLlamado':
       return s;
   }

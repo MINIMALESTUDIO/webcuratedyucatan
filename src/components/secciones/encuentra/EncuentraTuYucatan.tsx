@@ -1,19 +1,22 @@
 'use client';
 
-// Cliente: experiencia paso a paso de Find Your Yucatán (D-041). Una pregunta por pantalla,
-// pensada para celular (los visitantes llegan por QR). Las reglas de recomendación viven en
-// src/lib/descubrimiento/encuentra.ts y se prueban con Vitest.
+// Cliente: experiencia paso a paso de Find Your Yucatán (D-041, D-053). Una pregunta por
+// pantalla, pensada para celular (los visitantes llegan por QR). Las reglas de recomendación
+// viven en src/lib/descubrimiento/encuentra.ts y se prueban con Vitest.
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { ATRIBUTOS_VENUE, type Imagen, type VenueTarjeta } from '@/lib/contenido/tipos';
+import type { Imagen, VenueTarjeta } from '@/lib/contenido/tipos';
 import {
+  MAX_PRIORIDADES,
   OPCIONES_ENTORNO,
   OPCIONES_HOSPEDAJE,
+  PRIORIDADES_ENCUENTRA,
+  RANGOS_INVITADOS_ENCUENTRA,
   recomendarVenues,
+  type PrioridadEncuentra,
   type RespuestasEncuentra,
   TIPOS_EVENTO_ENCUENTRA,
 } from '@/lib/descubrimiento/encuentra';
-import { RANGOS_INVITADOS } from '@/lib/validacion/opciones';
 import { cx } from '@/lib/utilidades';
 import { Boton, BotonEnlace } from '@/components/ui/Boton';
 import { Icono } from '@/components/ui/Icono';
@@ -38,9 +41,10 @@ const PREGUNTAS: ClavePregunta[] = [
   'atmosfera',
   'hospedaje',
   'entorno',
-  'prioridad',
+  'prioridades',
   'invitados',
 ];
+const ULTIMA = PREGUNTAS.length - 1;
 
 interface Opcion {
   valor: string;
@@ -48,6 +52,8 @@ interface Opcion {
   detalle?: string;
   imagen?: Imagen;
 }
+
+const dosCifras = (n: number) => String(n).padStart(2, '0');
 
 export function EncuentraTuYucatan({
   venues,
@@ -57,7 +63,6 @@ export function EncuentraTuYucatan({
   colecciones: ColeccionEncuentra[];
 }) {
   const t = useTranslations('Encuentra');
-  const tf = useTranslations('Formularios');
   // -1: presentación; 0–5: preguntas; 6: resultado.
   const [paso, setPaso] = useState(-1);
   const [respuestas, setRespuestas] = useState<Partial<RespuestasEncuentra>>({});
@@ -69,34 +74,46 @@ export function EncuentraTuYucatan({
   }, [paso]);
 
   function opcionesDe(clave: ClavePregunta): Opcion[] {
-    const pregunta = (valor: string) => t(`preguntas.${clave}.opciones.${valor}` as never);
+    const texto = (valor: string) => t(`preguntas.${clave}.opciones.${valor}` as never);
     switch (clave) {
       case 'evento':
-        return TIPOS_EVENTO_ENCUENTRA.map((valor) => ({ valor, etiqueta: pregunta(valor) }));
+        return TIPOS_EVENTO_ENCUENTRA.map((valor) => ({ valor, etiqueta: texto(valor) }));
       case 'atmosfera':
-        return colecciones.map((c) => ({
-          valor: c.slug,
-          etiqueta: c.resultado,
-          detalle: c.lema,
-          imagen: c.imagen,
-        }));
+        return colecciones.map((c) => {
+          const clave = `preguntas.atmosfera.opciones.${c.slug}`;
+          return {
+            valor: c.slug,
+            etiqueta: c.resultado,
+            detalle: t.has(clave as never) ? t(clave as never) : c.lema,
+            imagen: c.imagen,
+          };
+        });
       case 'hospedaje':
-        return OPCIONES_HOSPEDAJE.map((valor) => ({ valor, etiqueta: pregunta(valor) }));
+        return OPCIONES_HOSPEDAJE.map((valor) => ({ valor, etiqueta: texto(valor) }));
       case 'entorno':
-        return OPCIONES_ENTORNO.map((valor) => ({ valor, etiqueta: pregunta(valor) }));
-      case 'prioridad':
-        return ATRIBUTOS_VENUE.map((valor) => ({ valor, etiqueta: pregunta(valor) }));
+        return OPCIONES_ENTORNO.map((valor) => ({ valor, etiqueta: texto(valor) }));
+      case 'prioridades':
+        return PRIORIDADES_ENCUENTRA.map((valor) => ({ valor, etiqueta: texto(valor) }));
       case 'invitados':
-        return RANGOS_INVITADOS.map((valor) => ({
-          valor,
-          etiqueta: tf(`opciones.invitados.${valor}`),
-        }));
+        return RANGOS_INVITADOS_ENCUENTRA.map(({ id }) => ({ valor: id, etiqueta: texto(id) }));
     }
   }
 
   function responder(clave: ClavePregunta, valor: string) {
     setRespuestas((anteriores) => ({ ...anteriores, [clave]: valor }));
-    setPaso((actual) => actual + 1);
+    // La última pregunta se confirma con "Discover my Yucatán".
+    if (clave !== 'invitados') setPaso((actual) => actual + 1);
+  }
+
+  function alternarPrioridad(valor: PrioridadEncuentra) {
+    setRespuestas((anteriores) => {
+      const actuales = anteriores.prioridades ?? [];
+      if (actuales.includes(valor)) {
+        return { ...anteriores, prioridades: actuales.filter((p) => p !== valor) };
+      }
+      if (actuales.length >= MAX_PRIORIDADES) return anteriores;
+      return { ...anteriores, prioridades: [...actuales, valor] };
+    });
   }
 
   function reiniciar() {
@@ -119,33 +136,36 @@ export function EncuentraTuYucatan({
     const coleccion = colecciones.find((c) => c.slug === completas.atmosfera) ?? colecciones[0];
     if (!coleccion) return null;
     const recomendados = recomendarVenues(venues, completas);
+    const claveTexto = `resultado.textos.${coleccion.slug}`;
 
     return (
       <div aria-live="polite">
         <div className="flex flex-col items-center text-center">
           <Sobretitulo>{t('resultado.sobretitulo')}</Sobretitulo>
-          <h2
-            ref={titulo}
-            tabIndex={-1}
-            className="mt-6 text-display tracking-[0.2em] outline-none"
-          >
-            {coleccion.resultado}
+          <h2 ref={titulo} tabIndex={-1} className="mt-6 text-titulo-1 outline-none">
+            {t('resultado.titular', { resultado: coleccion.resultado })}
           </h2>
           <p className="mt-4 font-marca text-sm tracking-[0.2em] uppercase">{coleccion.nombre}</p>
-          <p className="mt-6 max-w-xl text-destacado text-tinta-suave">{coleccion.descripcion}</p>
+          <p className="mt-6 max-w-xl text-destacado text-tinta-suave">
+            {t.has(claveTexto as never) ? t(claveTexto as never) : coleccion.descripcion}
+          </p>
         </div>
 
         <section aria-labelledby="lugares" className="mt-20 border-t border-linea pt-16">
           <h3 id="lugares" className="text-center text-titulo-2">
             {t('resultado.lugares')}
           </h3>
-          <ul className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-            {recomendados.map((venue) => (
-              <li key={venue._id} className="flex">
-                <TarjetaVenue venue={venue} />
-              </li>
-            ))}
-          </ul>
+          {recomendados.length > 0 ? (
+            <ul className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+              {recomendados.map((venue) => (
+                <li key={venue._id} className="flex">
+                  <TarjetaVenue venue={venue} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-8 text-center text-tinta-suave">{t('resultado.sinResultados')}</p>
+          )}
           <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <BotonEnlace
               href={{ pathname: '/venues', query: { estilo: coleccion.slug } }}
@@ -172,6 +192,7 @@ export function EncuentraTuYucatan({
           <FormularioSeleccion
             resultado={coleccion.slug}
             venues={recomendados.map((venue) => venue.slug)}
+            respuestas={completas}
           />
         </section>
       </div>
@@ -181,12 +202,16 @@ export function EncuentraTuYucatan({
   const clave = PREGUNTAS[paso] as ClavePregunta;
   const opciones = opcionesDe(clave);
   const conImagen = clave === 'atmosfera';
+  const multiple = clave === 'prioridades';
+  const prioridades = respuestas.prioridades ?? [];
+  const elegida = (valor: string) =>
+    multiple ? prioridades.includes(valor as PrioridadEncuentra) : respuestas[clave] === valor;
 
   return (
     <div className="mx-auto max-w-3xl">
       <div className="flex items-center justify-between gap-4">
         <p className="etiqueta text-tinta-suave">
-          {t('paso', { actual: paso + 1, total: PREGUNTAS.length })}
+          {t('paso', { actual: dosCifras(paso + 1), total: dosCifras(PREGUNTAS.length) })}
         </p>
         {paso > 0 && (
           <button
@@ -209,6 +234,11 @@ export function EncuentraTuYucatan({
       <h2 ref={titulo} tabIndex={-1} className="mt-14 text-center text-titulo-1 outline-none">
         {t(`preguntas.${clave}.titulo` as never)}
       </h2>
+      {multiple && (
+        <p className="mt-4 text-center text-sm text-tinta-suave">
+          {t('preguntas.prioridades.ayuda', { maximo: MAX_PRIORIDADES })}
+        </p>
+      )}
 
       <ul
         className={cx(
@@ -218,16 +248,23 @@ export function EncuentraTuYucatan({
         )}
       >
         {opciones.map((opcion) => {
-          const elegida = respuestas[clave] === opcion.valor;
+          const activa = elegida(opcion.valor);
+          const bloqueada = multiple && !activa && prioridades.length >= MAX_PRIORIDADES;
           return (
             <li key={opcion.valor}>
               <button
                 type="button"
-                aria-pressed={elegida}
-                onClick={() => responder(clave, opcion.valor)}
+                aria-pressed={activa}
+                aria-disabled={bloqueada || undefined}
+                onClick={() =>
+                  multiple
+                    ? alternarPrioridad(opcion.valor as PrioridadEncuentra)
+                    : responder(clave, opcion.valor)
+                }
                 className={cx(
                   'group flex w-full flex-col border text-left transition-colors duration-300',
-                  elegida ? 'border-tinta' : 'border-linea hover:border-tinta',
+                  activa ? 'border-tinta' : 'border-linea hover:border-tinta',
+                  bloqueada && 'opacity-50',
                   conImagen ? 'p-0' : 'min-h-16 justify-center px-6 py-4',
                 )}
               >
@@ -259,6 +296,31 @@ export function EncuentraTuYucatan({
           );
         })}
       </ul>
+
+      {multiple && (
+        <div className="mt-10 flex justify-center">
+          <Boton
+            variante="primario"
+            disabled={prioridades.length === 0}
+            onClick={() => setPaso((actual) => actual + 1)}
+            className="disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {t('continuar')}
+          </Boton>
+        </div>
+      )}
+      {paso === ULTIMA && (
+        <div className="mt-10 flex justify-center">
+          <Boton
+            variante="primario"
+            disabled={!respuestas.invitados}
+            onClick={() => setPaso((actual) => actual + 1)}
+            className="disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {t('descubrir')}
+          </Boton>
+        </div>
+      )}
     </div>
   );
 }

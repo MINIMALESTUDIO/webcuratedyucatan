@@ -2,9 +2,11 @@ import type {
   Articulo,
   BloqueTexto,
   BloquesLocalizados,
+  DestinoLlamado,
   PaginaEditorial,
+  SeccionEditorial,
 } from '@/lib/contenido/tipos';
-import { bloques, HORIZONTAL, imagenDemo, texto } from './ayudantes';
+import { bloques, bloquesIngles, HORIZONTAL, imagenDemo, texto } from './ayudantes';
 
 // --- Curated Journal -------------------------------------------------------------------
 
@@ -710,16 +712,114 @@ export const articulosDemo: Articulo[] = ARTICULOS.map((a, i) => ({
 
 // --- Páginas editoriales -------------------------------------------------------------------
 
-// Preguntas del documento de estructura (sección 12); las respuestas son [DEMO].
-const PREGUNTAS_NOSOTROS: Array<[en: string, es: string]> = [
-  ['What is Curated Yucatán?', '¿Qué es Curated Yucatán?'],
-  ['Why does it exist?', '¿Por qué existe?'],
-  ['Who is it for?', '¿Para quién fue creado?'],
-  ['What problem does it solve?', '¿Qué problema resuelve?'],
-  [
-    'How does it help an international wedding professional?',
-    '¿Cómo ayuda a un wedding professional internacional?',
-  ],
+// About: copy real de 01_WEB/08_ABOUT/ESTRUCTURA Y CONTENIDO (Drive, 2026-10-08), solo en inglés
+// (D-008). El documento empieza en la sección 02: el título de la página se conserva.
+const enA = (valor: string) => ({ en: valor });
+
+function seccionAbout(
+  clave: string,
+  sobretitulo: string,
+  titulo: string,
+  parrafos: string[],
+  extra: { firma?: string; destino?: DestinoLlamado } = {},
+): SeccionEditorial {
+  return {
+    _type: 'seccionTexto',
+    _key: clave,
+    sobretitulo: enA(sobretitulo),
+    titulo: enA(titulo),
+    texto: bloquesIngles(`nosotros-${clave}`, parrafos),
+    firma: extra.firma ? enA(extra.firma) : undefined,
+    destino: extra.destino,
+  };
+}
+
+const SECCIONES_NOSOTROS: SeccionEditorial[] = [
+  seccionAbout('que-es', 'What is Curated?', 'A different way to discover Yucatán.', [
+    'Curated Yucatán brings together remarkable venues, local talent and essential destination insight in one carefully considered platform.',
+    'Created for those planning celebrations in Yucatán, Curated offers a more thoughtful way to explore the destination — from its architecture, culture and landscapes to the people and places that bring events to life.',
+    'More than a directory, it is an editorial guide designed to make Yucatán easier to discover, understand and navigate.',
+  ]),
+  seccionAbout(
+    'detras',
+    'Behind Curated',
+    'Created in Yucatán.',
+    [
+      'Curated Yucatán is a project by Minimal, created from a deep connection to the destination and years of experience within Yucatán’s event industry.',
+      'Born from firsthand knowledge of the places, creative talent and realities behind producing celebrations in the region, Curated brings that world together through a thoughtful editorial point of view.',
+      'The result is a destination platform designed to help couples, planners and creative teams discover Yucatán with greater context, clarity and intention.',
+    ],
+    { firma: 'A project by Minimal' },
+  ),
+  seccionAbout(
+    'destino',
+    'The Destination',
+    'It begins with Yucatán.',
+    [
+      'Every celebration is shaped by where it takes place.',
+      'In Yucatán, centuries of history, Maya heritage, distinctive architecture, regional cuisine and extraordinary natural landscapes create a destination with a character entirely its own.',
+      'Curated begins with the destination itself — because understanding Yucatán means understanding everything that surrounds the celebration.',
+    ],
+    { destino: 'descubre-yucatan' },
+  ),
+  seccionAbout('enfoque', 'Our Approach', 'Selected with intention.', [
+    'Curated is built around selection rather than quantity.',
+    'We bring together venues, creative talent and destination knowledge through a considered editorial perspective, focusing on what contributes something meaningful to the experience of celebrating in Yucatán.',
+    'The result is not an exhaustive directory, but a point of view — one designed to help planners, couples and creative teams discover the destination with greater clarity.',
+  ]),
+  {
+    _type: 'seccionEnlaces',
+    _key: 'explora',
+    sobretitulo: enA('Explore Curated'),
+    titulo: enA('A destination, seen from every angle.'),
+    entradilla: enA(
+      'Explore the places, talent and perspectives that shape celebrations across Yucatán.',
+    ),
+    enlaces: (
+      [
+        [
+          'descubre-yucatan',
+          'Architecture, culture, gastronomy, history, nature and experiences that reveal the character of the destination.',
+        ],
+        ['venues', 'A curated selection of remarkable settings across Yucatán.'],
+        [
+          'catering',
+          'Local culinary talent and gastronomic experiences for celebrations across the destination.',
+        ],
+        [
+          'fotografia',
+          'Photographers capturing celebrations through distinctive perspectives and visual languages.',
+        ],
+        [
+          'diseno-y-produccion',
+          'Creative teams shaping the environments, details and experiences behind each celebration.',
+        ],
+        [
+          'journal',
+          'Stories, perspectives and essential insight for discovering and celebrating in Yucatán.',
+        ],
+      ] as Array<[DestinoLlamado, string]>
+    ).map(([destino, textoEnlace]) => ({
+      _key: `explora-${destino}`,
+      destino,
+      texto: enA(textoEnlace),
+    })),
+  },
+  seccionAbout('para-quien', 'Created For', 'For those bringing celebrations to Yucatán.', [
+    'Curated Yucatán is designed for couples, wedding planners and creative teams looking to understand the destination and connect with the places and local talent that can bring a celebration to life.',
+    'Whether discovering Yucatán for the first time or returning with a new project, Curated offers a starting point for navigating the destination with intention.',
+  ]),
+  {
+    _type: 'seccionLlamado',
+    _key: 'cierre',
+    sobretitulo: enA('Curated Yucatán'),
+    titulo: enA('Start discovering Yucatán.'),
+    texto: enA(
+      'Explore the destination, discover remarkable venues and connect with the local talent shaping celebrations across Yucatán.',
+    ),
+    destino: 'explora-curated',
+    destinoSecundario: 'planea-tu-evento',
+  },
 ];
 
 export const paginasDemo: PaginaEditorial[] = [
@@ -727,52 +827,13 @@ export const paginasDemo: PaginaEditorial[] = [
     _id: 'pagina-nosotros',
     _type: 'paginaEditorial',
     titulo: texto('About Curated', 'Nosotros'),
-    entradilla: texto(
-      '[DEMO] Yucatán is the protagonist. Curated is the guide. Sample introduction.',
-      '[DEMO] Yucatán es el protagonista. Curated es la guía. Entradilla de ejemplo.',
-    ),
     imagen: imagenDemo(
       'nosotros.jpg',
       ...HORIZONTAL,
       '[DEMO] Placeholder photo for About Curated',
       '[DEMO] Foto de relleno para Nosotros',
     ),
-    secciones: [
-      ...PREGUNTAS_NOSOTROS.map(([en, es], i) => ({
-        _type: 'seccionTexto' as const,
-        _key: `pregunta-${i + 1}`,
-        titulo: texto(en, es),
-        texto: bloques(
-          `nosotros-${i + 1}`,
-          ['[DEMO] Sample answer in one or two short paragraphs.'],
-          ['[DEMO] Respuesta de ejemplo en uno o dos párrafos cortos.'],
-        ),
-      })),
-      {
-        _type: 'seccionTexto',
-        _key: 'minimal',
-        titulo: texto('Curated and Minimal', 'Curated y Minimal'),
-        texto: bloques(
-          'nosotros-minimal',
-          [
-            '[DEMO] Sample text explaining, with transparency, that Minimal takes part as Curated Partner in Design & Production.',
-          ],
-          [
-            '[DEMO] Texto de ejemplo que explica con transparencia que Minimal participa como Curated Partner en Design & Production.',
-          ],
-        ),
-      },
-      {
-        _type: 'seccionLlamado',
-        _key: 'llamado',
-        titulo: texto('Start planning with Curated', 'Empieza a planear con Curated'),
-        texto: texto(
-          '[DEMO] Tell us about your event and we will connect you with the right places and partners.',
-          '[DEMO] Cuéntanos de tu evento y te conectamos con los lugares y aliados adecuados.',
-        ),
-        destino: 'planea-tu-evento',
-      },
-    ],
+    secciones: SECCIONES_NOSOTROS,
   },
   {
     _id: 'pagina-privacidad',

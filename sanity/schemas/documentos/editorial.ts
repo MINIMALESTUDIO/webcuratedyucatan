@@ -38,13 +38,48 @@ export const articulo = defineType({
 
 // --- Secciones de las páginas editoriales --------------------------------------------
 
+/** Destinos internos de los botones (deben coincidir con DESTINOS_LLAMADO en tipos.ts). */
+const LISTA_DESTINOS = [
+  { title: 'Plan your event', value: 'planea-tu-evento' },
+  { title: 'Find your Yucatán', value: 'encuentra-tu-yucatan' },
+  { title: 'Venues', value: 'venues' },
+  { title: 'Discover Yucatán', value: 'descubre-yucatan' },
+  { title: 'Catering', value: 'catering' },
+  { title: 'Photography', value: 'fotografia' },
+  { title: 'Design & Production', value: 'diseno-y-produccion' },
+  { title: 'Curated Journal', value: 'journal' },
+  { title: 'Explore Curated (inicio)', value: 'explora-curated' },
+];
+
+const campoSobretitulo = () =>
+  campoLocalizado({
+    name: 'sobretitulo',
+    title: 'Sobretítulo (eyebrow)',
+    max: 40,
+    requerido: false,
+  });
+
 const seccionTexto = defineArrayMember({
   name: 'seccionTexto',
   title: 'Texto',
   type: 'object',
   fields: [
+    campoSobretitulo(),
     campoLocalizado({ name: 'titulo', title: 'Título', max: 100, requerido: false }),
     campoBloquesLocalizados({ name: 'texto', title: 'Texto' }),
+    campoLocalizado({
+      name: 'firma',
+      title: 'Firma',
+      description: 'Opcional, por ejemplo "A project by Minimal".',
+      max: 60,
+      requerido: false,
+    }),
+    defineField({
+      name: 'destino',
+      title: 'Enlace al final (opcional)',
+      type: 'string',
+      options: { list: LISTA_DESTINOS },
+    }),
   ],
   preview: {
     select: { title: 'titulo.en' },
@@ -94,26 +129,71 @@ const seccionPreguntas = defineArrayMember({
   preview: { prepare: () => ({ title: 'Preguntas frecuentes' }) },
 });
 
+/** Bloque de enlaces a las secciones del sitio ("Explore Curated"). */
+const seccionEnlaces = defineArrayMember({
+  name: 'seccionEnlaces',
+  title: 'Enlaces a secciones',
+  type: 'object',
+  fields: [
+    campoSobretitulo(),
+    campoLocalizado({ name: 'titulo', title: 'Título', max: 100 }),
+    campoLocalizado({
+      name: 'entradilla',
+      title: 'Entradilla',
+      largo: true,
+      max: 240,
+      requerido: false,
+    }),
+    defineField({
+      name: 'enlaces',
+      title: 'Enlaces',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          name: 'enlaceSeccion',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'destino',
+              title: 'Sección',
+              type: 'string',
+              options: { list: LISTA_DESTINOS },
+              validation: (r) => r.required(),
+            }),
+            campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 160 }),
+          ],
+          preview: { select: { title: 'destino', subtitle: 'texto.en' } },
+        }),
+      ],
+      validation: (r) => r.min(1).max(8),
+    }),
+  ],
+  preview: {
+    select: { title: 'titulo.en' },
+    prepare: ({ title }) => ({ title: title ?? 'Enlaces', subtitle: 'Enlaces a secciones' }),
+  },
+});
+
 const seccionLlamado = defineArrayMember({
   name: 'seccionLlamado',
   title: 'Llamado a la acción',
   type: 'object',
   fields: [
+    campoSobretitulo(),
     campoLocalizado({ name: 'titulo', title: 'Título', max: 80 }),
     campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 240, requerido: false }),
     defineField({
       name: 'destino',
       title: 'Destino del botón',
       type: 'string',
-      options: {
-        list: [
-          { title: 'Plan your event', value: 'planea-tu-evento' },
-          { title: 'Find your Yucatán', value: 'encuentra-tu-yucatan' },
-          { title: 'Venues', value: 'venues' },
-          { title: 'Discover Yucatán', value: 'descubre-yucatan' },
-        ],
-      },
+      options: { list: LISTA_DESTINOS },
       validation: (r) => r.required(),
+    }),
+    defineField({
+      name: 'destinoSecundario',
+      title: 'Botón secundario (opcional)',
+      type: 'string',
+      options: { list: LISTA_DESTINOS },
     }),
   ],
   preview: {
@@ -143,7 +223,7 @@ export const paginaEditorial = defineType({
       name: 'secciones',
       title: 'Secciones',
       type: 'array',
-      of: [seccionTexto, seccionImagen, seccionPreguntas, seccionLlamado],
+      of: [seccionTexto, seccionEnlaces, seccionImagen, seccionPreguntas, seccionLlamado],
     }),
     defineField({ name: 'seo', title: 'SEO', type: 'seo' }),
   ],

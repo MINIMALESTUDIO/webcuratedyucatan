@@ -161,8 +161,9 @@ export const CONSULTA_SLUG_ACTUAL_PROVEEDOR = defineQuery(
 export const CONSULTA_PROVEEDOR = defineQuery(`*[${FILTRO_PROVEEDOR} && slug.current == $slug][0]{
   _id, _type, tipo, nombre, "slug": slug.current, slugsAnteriores,
   especialidad, resumen, descripcion,
-  "servicios": coalesce(servicios[]{ _key, texto }, []),
+  "servicios": coalesce(servicios[]{ _key, texto, detalle }, []),
   estilo,
+  notasCurated,
   "estilosFotografia": coalesce(estilosFotografia, []),
   ciudadBase, cobertura, experiencia, sitioWeb, instagram,
   "logotipo": logotipo${IMAGEN},
@@ -172,13 +173,16 @@ export const CONSULTA_PROVEEDOR = defineQuery(`*[${FILTRO_PROVEEDOR} && slug.cur
   seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);
 
-export const CONSULTA_DISENO = defineQuery(`*[_id == "disenoProduccion"][0]{
-  _id, _type, nombre, lema, descripcion,
+export const CONSULTA_DISENO = defineQuery(`*[_id == "disenoProduccion" && defined(marcas)][0]{
+  _id, _type, titular, entradilla,
   "imagenPrincipal": imagenPrincipal${IMAGEN},
-  "areas": coalesce(areas[]{ _key, nombre, descripcion, "imagenes": coalesce(imagenes[]${IMAGEN}, []) }, []),
-  "servicios": coalesce(servicios[]{ _key, texto }, []),
-  estilo, experiencia, ciudadBase, cobertura, sitioWeb, instagram,
-  "logotipo": logotipo${IMAGEN}
+  introduccion,
+  "marcas": coalesce(marcas[]{
+    _key, nombre, categoria, titular, descripcion, notasCurated, sitioWeb,
+    "servicios": coalesce(servicios[]{ _key, texto, detalle }, []),
+    "imagenes": coalesce(imagenes[]${IMAGEN}, [])
+  }, []),
+  experienciaDestino, cierre
 }`);
 
 // --- Curated Journal ---------------------------------------------------------------------
@@ -244,7 +248,8 @@ export const CONSULTA_PAGINA_EDITORIAL = defineQuery(`*[_id == $id][0]{
   "secciones": coalesce(secciones[]{
     ...,
     _type == "seccionImagen" => { "imagen": imagen${IMAGEN} },
-    _type == "seccionPreguntas" => { "preguntas": coalesce(preguntas[]{ _key, pregunta, respuesta }, []) }
+    _type == "seccionPreguntas" => { "preguntas": coalesce(preguntas[]{ _key, pregunta, respuesta }, []) },
+    _type == "seccionEnlaces" => { "enlaces": coalesce(enlaces[]{ _key, destino, texto }, []) }
   }, []),
   seo{ titulo, descripcion, "imagenOG": imagenOG${IMAGEN} }
 }`);

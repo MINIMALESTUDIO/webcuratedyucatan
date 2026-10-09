@@ -10,7 +10,7 @@
     "cateringDescripcion": "Una selección curada de empresas de catering para celebraciones en Yucatán.",
     "fotografiaTitulo": "Fotografía en Yucatán",
     "fotografiaDescripcion": "Una selección curada de fotógrafos y estudios para celebraciones en Yucatán.",
-    "disenoDescripcion": "Minimal, el partner curado de diseño y producción: mobiliario, mesa, diseño floral, decoración y producción.",
+    "disenoDescripcion": "Mobiliario, diseño floral y mesa a través de tres marcas especializadas: Minimal, Más que Ayer y Otro Cielo.",
     "journalDescripcion": "Historias editoriales y guías prácticas para planear celebraciones en Yucatán.",
     "encuentraDescripcion": "Responde unas preguntas y descubre qué Yucatán va con tu celebración.",
     "planeaDescripcion": "Cuéntanos de tu evento y empieza a planear tu celebración en Yucatán con Curated.",
@@ -48,7 +48,8 @@
     "encuentra": "Encuentra tu Yucatán",
     "planea": "Planea tu evento",
     "privacidad": "Privacidad",
-    "migas": "Ruta de navegación"
+    "migas": "Ruta de navegación",
+    "explora": "Explora Curated"
   },
   "Pie": {
     "descripcion": "Tu guía experta para celebrar en Yucatán.",
@@ -201,7 +202,7 @@
     "perfil": {
       "servicios": "Servicios",
       "estilo": "Estilo y enfoque",
-      "experiencia": "Experiencia en bodas destino",
+      "experiencia": "Experiencia",
       "cobertura": "Con base en {ciudad}",
       "galeria": "Galería",
       "enlaces": "En línea",
@@ -210,18 +211,17 @@
       "externo": "(se abre en otra pestaña)",
       "cta": "Solicita información",
       "ctaTexto": "Planea tu evento con Curated y te conectamos con {nombre}.",
-      "ver": "Ver perfil"
+      "ver": "Ver perfil",
+      "notas": "Curated Notes"
     }
   },
   "Diseno": {
     "titulo": "Diseño y producción",
-    "areas": "Lo que cubre Minimal",
     "servicios": "Servicios",
-    "estilo": "Estilo y enfoque",
-    "experiencia": "Experiencia en bodas destino",
-    "cobertura": "Con base en {ciudad}",
-    "cta": "Planea tu evento",
-    "ctaTexto": "Diseño y producción para tu celebración, con la misma mirada curada."
+    "notas": "Curated Notes",
+    "descubrir": "Descubre {marca}",
+    "externo": "(se abre en otra pestaña)",
+    "cta": "Solicitar información"
   },
   "Journal": {
     "titulo": "Curated Journal",
@@ -239,60 +239,87 @@
   },
   "Encuentra": {
     "titulo": "Encuentra tu Yucatán",
-    "entradilla": "Unas preguntas para descubrir el Yucatán que va con tu celebración. Toma alrededor de un minuto.",
-    "empezar": "Comenzar",
-    "paso": "Pregunta {actual} de {total}",
+    "titular": "¿Qué Yucatán va contigo?",
+    "entradilla": "Cuéntanos un poco sobre la celebración que imaginas. Te guiaremos hacia los venues y la atmósfera que mejor reflejan tu visión.",
+    "empezar": "Encuentra tu Yucatán",
+    "paso": "{actual} / {total}",
     "atras": "Atrás",
+    "continuar": "Continuar",
+    "descubrir": "Descubre mi Yucatán",
     "preguntas": {
       "evento": {
         "titulo": "¿Qué estás planeando?",
         "opciones": {
           "boda": "Boda",
-          "cena-bienvenida": "Cena de bienvenida",
-          "celebracion": "Celebración"
+          "fiesta-bienvenida": "Fiesta de bienvenida",
+          "cena-ensayo": "Cena de ensayo",
+          "after-party": "After party",
+          "otra-celebracion": "Otra celebración"
         }
       },
       "atmosfera": {
-        "titulo": "¿Qué atmósfera te atrae?"
+        "titulo": "¿Qué atmósfera va más contigo?",
+        "opciones": {
+          "timeless": "Histórica, elegante y profundamente arraigada en la herencia de Yucatán.",
+          "organic": "Natural, íntima y conectada con el paisaje.",
+          "contemporary": "Refinada, arquitectónica y moderna."
+        }
       },
       "hospedaje": {
-        "titulo": "Hospedaje",
+        "titulo": "¿Te gustaría hospedaje en el venue?",
         "opciones": {
-          "requerido": "Indispensable",
-          "preferido": "Preferible",
+          "requerido": "Sí, es importante",
+          "preferido": "Sería ideal",
           "no-necesario": "No es necesario"
         }
       },
       "entorno": {
-        "titulo": "¿Interior o exterior?",
+        "titulo": "¿Cómo imaginas la celebración?",
         "opciones": {
-          "interior": "Interior",
-          "exterior": "Exterior",
-          "indistinto": "Cualquiera"
+          "exterior": "Principalmente al aire libre",
+          "mixto": "Una mezcla de interior y exterior",
+          "interior": "Principalmente en interiores",
+          "indistinto": "Cualquiera de las dos"
         }
       },
-      "prioridad": {
-        "titulo": "¿Qué es lo más importante?",
+      "prioridades": {
+        "titulo": "¿Qué es lo más importante para ti?",
+        "ayuda": "Elige hasta {maximo}.",
         "opciones": {
-          "arquitectura": "Arquitectura",
-          "naturaleza": "Naturaleza",
-          "gastronomia": "Gastronomía",
-          "privacidad": "Privacidad",
-          "ubicacion": "Ubicación"
+          "arquitectura-historia": "Arquitectura e historia",
+          "naturaleza-paisaje": "Naturaleza y paisaje",
+          "privacidad": "Privacidad e intimidad",
+          "hospedaje": "Hospedaje",
+          "espacios-grandes": "Espacios para grandes celebraciones",
+          "cercania-merida": "Cercanía a Mérida"
         }
       },
       "invitados": {
-        "titulo": "Número de invitados"
+        "titulo": "¿Cuántos invitados esperas?",
+        "opciones": {
+          "menos-100": "Menos de 100",
+          "100-200": "100–200",
+          "200-400": "200–400",
+          "400-800": "400–800",
+          "mas-800": "Más de 800"
+        }
       }
     },
     "resultado": {
-      "sobretitulo": "Tu Yucatán es…",
-      "lugares": "Lugares para empezar a explorar",
+      "sobretitulo": "Tu resultado Curated",
+      "titular": "Tu Yucatán es {resultado}.",
+      "textos": {
+        "timeless": "Te atraen los lugares donde la historia, la arquitectura y una sensación de permanencia dan forma a la celebración. Seleccionamos tres venues que reflejan tu visión.",
+        "organic": "Te atraen los espacios donde la arquitectura y la naturaleza conviven en armonía, para celebraciones íntimas, serenas y conectadas con su entorno.",
+        "contemporary": "Te atraen los espacios refinados, donde la arquitectura, el diseño y la hospitalidad moderna dan forma a la experiencia."
+      },
+      "lugares": "Tu selección Curated",
+      "sinResultados": "Todavía ningún venue de esta colección cumple esos requisitos. Explora la colección completa o empieza de nuevo.",
       "verColeccion": "Ver todos los {coleccion}",
       "reiniciar": "Empezar de nuevo",
       "guardar": {
         "titulo": "¿Quieres guardar tu selección Curated?",
-        "texto": "Te enviamos estos lugares a tu correo para que sigas explorando."
+        "texto": "Déjanos tus datos y te enviaremos tu selección."
       }
     }
   },

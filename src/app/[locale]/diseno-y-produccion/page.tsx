@@ -8,9 +8,9 @@ import { alternativas } from '@/lib/seo/metadatos';
 import { cx } from '@/lib/utilidades';
 import { BotonEnlace } from '@/components/ui/Boton';
 import { Contenedor } from '@/components/ui/Contenedor';
+import { Icono } from '@/components/ui/Icono';
 import { ImagenContenido } from '@/components/ui/ImagenContenido';
 import { Sobretitulo } from '@/components/ui/Sobretitulo';
-import { EncabezadoSeccion } from '@/components/secciones/EncabezadoSeccion';
 import { Mosaico } from '@/components/secciones/Mosaico';
 import { TextoEnriquecido } from '@/components/secciones/TextoEnriquecido';
 
@@ -29,8 +29,9 @@ export async function generateMetadata({
 }
 
 /**
- * Design & Production (documento de estructura, sección 10): Minimal no se presenta como parte
- * de un directorio, sino como "Curated Design & Production Partner", con cada área que cubre.
+ * Design & Production (D-052): tres marcas especializadas (Minimal, Más que Ayer y Otro Cielo)
+ * con una visión compartida. Hero → introducción → una sección por marca → experiencia en
+ * destino → cierre con solicitud de información.
  */
 export default async function PaginaDiseno() {
   const [diseno, t, idioma] = await Promise.all([
@@ -50,83 +51,120 @@ export default async function PaginaDiseno() {
             preload
           />
         </div>
-        <Contenedor className="flex flex-col items-center pt-14 text-center sm:pt-20">
+        <Contenedor
+          ancho="lectura"
+          className="flex flex-col items-center pt-14 text-center sm:pt-20"
+        >
           <Sobretitulo>{t('titulo')}</Sobretitulo>
-          <h1 className="mt-5 text-titulo-1 tracking-[0.3em]">{diseno.nombre}</h1>
-          <p className="mt-5 text-destacado text-tinta-suave italic">
-            {localizar(diseno.lema, idioma)}
+          <h1 className="mt-5 text-titulo-1">{localizar(diseno.titular, idioma)}</h1>
+          <p className="mt-6 text-destacado text-tinta-suave">
+            {localizar(diseno.entradilla, idioma)}
+          </p>
+          <p className="mt-8 font-marca text-xs tracking-[0.3em] uppercase">
+            {diseno.marcas.map((marca) => marca.nombre).join(' · ')}
           </p>
         </Contenedor>
       </section>
 
-      <section className="py-seccion">
-        <Contenedor className="grid gap-14 lg:grid-cols-12 lg:gap-16">
-          <TextoEnriquecido
-            valor={localizarBloques(diseno.descripcion, idioma)}
-            className="text-destacado lg:col-span-7"
-          />
-          <dl className="flex flex-col gap-8 lg:col-span-5">
-            {[
-              [t('estilo'), localizar(diseno.estilo, idioma)],
-              [t('experiencia'), localizar(diseno.experiencia, idioma)],
-              [t('cobertura', { ciudad: diseno.ciudadBase }), localizar(diseno.cobertura, idioma)],
-            ].map(([etiqueta, valor]) => (
-              <div key={etiqueta} className="border-t border-linea pt-6">
-                <dt className="etiqueta text-tinta-suave">{etiqueta}</dt>
-                <dd className="mt-3 text-sm">{valor}</dd>
-              </div>
-            ))}
-            {diseno.servicios.length > 0 && (
-              <div className="border-t border-linea pt-6">
-                <dt className="etiqueta text-tinta-suave">{t('servicios')}</dt>
-                <dd className="mt-3">
-                  <ul className="flex flex-col gap-2 text-sm">
-                    {diseno.servicios.map((servicio) => (
-                      <li key={servicio._key}>{localizar(servicio.texto, idioma)}</li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            )}
-          </dl>
-        </Contenedor>
-      </section>
-
-      <section aria-labelledby="areas" className="border-t border-linea py-seccion">
-        <Contenedor>
-          <EncabezadoSeccion id="areas" titulo={t('areas')} />
-          <ol className="mt-16 flex flex-col gap-24">
-            {diseno.areas.map((area, i) => (
-              <li key={area._key} className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-                <div className={cx('lg:col-span-7', i % 2 === 1 && 'lg:order-2')}>
-                  <Mosaico
-                    imagenes={area.imagenes}
-                    origen={{
-                      id: diseno._id,
-                      tipo: 'disenoProduccion',
-                      arreglo: `areas[_key=="${area._key}"].imagenes`,
-                    }}
-                  />
-                </div>
-                <div className="lg:col-span-5">
-                  <span className="font-marca text-xs tracking-[0.2em] text-tinta-suave">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <h3 className="mt-3 text-titulo-2">{localizar(area.nombre, idioma)}</h3>
-                  <p className="mt-5 text-tinta-suave">{localizar(area.descripcion, idioma)}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Contenedor>
-      </section>
-
-      <section aria-labelledby="planea-diseno" className="bg-papel-calido py-seccion">
-        <Contenedor ancho="lectura" className="flex flex-col items-center text-center">
-          <h2 id="planea-diseno" className="text-titulo-2">
-            {t('cta')}
+      <section aria-labelledby="introduccion" className="py-seccion">
+        <Contenedor ancho="lectura">
+          <h2 id="introduccion" className="text-center text-titulo-2">
+            {localizar(diseno.introduccion.titulo, idioma)}
           </h2>
-          <p className="mt-6 text-tinta-suave">{t('ctaTexto')}</p>
+          <TextoEnriquecido
+            valor={localizarBloques(diseno.introduccion.texto, idioma)}
+            className="mt-10 text-tinta-suave"
+          />
+        </Contenedor>
+      </section>
+
+      {diseno.marcas.map((marca, i) => {
+        const id = `marca-${marca._key}`;
+        return (
+          <section
+            key={marca._key}
+            aria-labelledby={id}
+            className="border-t border-linea py-seccion"
+          >
+            <Contenedor className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+              <div className={cx('lg:col-span-7', i % 2 === 1 && 'lg:order-2')}>
+                <Mosaico
+                  imagenes={marca.imagenes}
+                  origen={{
+                    id: diseno._id,
+                    tipo: 'disenoProduccion',
+                    arreglo: `marcas[_key=="${marca._key}"].imagenes`,
+                  }}
+                />
+              </div>
+              <div className="lg:col-span-5">
+                <Sobretitulo>{localizar(marca.categoria, idioma)}</Sobretitulo>
+                <h2 id={id} className="mt-4 titulo-nombre text-nombre">
+                  {marca.nombre}
+                </h2>
+                <p className="mt-4 text-destacado text-tinta-suave italic">
+                  {localizar(marca.titular, idioma)}
+                </p>
+                <TextoEnriquecido
+                  valor={localizarBloques(marca.descripcion, idioma)}
+                  className="mt-8 text-tinta-suave"
+                />
+                {marca.servicios.length > 0 && (
+                  <div className="mt-10 border-t border-linea pt-6">
+                    <h3 className="etiqueta font-texto text-tinta-suave">{t('servicios')}</h3>
+                    <ul className="mt-4 flex flex-col gap-2 text-sm">
+                      {marca.servicios.map((servicio) => (
+                        <li key={servicio._key}>{localizar(servicio.texto, idioma)}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {marca.notasCurated && (
+                  <div className="mt-10 border-t border-linea pt-6">
+                    <h3 className="etiqueta font-texto text-tinta-suave">{t('notas')}</h3>
+                    <TextoEnriquecido
+                      valor={localizarBloques(marca.notasCurated, idioma)}
+                      className="mt-4 text-sm"
+                    />
+                  </div>
+                )}
+                {marca.sitioWeb && (
+                  <a
+                    href={marca.sitioWeb}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="enlace-accion mt-10"
+                  >
+                    {t('descubrir', { marca: marca.nombre })}
+                    <Icono nombre="externo" className="size-4" />
+                    <span className="sr-only">{t('externo')}</span>
+                  </a>
+                )}
+              </div>
+            </Contenedor>
+          </section>
+        );
+      })}
+
+      <section aria-labelledby="destino" className="bg-papel-calido py-seccion">
+        <Contenedor ancho="lectura" className="text-center">
+          <Sobretitulo>{localizar(diseno.experienciaDestino.sobretitulo, idioma)}</Sobretitulo>
+          <h2 id="destino" className="mt-4 text-titulo-2">
+            {localizar(diseno.experienciaDestino.titulo, idioma)}
+          </h2>
+          <TextoEnriquecido
+            valor={localizarBloques(diseno.experienciaDestino.texto, idioma)}
+            className="mt-10 text-left text-tinta-suave"
+          />
+        </Contenedor>
+      </section>
+
+      <section aria-labelledby="cierre-diseno" className="py-seccion">
+        <Contenedor ancho="lectura" className="flex flex-col items-center text-center">
+          <h2 id="cierre-diseno" className="text-titulo-2">
+            {localizar(diseno.cierre.titulo, idioma)}
+          </h2>
+          <p className="mt-6 text-tinta-suave">{localizar(diseno.cierre.texto, idioma)}</p>
           <BotonEnlace
             href={{
               pathname: '/planea-tu-evento',

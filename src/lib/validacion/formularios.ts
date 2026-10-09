@@ -65,6 +65,17 @@ export const esquemaSeleccion = z.object({
   consentimientoPrivacidad,
   resultado: z.string().min(1).max(80),
   venues: z.array(z.string().max(200)).max(6),
+  /** Respuestas del quiz: se guardan con el lead junto al resultado (D-053). */
+  respuestas: z
+    .object({
+      evento: z.string().max(40),
+      atmosfera: z.string().max(40),
+      hospedaje: z.string().max(40),
+      entorno: z.string().max(40),
+      prioridades: z.array(z.string().max(40)).max(2),
+      invitados: z.string().max(40),
+    })
+    .optional(),
   idioma,
 });
 

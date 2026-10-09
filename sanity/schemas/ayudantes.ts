@@ -127,6 +127,8 @@ interface OpcionesBloques {
   /** Permite imágenes y videos de YouTube dentro del texto (artículos del Journal). */
   conMedios?: boolean;
   group?: string;
+  /** Con false, el inglés deja de ser obligatorio. */
+  requerido?: boolean;
 }
 
 /** Texto enriquecido bilingüe. */
@@ -135,6 +137,7 @@ export function campoBloquesLocalizados({
   title,
   description,
   conMedios = false,
+  requerido = true,
   group,
 }: OpcionesBloques) {
   const miembros = conMedios
@@ -156,7 +159,7 @@ export function campoBloquesLocalizados({
         title: 'English',
         type: 'array',
         of: miembros,
-        validation: (r) => r.required().min(1).error('El inglés es obligatorio.'),
+        validation: (r) => (requerido ? r.required().min(1).error('El inglés es obligatorio.') : r),
       }),
       defineField({ name: 'es', title: 'Español', type: 'array', of: miembros }),
     ],

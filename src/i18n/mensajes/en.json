@@ -10,7 +10,7 @@
     "cateringDescripcion": "A curated selection of catering partners for celebrations in Yucatán.",
     "fotografiaTitulo": "Photography in Yucatán",
     "fotografiaDescripcion": "A curated selection of photographers and studios for celebrations in Yucatán.",
-    "disenoDescripcion": "Minimal, the Curated Design & Production Partner: furniture, tabletop, floral design, décor and production.",
+    "disenoDescripcion": "Furniture, floral design and tabletop through three specialized brands: Minimal, Más que Ayer and Otro Cielo.",
     "journalDescripcion": "Editorial stories and practical guides for planning celebrations in Yucatán.",
     "encuentraDescripcion": "Answer a few questions and discover which Yucatán fits your celebration.",
     "planeaDescripcion": "Tell us about your event and start planning your celebration in Yucatán with Curated.",
@@ -48,7 +48,8 @@
     "encuentra": "Find your Yucatán",
     "planea": "Plan your event",
     "privacidad": "Privacy",
-    "migas": "Breadcrumb"
+    "migas": "Breadcrumb",
+    "explora": "Explore Curated"
   },
   "Pie": {
     "descripcion": "Your insider guide to celebrating in Yucatán.",
@@ -201,7 +202,7 @@
     "perfil": {
       "servicios": "Services",
       "estilo": "Style & approach",
-      "experiencia": "Destination experience",
+      "experiencia": "Experience",
       "cobertura": "Based in {ciudad}",
       "galeria": "Gallery",
       "enlaces": "Online",
@@ -210,18 +211,17 @@
       "externo": "(opens in a new tab)",
       "cta": "Request information",
       "ctaTexto": "Plan your event with Curated and we will connect you with {nombre}.",
-      "ver": "View profile"
+      "ver": "View profile",
+      "notas": "Curated Notes"
     }
   },
   "Diseno": {
     "titulo": "Design & Production",
-    "areas": "What Minimal covers",
     "servicios": "Services",
-    "estilo": "Style & approach",
-    "experiencia": "Destination experience",
-    "cobertura": "Based in {ciudad}",
-    "cta": "Plan your event",
-    "ctaTexto": "Design and production for your celebration, with the same curated approach."
+    "notas": "Curated Notes",
+    "descubrir": "Discover {marca}",
+    "externo": "(opens in a new tab)",
+    "cta": "Request information"
   },
   "Journal": {
     "titulo": "Curated Journal",
@@ -239,60 +239,87 @@
   },
   "Encuentra": {
     "titulo": "Find your Yucatán",
-    "entradilla": "A few questions to discover the Yucatán that fits your celebration. It takes about a minute.",
-    "empezar": "Begin",
-    "paso": "Question {actual} of {total}",
+    "titular": "What kind of Yucatán feels like you?",
+    "entradilla": "Tell us a little about the celebration you’re imagining. We’ll guide you toward the venues and atmosphere that best match your vision.",
+    "empezar": "Find your Yucatán",
+    "paso": "{actual} / {total}",
     "atras": "Back",
+    "continuar": "Continue",
+    "descubrir": "Discover my Yucatán",
     "preguntas": {
       "evento": {
         "titulo": "What are you planning?",
         "opciones": {
           "boda": "Wedding",
-          "cena-bienvenida": "Welcome Dinner",
-          "celebracion": "Celebration"
+          "fiesta-bienvenida": "Welcome Party",
+          "cena-ensayo": "Rehearsal Dinner",
+          "after-party": "After Party",
+          "otra-celebracion": "Other Celebration"
         }
       },
       "atmosfera": {
-        "titulo": "What atmosphere are you drawn to?"
+        "titulo": "Which atmosphere feels most like you?",
+        "opciones": {
+          "timeless": "Historic, elegant and deeply rooted in Yucatán’s heritage.",
+          "organic": "Natural, intimate and connected to the landscape.",
+          "contemporary": "Refined, architectural and modern."
+        }
       },
       "hospedaje": {
-        "titulo": "Accommodation",
+        "titulo": "Would you like accommodation at the venue?",
         "opciones": {
-          "requerido": "Required",
-          "preferido": "Preferred",
+          "requerido": "Yes, it matters",
+          "preferido": "It would be nice",
           "no-necesario": "Not necessary"
         }
       },
       "entorno": {
-        "titulo": "Indoor or outdoor?",
+        "titulo": "How do you imagine the celebration?",
         "opciones": {
-          "interior": "Indoor",
-          "exterior": "Outdoor",
-          "indistinto": "Either"
+          "exterior": "Mostly outdoors",
+          "mixto": "A mix of indoor & outdoor",
+          "interior": "Mostly indoors",
+          "indistinto": "Open to either"
         }
       },
-      "prioridad": {
-        "titulo": "What matters most?",
+      "prioridades": {
+        "titulo": "What matters most to you?",
+        "ayuda": "Choose up to {maximo}.",
         "opciones": {
-          "arquitectura": "Architecture",
-          "naturaleza": "Nature",
-          "gastronomia": "Gastronomy",
-          "privacidad": "Privacy",
-          "ubicacion": "Location"
+          "arquitectura-historia": "Architecture & History",
+          "naturaleza-paisaje": "Nature & Landscape",
+          "privacidad": "Privacy & Intimacy",
+          "hospedaje": "Accommodation",
+          "espacios-grandes": "Large Celebration Spaces",
+          "cercania-merida": "Proximity to Mérida"
         }
       },
       "invitados": {
-        "titulo": "Guest count"
+        "titulo": "How many guests are you expecting?",
+        "opciones": {
+          "menos-100": "Under 100",
+          "100-200": "100–200",
+          "200-400": "200–400",
+          "400-800": "400–800",
+          "mas-800": "800+"
+        }
       }
     },
     "resultado": {
-      "sobretitulo": "Your Yucatán is…",
-      "lugares": "Places to start exploring",
+      "sobretitulo": "Your Curated result",
+      "titular": "Your Yucatán is {resultado}.",
+      "textos": {
+        "timeless": "You’re drawn to places where history, architecture and a sense of permanence shape the celebration. We’ve selected three venues that reflect your vision.",
+        "organic": "You’re drawn to spaces where architecture and nature exist in harmony, creating celebrations that feel intimate, grounded and connected to their surroundings.",
+        "contemporary": "You’re drawn to refined spaces where architecture, design and modern hospitality shape the experience."
+      },
+      "lugares": "Your Curated selection",
+      "sinResultados": "No venue in this collection matches those requirements yet. Explore the full collection or start again.",
       "verColeccion": "View all {coleccion}",
       "reiniciar": "Start again",
       "guardar": {
-        "titulo": "Want to save your Curated selection?",
-        "texto": "We will send these places to your inbox so you can keep exploring."
+        "titulo": "Want to save your Curated Selection?",
+        "texto": "Leave your details and we’ll send your selection to you."
       }
     }
   },

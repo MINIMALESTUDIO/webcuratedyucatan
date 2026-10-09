@@ -71,8 +71,18 @@ export const elementoLista = defineType({
   name: 'elementoLista',
   title: 'Elemento',
   type: 'object',
-  fields: [campoLocalizado({ name: 'texto', title: 'Texto', max: 80 })],
-  preview: { select: { title: 'texto.en', subtitle: 'texto.es' } },
+  fields: [
+    campoLocalizado({ name: 'texto', title: 'Texto', max: 80 }),
+    campoLocalizado({
+      name: 'detalle',
+      title: 'Detalle',
+      description: 'Opcional: una frase que explica el servicio.',
+      largo: true,
+      max: 200,
+      requerido: false,
+    }),
+  ],
+  preview: { select: { title: 'texto.en', subtitle: 'detalle.en' } },
 });
 
 /** Espacio del venue, como "Capacity & spaces" en el libro. */

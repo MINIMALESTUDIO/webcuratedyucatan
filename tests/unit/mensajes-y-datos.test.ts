@@ -68,11 +68,25 @@ describe('mensajes de interfaz', () => {
 });
 
 describe('datos DEMO', () => {
-  it('8 partners, todos marcados [DEMO] y con slug demo-', () => {
-    expect(proveedoresDemo).toHaveLength(8);
-    for (const item of proveedoresDemo) {
-      expect(item.nombre.startsWith('[DEMO]')).toBe(true);
-      expect(item.slug.startsWith('demo-')).toBe(true);
+  it('partners: 4 de catering y Gabo Preciado reales; los fotógrafos restantes son [DEMO]', () => {
+    const reales = proveedoresDemo.filter((p) => !p.slug.startsWith('demo-'));
+    expect(reales.map((p) => p.slug)).toEqual([
+      'bravo-catering',
+      'experiences-banquetes',
+      'margo-amalia',
+      'ritualia',
+      'gabo-preciado-fotografia',
+    ]);
+    for (const p of reales) {
+      expect(p.nombre.includes('[DEMO]')).toBe(false);
+      expect(p.descripcion.en.length).toBeGreaterThanOrEqual(3);
+      expect(p.notasCurated?.en.length ?? 0).toBeGreaterThan(0);
+      // Copy real sin traducir: respaldo a inglés (D-008).
+      expect(p.resumen.es).toBeUndefined();
+    }
+    for (const p of proveedoresDemo.filter((p) => p.slug.startsWith('demo-'))) {
+      expect(p.nombre.startsWith('[DEMO]')).toBe(true);
+      expect(p.tipo).toBe('fotografia');
     }
   });
 
@@ -194,7 +208,7 @@ describe('datos DEMO', () => {
       ...venuesDemo.flatMap((v) => [v.media.imagenHero, ...v.media.galeria]),
       ...proveedoresDemo.flatMap((p) => [p.imagenPrincipal, ...p.galeria]),
       disenoDemo.imagenPrincipal,
-      ...disenoDemo.areas.flatMap((a) => a.imagenes),
+      ...disenoDemo.marcas.flatMap((m) => m.imagenes),
       descubreDemo.imagenPrincipal,
       ...categoriasDescubreDemo.flatMap((c) => [
         c.imagenPrincipal,

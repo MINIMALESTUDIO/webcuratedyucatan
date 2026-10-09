@@ -163,18 +163,33 @@ test('Plan your event: "Looking for" llega marcado desde un partner', async ({ p
   await expect(buscando.getByRole('checkbox', { name: 'Venue' })).not.toBeChecked();
 });
 
-test('Find your Yucatán: seis preguntas, resultado y tres venues', async ({ page }) => {
+test('Find your Yucatán: seis preguntas, resultado y tres venues (D-053)', async ({ page }) => {
   await page.goto('/find-your-yucatan');
-  await page.getByRole('button', { name: 'Begin' }).click();
-  await expect(page.getByText('Question 1 of 6')).toBeVisible();
-  await page.getByRole('button', { name: 'Wedding' }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'What kind of Yucatán feels like you?',
+  );
+  await page.getByRole('button', { name: 'Find your Yucatán' }).click();
+  await expect(page.getByText('01 / 06')).toBeVisible();
+  await page.getByRole('button', { name: 'Welcome Party' }).click();
   await page.getByRole('button', { name: /^Organic/ }).click();
   await page.getByRole('button', { name: 'Not necessary' }).click();
-  await page.getByRole('button', { name: 'Outdoor' }).click();
-  await page.getByRole('button', { name: 'Nature' }).click();
-  await page.getByRole('button', { name: '200–400' }).click();
+  await page.getByRole('button', { name: 'Mostly outdoors' }).click();
 
-  const resultado = page.getByRole('heading', { level: 2, name: 'Organic' });
+  // Hasta 2 prioridades: la tercera queda bloqueada
+  const continuar = page.getByRole('button', { name: 'Continue' });
+  await expect(continuar).toBeDisabled();
+  await page.getByRole('button', { name: 'Nature & Landscape' }).click();
+  await page.getByRole('button', { name: 'Privacy & Intimacy' }).click();
+  await expect(page.getByRole('button', { name: 'Accommodation' })).toHaveAttribute(
+    'aria-disabled',
+    'true',
+  );
+  await continuar.click();
+
+  await page.getByRole('button', { name: '200–400' }).click();
+  await page.getByRole('button', { name: 'Discover my Yucatán' }).click();
+
+  const resultado = page.getByRole('heading', { level: 2, name: 'Your Yucatán is Organic.' });
   await expect(resultado).toBeFocused();
   const lugares = page.locator('#lugares ~ ul > li');
   await expect(lugares).toHaveCount(3);
@@ -184,7 +199,7 @@ test('Find your Yucatán: seis preguntas, resultado y tres venues', async ({ pag
     '/venues?estilo=organic',
   );
   await expect(
-    page.getByRole('heading', { name: 'Want to save your Curated selection?' }),
+    page.getByRole('heading', { name: 'Want to save your Curated Selection?' }),
   ).toBeVisible();
 });
 
@@ -258,8 +273,8 @@ test('español: rutas traducidas y cambio de idioma que conserva la página', as
     ['/es/descubre-yucatan', 'Descubre Yucatán'],
     ['/es/fotografia', 'Fotografía'],
     ['/photography', 'Photography'],
-    ['/es/diseno-y-produccion', 'Minimal 4.0'],
-    ['/es/encuentra-tu-yucatan', 'Encuentra tu Yucatán'],
+    ['/es/diseno-y-produccion', 'Three disciplines. One shared vision.'],
+    ['/es/encuentra-tu-yucatan', '¿Qué Yucatán va contigo?'],
     ['/es/planea-tu-evento', 'Planea tu evento'],
     ['/about', 'About Curated'],
   ];

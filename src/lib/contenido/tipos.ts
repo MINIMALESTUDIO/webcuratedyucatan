@@ -58,6 +58,8 @@ export interface Seo {
 export interface ElementoLista {
   _key: string;
   texto: TextoLocalizado;
+  /** Explicación breve (los servicios de las fichas traen título y descripción). */
+  detalle?: TextoLocalizado;
 }
 
 export interface Capitulo {
@@ -247,9 +249,11 @@ export interface Proveedor {
   resumen: TextoLocalizado;
   descripcion: BloquesLocalizados;
   servicios: ElementoLista[];
-  /** Estilo o diferenciador. */
-  estilo: TextoLocalizado;
+  /** Estilo ("Documentary · Editorial · Candid"); opcional: las fichas de catering no lo traen. */
+  estilo?: TextoLocalizado;
   estilosFotografia: EstiloFotografia[];
+  /** "Curated Notes" de la ficha. */
+  notasCurated?: BloquesLocalizados;
   /** Ciudad base, nombre propio. */
   ciudadBase: string;
   /** Zonas donde trabajan. */
@@ -277,32 +281,42 @@ export interface ProveedorResumen {
   imagen: Imagen;
 }
 
-// --- Design & Production (Minimal) ---------------------------------------------------
+// --- Design & Production -------------------------------------------------------------
 
-export interface AreaDiseno {
+/** Una de las tres marcas: Minimal, Más que Ayer y Otro Cielo (D-052). */
+export interface MarcaDiseno {
   _key: string;
-  nombre: TextoLocalizado;
-  descripcion: TextoLocalizado;
+  /** Nombre propio: no se traduce. */
+  nombre: string;
+  /** "Furniture & Event Production". */
+  categoria: TextoLocalizado;
+  /** "Spaces built around the experience." */
+  titular: TextoLocalizado;
+  descripcion: BloquesLocalizados;
+  servicios: ElementoLista[];
+  notasCurated?: BloquesLocalizados;
   imagenes: Imagen[];
+  /** Destino de "Discover <marca>"; sin él no se muestra el botón. */
+  sitioWeb?: string;
 }
 
-/** Minimal como Curated Design & Production Partner: no es un directorio (sección 10). */
+/** Design & Production: tres marcas especializadas con una visión compartida (D-052). */
 export interface DisenoProduccion {
   _id: 'disenoProduccion';
   _type: 'disenoProduccion';
-  nombre: string;
-  lema: TextoLocalizado;
-  descripcion: BloquesLocalizados;
+  /** Headline del hero: "Three disciplines. One shared vision." */
+  titular: TextoLocalizado;
+  entradilla: TextoLocalizado;
   imagenPrincipal: Imagen;
-  areas: AreaDiseno[];
-  servicios: ElementoLista[];
-  estilo: TextoLocalizado;
-  experiencia: TextoLocalizado;
-  ciudadBase: string;
-  cobertura: TextoLocalizado;
-  sitioWeb?: string;
-  instagram?: string;
-  logotipo?: Imagen;
+  introduccion: { titulo: TextoLocalizado; texto: BloquesLocalizados };
+  marcas: MarcaDiseno[];
+  /** "Destination experience". */
+  experienciaDestino: {
+    sobretitulo: TextoLocalizado;
+    titulo: TextoLocalizado;
+    texto: BloquesLocalizados;
+  };
+  cierre: { titulo: TextoLocalizado; texto: TextoLocalizado };
 }
 
 // --- Curated Journal -----------------------------------------------------------------
@@ -379,11 +393,36 @@ export const DESTINOS_LLAMADO = [
   'encuentra-tu-yucatan',
   'venues',
   'descubre-yucatan',
+  'catering',
+  'fotografia',
+  'diseno-y-produccion',
+  'journal',
+  /** Bloque "Explore Curated" del inicio. */
+  'explora-curated',
 ] as const;
 export type DestinoLlamado = (typeof DESTINOS_LLAMADO)[number];
 
 export type SeccionEditorial =
-  | { _type: 'seccionTexto'; _key: string; titulo?: TextoLocalizado; texto: BloquesLocalizados }
+  | {
+      _type: 'seccionTexto';
+      _key: string;
+      /** Eyebrow ("WHAT IS CURATED?"). */
+      sobretitulo?: TextoLocalizado;
+      titulo?: TextoLocalizado;
+      texto: BloquesLocalizados;
+      /** Firma al pie ("A project by Minimal"). */
+      firma?: TextoLocalizado;
+      /** Enlace de acción al final de la sección. */
+      destino?: DestinoLlamado;
+    }
+  | {
+      _type: 'seccionEnlaces';
+      _key: string;
+      sobretitulo?: TextoLocalizado;
+      titulo: TextoLocalizado;
+      entradilla?: TextoLocalizado;
+      enlaces: Array<{ _key: string; destino: DestinoLlamado; texto: TextoLocalizado }>;
+    }
   | { _type: 'seccionImagen'; _key: string; imagen: Imagen; pie?: TextoLocalizado }
   | {
       _type: 'seccionPreguntas';
@@ -394,9 +433,11 @@ export type SeccionEditorial =
   | {
       _type: 'seccionLlamado';
       _key: string;
+      sobretitulo?: TextoLocalizado;
       titulo: TextoLocalizado;
       texto?: TextoLocalizado;
       destino: DestinoLlamado;
+      destinoSecundario?: DestinoLlamado;
     };
 
 export interface PaginaEditorial {

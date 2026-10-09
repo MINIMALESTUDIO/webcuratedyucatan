@@ -3,6 +3,7 @@
 // Cliente: "Want to save your Curated selection?" de Find Your Yucatán (sección 14).
 import { useId } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
+import type { RespuestasEncuentra } from '@/lib/descubrimiento/encuentra';
 import { Link } from '@/i18n/navigation';
 import { Boton } from '@/components/ui/Boton';
 import { AvisoPiloto } from './AvisoPiloto';
@@ -13,13 +14,15 @@ import { textoDe, useFormularioPiloto } from './useFormularioPiloto';
 const cargarEsquema = () =>
   import('@/lib/validacion/formularios').then((modulo) => modulo.esquemaSeleccion);
 
-/** Name, Company, Email y Country, con el resultado y los venues recomendados adjuntos. */
+/** Name, Company, Email y Country, con el resultado, las respuestas y los venues adjuntos. */
 export function FormularioSeleccion({
   resultado,
   venues,
+  respuestas,
 }: {
   resultado: string;
   venues: string[];
+  respuestas?: RespuestasEncuentra;
 }) {
   const t = useTranslations('Formularios');
   const idioma = useLocale();
@@ -36,6 +39,7 @@ export function FormularioSeleccion({
       consentimientoPrivacidad: datos.get('consentimientoPrivacidad') === 'on',
       resultado,
       venues,
+      respuestas,
       idioma,
     }),
   );

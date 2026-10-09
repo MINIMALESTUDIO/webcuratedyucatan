@@ -112,7 +112,7 @@ export const proveedor = defineType({
       name: 'resumen',
       title: 'Diferenciador breve',
       description: 'Una línea para la vista general.',
-      max: 120,
+      max: 180,
       group: 'general',
     }),
     defineField({
@@ -148,9 +148,18 @@ export const proveedor = defineType({
     }),
     campoLocalizado({
       name: 'estilo',
-      title: 'Estilo o diferenciador',
+      title: 'Estilo',
+      description: 'Opcional, por ejemplo "Documentary · Editorial · Candid".',
       largo: true,
       max: 280,
+      requerido: false,
+      group: 'perfil',
+    }),
+    campoBloquesLocalizados({
+      name: 'notasCurated',
+      title: 'Curated Notes',
+      description: 'Lo que Curated destaca de este partner para planners.',
+      requerido: false,
       group: 'perfil',
     }),
     campoLocalizado({

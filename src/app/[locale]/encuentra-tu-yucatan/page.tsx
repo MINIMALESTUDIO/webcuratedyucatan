@@ -37,7 +37,12 @@ export default async function PaginaEncuentra() {
 
   return (
     <Contenedor className="pt-16 pb-seccion sm:pt-20">
-      <EncabezadoSeccion nivel="h1" titulo={t('titulo')} entradilla={t('entradilla')} />
+      <EncabezadoSeccion
+        nivel="h1"
+        sobretitulo={t('titulo')}
+        titulo={t('titular')}
+        entradilla={t('entradilla')}
+      />
       <div className="mt-14">
         <EncuentraTuYucatan
           venues={venues}

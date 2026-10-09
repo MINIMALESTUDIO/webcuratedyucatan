@@ -62,16 +62,25 @@ export async function PerfilProveedor({ proveedor }: { proveedor: Proveedor }) {
           <div className="flex flex-col gap-10 lg:col-span-5">
             {proveedor.servicios.length > 0 && (
               <Bloque titulo={t('perfil.servicios')}>
-                <ul className="flex flex-col gap-2 text-sm">
+                <ul className="flex flex-col gap-3 text-sm">
                   {proveedor.servicios.map((servicio) => (
-                    <li key={servicio._key}>{localizar(servicio.texto, idioma)}</li>
+                    <li key={servicio._key}>
+                      {localizar(servicio.texto, idioma)}
+                      {servicio.detalle && (
+                        <span className="mt-1 block text-tinta-suave">
+                          {localizar(servicio.detalle, idioma)}
+                        </span>
+                      )}
+                    </li>
                   ))}
                 </ul>
               </Bloque>
             )}
-            <Bloque titulo={t('perfil.estilo')}>
-              <p className="text-sm">{localizar(proveedor.estilo, idioma)}</p>
-            </Bloque>
+            {proveedor.estilo && (
+              <Bloque titulo={t('perfil.estilo')}>
+                <p className="text-sm">{localizar(proveedor.estilo, idioma)}</p>
+              </Bloque>
+            )}
             <Bloque titulo={t('perfil.experiencia')}>
               <p className="text-sm">{localizar(proveedor.experiencia, idioma)}</p>
             </Bloque>
@@ -115,6 +124,20 @@ export async function PerfilProveedor({ proveedor }: { proveedor: Proveedor }) {
           </div>
         </Contenedor>
       </section>
+
+      {proveedor.notasCurated && (
+        <section aria-labelledby="notas" className="border-y border-linea py-seccion">
+          <Contenedor ancho="lectura">
+            <h2 id="notas" className="text-center text-titulo-2">
+              {t('perfil.notas')}
+            </h2>
+            <TextoEnriquecido
+              valor={localizarBloques(proveedor.notasCurated, idioma)}
+              className="mt-10 text-tinta-suave"
+            />
+          </Contenedor>
+        </section>
+      )}
 
       <Galeria
         imagenes={proveedor.galeria}
