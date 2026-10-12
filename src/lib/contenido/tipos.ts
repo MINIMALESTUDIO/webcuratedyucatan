@@ -486,4 +486,13 @@ export interface ConfiguracionSitio {
   planea: { texto: TextoLocalizado; imagen?: Imagen };
   redes: { instagram?: string; youtube?: string };
   correoContacto?: string;
+  /** Sección de la serie "El Lugar de Tu Historia" bajo el listado de venues (D-054). */
+  lugarDeTuHistoria?: {
+    sobretitulo?: TextoLocalizado;
+    titulo: TextoLocalizado;
+    texto: TextoLocalizado;
+    imagen?: Imagen;
+    /** Playlist de YouTube. */
+    enlace: string;
+  };
 }

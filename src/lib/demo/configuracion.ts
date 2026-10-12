@@ -103,5 +103,14 @@ export const configuracionDemo: ConfiguracionSitio = {
       '[DEMO] Foto de relleno para Planea tu evento',
     ),
   },
-  redes: {},
+  // Serie "El Lugar de Tu Historia" (01_WEB/03_VENUES/EL LUGAR DE TU HISTORIA, 2026-10-12).
+  redes: { youtube: 'https://www.youtube.com/playlist?list=PLUCXWDxFHW_fMrQpqu-etNzaNqVilkeqh' },
+  lugarDeTuHistoria: {
+    sobretitulo: { en: 'Curated Stories' },
+    titulo: { en: 'El Lugar de Tu Historia' },
+    texto: {
+      en: 'Discover the stories, architecture and atmosphere of Yucatán’s historic haciendas through a series of immersive video tours. An invitation to explore the places that make every celebration unique.',
+    },
+    enlace: 'https://www.youtube.com/playlist?list=PLUCXWDxFHW_fMrQpqu-etNzaNqVilkeqh',
+  },
 };

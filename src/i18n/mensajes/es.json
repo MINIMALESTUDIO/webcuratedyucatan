@@ -125,6 +125,10 @@
     "tarjeta": {
       "explorar": "Explorar venue",
       "minutos": "A {minutos} min de Mérida"
+    },
+    "serie": {
+      "cta": "Explora la serie",
+      "externo": "(se abre en otra pestaña)"
     }
   },
   "Venue": {

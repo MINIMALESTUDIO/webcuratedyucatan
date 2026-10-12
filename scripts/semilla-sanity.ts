@@ -279,6 +279,15 @@ documentos.push({
     texto: cfg.planea.texto,
     ...(cfg.planea.imagen ? { imagen: imagen(cfg.planea.imagen) } : {}),
   },
+  redes: cfg.redes,
+  ...(cfg.lugarDeTuHistoria
+    ? {
+        lugarDeTuHistoria: {
+          ...cfg.lugarDeTuHistoria,
+          ...(cfg.lugarDeTuHistoria.imagen ? { imagen: imagen(cfg.lugarDeTuHistoria.imagen) } : {}),
+        },
+      }
+    : {}),
 });
 
 // Contactos privados (D-012): correos de ejemplo en example.com, dominio reservado para pruebas.

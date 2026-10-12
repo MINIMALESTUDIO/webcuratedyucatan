@@ -18,8 +18,8 @@ import { regionesDemo } from './regiones';
  * de los demás es la primera frase de su About.
  *
  * Sigue siendo [DEMO]: las fotos (la carpeta FOTOS VENUES está vacía), que reutilizan los seis
- * juegos de marcadores de public/demo. Los venues no tienen película hasta tener los videos de
- * la serie.
+ * juegos de marcadores de public/demo. Las películas son los episodios de la serie "El Lugar de
+ * Tu Historia" (playlist de YouTube, D-054).
  *
  * Derivado de la ficha (D-047), editable en Sanity: el tipo interior / exterior de cada espacio,
  * los atributos de "What matters most?" y la región del filtro "Location".
@@ -58,6 +58,8 @@ interface DatosFicha {
   /** Solo cuando los espacios con nombre no reflejan el "Indoor / Outdoor" de la ficha. */
   entorno?: Entorno;
   espacios: EspacioFicha[];
+  /** Episodio de "El Lugar de Tu Historia" en YouTube (playlist de la serie, D-054). */
+  video?: { id: string; titulo: string };
   nota: string;
   atributos: AtributoVenue[];
 }
@@ -114,6 +116,9 @@ function venueDeFicha(d: DatosFicha, indice: number): Venue {
         imagenes: foto ? [foto] : [],
       };
     }),
+    pelicula: d.video
+      ? { youtubeId: d.video.id, titulo: en(d.video.titulo), capitulos: [] }
+      : undefined,
     notasCurated: [{ _key: 'nota-1', texto: en(d.nota) }],
     atributos: d.atributos,
     media: {
@@ -136,6 +141,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Chablé',
     slug: 'hacienda-chable',
+    video: {
+      id: 'adwfSNAWBAA',
+      titulo: 'Chablé Yucatán: El Mejor Venue de Bodas de Lujo en México',
+    },
     coleccion: 'contemporary',
     region: 'alrededores-de-merida',
     localidad: 'Chocholá',
@@ -173,6 +182,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda San Antonio Hool',
     slug: 'hacienda-san-antonio-hool',
+    video: {
+      id: 'IEjnBST83Y4',
+      titulo: 'San Antonio Hool: Hacienda de Lujo en Yucatán para Bodas Inolvidables',
+    },
     coleccion: 'contemporary',
     region: 'merida',
     localidad: 'Mérida',
@@ -208,6 +221,7 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Xcanatún',
     slug: 'hacienda-xcanatun',
+    video: { id: 'oyNbQODL34s', titulo: 'Hacienda Xcanatún: Boda de Lujo en Yucatán' },
     coleccion: 'contemporary',
     region: 'merida',
     localidad: 'Xcanatún, Mérida',
@@ -240,6 +254,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Tekik de Regil',
     slug: 'hacienda-tekik-de-regil',
+    video: {
+      id: 'Qa6GFXItuj4',
+      titulo: 'Hacienda Tekik de Regil Tour: A Venue With Every Style in One Place',
+    },
     coleccion: 'contemporary',
     region: 'alrededores-de-merida',
     localidad: 'Tekik de Regil',
@@ -275,6 +293,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Sac Chich',
     slug: 'hacienda-sac-chich',
+    video: {
+      id: 'e8awa5XKNN4',
+      titulo: 'Hacienda Sac Chich: Bodas entre Arquitectura y Naturaleza',
+    },
     coleccion: 'organic',
     region: 'alrededores-de-merida',
     localidad: 'Sac Chich, Acanceh',
@@ -303,6 +325,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda San Pedro Ochil',
     slug: 'hacienda-san-pedro-ochil',
+    video: {
+      id: 'nw6rbgXeC9E',
+      titulo: 'San Pedro Ochil: Una Hacienda Mágica con Cenote en Yucatán',
+    },
     coleccion: 'organic',
     region: 'alrededores-de-merida',
     localidad: 'Abalá',
@@ -332,6 +358,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Yaxcopoil',
     slug: 'hacienda-yaxcopoil',
+    video: {
+      id: 'bO43XaxbED4',
+      titulo: 'Hacienda Yaxcopoil: Cultura, Arquitectura y Romance en Yucatán',
+    },
     coleccion: 'organic',
     region: 'alrededores-de-merida',
     localidad: 'Yaxcopoil',
@@ -362,6 +392,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Itzincab de Cámara',
     slug: 'hacienda-itzincab-de-camara',
+    video: {
+      id: 'Qkm9ME_d4_E',
+      titulo: 'Itzincab de Cámara: Donde las Bodas se Convierten en Experiencias Místicas',
+    },
     coleccion: 'organic',
     region: 'alrededores-de-merida',
     localidad: 'Tecoh',
@@ -386,6 +420,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Chuntuac',
     slug: 'hacienda-chuntuac',
+    video: {
+      id: 'uG2jGNbbJJY',
+      titulo: 'Hacienda Chuntuac Wedding Venue Tour: A Nature-Filled Hacienda in Yucatán',
+    },
     coleccion: 'organic',
     region: 'alrededores-de-merida',
     localidad: 'Molas',
@@ -438,6 +476,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda Xtepén',
     slug: 'hacienda-xtepen',
+    video: {
+      id: 'p0nnImfJtlY',
+      titulo: 'Hacienda Xtepén: La Hacienda Más Grande y Versátil de Yucatán para Bodas y Eventos',
+    },
     coleccion: 'timeless',
     region: 'alrededores-de-merida',
     localidad: 'Xtepén',
@@ -472,6 +514,11 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda San Diego Cutz',
     slug: 'hacienda-san-diego-cutz',
+    video: {
+      id: 'VZBYmLO4oQE',
+      titulo:
+        'Hacienda San Diego Cutz: Jardines, Capilla y Casa Museo para una Boda Inolvidable en Yucatán',
+    },
     coleccion: 'timeless',
     region: 'alrededores-de-merida',
     localidad: 'Yucatán',
@@ -528,6 +575,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Casa Faller',
     slug: 'casa-faller',
+    video: {
+      id: 'B1W7hHxfpYE',
+      titulo: 'Casa Faller: Una joya arquitectónica entre árboles, historia y ciudad',
+    },
     coleccion: 'timeless',
     region: 'merida',
     localidad: 'Itzimná, Mérida',
@@ -586,6 +637,10 @@ const fichas: DatosFicha[] = [
   {
     nombre: 'Hacienda San José Cholul',
     slug: 'hacienda-san-jose-cholul',
+    video: {
+      id: 'vFlRoVyUH8o',
+      titulo: 'Hacienda San José Cholul: Un Paraíso para Bodas en Yucatán',
+    },
     coleccion: 'timeless',
     region: 'alrededores-de-merida',
     localidad: 'Tixkokob',

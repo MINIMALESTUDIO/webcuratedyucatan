@@ -514,3 +514,18 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - importar la semilla con `--replace` vuelve a poner los marcadores: después hay que correr `npm run sanity:fotos` y escribir otra vez los correos privados;
   - antes de cualquier importación, respaldo con `dataset export` y revisión de ediciones hechas en el Studio.
+
+### D-054 — El Lugar de Tu Historia: sección en Venues y películas de los venues
+
+- Fecha: 2026-10-12
+- Contexto: el Drive trae "EL LUGAR DE TU HISTORIA / estructura y contenido": una sección "debajo de venues" con texto, foto y enlace a la playlist de YouTube. La playlist tiene un episodio por venue.
+- Decisión:
+  - **Sección:** `configuracionSitio.lugarDeTuHistoria` (sobretítulo, título, texto, imagen y enlace) se muestra bajo el listado de `/venues`, con el botón "Explore the series" hacia la playlist (pestaña nueva).
+  - **Películas:** los 13 venues con episodio en la playlist reciben `pelicula.youtubeId` y el título del video. En su ficha aparece la sección de película (reproductor sin cookies, D-007).
+    - Casa Palomeque y Quinta Montes Molina tienen episodio, pero no están en las fichas de venues, así que no se usan.
+    - San Juan Opichén, Casona 333, Santa Rosa de Lima, San Antonio Millet y Dzibikak no tienen episodio.
+  - **Pie del sitio:** `configuracionSitio.redes.youtube` apunta a la playlist.
+  - **Design & Production:** cada marca muestra el mosaico con 2 fotos y, debajo, el resto en una fila.
+- Consecuencias:
+  - vuelve la prueba e2e del reproductor (Sac Chich, episodio `e8awa5XKNN4`);
+  - la semilla incluye películas, redes y la sección.

@@ -1,5 +1,5 @@
 {
-  "descripcion": "Fotos del Drive (CURATED X LOVE MEXICO) y su destino en Sanity (D-051). Lo usa scripts/fotos-drive.ts. Revisado el 2026-10-09.",
+  "descripcion": "Fotos del Drive (CURATED X LOVE MEXICO) y su destino en Sanity (D-051). Lo usa scripts/fotos-drive.ts. Revisado el 2026-10-12.",
   "grupos": [
     {
       "destino": "configuracionSitio",
@@ -938,6 +938,14 @@
             "en": "Aerial view of dense forest around a pale limestone clearing",
             "es": "Vista aérea de selva densa alrededor de un claro de piedra caliza"
           }
+        },
+        {
+          "drive": "1pLili9BnMEtf2mbTNbwYGwB_6_OwTzvQ",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/04_FOREST_SEASONS_02",
+          "alt": {
+            "en": "Aerial view of seasonal forest around a clearing",
+            "es": "Vista aérea de selva estacional alrededor de un claro"
+          }
         }
       ]
     },
@@ -1463,21 +1471,1651 @@
           }
         }
       ]
-    }
-  ],
-  "vaciar": [
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1O3iUv01r4bo76iEUqj7x6CeaT7BQmHUg",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/05_LAND_GULF_01",
+          "alt": {
+            "en": "Pink salt lagoons beside the Gulf coast",
+            "es": "Lagunas rosadas de sal junto a la costa del Golfo"
+          }
+        },
+        {
+          "drive": "1seNh6R3nNk9-nhyI4tFn3oq2whCRrKOQ",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/05_LAND_GULF_02",
+          "alt": {
+            "en": "Sunset over the Gulf with a long pier",
+            "es": "Atardecer sobre el Golfo con un muelle largo"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1xznF2ImUPGhz_zCEJRSniIMOG6NjYZti",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/06_WATER_LAND_01",
+          "alt": {
+            "en": "Flamingos wading in a lagoon in front of mangroves",
+            "es": "Flamencos en una laguna frente a manglares"
+          }
+        },
+        {
+          "drive": "17vSsSgrypzvH9earXxYv7X-ZkVDPZRqN",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/06_WATER_LAND_02",
+          "alt": {
+            "en": "Two Yucatan jays perched on a branch",
+            "es": "Dos charas yucatecas posadas en una rama"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s7\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1uqqzphp_nMip3zdf6ylG6IKdZADD0p86",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/07_LANDSCAPE_MOTION_01",
+          "alt": {
+            "en": "Dense green vegetation in the rainy season",
+            "es": "Vegetación verde y densa en temporada de lluvias"
+          }
+        },
+        {
+          "drive": "1ZLQj7XJVFmIy5rRTXus16rTX4brDtilW",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/07_LANDSCAPE_MOTION_02",
+          "alt": {
+            "en": "Tall trees and palms in a tropical forest",
+            "es": "Árboles altos y palmas en una selva tropical"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-nature",
+      "campo": "secciones[_key==\"nature-s8\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1Su_YPfM9VvWERQwdDeRoi8eGiQFINBVV",
+          "origen": "02_DISCOVER YUCATAN/05 — NATURE/NATURE_CONTENT/08_WORTH_PROTECTING_01",
+          "alt": {
+            "en": "Coastal vegetation meeting the turquoise sea",
+            "es": "Vegetación costera junto al mar turquesa"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "imagenHero",
+      "fotos": [
+        {
+          "drive": "1mmb1zTTTH3blrvEK83MsiwCCxc3hD5Oy",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/00_HERO_01",
+          "alt": {
+            "en": "A colonial church with twin towers framed by palm trees at sunset",
+            "es": "Una iglesia colonial de dos torres entre palmeras al atardecer"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s1\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "15YEuxEXhuOgnlgRR57VNF97HnfUXapNb",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/01_SLOW_DOWN_01",
+          "alt": {
+            "en": "An ice-cream cart and people resting in a shaded plaza",
+            "es": "Un carrito de helados y personas descansando en una plaza sombreada"
+          }
+        },
+        {
+          "drive": "1o_4WyBqIDQEVo1Ri2p8H81nvOrMJnHIr",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/01_SLOW_DOWN_02",
+          "alt": {
+            "en": "Two cyclists riding past yellow colonial walls",
+            "es": "Dos ciclistas pasando junto a muros coloniales amarillos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s2\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ygXQSWSvnRLfGLY31EtPy0tgRIZypT5E",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/02_MERIDA_BEYOND_01",
+          "alt": {
+            "en": "Diners beneath a long arcade in Mérida",
+            "es": "Comensales bajo una larga arcada en Mérida"
+          }
+        },
+        {
+          "drive": "18ODpT0BnEU6mrXBoeyL1pvQglnwXqj1i",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/02_MERIDA_BEYOND_02",
+          "alt": {
+            "en": "Diners on a terrace facing a lit church at dusk",
+            "es": "Comensales en una terraza frente a una iglesia iluminada al anochecer"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s3\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1RxhPiUz7--T-nYOwpJN7WmjlQ1z3eRea",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/03_MARKET_01",
+          "alt": {
+            "en": "A market beneath yellow arcades",
+            "es": "Un mercado bajo arcadas amarillas"
+          }
+        },
+        {
+          "drive": "14c9aPuufufD9yKEyfnA_bg___l4J_VBE",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/03_MARKET_02",
+          "alt": {
+            "en": "A vendor in an embroidered hipil selecting tomatoes",
+            "es": "Una vendedora con hipil bordado escogiendo jitomates"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s4\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1PycZs8Wfr4eXtiuhVUY91NHvPP25zzoS",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/04_BEYOND_MERIDA_01",
+          "alt": {
+            "en": "A family riding a tricycle taxi down a colonial street",
+            "es": "Una familia en un tricitaxi por una calle colonial"
+          }
+        },
+        {
+          "drive": "1j8QkodfPjwtvQyODC_aHRaL0f6uHenGf",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/04_BEYOND_MERIDA_02",
+          "alt": {
+            "en": "A street vendor with produce outside colorful houses",
+            "es": "Una vendedora con productos frente a casas de colores"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s5\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1OWlsbPtqaQ5bJGh43-8glCrT8-MPXq_q",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/05_PEOPLE_TRADITION_01",
+          "alt": {
+            "en": "Women and a girl embroidering in traditional dress",
+            "es": "Mujeres y una niña bordando con vestimenta tradicional"
+          }
+        },
+        {
+          "drive": "1BkFiOa1wUdW8JibkYYuaY-IN63CIjD66",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/05_PEOPLE_TRADITION_02",
+          "alt": {
+            "en": "A couple dancing jarana beneath an arcade",
+            "es": "Una pareja bailando jarana bajo una arcada"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s6\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1vghJsZ9YHG5tWrf8D_42d3J2rW_X4ZRt",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/06_READ_LANDSCAPE_01",
+          "alt": {
+            "en": "A person walking on a path between pink salt lagoons",
+            "es": "Una persona caminando por un camino entre lagunas rosadas"
+          }
+        },
+        {
+          "drive": "19yYOeODm32a8kpeiWkkolQCWDJSRnGEZ",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/06_READ_LANDSCAPE_02",
+          "alt": {
+            "en": "Visitors swimming in a cenote beneath hanging roots",
+            "es": "Visitantes nadando en un cenote bajo raíces colgantes"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s7\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ayaKQl_fNHGB6zUxvJpUs46R03V0Sgkf",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/07_TRAVEL_CURIOSITY_01",
+          "alt": {
+            "en": "A visitor facing a Maya temple",
+            "es": "Un visitante frente a un templo maya"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "categoria-experiences",
+      "campo": "secciones[_key==\"experiences-s8\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1GqwXoAvo5vRQiq5lKUooGEktJIs25vsb",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/08_UNPLANNED_01",
+          "alt": {
+            "en": "People strolling along a lit colonial street at dusk",
+            "es": "Personas paseando por una calle colonial iluminada al anochecer"
+          }
+        },
+        {
+          "drive": "1OizNg1Hl3lt_0hMVZg1bnG03R7O1zjTu",
+          "origen": "02_DISCOVER YUCATAN/06 — EXPERIENCES/MEDIA/08_UNPLANNED_02",
+          "alt": {
+            "en": "Street vendors in front of a lit colonial building at night",
+            "es": "Vendedores ambulantes frente a un edificio colonial iluminado de noche"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-casa-faller",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1tTXh1NevWvX6D1LzqBVMh-64nePt1K48",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/FOTO PRINCIPAL",
+          "alt": {
+            "en": "The arched entrance hall of Casa Faller with a checkered marble floor",
+            "es": "El vestíbulo con arcos de Casa Faller y piso de mármol a cuadros"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-casa-faller",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1KTpuL_73vjcZrFi7rC9-gL5c8XciVgbp",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 01.jpg",
+          "alt": {
+            "en": "A high-ceilinged hall with arched windows and a chandelier",
+            "es": "Un salón de techos altos con ventanas en arco y candil"
+          }
+        },
+        {
+          "drive": "1B7ExklOEanjn-9BFGhzlYwRTH8gjAvnn",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 02.jpg",
+          "alt": {
+            "en": "Ceremony seating in the main hall",
+            "es": "Sillas para ceremonia en el salón principal"
+          }
+        },
+        {
+          "drive": "1HlmyN5L1n81WmC3mIxXMLTUoOdNBxd7V",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 03.jpg",
+          "alt": {
+            "en": "A couple kissing as guests raise sparklers beneath an arch",
+            "es": "Una pareja besándose mientras los invitados alzan luces de bengala bajo un arco"
+          }
+        },
+        {
+          "drive": "1VyaC-Ql_aw3atyRIdffM8qmAo8ECra90",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 04.jpg",
+          "alt": {
+            "en": "A couple at the illuminated stone entrance at night",
+            "es": "Una pareja en la entrada de piedra iluminada de noche"
+          }
+        },
+        {
+          "drive": "13Fo2xuqVz6R_LhaeXozCR6p5OaK86tEw",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 06.jpg",
+          "alt": {
+            "en": "A Moorish-inspired stone façade surrounded by palms",
+            "es": "Fachada de piedra de inspiración morisca rodeada de palmeras"
+          }
+        },
+        {
+          "drive": "1_eW08MTXAs52prwEIagFMGK80xWtQK_6",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 07.jpg",
+          "alt": {
+            "en": "A stone staircase with red-edged steps among tropical plants",
+            "es": "Una escalera de piedra con escalones de borde rojo entre plantas tropicales"
+          }
+        },
+        {
+          "drive": "1AHZ8IxRuLfVdjFSn1rdNRSHn7oGSzDIx",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 08.jpg",
+          "alt": {
+            "en": "A white floral ceremony setting at a carved stone gateway",
+            "es": "Un montaje de ceremonia con flores blancas en una portada de piedra labrada"
+          }
+        },
+        {
+          "drive": "1piFcADlb76CfYzaLY7MmeRy3KNT6gx1g",
+          "origen": "03_VENUES/FOTOS VENUES/Casa Faller/Espacios 09.jpg",
+          "alt": {
+            "en": "A couple’s first dance under lights at night",
+            "es": "El primer baile de una pareja bajo luces de noche"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-casona-333",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1ox2RC8dF5bOb1hSLn-CXnFE3rPhRBlNd",
+          "origen": "03_VENUES/FOTOS VENUES/Casona 333/foto principal",
+          "alt": {
+            "en": "Aerial view of Casona 333, its restored house and garden in central Mérida",
+            "es": "Vista aérea de Casona 333, su casa restaurada y su jardín en el centro de Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-casona-333",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "12KnYOdjfOzKAN32pKAWxfu5fjLxG7XX0",
+          "origen": "03_VENUES/FOTOS VENUES/Casona 333/Espacios 01.jpg",
+          "alt": {
+            "en": "A bright interior with a grand piano and woven pendant lamps",
+            "es": "Un interior luminoso con piano de cola y lámparas tejidas"
+          }
+        },
+        {
+          "drive": "15XTTVB3cRHP07lmce8SX4TLCMgr3sQLa",
+          "origen": "03_VENUES/FOTOS VENUES/Casona 333/Espacios 02.jpg",
+          "alt": {
+            "en": "The restored façade and front steps",
+            "es": "La fachada restaurada y la escalinata"
+          }
+        },
+        {
+          "drive": "1lGFyVKDR2HE0XSAEGV6gCECzY-SAlqII",
+          "origen": "03_VENUES/FOTOS VENUES/Casona 333/Espacios 03.jpg",
+          "alt": {
+            "en": "The white mansion and main garden",
+            "es": "La casona blanca y el jardín principal"
+          }
+        },
+        {
+          "drive": "1ReotT7TR9-skQpX9QXK6NjmsiWnhs1q6",
+          "origen": "03_VENUES/FOTOS VENUES/Casona 333/Espacios 04.jpg",
+          "alt": {
+            "en": "Aerial view of the gardens and pathways",
+            "es": "Vista aérea de los jardines y senderos"
+          }
+        }
+      ]
+    },
     {
       "destino": "venue-hacienda-chable",
-      "campos": [
-        "media.galeria",
-        "espacios[_key==\"espacio-1\"].imagenes",
-        "espacios[_key==\"espacio-2\"].imagenes"
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "16SNSKTiNKTObeD2eMmBCLD0VXiQ3arJt",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/Cenote_Arquitectura_01.jpg",
+          "alt": {
+            "en": "A contemporary pavilion over a cenote surrounded by jungle",
+            "es": "Un pabellón contemporáneo sobre un cenote rodeado de selva"
+          }
+        },
+        {
+          "drive": "1m6o2OE2XgGM34yRgi4X1xVns8NSDnCSZ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/Ciclistas_Hacienda.jpg",
+          "alt": {
+            "en": "Guests cycling along a tree-lined path",
+            "es": "Huéspedes en bicicleta por un sendero arbolado"
+          }
+        },
+        {
+          "drive": "1OpJbrsmgShkB_mjAHBdM8KhlIbkmCAHE",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/Cigar_Room_Jardin.jpg",
+          "alt": {
+            "en": "Guests walking through the gardens at sunset",
+            "es": "Huéspedes caminando por los jardines al atardecer"
+          }
+        },
+        {
+          "drive": "1hLueDz0qnrnhV5BF3MaurnwYhjtLd2w7",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/ESPACIOS",
+          "alt": {
+            "en": "A bride on an arcaded terrace set for dinner",
+            "es": "Una novia en una terraza con arcadas montada para la cena"
+          }
+        },
+        {
+          "drive": "1ZmGuGY9-8Cebgm3xsyMDDoNJ151Kg6mc",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/ESPACIOS",
+          "alt": {
+            "en": "Aerial view of a curving pool among palms",
+            "es": "Vista aérea de una alberca curva entre palmeras"
+          }
+        },
+        {
+          "drive": "1cSicQGMSgbZtZFemYtVHtKvN8WvIAXfF",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/ESPACIOS",
+          "alt": {
+            "en": "A terrace beside the ochre main house beneath a tree",
+            "es": "Una terraza junto a la casa principal ocre bajo un árbol"
+          }
+        },
+        {
+          "drive": "1wyNnRJB8hwj7f2o2xMYr5j69P3EC59pC",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/Montaje_Ceremonia_Arco.jpg",
+          "alt": {
+            "en": "A ceremony set before a historic arch in the garden",
+            "es": "Un montaje de ceremonia frente a un arco histórico en el jardín"
+          }
+        },
+        {
+          "drive": "1CHMxnQ-hwLaexfjYD2mWCSbwpy0O22k7",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chablé/Piscina_Aerea.jpg",
+          "alt": {
+            "en": "Aerial view of the pool and surrounding forest",
+            "es": "Vista aérea de la alberca y la selva que la rodea"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-chuntuac",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1EhV9RxdPoTEeLA_Lzg6u4rzCQm8YCnCt",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chuntuac /foto principal",
+          "alt": {
+            "en": "A shaded path through the gardens of Hacienda Chuntuac",
+            "es": "Un sendero sombreado entre los jardines de Hacienda Chuntuac"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-chuntuac",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "19zLQfZSm7_GoSfGC1IN_sRmicVIhp9MH",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chuntuac /Espacios 01.jpg",
+          "alt": {
+            "en": "A covered terrace with lanterns overlooking the gardens",
+            "es": "Una terraza techada con faroles frente a los jardines"
+          }
+        },
+        {
+          "drive": "17Pkk80s5a7tKFeKyauE_AAAnrT9aQYGD",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Chuntuac /Espacios 02.jpg",
+          "alt": {
+            "en": "Lawn and mature trees",
+            "es": "Jardín y árboles centenarios"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-dzibikak",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "14Zbb3bwwT5G0V2QoY51-ECjy9lgSOhsd",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/foto principal",
+          "alt": {
+            "en": "The grounds of Hacienda Dzibikak with its chimney under a blue sky",
+            "es": "Los terrenos de Hacienda Dzibikak con su chimenea bajo un cielo azul"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-dzibikak",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1Ya-VuVKIZ_KOZSvbk8AXF1ShaRSpHlGA",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/Espacios 02.jpg",
+          "alt": {
+            "en": "An arcade with wooden furniture overlooking the gardens",
+            "es": "Una arcada con muebles de madera frente a los jardines"
+          }
+        },
+        {
+          "drive": "17HoW5uYae-4IdASMEhGrGdF_VQwEQA4A",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/Espacios 03.jpg",
+          "alt": {
+            "en": "A garden path leading to the red hacienda buildings",
+            "es": "Un sendero del jardín que lleva a los edificios rojos de la hacienda"
+          }
+        },
+        {
+          "drive": "1t_HpM_p2NoIZ_1kKSNK6nppfEJPR7_d6",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/Espacios 04.jpg",
+          "alt": {
+            "en": "A wide lawn surrounded by tropical vegetation",
+            "es": "Un amplio jardín rodeado de vegetación tropical"
+          }
+        },
+        {
+          "drive": "1-8S_GaO8bn4JRylxuLJkFS-7it6-zV-g",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/Espacios 05.jpg",
+          "alt": {
+            "en": "A palm-lined path leading to a stone arch",
+            "es": "Un camino flanqueado por palmeras que lleva a un arco de piedra"
+          }
+        },
+        {
+          "drive": "1K9npU_dg1GU8SnhmG82j8k41Nez0wcvz",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Dzibikak/Espacios 06.jpg",
+          "alt": {
+            "en": "A living room with red sofas inside the main house",
+            "es": "Una sala con sillones rojos dentro de la casa principal"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-itzincab-de-camara",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1nvMPaRcDiyP8aG-OPmP6a4kckUy8THvh",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/foto principal",
+          "alt": {
+            "en": "Stone steps and arches decorated with flowers at Hacienda Itzincab de Cámara",
+            "es": "Escalinata y arcos decorados con flores en Hacienda Itzincab de Cámara"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-itzincab-de-camara",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "12vC0L8fpfBFDi2QqFpBmyOnrdRMCWu17",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 02.jpg",
+          "alt": {
+            "en": "A long table beneath a tunnel of lights",
+            "es": "Una mesa larga bajo un túnel de luces"
+          }
+        },
+        {
+          "drive": "1_-Z9dSLdqsBB3kC7aoly3w8hrMtczXsk",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 04.jpg",
+          "alt": {
+            "en": "A garden reception at night with paper lanterns",
+            "es": "Una recepción en el jardín de noche con faroles de papel"
+          }
+        },
+        {
+          "drive": "1aGyg7POCMwOwZ3PQjDvNOQSUtQ8dGGj2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 05.jpg",
+          "alt": {
+            "en": "A long table in a corridor of vegetation",
+            "es": "Una mesa larga en un pasillo de vegetación"
+          }
+        },
+        {
+          "drive": "1Sef5q-9mflBouQ0mFr8H7Ul6kh2OMQVz",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 06.jpg",
+          "alt": {
+            "en": "Tables set in a historic courtyard with stone walls",
+            "es": "Mesas en un patio histórico con muros de piedra"
+          }
+        },
+        {
+          "drive": "1QCGg61E9ZR5b-2ngCgyjXOrnRzYG1T3h",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 07.jpg",
+          "alt": {
+            "en": "A floral centerpiece on a glass table over tree roots",
+            "es": "Un centro floral sobre una mesa de cristal con raíces de árbol"
+          }
+        },
+        {
+          "drive": "1CSqLwZ_IRi2E79lIMVEoRA7ur6M6O_PS",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 08.jpg",
+          "alt": {
+            "en": "Reception tables beneath trees in the courtyard",
+            "es": "Mesas de recepción bajo los árboles del patio"
+          }
+        },
+        {
+          "drive": "1JMDOils2NBMwPZ7bzSlKXGnBnk2NH4In",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 09.jpg",
+          "alt": {
+            "en": "A ceremony aisle among trees with florals",
+            "es": "Un pasillo de ceremonia entre árboles con flores"
+          }
+        },
+        {
+          "drive": "1FN-Eq3xi2c3IiKt633XhduclNiAkSZDQ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Itzincab/Espacios 10.jpg",
+          "alt": {
+            "en": "A table detail with tropical flowers and amber glassware",
+            "es": "Detalle de mesa con flores tropicales y cristalería ámbar"
+          }
+        }
       ]
     },
     {
       "destino": "venue-hacienda-sac-chich",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1kiOa0ubYI99dyqRURB7UKdjj_8ze9nZ9",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Casa_Nueva.jpg",
+          "alt": {
+            "en": "A sitting area against a yellow wall with a carved doorway",
+            "es": "Una sala exterior junto a un muro amarillo con puerta labrada"
+          }
+        },
+        {
+          "drive": "1EGqMc4Me17-BG31yEC3fjeFn7pklcEjM",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Casa_Sisal_Alberca.jpg",
+          "alt": {
+            "en": "The pool and contemporary pavilion of Casa Sisal",
+            "es": "La alberca y el pabellón contemporáneo de Casa Sisal"
+          }
+        },
+        {
+          "drive": "1iJYvHp4EGb-e2rpYkIBuLjNg-O9J9HCh",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Ceremonia_Jardin.jpg",
+          "alt": {
+            "en": "A ceremony aisle with a floral arch in the garden",
+            "es": "Un pasillo de ceremonia con arco floral en el jardín"
+          }
+        },
+        {
+          "drive": "1ukwZEilhYXOnUxBEcrBWy3KzMAAkz0NQ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Detalle_Mesa.jpg",
+          "alt": {
+            "en": "A table set with tropical flowers and green plates",
+            "es": "Una mesa con flores tropicales y platos verdes"
+          }
+        },
+        {
+          "drive": "1_-cbpkV34l3zFH93MKy8pBCMjKEeMqe2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Entrada_Historica.jpg",
+          "alt": {
+            "en": "A stone path leading to the historic gateway",
+            "es": "Un camino de piedra que lleva a la portada histórica"
+          }
+        },
+        {
+          "drive": "1TYzilh5IhWhabw0dHd_WgiDwj184OWE0",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/ESPACIOS",
+          "alt": {
+            "en": "A garden reception lit with string lights at dusk",
+            "es": "Una recepción en el jardín iluminada con series de luces al anochecer"
+          }
+        },
+        {
+          "drive": "15ornTVNue9DYgd8FzqW2Rj97w4lWvu6P",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Jardin_Principal.jpg",
+          "alt": {
+            "en": "The main garden framed by palms and flowering trees",
+            "es": "El jardín principal entre palmeras y árboles en flor"
+          }
+        },
+        {
+          "drive": "187JslfK4QS7_mQ4X3IdvXW7iVBoDdJYw",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Sac Chich/Montaje_Recepcion.jpg",
+          "alt": {
+            "en": "A long banquet table set on the lawn",
+            "es": "Una mesa de banquete larga sobre el jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-antonio-hool",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1JnUyAxpK1G1RHJPIs20TGRGYwTSLqsRQ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/ESPACIOS",
+          "alt": {
+            "en": "A bride in a historic hall with a long veil",
+            "es": "Una novia en un salón histórico con un velo largo"
+          }
+        },
+        {
+          "drive": "1XJoTm5hm4TjAnwbeEut4JQH6RpgPPGwP",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/ESPACIOS",
+          "alt": {
+            "en": "A lit garden path toward the main house at night",
+            "es": "Un sendero iluminado hacia la casa principal de noche"
+          }
+        },
+        {
+          "drive": "10YPs_Lgw1Bubzom3eHOMLqPfJMvazNL-",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/ESPACIOS",
+          "alt": {
+            "en": "A corridor with a hammock and arched windows",
+            "es": "Un corredor con hamaca y ventanas en arco"
+          }
+        },
+        {
+          "drive": "1ihDVbVDOtkF6y_6Y1jGz7uSuFvIIMQFc",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/Espacios 03.jpg",
+          "alt": {
+            "en": "The red buildings of the hacienda beyond palms and lawn",
+            "es": "Los edificios rojos de la hacienda tras palmeras y jardín"
+          }
+        },
+        {
+          "drive": "1yUwiP8lv_hq-W1URgkzt9xQ6-Er8DxLY",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/Espacios 04.jpg",
+          "alt": {
+            "en": "An arcaded corridor with old stone walls",
+            "es": "Un corredor con arcadas y muros de piedra antiguos"
+          }
+        },
+        {
+          "drive": "1oEir2VPv_6orDgFVyh7qtXM8m7aiwotA",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/Espacios 05.jpg",
+          "alt": {
+            "en": "Ceremony seating in front of the main house",
+            "es": "Sillas de ceremonia frente a la casa principal"
+          }
+        },
+        {
+          "drive": "1l88CRx2OvRam6n5V7-a5EetTaBUvgQRq",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/Espacios 06.jpg",
+          "alt": {
+            "en": "A couple walking down a floral aisle indoors",
+            "es": "Una pareja caminando por un pasillo floral en un interior"
+          }
+        },
+        {
+          "drive": "1Ri6ABlZ9NS9TaXN7_9dYQHhgSPyymtyr",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Hool/Espacios 11.jpg",
+          "alt": {
+            "en": "A candlelit reception in a hall draped with fabric",
+            "es": "Una recepción a la luz de las velas en un salón con telas"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-antonio-millet",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "11VdBCGqodZ_6_J9wIKK7bM6ZZVMNWY5e",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/foto principal",
+          "alt": {
+            "en": "The orange and white towers of Hacienda San Antonio Millet",
+            "es": "Las torres naranja y blanca de Hacienda San Antonio Millet"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-antonio-millet",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ml767CnIJ5RXVjglssUpd9zLlukdW9Xp",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/Espacios 01.jpg",
+          "alt": {
+            "en": "The ochre main house and its lawn",
+            "es": "La casa principal ocre y su jardín"
+          }
+        },
+        {
+          "drive": "1Ff2U6cjVs2IDZsIkH78patzpJspQRpzw",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/Espacios 02.jpg",
+          "alt": {
+            "en": "A bride beneath the white neoclassical rotunda",
+            "es": "Una novia bajo la rotonda neoclásica blanca"
+          }
+        },
+        {
+          "drive": "1Ji3bGArP7l7MGnNHHD2oMkfEaLp18Qkx",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/Espacios 03.jpg",
+          "alt": {
+            "en": "A covered terrace with arches and lounge furniture",
+            "es": "Una terraza techada con arcos y muebles de descanso"
+          }
+        },
+        {
+          "drive": "1e9vpCbDhigUReMEQOgDRxLQxSPm3Qw0f",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/Espacios 05.jpg",
+          "alt": {
+            "en": "An arched passage in the ochre walls",
+            "es": "Un pasaje en arco entre los muros ocres"
+          }
+        },
+        {
+          "drive": "1xgU1wI-fsXEoOMQ9dKena99Ejy72685H",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Antonio Millet/Espacios 06.jpg",
+          "alt": {
+            "en": "A white gazebo among tall palms",
+            "es": "Un kiosco blanco entre palmeras altas"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-diego-cutz",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1T4Aaar7E83xSNCGL2IX1RCkxQCyCWIad",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 02.jpg",
+          "alt": {
+            "en": "A giant tree in front of the red arcades",
+            "es": "Un árbol gigante frente a las arcadas rojas"
+          }
+        },
+        {
+          "drive": "1xSOJlYKmSjtlcdsimFfouwzVZriaaxMb",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 03.jpg",
+          "alt": {
+            "en": "A wooden door in a vine-covered wall",
+            "es": "Una puerta de madera en un muro cubierto de enredaderas"
+          }
+        },
+        {
+          "drive": "1qs4LGFoHKTPheQNW8FqqsdsIwWzP-cf2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 04.jpg",
+          "alt": {
+            "en": "The red chapel among palms",
+            "es": "La capilla roja entre palmeras"
+          }
+        },
+        {
+          "drive": "1AjK6yXXch_Y_gdtyCPtzV2hruQ_9nTLz",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 05.jpg",
+          "alt": {
+            "en": "The garden and arcades of the main house",
+            "es": "El jardín y las arcadas de la casa principal"
+          }
+        },
+        {
+          "drive": "1GR8T0uwMFSN4JnLvTy_597OSW5C_vNM2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 06.jpg",
+          "alt": {
+            "en": "A guest room with a carved headboard and painted walls",
+            "es": "Una habitación con cabecera tallada y muros pintados"
+          }
+        },
+        {
+          "drive": "1o9XhOPJqs4gpXMaXJzrGqtpiYr9jyJrZ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 08.jpg",
+          "alt": {
+            "en": "A living room with period furniture and a chandelier",
+            "es": "Una sala con muebles de época y candil"
+          }
+        },
+        {
+          "drive": "1TZS_Om2B846kKFily6BWW4kh731ET0Vd",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Diego Cutz/Espacios 09.jpg",
+          "alt": {
+            "en": "The red main house and chimney across the lawn",
+            "es": "La casa principal roja y la chimenea al otro lado del jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-jose-cholul",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1P3Yy5kQHBQIl6d2pCwCwJKz0K2y1WWJE",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/foto principal",
+          "alt": {
+            "en": "A stone archway leading to Hacienda San José Cholul, framed by flowering trees",
+            "es": "Un arco de piedra que lleva a Hacienda San José Cholul, entre árboles en flor"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-jose-cholul",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1JcsSHneAr6RbzcNyMnIu1DAWJkknlIka",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 02.jpg",
+          "alt": {
+            "en": "A couple on a decorated tricycle in the hacienda grounds",
+            "es": "Una pareja en un triciclo decorado en los terrenos de la hacienda"
+          }
+        },
+        {
+          "drive": "1WELwNbprm3NKWTGwTiiTtLWvtYOZnMzA",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 03.jpg",
+          "alt": {
+            "en": "A covered pool with hammocks",
+            "es": "Una alberca techada con hamacas"
+          }
+        },
+        {
+          "drive": "1lAE683-FPMWQOhVFHGuIptP8_NyIrBja",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 04.jpg",
+          "alt": {
+            "en": "Stone steps leading to the hacienda chapel",
+            "es": "Escalones de piedra que llevan a la capilla de la hacienda"
+          }
+        },
+        {
+          "drive": "1pNfG2DphdY8Wr-IqZuWtZi6nYcLmhic6",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 05.jpg",
+          "alt": {
+            "en": "The blue main house beyond a garden",
+            "es": "La casa principal azul tras el jardín"
+          }
+        },
+        {
+          "drive": "1TEnI1In7E0YB-gi6VxFWnh1t0Qsy6mWa",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 06.jpg",
+          "alt": {
+            "en": "Reception tables beneath vine-covered trees",
+            "es": "Mesas de recepción bajo árboles cubiertos de enredaderas"
+          }
+        },
+        {
+          "drive": "1FQseBgWdlMy1gfSj1WljgmnX59VKN97Y",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 07.jpg",
+          "alt": {
+            "en": "Guests at a ceremony in front of the chapel",
+            "es": "Invitados en una ceremonia frente a la capilla"
+          }
+        },
+        {
+          "drive": "1iUnAodAFILpnMMNFuAFG8yMEhgxKo6V0",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 08.jpg",
+          "alt": {
+            "en": "Gardens and trees lit at dusk",
+            "es": "Jardines y árboles iluminados al anochecer"
+          }
+        },
+        {
+          "drive": "1Tf1SR1yLBeBgamyTzL196CLHVgcdqgKH",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San jose cholul/Espacios 09.jpg",
+          "alt": {
+            "en": "A couple among the roots of a giant tree",
+            "es": "Una pareja entre las raíces de un árbol gigante"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-pedro-ochil",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "10k3yfFlJvtuS9IY-1kbCdIodW-Djck5-",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 01.jpg",
+          "alt": {
+            "en": "The cenote amphitheater beneath trees at Hacienda San Pedro Ochil",
+            "es": "El anfiteatro del cenote bajo los árboles en Hacienda San Pedro Ochil"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-san-pedro-ochil",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1AWU1jSwRYkZB-5qCZXXufBwEZdNqdlBH",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 02.jpg",
+          "alt": {
+            "en": "Grass terraces descending toward the water",
+            "es": "Terrazas de pasto que descienden hacia el agua"
+          }
+        },
+        {
+          "drive": "1MUpokjkFoOrb9S6PKLUbJD4qPyEkHvJa",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 04.jpg",
+          "alt": {
+            "en": "An old henequen locomotive under a shed",
+            "es": "Una antigua locomotora henequenera bajo un cobertizo"
+          }
+        },
+        {
+          "drive": "1o-tkPpB7psuRaBGlzpI02Empgac4q8fK",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 06.jpg",
+          "alt": {
+            "en": "A lounge setting beneath Moorish arches",
+            "es": "Una sala bajo arcos moriscos"
+          }
+        },
+        {
+          "drive": "1-_o8SCihNuc-pkL5NXa_5QfEd9mbMFZC",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 07.jpg",
+          "alt": {
+            "en": "Ruined walls and a stone arch among plants",
+            "es": "Muros en ruinas y un arco de piedra entre plantas"
+          }
+        },
+        {
+          "drive": "1C3Bt83fO5HjK4xVHZ36bj97tZpCk-dn0",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 08.jpg",
+          "alt": {
+            "en": "A path lined with royal palms",
+            "es": "Un camino flanqueado por palmas reales"
+          }
+        },
+        {
+          "drive": "1IPgP2mHhEekF5jizkH5imWy7T0XyDcP2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 09.jpg",
+          "alt": {
+            "en": "Stone steps and a ruined arch in a garden",
+            "es": "Escalones de piedra y un arco en ruinas en un jardín"
+          }
+        },
+        {
+          "drive": "1DczbO9Qe6NKBiWkNwJ5kcjSWB-6hDDwg",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 10.jpg",
+          "alt": {
+            "en": "A decorated aisle leading toward a cenote",
+            "es": "Un pasillo decorado que lleva hacia un cenote"
+          }
+        },
+        {
+          "drive": "1oYH4zw1qmowGSGTF22d0TkJCQUD4Ku6c",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda San Pedro Ochil/Espacios 11.jpg",
+          "alt": {
+            "en": "Henequen plants in the hacienda fields",
+            "es": "Plantas de henequén en los campos de la hacienda"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-santa-rosa-de-lima",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1ZliXes0KSUr_-psr-UsCmGCb9_lHrpyQ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Santa rosa de lima/foto principal",
+          "alt": {
+            "en": "The main house of Hacienda Santa Rosa de Lima beyond a wide lawn and palms",
+            "es": "La casa principal de Hacienda Santa Rosa de Lima tras un amplio jardín y palmeras"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-santa-rosa-de-lima",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1HIBCoZcbOSk2IGQqXpORUJFXMPi9roQp",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Santa rosa de lima/ESPACIO",
+          "alt": {
+            "en": "A couple in front of the arcaded main house",
+            "es": "Una pareja frente a la casa principal con arcadas"
+          }
+        },
+        {
+          "drive": "1CfBIJcZl7_Ca4D21RO19sM7T7SoVvaIt",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Santa rosa de lima/ESPACIOS",
+          "alt": {
+            "en": "A shaded arcade with orange columns",
+            "es": "Una arcada sombreada con columnas naranjas"
+          }
+        },
+        {
+          "drive": "1Tq_b6IzajGAH_-qR5Blyefpgrzyn5S3o",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Santa rosa de lima/ESPACIOS",
+          "alt": {
+            "en": "A long pool beside an old chimney and garden",
+            "es": "Una alberca larga junto a una antigua chimenea y el jardín"
+          }
+        },
+        {
+          "drive": "10vkcw6rgdv3R6g_u0tROcCLLxCqJ3Zy_",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Santa rosa de lima/ESPACIOS",
+          "alt": {
+            "en": "A circular stone fountain among tropical plants",
+            "es": "Una fuente circular de piedra entre plantas tropicales"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-tekik-de-regil",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1-kib5Txac51nUx-2uCskzKzMO562dBbD",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Tekik de Regil/Foto principal",
+          "alt": {
+            "en": "The arcaded main house of Hacienda Tekik de Regil beyond a lawn and trees",
+            "es": "La casa principal con arcadas de Hacienda Tekik de Regil tras un jardín y árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-tekik-de-regil",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1WSBDVDDwxsIXsE4-CIb1LWGTNEoyxfNS",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Tekik de Regil/ESPACIOS",
+          "alt": {
+            "en": "Long tables set beneath historic stone arches",
+            "es": "Mesas largas montadas bajo arcos de piedra históricos"
+          }
+        },
+        {
+          "drive": "1dkhqPEnhm_bTMY9aPckeI1zdCQxGKfo-",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Tekik de Regil/ESPACIOS",
+          "alt": {
+            "en": "The Greco-Roman chapel",
+            "es": "La capilla grecorromana"
+          }
+        },
+        {
+          "drive": "1CIn4-shf5ETw9oAzY5qx-phLYSVl1zMJ",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Tekik de Regil/ESPACIOS",
+          "alt": {
+            "en": "A dining table in a corridor with a painted ceiling overlooking a pool",
+            "es": "Una mesa en un corredor con techo pintado frente a una alberca"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-xcanatun",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1ztF6bFydrBuLCOH4UaMwD18DOK0Rhmaw",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xcanatun/foto principal",
+          "alt": {
+            "en": "The yellow façade and garden staircase of Hacienda Xcanatún",
+            "es": "La fachada amarilla y la escalera del jardín de Hacienda Xcanatún"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-xcanatun",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1ltc5aym8DNRPJyCr53uiVJyEgbQb3_rC",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xcanatun/ESPACIOS",
+          "alt": {
+            "en": "A wooden pavilion on the lawn among palms",
+            "es": "Un pabellón de madera sobre el jardín entre palmeras"
+          }
+        },
+        {
+          "drive": "1aADBAVs6u_5zoV0DvRdmGuBV1DSx6Oq3",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xcanatun/ESPACIOS",
+          "alt": {
+            "en": "Tall royal palms in the gardens",
+            "es": "Palmas reales en los jardines"
+          }
+        },
+        {
+          "drive": "1LFSgzfwIfYa0ZrFv94L-Nlu8D8usIiQo",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xcanatun/ESPACIOS",
+          "alt": {
+            "en": "A latticed archway and staircase in yellow walls",
+            "es": "Un arco de celosía y una escalera entre muros amarillos"
+          }
+        },
+        {
+          "drive": "1X8EnmRIbZiCo8gArPOW-TVenPaXHW0OT",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xcanatun/ESPACIOS",
+          "alt": {
+            "en": "A pavilion beside a pond with water lilies",
+            "es": "Un pabellón junto a un estanque con nenúfares"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-xtepen",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1TFfS9Ts7GSw3yM7xeVGM64oPC2r1gcBR",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 03.jpg",
+          "alt": {
+            "en": "The pink main house of Hacienda Xtepén across a wide lawn",
+            "es": "La casa principal rosa de Hacienda Xtepén al otro lado de un amplio jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-xtepen",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1FjzXFjZ7rUIk8wywd0PAQxUI2nqvV4md",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 01.jpg",
+          "alt": {
+            "en": "The arcaded façade and steps of the main house",
+            "es": "La fachada con arcadas y la escalinata de la casa principal"
+          }
+        },
+        {
+          "drive": "1VUzCgN6uzPXaPExqSf0QnR14B8Fbc7D9",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 02.jpg",
+          "alt": {
+            "en": "Arcades lit at dusk with a lounge setting",
+            "es": "Arcadas iluminadas al anochecer con una sala"
+          }
+        },
+        {
+          "drive": "14Vibg4JBVq49HKZC3GzbWkBm73zcDvAy",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 04.jpg",
+          "alt": {
+            "en": "A dining room with carved furniture and a chandelier",
+            "es": "Un comedor con muebles tallados y candil"
+          }
+        },
+        {
+          "drive": "1aCpnp3XtL5qc32GhpEXBe7cmb71TMvL2",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 05.jpg",
+          "alt": {
+            "en": "The chapel interior with a painted vaulted ceiling",
+            "es": "El interior de la capilla con bóveda pintada"
+          }
+        },
+        {
+          "drive": "1lUeJFK9cHHA7n6-Cy15FA28Iv5eCrI_W",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 06.jpg",
+          "alt": {
+            "en": "A pink gateway framed by trees",
+            "es": "Un portón rosa entre árboles"
+          }
+        },
+        {
+          "drive": "1tO9ci_cWmdR7Auccon9q_z9KUYJ_s7su",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 07.jpg",
+          "alt": {
+            "en": "A sculpted stone fountain among trees",
+            "es": "Una fuente de piedra esculpida entre árboles"
+          }
+        },
+        {
+          "drive": "1LO4EQmrVdyDEcVkAR1uzHAJQhrd45Bcx",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Xtepen/Espacios 08.jpg",
+          "alt": {
+            "en": "A sitting room with period furniture and paintings",
+            "es": "Una sala con muebles de época y cuadros"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-yaxcopoil",
+      "campo": "media.imagenHero",
+      "fotos": [
+        {
+          "drive": "1I4L4z0osILK486M32JP8XFmobxLwhO__",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Yaxcopoil/Foto PRINCIPAL",
+          "alt": {
+            "en": "A couple embracing in front of the neoclassical façade of Hacienda Yaxcopoil",
+            "es": "Una pareja abrazada frente a la fachada neoclásica de Hacienda Yaxcopoil"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "venue-hacienda-yaxcopoil",
+      "campo": "media.galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1fy_ubCA-hHoF71T3tCB9Olv8pTK17OLz",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Yaxcopoil/Espacios 01.jpg",
+          "alt": {
+            "en": "A reception courtyard reflected in a long water mirror",
+            "es": "Un patio de recepción reflejado en un largo espejo de agua"
+          }
+        },
+        {
+          "drive": "16uvzvAl_idPFgsygA2fTpUcbW1YWX8n-",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Yaxcopoil/Espacios 02.jpg",
+          "alt": {
+            "en": "Guests at an outdoor ceremony beside a large tree",
+            "es": "Invitados en una ceremonia al aire libre junto a un gran árbol"
+          }
+        },
+        {
+          "drive": "1HInbjfUUZ0xipkITFrZv3KgaRzJOLm7l",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Yaxcopoil/Espacios 03.jpg",
+          "alt": {
+            "en": "Reception tables set beneath the hacienda arcades",
+            "es": "Mesas de recepción montadas bajo las arcadas de la hacienda"
+          }
+        },
+        {
+          "drive": "1qHXaBm_S6fqtGaBpxgoUjw8GGknQ3xBe",
+          "origen": "03_VENUES/FOTOS VENUES/Hacienda Yaxcopoil/Espacios 04.jpg",
+          "alt": {
+            "en": "A long banquet table along historic walls",
+            "es": "Una mesa de banquete larga junto a muros históricos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "coleccion-contemporary",
+      "campo": "imagen",
+      "fotos": [
+        {
+          "drive": "1Kmi_yplmt7uHetyiVZouNqxl5LjYTP1f",
+          "origen": "03_VENUES/Contemporary Sanctuaries",
+          "alt": {
+            "en": "Aerial view of a curving pool among palms and jungle",
+            "es": "Vista aérea de una alberca curva entre palmeras y selva"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "coleccion-organic",
+      "campo": "imagen",
+      "fotos": [
+        {
+          "drive": "1-zxvY2VQXqHMLKoBVLBZb8eOeRlN9o-a",
+          "origen": "03_VENUES/Organic Estates",
+          "alt": {
+            "en": "An ochre hacienda with arches among palms and gardens",
+            "es": "Una hacienda ocre con arcos entre palmeras y jardines"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "coleccion-timeless",
+      "campo": "imagen",
+      "fotos": [
+        {
+          "drive": "1bkkxyvFw6kBmb_W9gALGrhOHq7HEffz_",
+          "origen": "03_VENUES/Timeless Venues",
+          "alt": {
+            "en": "A pink hacienda across a wide lawn framed by trees",
+            "es": "Una hacienda rosa al otro lado de un amplio jardín entre árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "configuracionSitio",
+      "campo": "lugarDeTuHistoria.imagen",
+      "fotos": [
+        {
+          "drive": "1Q_1DSqjgJ4EiK8j-mRl3fBm1Pn-funb4",
+          "origen": "03_VENUES/EL LUGAR DE TU HISTORIA/foto principal",
+          "alt": {
+            "en": "Three people in conversation during an episode of El Lugar de Tu Historia, in black and white",
+            "es": "Tres personas conversando durante un episodio de El Lugar de Tu Historia, en blanco y negro"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-how-to-build-a-wedding-weekend-in-yucatan",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "1069Y7CNsTgoOeT1K0XwHLCBC8RhzWXYE",
+          "origen": "07_CURATED JOURNAL/Media resto de articulos no visibles en home page/How to Build a Wedding Weekend in Yucatán",
+          "alt": {
+            "en": "A couple descending steps as guests throw petals",
+            "es": "Una pareja bajando una escalinata mientras los invitados lanzan pétalos"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-the-case-for-an-intimate-wedding-in-yucatan",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "1HZhO4Jg2Ilqpkse9VJEaPDhnRv-fROKh",
+          "origen": "07_CURATED JOURNAL/Media resto de articulos no visibles en home page/The Case for an Intimate Wedding in Yucatán",
+          "alt": {
+            "en": "Aerial view of two lit dinner tables in a garden at night",
+            "es": "Vista aérea de dos mesas de cena iluminadas en un jardín de noche"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "articulo-the-wedding-planners-guide-to-merida",
+      "campo": "imagenPortada",
+      "fotos": [
+        {
+          "drive": "1kfqDZR9QUzxg5i-3CJUZE31cqK0Wk-D2",
+          "origen": "07_CURATED JOURNAL/Media resto de articulos no visibles en home page/The Wedding Planner’s Guide to Mérida",
+          "alt": {
+            "en": "A historic mansion on a Mérida avenue",
+            "es": "Una casona histórica en una avenida de Mérida"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "pagina-nosotros",
+      "campo": "imagen",
+      "fotos": [
+        {
+          "drive": "1nxTukT81Y41seX_DD56YH9-5sFWZhMul",
+          "origen": "08_ABOUT/foto principal",
+          "alt": {
+            "en": "An ochre hacienda arcade with bougainvillea",
+            "es": "Una arcada de hacienda color ocre con buganvilias"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "disenoProduccion",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1MJuWW1e9Cu34UXz419AMnfVyJ9zWyOJp",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/foto principal hero",
+          "alt": {
+            "en": "A candlelit dinner beneath draped fabric in a garden",
+            "es": "Una cena a la luz de las velas bajo telas en un jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "disenoProduccion",
+      "campo": "marcas[_key==\"minimal\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "1IOFGIhEDISajo0R_bzH2DTd9Dw9MMOdk",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "A table set with tropical flowers and green plates",
+            "es": "Una mesa montada con flores tropicales y platos verdes"
+          }
+        },
+        {
+          "drive": "1eoe3WN-Af5qFmvtyBdLfwebXTxoIbiDF",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "A long table with candles beneath draped fabric",
+            "es": "Una mesa larga con velas bajo telas"
+          }
+        },
+        {
+          "drive": "1BDNR4PDRXMxw6GVby8clgUOvFNe9F-Cu",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "A lounge setting in a garden at dusk",
+            "es": "Una sala exterior en un jardín al anochecer"
+          }
+        },
+        {
+          "drive": "1JVI6III-OvfTcTUBXeQuFRFJhUmgxIUv",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "A sculptural white bar lit at night",
+            "es": "Una barra blanca escultórica iluminada de noche"
+          }
+        },
+        {
+          "drive": "1aQKAb7sCIv1cJN8udp9I3f9q5YYW0zdo",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "Reception tables under a tent with warm lighting",
+            "es": "Mesas de recepción bajo una carpa con luz cálida"
+          }
+        },
+        {
+          "drive": "1MjqRNtqObr-DCUdJN6oyTkEUgkN-Xbly",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/minimal",
+          "alt": {
+            "en": "An aisle flanked by curved white seating in a garden",
+            "es": "Un pasillo flanqueado por asientos blancos curvos en un jardín"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "disenoProduccion",
+      "campo": "marcas[_key==\"mas-que-ayer\"].imagenes",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "155s7wln-arY1USewzZe04YcwuyzCoi_b",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "A floral installation with tropical flowers around a sculptural piece",
+            "es": "Una instalación floral con flores tropicales alrededor de una pieza escultórica"
+          }
+        },
+        {
+          "drive": "1ZGFFM2dsFtnkkPjrJUp94_tF3DDpMSlr",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "Tropical floral arrangements over dining tables in a garden",
+            "es": "Arreglos florales tropicales sobre mesas en un jardín"
+          }
+        },
+        {
+          "drive": "1nPzqYxhDQbI82tAO7yk7X7rYkpVDYeJx",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "Hanging floral spheres above a painted floor in a garden",
+            "es": "Esferas florales colgantes sobre un piso pintado en un jardín"
+          }
+        },
+        {
+          "drive": "1kFYF3UqffLYr-miOpP6HHdB2WW8buRy2",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "A tropical floral centerpiece on a set table",
+            "es": "Un centro floral tropical en una mesa montada"
+          }
+        },
+        {
+          "drive": "1LNm36OhC7d7FtQ_Pnxe2hYHTNhJ9StUL",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "The team installing floral arrangements",
+            "es": "El equipo instalando arreglos florales"
+          }
+        },
+        {
+          "drive": "1AR9Ke4tzOe9XaMI08Klboy0x9yVRqWgL",
+          "origen": "06_DESIGN & PRODUCTION — MINIMAL/mas que ayer",
+          "alt": {
+            "en": "A ceremony aisle lined with flowers among trees",
+            "es": "Un pasillo de ceremonia con flores entre árboles"
+          }
+        }
+      ]
+    }
+  ],
+  "vaciar": [
+    {
+      "destino": "venue-casa-faller",
       "campos": [
-        "media.galeria",
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-casona-333",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes", "espacios[_key==\"espacio-2\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-chable",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes", "espacios[_key==\"espacio-2\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-chuntuac",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes", "espacios[_key==\"espacio-2\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-sac-chich",
+      "campos": [
         "espacios[_key==\"espacio-1\"].imagenes",
         "espacios[_key==\"espacio-2\"].imagenes",
         "espacios[_key==\"espacio-3\"].imagenes"
@@ -1486,7 +3124,6 @@
     {
       "destino": "venue-hacienda-san-antonio-hool",
       "campos": [
-        "media.galeria",
         "espacios[_key==\"espacio-1\"].imagenes",
         "espacios[_key==\"espacio-2\"].imagenes",
         "espacios[_key==\"espacio-3\"].imagenes",
@@ -1494,14 +3131,63 @@
       ]
     },
     {
+      "destino": "venue-hacienda-san-antonio-millet",
+      "campos": [
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes"
+      ]
+    },
+    {
       "destino": "venue-hacienda-san-diego-cutz",
       "campos": [
-        "media.galeria",
         "espacios[_key==\"espacio-1\"].imagenes",
         "espacios[_key==\"espacio-2\"].imagenes",
         "espacios[_key==\"espacio-3\"].imagenes",
         "espacios[_key==\"espacio-4\"].imagenes"
       ]
+    },
+    {
+      "destino": "venue-hacienda-san-jose-cholul",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-san-pedro-ochil",
+      "campos": [
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes",
+        "espacios[_key==\"espacio-4\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-santa-rosa-de-lima",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes", "espacios[_key==\"espacio-2\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-tekik-de-regil",
+      "campos": [
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-xcanatun",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes"]
+    },
+    {
+      "destino": "venue-hacienda-xtepen",
+      "campos": [
+        "espacios[_key==\"espacio-1\"].imagenes",
+        "espacios[_key==\"espacio-2\"].imagenes",
+        "espacios[_key==\"espacio-3\"].imagenes",
+        "espacios[_key==\"espacio-4\"].imagenes"
+      ]
+    },
+    {
+      "destino": "venue-hacienda-yaxcopoil",
+      "campos": ["espacios[_key==\"espacio-1\"].imagenes"]
     }
   ]
 }

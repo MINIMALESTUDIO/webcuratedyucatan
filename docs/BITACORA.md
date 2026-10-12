@@ -587,3 +587,50 @@ Los contactos comerciales ("NO MOSTRAR") no se publicaron. Los correos de Margo 
 - **Otro Cielo:** About, servicios y Curated Notes (pendientes en el propio documento) y enlaces de "Discover" para las tres marcas.
 - **Logotipos de los partners:** están en el Drive, pero el perfil todavía no los muestra.
 - **Traducción al español** del copy nuevo.
+
+## Actualización del Drive del 12 oct: fotos de venues, El Lugar de Tu Historia y más
+
+**Estado:** hecho y verificado en Sanity (lo que sirve Hostinger).
+
+### Qué había de nuevo (revisión de solo lectura)
+
+| Novedad                                                            | Qué se hizo                                                                                                                                                                                          |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fotos de 17 venues (03_VENUES/FOTOS VENUES)                        | Foto principal y galería de hasta 8 en cada uno. A los 4 destacados se les sumó la galería. Se quitaron las fotos de relleno de los espacios. San Juan Opichén no tiene fotos y sigue con marcadores |
+| "EL LUGAR DE TU HISTORIA" (texto, foto, logo, playlist)            | Sección bajo el listado de Venues y episodio en 13 fichas (D-054)                                                                                                                                    |
+| Fotos de las tres colecciones                                      | Imagen de Contemporary Sanctuaries, Organic Estates y Timeless Venues                                                                                                                                |
+| Nature (secciones 4 a 8) y Experiences (hero y 8 secciones)        | Asignadas: Discover ya no tiene marcadores                                                                                                                                                           |
+| Design & Production: hero y 6 fotos de Minimal y 6 de Más que Ayer | Asignadas; las de cada marca que pasan de 2 se ven en una fila                                                                                                                                       |
+| Portadas de los 3 artículos restantes y foto de About              | Asignadas: el Journal y About ya no tienen marcadores                                                                                                                                                |
+| "Correo de respuesta Find your yucatan"                            | Pendiente: necesita el backend de leads (ver Pendientes)                                                                                                                                             |
+| "Dinámica de entrevistas — LOVE MÉXICO"                            | Guía para el stand, no es contenido web                                                                                                                                                              |
+
+**Excluido a propósito:** en la carpeta de Chuntuac, "Espacios 04" a "08" son páginas de un folleto con precios, política de cancelación y datos de contacto. No se publican.
+
+### Sanity
+
+- Sin ediciones en el Studio desde el 9 oct.
+- Se aplicaron solo los campos nuevos (películas, redes, sección de la serie), sin reimportar.
+- `npm run sanity:fotos`: 287 fotos en total (159 nuevas) en 40 documentos.
+- Validación: 51 válidos, 0 errores, 0 avisos. Privacidad correcta.
+- Studio publicado de nuevo.
+
+### Verificación
+
+| Comprobación                     | Resultado real                                                                   |
+| -------------------------------- | -------------------------------------------------------------------------------- |
+| `tsc`, ESLint, Prettier          | sin errores                                                                      |
+| Vitest (modo DEMO)               | 61 de 61                                                                         |
+| `build:medido` leyendo de Sanity | correcto, sin respaldo DEMO; 1774 MB y 118 s en local                            |
+| Playwright leyendo de Sanity     | 33 de 33, con las pruebas nuevas de la película y de la serie                    |
+| Revisión visual                  | listado de venues, ficha de Xtepén, Design & Production y Discover › Experiences |
+
+### Pendientes
+
+- **Correo de respuesta de Find Your Yucatán y leads.** El documento pide un envío automático al visitante con su categoría y los videos de sus venues, sin duplicados, y registro interno de datos, respuestas y venues. Requiere el backend de formularios, que hoy solo valida (piloto). Hace falta decidir:
+  - el proveedor de correo (Resend, D-005);
+  - dónde se guardan los leads (MariaDB de Hostinger o Sanity privado);
+  - a qué correo llegan las notificaciones.
+- **Otro Cielo:** información y fotos.
+- **San Juan Opichén:** fotos y episodio.
+- **Logotipos:** el de El Lugar de Tu Historia y los de los partners están en el Drive, pero el sitio todavía no los muestra.

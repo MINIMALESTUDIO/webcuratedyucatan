@@ -131,6 +131,27 @@ test('inicio → Discover → venues con colección y filtro → ficha', async (
   await expect(page).toHaveURL(/\?estilo=organic&capacidad=hasta-200$/);
 });
 
+test('película: el episodio de la serie se carga al reproducir (D-054)', async ({ page }) => {
+  await page.goto('/venues/hacienda-sac-chich');
+  const seccion = page.locator('#pelicula');
+  await seccion.getByRole('button', { name: /^Play video/ }).click();
+  await expect(seccion.locator('iframe')).toHaveAttribute(
+    'src',
+    /youtube-nocookie\.com\/embed\/e8awa5XKNN4/,
+  );
+});
+
+test('El Lugar de Tu Historia bajo el listado de venues enlaza a la serie', async ({ page }) => {
+  await page.goto('/venues');
+  const serie = page.locator('section', {
+    has: page.getByRole('heading', { level: 2, name: 'El Lugar de Tu Historia' }),
+  });
+  await expect(serie.getByRole('link', { name: /Explore the series/ })).toHaveAttribute(
+    'href',
+    /youtube\.com\/playlist\?list=PLUCXWDxFHW_fMrQpqu-etNzaNqVilkeqh/,
+  );
+});
+
 test('solicitud de información en la ficha: errores asociados y confirmación', async ({ page }) => {
   await page.goto('/venues/hacienda-sac-chich');
   const formulario = page.locator('#solicitud form');

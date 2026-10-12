@@ -135,6 +135,25 @@ export const configuracionSitio = defineType({
       ],
     }),
     defineField({
+      name: 'lugarDeTuHistoria',
+      title: 'Venues · El Lugar de Tu Historia',
+      description: 'Sección de la serie de videos bajo el listado de venues (D-054).',
+      type: 'object',
+      group: 'inicio',
+      fields: [
+        campoLocalizado({ name: 'sobretitulo', title: 'Sobretítulo', max: 40, requerido: false }),
+        campoLocalizado({ name: 'titulo', title: 'Título', max: 60 }),
+        campoLocalizado({ name: 'texto', title: 'Texto', largo: true, max: 320 }),
+        defineField({ name: 'imagen', title: 'Imagen', type: 'imagenConAlt' }),
+        defineField({
+          name: 'enlace',
+          title: 'Enlace a la serie (YouTube)',
+          type: 'url',
+          validation: (r) => r.required(),
+        }),
+      ],
+    }),
+    defineField({
       name: 'redes',
       title: 'Redes sociales',
       type: 'object',

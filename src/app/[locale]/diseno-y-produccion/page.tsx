@@ -5,6 +5,7 @@ import { routing } from '@/i18n/routing';
 import { obtenerDisenoProduccion } from '@/lib/contenido';
 import { localizar, localizarBloques } from '@/lib/i18n/localizar';
 import { alternativas } from '@/lib/seo/metadatos';
+import { rutaElemento } from '@/lib/sanity/edicion';
 import { cx } from '@/lib/utilidades';
 import { BotonEnlace } from '@/components/ui/Boton';
 import { Contenedor } from '@/components/ui/Contenedor';
@@ -142,6 +143,35 @@ export default async function PaginaDiseno() {
                 )}
               </div>
             </Contenedor>
+            {marca.imagenes.length > 2 && (
+              <Contenedor className="mt-10">
+                <ul className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                  {marca.imagenes.slice(2).map((imagen) => (
+                    <li
+                      key={imagen._key ?? imagen.url}
+                      className="relative aspect-[4/5] overflow-hidden bg-arena"
+                    >
+                      <ImagenContenido
+                        imagen={imagen}
+                        edicion={
+                          imagen._key
+                            ? {
+                                id: diseno._id,
+                                tipo: 'disenoProduccion',
+                                ruta: rutaElemento(
+                                  `marcas[_key=="${marca._key}"].imagenes`,
+                                  imagen._key,
+                                ),
+                              }
+                            : undefined
+                        }
+                        sizes="(min-width: 768px) 25vw, 50vw"
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </Contenedor>
+            )}
           </section>
         );
       })}

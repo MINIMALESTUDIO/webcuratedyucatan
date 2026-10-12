@@ -125,6 +125,10 @@
     "tarjeta": {
       "explorar": "Explore venue",
       "minutos": "{minutos} min from Mérida"
+    },
+    "serie": {
+      "cta": "Explore the series",
+      "externo": "(opens in a new tab)"
     }
   },
   "Venue": {

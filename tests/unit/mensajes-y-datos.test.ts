@@ -131,10 +131,18 @@ describe('datos DEMO', () => {
       expect(venue.resumen.en.length).toBeLessThanOrEqual(200);
       expect(venue.descripcion.en).toHaveLength(3);
       expect(venue.notasCurated).toHaveLength(1);
-      expect(venue.pelicula).toBeUndefined();
       // Las fotos siguen siendo marcadores hasta que lleguen las de FOTOS VENUES.
       expect(venue.media.imagenHero.esDemo).toBe(true);
     }
+  });
+
+  it('películas: los 13 venues con episodio en la serie El Lugar de Tu Historia (D-054)', () => {
+    const conPelicula = venuesDemo.filter((v) => v.pelicula);
+    expect(conPelicula).toHaveLength(13);
+    for (const v of conPelicula) expect(v.pelicula?.youtubeId).toMatch(/^[\w-]{11}$/);
+    const ids = conPelicula.map((v) => v.pelicula?.youtubeId);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(configuracionDemo.lugarDeTuHistoria?.enlace).toContain('youtube.com/playlist');
   });
 
   it('los destacados son los cuatro de Home > Featured Venues', () => {

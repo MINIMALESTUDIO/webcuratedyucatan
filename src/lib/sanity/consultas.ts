@@ -61,6 +61,11 @@ export const CONSULTA_CONFIGURACION = defineQuery(`*[_id == "configuracionSitio"
   },
   "planea": { "texto": planea.texto, "imagen": planea.imagen${IMAGEN} },
   "redes": { "instagram": redes.instagram, "youtube": redes.youtube },
+  "lugarDeTuHistoria": select(
+    defined(lugarDeTuHistoria.enlace) => lugarDeTuHistoria{
+      sobretitulo, titulo, texto, enlace, "imagen": imagen${IMAGEN}
+    }
+  ),
   correoContacto
 }`);
 
