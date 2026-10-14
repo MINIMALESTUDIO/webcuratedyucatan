@@ -223,6 +223,33 @@ test('Find your Yucatán: seis preguntas, resultado y tres venues (D-053)', asyn
   await expect(
     page.getByRole('heading', { name: 'Want to save your Curated Selection?' }),
   ).toBeVisible();
+
+  // Guardar la selección (D-055): /api/leads se simula; la prueba no envía correo real.
+  let enviado: Record<string, unknown> | null = null;
+  await page.route('**/api/leads', async (ruta) => {
+    enviado = ruta.request().postDataJSON();
+    await ruta.fulfill({ json: { ok: true, datos: { envio: 'enviado' } } });
+  });
+  const guardar = page.locator('form').filter({ hasText: 'Save my selection' });
+  await guardar.getByLabel('Name', { exact: true }).fill('Ana López');
+  await guardar.getByLabel('Company').fill('Estudio Ejemplo');
+  await guardar.getByLabel('Email').fill('ana@example.com');
+  await guardar.getByLabel('Country').fill('Canada');
+  await guardar.getByLabel(/I accept the privacy notice/).check();
+  await guardar.getByRole('button', { name: 'Save my selection' }).click();
+  await expect(guardar.getByRole('status')).toContainText('Your selection is on its way.');
+  await expect(guardar.getByRole('button', { name: 'Save my selection' })).toBeDisabled();
+  expect(enviado).toMatchObject({
+    tipo: 'seleccion',
+    sitioWeb: '',
+    resultado: 'organic',
+    respuestas: {
+      evento: 'fiesta-bienvenida',
+      atmosfera: 'organic',
+      prioridades: ['naturaleza-paisaje', 'privacidad'],
+      invitados: '200-400',
+    },
+  });
 });
 
 test('Discover Yucatán: inicio y portada llevan a las páginas de categoría', async ({ page }) => {

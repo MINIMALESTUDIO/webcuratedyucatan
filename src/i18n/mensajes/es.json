@@ -387,6 +387,25 @@
     "piloto": {
       "titulo": "Gracias. Esto es un piloto: no se envió nada.",
       "texto": "Tus datos pasaron la validación. Cuando los formularios estén conectados recibirás una confirmación por correo."
+    },
+    "envio": {
+      "enviando": "Enviando…",
+      "solicitud": {
+        "titulo": "Gracias. Tu solicitud fue enviada.",
+        "texto": "Te enviamos una confirmación por correo. El equipo de Curated Yucatán te contactará pronto."
+      },
+      "seleccion": {
+        "titulo": "Tu selección va en camino.",
+        "texto": "Revisa tu correo: te enviamos tu selección Curated con los videos de los venues."
+      },
+      "error": {
+        "titulo": "No pudimos enviar tus datos.",
+        "texto": "Inténtalo de nuevo en unos minutos."
+      },
+      "limite": {
+        "titulo": "Demasiados intentos.",
+        "texto": "Espera unos minutos antes de volver a intentarlo."
+      }
     }
   },
   "NoEncontrado": {

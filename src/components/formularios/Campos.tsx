@@ -191,3 +191,18 @@ export function CampoOpciones({
     </fieldset>
   );
 }
+
+/**
+ * Campo trampa contra bots (D-055): fuera de la vista y del orden de tabulación, oculto para
+ * lectores de pantalla. Una persona nunca lo llena; si llega con texto, el servidor no envía.
+ */
+export function CampoTrampa() {
+  return (
+    <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+      <label>
+        Website
+        <input type="text" name="sitioWeb" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </label>
+    </div>
+  );
+}

@@ -13,5 +13,7 @@ export default defineConfig({
   test: {
     include: ['tests/unit/**/*.test.ts'],
     environment: 'node',
+    // next-intl importa "next/navigation" sin extensión; procesado por Vite se resuelve bien.
+    server: { deps: { inline: ['next-intl'] } },
   },
 });

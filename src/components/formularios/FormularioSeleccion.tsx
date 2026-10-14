@@ -6,9 +6,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import type { RespuestasEncuentra } from '@/lib/descubrimiento/encuentra';
 import { Link } from '@/i18n/navigation';
 import { Boton } from '@/components/ui/Boton';
-import { AvisoPiloto } from './AvisoPiloto';
-import { CampoCasilla, CampoTexto } from './Campos';
-import { textoDe, useFormularioPiloto } from './useFormularioPiloto';
+import { AvisoEnvio } from './AvisoEnvio';
+import { CampoCasilla, CampoTexto, CampoTrampa } from './Campos';
+import { textoDe, useFormulario } from './useFormulario';
 
 // El esquema (y zod) se descarga solo al enviar (D-031).
 const cargarEsquema = () =>
@@ -29,7 +29,8 @@ export function FormularioSeleccion({
   const base = useId();
   const id = (campo: string) => `${base}-${campo}`;
 
-  const { errores, validado, aviso, alEnviar, hidratado } = useFormularioPiloto(
+  const { errores, estado, aviso, alEnviar, hidratado } = useFormulario(
+    'seleccion',
     cargarEsquema,
     (datos) => ({
       nombre: textoDe(datos, 'nombre'),
@@ -54,7 +55,7 @@ export function FormularioSeleccion({
       noValidate
       onSubmit={alEnviar}
       data-hidratado={hidratado ? 'si' : 'no'}
-      className="flex flex-col gap-5"
+      className="relative flex flex-col gap-5"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <CampoTexto
@@ -99,15 +100,17 @@ export function FormularioSeleccion({
           {t('leerAviso')}
         </Link>
       </div>
+      <CampoTrampa />
       <Boton
         type="submit"
         variante="primario"
-        disabled={!hidratado}
+        disabled={!hidratado || estado === 'enviando' || estado === 'enviado'}
+        aria-busy={estado === 'enviando'}
         className="self-start disabled:cursor-wait disabled:opacity-60"
       >
-        {t('guardarSeleccion')}
+        {estado === 'enviando' ? t('envio.enviando') : t('guardarSeleccion')}
       </Boton>
-      {validado && <AvisoPiloto ref={aviso} />}
+      <AvisoEnvio ref={aviso} estado={estado} tipo="seleccion" />
     </form>
   );
 }

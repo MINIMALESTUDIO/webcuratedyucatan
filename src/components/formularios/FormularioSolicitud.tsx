@@ -13,9 +13,9 @@ import {
   TIPOS_EVENTO,
 } from '@/lib/validacion/opciones';
 import { Boton } from '@/components/ui/Boton';
-import { AvisoPiloto } from './AvisoPiloto';
-import { CampoAreaTexto, CampoCasilla, CampoOpciones, CampoTexto } from './Campos';
-import { textoDe, useFormularioPiloto } from './useFormularioPiloto';
+import { AvisoEnvio } from './AvisoEnvio';
+import { CampoAreaTexto, CampoCasilla, CampoOpciones, CampoTexto, CampoTrampa } from './Campos';
+import { textoDe, useFormulario } from './useFormulario';
 
 // El esquema (y zod) se descarga solo al enviar (D-031).
 const cargarEsquema = () =>
@@ -44,7 +44,8 @@ export function FormularioSolicitud({
   const base = useId();
   const id = (campo: string) => `${base}-${campo}`;
 
-  const { errores, validado, aviso, alEnviar, hidratado } = useFormularioPiloto(
+  const { errores, estado, aviso, alEnviar, hidratado } = useFormulario(
+    'solicitud',
     cargarEsquema,
     (datos) => ({
       tipoEvento: textoDe(datos, 'tipoEvento'),
@@ -75,7 +76,7 @@ export function FormularioSolicitud({
       noValidate
       onSubmit={alEnviar}
       data-hidratado={hidratado ? 'si' : 'no'}
-      className="flex flex-col gap-8"
+      className="relative flex flex-col gap-8"
     >
       {cantidadErrores > 0 && (
         <p role="alert" className="text-sm font-semibold">
@@ -191,15 +192,17 @@ export function FormularioSolicitud({
           {t('leerAviso')}
         </Link>
       </div>
+      <CampoTrampa />
       <Boton
         type="submit"
         variante="primario"
-        disabled={!hidratado}
+        disabled={!hidratado || estado === 'enviando' || estado === 'enviado'}
+        aria-busy={estado === 'enviando'}
         className="self-start disabled:cursor-wait disabled:opacity-60"
       >
-        {t('enviar')}
+        {estado === 'enviando' ? t('envio.enviando') : t('enviar')}
       </Boton>
-      {validado && <AvisoPiloto ref={aviso} />}
+      <AvisoEnvio ref={aviso} estado={estado} tipo="solicitud" />
     </form>
   );
 }

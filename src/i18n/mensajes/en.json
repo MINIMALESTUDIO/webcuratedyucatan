@@ -387,6 +387,25 @@
     "piloto": {
       "titulo": "Thank you. This is a pilot: nothing was sent.",
       "texto": "Your details passed validation. When forms are connected, you will receive a confirmation by email."
+    },
+    "envio": {
+      "enviando": "Sending…",
+      "solicitud": {
+        "titulo": "Thank you. Your request has been sent.",
+        "texto": "We've emailed you a confirmation. The Curated Yucatán team will be in touch soon."
+      },
+      "seleccion": {
+        "titulo": "Your selection is on its way.",
+        "texto": "Check your inbox: we've sent you your Curated selection with the venue videos."
+      },
+      "error": {
+        "titulo": "We couldn't send your details.",
+        "texto": "Please try again in a few minutes."
+      },
+      "limite": {
+        "titulo": "Too many attempts.",
+        "texto": "Please wait a few minutes before trying again."
+      }
     }
   },
   "NoEncontrado": {

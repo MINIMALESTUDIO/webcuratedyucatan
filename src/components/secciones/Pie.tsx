@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { obtenerConfiguracionSitio } from '@/lib/contenido';
+import { configuracionCorreo } from '@/lib/correo/resend';
 import { NAVEGACION_PIE } from '@/lib/navegacion';
 import { SelectorIdioma } from './SelectorIdioma';
 
@@ -88,7 +89,8 @@ export async function Pie() {
               {t('derechos', { anio: new Date().getFullYear() })} ·{' '}
               <span className="etiqueta">Minimal 4.0</span> — {t('partner')}
             </p>
-            <p>{t('avisoPiloto')}</p>
+            {/* Se lee en el build: tras configurar Resend en el hosting hay que redesplegar (D-055). */}
+            {!configuracionCorreo() && <p>{t('avisoPiloto')}</p>}
           </div>
           <SelectorIdioma />
         </div>
