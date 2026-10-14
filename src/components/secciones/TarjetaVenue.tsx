@@ -16,6 +16,10 @@ interface Props {
  * Tarjeta de venue (documento de estructura, sección 6): imagen, nombre, ubicación, capacidad y
  * estilo. Sin caja: la foto respira y los datos van debajo, como en el libro. Toda la tarjeta
  * es clicable mediante un único enlace en el título (patrón de enlace extendido).
+ * Todas las portadas comparten tamaño: ancho completo de la columna (sin w-full la tarjeta se
+ * encogía al ancho de su título dentro de un contenedor flex) y proporción 3:2, la de la
+ * portada de San Pedro Ochil (2148×1428), que es la de la mayoría de las fotos del Drive.
+ * Las fotos verticales o pequeñas se recortan o amplían con object-cover.
  */
 export function TarjetaVenue({
   venue,
@@ -28,8 +32,8 @@ export function TarjetaVenue({
   const Titulo = nivel;
 
   return (
-    <article className="group relative flex flex-col">
-      <div className="relative aspect-[4/5] overflow-hidden bg-arena">
+    <article className="group relative flex w-full flex-col">
+      <div className="relative aspect-[3/2] overflow-hidden bg-arena">
         <ImagenContenido
           imagen={venue.imagen}
           edicion={{ id: venue._id, tipo: 'venue', ruta: 'media.imagenHero' }}
