@@ -687,3 +687,17 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 - **MariaDB y Turnstile:** la tabla `leads` y la defensa anti-bots completa, cuando exista la base en Hostinger.
 - **Copia al venue o partner** (`contactoLeads`): decisión comercial.
 - Siguen los anteriores: Otro Cielo, San Juan Opichén, logotipos.
+
+### Activación en producción (2026-10-14)
+
+- Dominio verificado en Resend (DKIM, MX y SPF de `send`, CNAME `rsend`). El MX y el SPF de Akky siguen intactos.
+- Variables cargadas en hPanel y sitio redesplegado: el aviso de piloto ya no aparece en el pie.
+- Prueba real contra `https://curatedyucatan.com/api/leads`, con info@ como visitante:
+
+| Envío                       | Respuesta       | Correos (estado en Resend)                                                            |
+| --------------------------- | --------------- | ------------------------------------------------------------------------------------- |
+| Find Your Yucatán (Organic) | 200 `enviado`   | "Your Yucatán, Curated." y "Find Your Yucatán · Organic · …", ambos _delivered_       |
+| Plan Your Event (es)        | 200 `enviado`   | "Recibimos tu solicitud · Curated Yucatán" y "Nueva solicitud · …", ambos _delivered_ |
+| Mismo Find Your Yucatán     | 200 `duplicado` | ninguno                                                                               |
+
+- El correo de la selección trae Sac Chich, Chuntuac y Yaxcopoil, cada uno con su episodio de El Lugar de Tu Historia. "Continue exploring" lleva a `https://curatedyucatan.com/`.
