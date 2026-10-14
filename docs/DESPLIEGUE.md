@@ -293,6 +293,19 @@ El código ya envía. Falta crear la cuenta y conectar el dominio:
 
 **Valores confirmados (2026-10-14):** remitente `Curated Yucatán <info@curatedyucatan.com>` y notificaciones a `info@curatedyucatan.com`. Ya están en `.env.hostinger` (fuera del repositorio), junto con un `IP_HASH_SALT` generado; solo falta agregar `RESEND_API_KEY`. Enviar desde `info@` no afecta al buzón de Akky: Resend firma con DKIM (`resend._domainkey`) y usa el subdominio `send` para rebotes.
 
+**Hecho con el conector de Resend (2026-10-14):**
+
+- Dominio `curatedyucatan.com` creado en Resend (región `us-east-1`, solo envío, sin seguimiento de aperturas ni clics).
+- Llave `curatedyucatan-sitio-hostinger`: solo envío, limitada a ese dominio. Está en `.env.hostinger`, fuera del repositorio. No se puso en `.env.local`, para que las pruebas locales no manden correos reales.
+- Registros DNS que pidió Resend. Se agregan en hPanel; el DNS se consultó antes y ninguno de estos nombres existía:
+
+| Tipo  | Nombre              | Valor                                                          | Prioridad |
+| ----- | ------------------- | -------------------------------------------------------------- | --------- |
+| TXT   | `resend._domainkey` | `p=MIGfMA0…IDAQAB` (clave DKIM completa en el panel de Resend) | —         |
+| MX    | `send`              | `feedback-smtp.us-east-1.amazonses.com`                        | 10        |
+| TXT   | `send`              | `v=spf1 include:amazonses.com ~all`                            | —         |
+| CNAME | `rsend`             | `send.forge.rmta.net`                                          | —         |
+
 **Sin las variables**, los formularios validan y muestran el aviso de piloto: no se pierde nada en silencio.
 
 **Pendiente:** la tabla `leads` en MariaDB (base y usuarios en hPanel, `DATABASE_URL`) y Turnstile. Mientras tanto, el registro de cada lead es el correo al equipo.
