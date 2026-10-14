@@ -529,3 +529,41 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - vuelve la prueba e2e del reproductor (Sac Chich, episodio `e8awa5XKNN4`);
   - la semilla incluye películas, redes y la sección.
+
+### D-055 — Envío de formularios con Resend y portadas de venues en 3:2
+
+- Fecha: 2026-10-14
+- Contexto:
+  - El responsable pidió conectar Resend y que los formularios manden correo. El Drive trae el copy del correo de Find Your Yucatán ("Correo de respuesta Find your yucatan"): categoría, venues recomendados con su video, sin duplicados y registro interno.
+  - Las portadas de los venues se veían de distintos tamaños en el listado. El responsable pidió igualarlas a la de San Pedro Ochil.
+  - En este equipo no hay Docker ni una base MariaDB, y en Hostinger todavía no existe la base (D-002). El token de escritura de Sanity no puede ir a Hostinger.
+- Decisión:
+  - **Endpoint:** `POST /api/leads`, con `tipo: "solicitud"` (Plan Your Event, ficha de venue, partner o Design & Production) o `tipo: "seleccion"` (Find Your Yucatán). Valida con los mismos esquemas zod del navegador y responde `{ ok, error?, datos? }`.
+  - **Resend por su API REST con `fetch`**, sin el SDK `resend`: es una sola petición, así que no se suma una dependencia. No hay dependencias nuevas.
+  - **Correos por cada envío:**
+    - **Visitante, Find Your Yucatán:** copy del Drive palabra por palabra, en inglés (el Drive no trae versión en español). Los venues se recalculan en el servidor con las reglas de D-053: el servidor no confía en la lista del navegador. Cada venue enlaza a su episodio de El Lugar de Tu Historia (`https://www.youtube.com/watch?v=<id>`).
+    - **Venue sin episodio** (Opichén, Casona 333, Santa Rosa, Millet, Dzibikak): el copy no prevé este caso. Se usa "DISCOVER THE VENUE →" con el enlace a su ficha (texto derivado).
+    - **Visitante, solicitud:** el Drive no trae copy. Se escribió una confirmación breve en inglés y español con el resumen de la solicitud (texto derivado, pendiente de revisión).
+    - **Equipo** (`CORREO_EQUIPO`, una o varias direcciones): todos los datos, respuestas, categoría y venues, en español. `Reply-To` = visitante.
+  - **Registro interno:** por ahora es el correo al equipo. La tabla `leads` en MariaDB (sección 7) queda para cuando exista la base en Hostinger.
+  - **Duplicados:**
+    - clave = hash del contenido del formulario;
+    - se usa como `Idempotency-Key` de Resend, que no repite un envío con la misma clave en 24 h aunque el servidor se reinicie;
+    - además, el servidor recuerda la clave en memoria y responde "duplicado" sin llamar a Resend;
+    - en el navegador, el botón se desactiva mientras envía y después del éxito.
+  - **Abuso:**
+    - solo se acepta JSON (bloquea formularios de otros sitios sin CORS);
+    - campo trampa `sitioWeb`, invisible para personas;
+    - límite en memoria de 5 envíos por IP cada 10 min (el número de D-011), con la IP como hash con `IP_HASH_SALT`;
+    - Turnstile y la tabla `limites_envio` llegan con la base.
+  - **Sin configurar:** sin `RESEND_API_KEY`, `CORREO_REMITENTE` o `CORREO_EQUIPO`, la API responde 503 `no-configurado` y el formulario muestra el aviso de piloto de siempre. El aviso del pie se oculta cuando el correo está configurado. Se evalúa en el build, así que hay que redesplegar después de cargar las variables.
+  - **Copia al venue o partner** (`contactoLeads`, sección 8): no se activa. Mandar datos de clientes a terceros es una decisión comercial pendiente.
+  - **Portadas:**
+    - la tarjeta de venue toma el ancho completo de la columna;
+    - antes, dentro de un `li` flex, se encogía al ancho de su título; por eso Casona 333 se veía diminuta y Hool grande;
+    - usa proporción 3:2, la de la portada de Ochil (2148×1428) y de la mayoría de las fotos;
+    - las verticales o pequeñas se recortan o amplían con `object-cover`; no se reescalaron los archivos.
+- Consecuencias:
+  - Para activar el correo hacen falta: cuenta de Resend, dominio verificado (registros DNS en Hostinger, sin tocar el MX de Akky), las tres variables en hPanel y un nuevo despliegue. Los pasos están en DESPLIEGUE §12.
+  - Las pruebas simulan Resend: unitarias con `fetch` sustituido y e2e con `page.route`. Ninguna prueba manda correo real.
+  - Vitest procesa `next-intl` con Vite (`server.deps.inline`) para poder probar el servicio, que usa `getPathname`.

@@ -266,3 +266,31 @@ El dominio quedó vinculado a Hostinger. Estado comprobado:
 - `www` responde 200 en vez de redirigir al dominio sin `www`. Conviene una redirección 301 en hPanel; la URL canónica ya evita contenido duplicado una vez corregida la variable.
 - `SITIO_INDEXABLE` sigue en `false` hasta el lanzamiento (D-028).
 - Los QR deben apuntar a `https://curatedyucatan.com/…`. Las rutas en inglés son estables: `/` y `/find-your-yucatan`.
+
+## 12. Correo de los formularios con Resend (D-055)
+
+El código ya envía. Falta crear la cuenta y conectar el dominio:
+
+1. **Cuenta:** crear la cuenta en https://resend.com, de preferencia con un correo institucional.
+2. **Dominio:**
+   - En Resend, ir a _Domains → Add domain_, escribir `curatedyucatan.com` y elegir la región `us-east-1`.
+   - Resend muestra 3 o 4 registros. Copiarlos tal cual en **hPanel → Dominios → DNS**: el DNS está en Hostinger aunque el dominio esté registrado en Akky:
+     - TXT `resend._domainkey` (DKIM);
+     - MX y TXT del subdominio `send` (return-path y SPF de Resend).
+   - **No tocar** los MX de la raíz (`mx001–mx004.cloudus.xion.oxcs.net`) ni el SPF de la raíz: el buzón de Akky sigue funcionando igual. Los registros de Resend van en `send` y `resend._domainkey`, no en `@`.
+   - Esperar a que Resend marque el dominio como _Verified_.
+3. **Llave:** ir a _API Keys → Create_, con permiso _Sending access_ y solo para ese dominio. Se copia una sola vez y no se pega en el repositorio ni en chats.
+4. **Variables en hPanel**, en el proyecto Node.js:
+   - `RESEND_API_KEY`: la llave del paso 3;
+   - `CORREO_REMITENTE`: por ejemplo `Curated Yucatán <hola@curatedyucatan.com>`. Puede ser cualquier dirección del dominio verificado, aunque no exista el buzón; las respuestas van a `CORREO_EQUIPO`;
+   - `CORREO_EQUIPO`: el correo o correos que reciben cada lead, separados por coma;
+   - `IP_HASH_SALT`: una cadena aleatoria larga, por ejemplo la salida de `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
+5. **Redesplegar.** El aviso "Forms don't send anything yet" del pie desaparece cuando las variables están en el build.
+6. **Prueba en producción:**
+   - Completar Find Your Yucatán y guardar la selección con un correo propio. Llegan dos correos: la selección al visitante y la notificación al equipo.
+   - Repetir el mismo envío: no llega nada nuevo (control de duplicados).
+   - Enviar Plan Your Event: llegan la confirmación y la notificación.
+
+**Sin las variables**, los formularios validan y muestran el aviso de piloto: no se pierde nada en silencio.
+
+**Pendiente:** la tabla `leads` en MariaDB (base y usuarios en hPanel, `DATABASE_URL`) y Turnstile. Mientras tanto, el registro de cada lead es el correo al equipo.

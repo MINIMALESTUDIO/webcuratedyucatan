@@ -634,3 +634,56 @@ Los contactos comerciales ("NO MOSTRAR") no se publicaron. Los correos de Margo 
 - **Otro Cielo:** información y fotos.
 - **San Juan Opichén:** fotos y episodio.
 - **Logotipos:** el de El Lugar de Tu Historia y los de los partners están en el Drive, pero el sitio todavía no los muestra.
+
+## Correo de los formularios con Resend y portadas de venues iguales (2026-10-14)
+
+**Estado:** código hecho y probado con Resend simulado. Falta la cuenta de Resend, el dominio verificado y las variables en hPanel (DESPLIEGUE §12).
+
+### Drive
+
+Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 12 oct. El copy de "Correo de respuesta Find your yucatan" no cambió.
+
+### Qué se hizo
+
+| Pedido                                         | Resultado                                                                                                                                                                                                          |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Portadas de venues del mismo tamaño            | Cada tarjeta se encogía al ancho de su título. Ahora todas ocupan la columna y usan 3:2, la proporción de Ochil (2148×1428). Aplica al listado, a los destacados del inicio, a los similares y a Find Your Yucatán |
+| Conectar Resend                                | `POST /api/leads` y el servicio de correo, con la API REST y sin dependencias nuevas (D-055)                                                                                                                       |
+| Correo de Find Your Yucatán                    | Copy del Drive: categoría, 3 venues con descripción breve y "WATCH THE VENUE VIDEO →" hacia su episodio de El Lugar de Tu Historia. Los venues sin episodio enlazan a su ficha                                     |
+| Plan Your Event y solicitud de venue o partner | Confirmación breve en el idioma del visitante (texto derivado: el Drive no trae copy)                                                                                                                              |
+| Registro interno y duplicados                  | Correo al equipo con todos los datos. Duplicados controlados con `Idempotency-Key` de Resend (24 h), memoria del servidor y botón desactivado                                                                      |
+
+### Archivos
+
+- `src/lib/correo/resend.ts`: envío por la API de Resend, solo servidor.
+- `src/lib/correo/plantillas.ts`: plantillas HTML y de texto plano.
+- `src/lib/leads/servicio.ts`: arma los correos; recalcula los venues con las reglas de D-053.
+- `src/lib/leads/proteccion.ts`: límite por IP, hash de IP y claves de duplicado.
+- `src/app/api/leads/route.ts`: el endpoint.
+- `src/components/formularios/useFormulario.ts`: antes `useFormularioPiloto`; ahora envía a `/api/leads`.
+- `src/components/formularios/AvisoEnvio.tsx`: antes `AvisoPiloto`; muestra el estado del envío (enviado, piloto, error o límite).
+- Campo trampa `CampoTrampa` y mensajes `Formularios.envio.*` en inglés y español.
+
+### Verificación
+
+| Comprobación                   | Resultado real                                                                                                             |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `tsc`, ESLint, Prettier        | sin errores                                                                                                                |
+| Vitest                         | 70 de 70 (9 nuevas: plantillas, límite, duplicados y servicio completo con Resend simulado)                                |
+| Build con webpack              | correcto; `/api/leads` dinámica                                                                                            |
+| Endpoint contra el build local | texto plano 415, campo trampa 200 sin envío, datos inválidos 400, sin Resend 503 `no-configurado`, sexto envío por IP 429  |
+| Bundle del navegador           | no contiene `api.resend.com` ni la llave                                                                                   |
+| Playwright leyendo de Sanity   | 33 de 33; Find Your Yucatán ahora guarda la selección con la API simulada                                                  |
+| Revisión visual                | listado de venues con portadas iguales; vista previa del correo con Sac Chich, Ochil y Casona 333 (datos reales de Sanity) |
+
+### Pendientes
+
+- **Activar el correo** (DESPLIEGUE §12):
+  - cuenta de Resend y dominio verificado con los registros DNS en Hostinger, sin tocar el MX de Akky;
+  - `RESEND_API_KEY`, `CORREO_REMITENTE`, `CORREO_EQUIPO` e `IP_HASH_SALT` en hPanel;
+  - redesplegar.
+- **Confirmar** qué correo recibe las notificaciones y cuál es el remitente.
+- **Revisar** el texto derivado de la confirmación de solicitud y la etiqueta "DISCOVER THE VENUE →".
+- **MariaDB y Turnstile:** la tabla `leads` y la defensa anti-bots completa, cuando exista la base en Hostinger.
+- **Copia al venue o partner** (`contactoLeads`): decisión comercial.
+- Siguen los anteriores: Otro Cielo, San Juan Opichén, logotipos.
