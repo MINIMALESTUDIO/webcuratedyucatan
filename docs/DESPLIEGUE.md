@@ -291,6 +291,8 @@ El código ya envía. Falta crear la cuenta y conectar el dominio:
    - Repetir el mismo envío: no llega nada nuevo (control de duplicados).
    - Enviar Plan Your Event: llegan la confirmación y la notificación.
 
+**Valores confirmados (2026-10-14):** remitente `Curated Yucatán <info@curatedyucatan.com>` y notificaciones a `info@curatedyucatan.com`. Ya están en `.env.hostinger` (fuera del repositorio), junto con un `IP_HASH_SALT` generado; solo falta agregar `RESEND_API_KEY`. Enviar desde `info@` no afecta al buzón de Akky: Resend firma con DKIM (`resend._domainkey`) y usa el subdominio `send` para rebotes.
+
 **Sin las variables**, los formularios validan y muestran el aviso de piloto: no se pierde nada en silencio.
 
 **Pendiente:** la tabla `leads` en MariaDB (base y usuarios en hPanel, `DATABASE_URL`) y Turnstile. Mientras tanto, el registro de cada lead es el correo al equipo.

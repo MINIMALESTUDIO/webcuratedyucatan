@@ -682,7 +682,7 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
   - cuenta de Resend y dominio verificado con los registros DNS en Hostinger, sin tocar el MX de Akky;
   - `RESEND_API_KEY`, `CORREO_REMITENTE`, `CORREO_EQUIPO` e `IP_HASH_SALT` en hPanel;
   - redesplegar.
-- **Confirmar** qué correo recibe las notificaciones y cuál es el remitente.
+- ~~Confirmar remitente y destino~~: confirmado, ambos `info@curatedyucatan.com` (ya en `.env.hostinger`).
 - **Revisar** el texto derivado de la confirmación de solicitud y la etiqueta "DISCOVER THE VENUE →".
 - **MariaDB y Turnstile:** la tabla `leads` y la defensa anti-bots completa, cuando exista la base en Hostinger.
 - **Copia al venue o partner** (`contactoLeads`): decisión comercial.
