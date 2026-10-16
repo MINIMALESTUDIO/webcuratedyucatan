@@ -30,7 +30,19 @@ export async function generateMetadata({
 }
 
 /**
- * Design & Production (D-052): tres marcas especializadas (Minimal, Más que Ayer y Otro Cielo)
+ * Columnas de la fila de fotos bajo el mosaico, para que cierre sin huecos (D-056): 18 fotos de
+ * Minimal → 6 por fila en escritorio (3 en tableta); 4 de Más que Ayer → 4. Clases literales para
+ * que Tailwind las genere.
+ */
+function columnasGaleria(cantidad: number): string {
+  if (cantidad % 6 === 0) return 'md:grid-cols-3 lg:grid-cols-6';
+  if (cantidad % 4 === 0) return 'md:grid-cols-4';
+  if (cantidad % 3 === 0) return 'md:grid-cols-3';
+  return 'md:grid-cols-4';
+}
+
+/**
+ * Design & Production (D-052): dos marcas especializadas (Minimal y Más que Ayer, D-056)
  * con una visión compartida. Hero → introducción → una sección por marca → experiencia en
  * destino → cierre con solicitud de información.
  */
@@ -145,7 +157,12 @@ export default async function PaginaDiseno() {
             </Contenedor>
             {marca.imagenes.length > 2 && (
               <Contenedor className="mt-10">
-                <ul className="grid grid-cols-2 gap-2 md:grid-cols-4">
+                <ul
+                  className={cx(
+                    'grid grid-cols-2 gap-2',
+                    columnasGaleria(marca.imagenes.length - 2),
+                  )}
+                >
                   {marca.imagenes.slice(2).map((imagen) => (
                     <li
                       key={imagen._key ?? imagen.url}
@@ -165,7 +182,7 @@ export default async function PaginaDiseno() {
                               }
                             : undefined
                         }
-                        sizes="(min-width: 768px) 25vw, 50vw"
+                        sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                       />
                     </li>
                   ))}
