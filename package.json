@@ -24,7 +24,8 @@
     "studio:deploy": "sanity deploy",
     "sanity:semilla": "tsx scripts/semilla-sanity.ts",
     "sanity:verificar-privados": "tsx scripts/verificar-privados-sanity.ts",
-    "sanity:fotos": "sanity exec scripts/fotos-drive.ts --with-user-token"
+    "sanity:fotos": "sanity exec scripts/fotos-drive.ts --with-user-token",
+    "sanity:traducciones": "sanity exec scripts/traducciones-es.ts --with-user-token"
   },
   "dependencies": {
     "@portabletext/react": "7.0.1",
