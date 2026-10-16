@@ -100,6 +100,20 @@
       ]
     },
     {
+      "destino": "descubreYucatan",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "1f2VcuVdLIzUxr5JYI5QLiBUFsPkamx6D",
+          "origen": "01_WEB/02_DISCOVER YUCATAN/foto principal",
+          "alt": {
+            "en": "Looking up from inside a cenote toward an opening framed by stalactites and trees",
+            "es": "Vista desde el interior de un cenote hacia una abertura enmarcada por estalactitas y árboles"
+          }
+        }
+      ]
+    },
+    {
       "destino": "categoria-architecture",
       "campo": "imagenPrincipal",
       "fotos": [
