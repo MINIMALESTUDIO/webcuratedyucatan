@@ -701,3 +701,40 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 | Mismo Find Your Yucatán     | 200 `duplicado` | ninguno                                                                               |
 
 - El correo de la selección trae Sac Chich, Chuntuac y Yaxcopoil, cada uno con su episodio de El Lugar de Tu Historia. "Continue exploring" lleva a `https://curatedyucatan.com/`.
+
+## Drive del 16 oct, Design & Production con dos marcas y sitio en español
+
+**Estado:** hecho y verificado en Sanity (lo que sirve Hostinger). La cuadrícula nueva de D&P se verá cuando se publique este commit.
+
+### Drive (solo lectura)
+
+| Novedad                                                             | Qué se hizo                                                                                                                           |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| "Estructura de design and production e info" sin Otro Cielo         | Copy nuevo aplicado; Otro Cielo eliminado de Sanity, de los datos DEMO, de las descripciones y de los marcadores (D-056)              |
+| Carpeta compartida con fotos de Minimal y Más que Ayer              | 4 fotos por cada carpeta de Minimal (20) y 6 de Más que Ayer, con texto alternativo en inglés y español                               |
+| 30 fotos sueltas y carpeta "masqueayer" en la raíz de 06_DESIGN     | Descarga desactivada para quien no es editor; la carpeta "masqueayer" está vacía o es privada. Se usaron las de la carpeta compartida |
+| Gaber Studio (05_PHOTOGRAPHY): zip con 23 fotos de bodas y logotipo | Sin ficha ni texto: no se publicó (pendiente)                                                                                         |
+| "foto principal" en 02_DISCOVER YUCATAN                             | Ya estaba en el sitio                                                                                                                 |
+
+### Traducciones
+
+- **Diagnóstico en producción:** el botón ES funciona en todas las páginas: cambia la URL, la etiqueta `lang` y el menú. Lo que quedaba en inglés eran 436 campos de contenido sin español en Sanity. Los más visibles estaban en Discover, Catering, D&P y About.
+- **Corrección:** 885 textos traducidos en `sanity/traducciones/es.json`, aplicados con el script nuevo `npm run sanity:traducciones`, que no sobrescribe lo que ya está en español.
+- **Resultado:** 436 campos en 39 documentos; una segunda pasada encuentra 0 pendientes.
+- **Producción después del cambio:** las 14 páginas revisadas en `/es` salen en español. Las fichas de venues y partners también.
+
+### Verificación
+
+| Comprobación                 | Resultado real                                                         |
+| ---------------------------- | ---------------------------------------------------------------------- |
+| `tsc`, ESLint, Prettier      | sin errores                                                            |
+| Vitest                       | 70 de 70                                                               |
+| Build con webpack            | correcto                                                               |
+| Playwright leyendo de Sanity | 33 de 33                                                               |
+| Producción en español        | 14 páginas revisadas con texto en español; D&P con las 26 fotos nuevas |
+
+### Pendientes
+
+- Revisar las traducciones (`sanity/traducciones/es.json` o directo en el Studio).
+- Gaber Studio: ficha (descripción, servicios, cobertura) para publicarlo con sus fotos.
+- Fotos sueltas de 06_DESIGN: activar "los lectores pueden descargar" si se quieren usar.

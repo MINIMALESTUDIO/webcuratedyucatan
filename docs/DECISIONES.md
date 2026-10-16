@@ -512,7 +512,7 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - **Campos nuevos:** `categoriaDescubre.imagenHero` (el hero de la página, distinto de la foto del inicio) y `configuracionSitio.queEsCurated.imagen`.
   - **Contactos comerciales** marcados "NO MOSTRAR": se escriben directo en `privado.contactosLeads`, nunca en el repositorio.
 - Consecuencias:
-  - importar la semilla con `--replace` vuelve a poner los marcadores: después hay que correr `npm run sanity:fotos` y escribir otra vez los correos privados;
+  - importar la semilla con `--replace` vuelve a poner los marcadores: después hay que correr `npm run sanity:fotos`, `npm run sanity:traducciones` (D-056) y escribir otra vez los correos privados;
   - antes de cualquier importación, respaldo con `dataset export` y revisión de ediciones hechas en el Studio.
 
 ### D-054 — El Lugar de Tu Historia: sección en Venues y películas de los venues
@@ -567,3 +567,35 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - Para activar el correo hacen falta: cuenta de Resend, dominio verificado (registros DNS en Hostinger, sin tocar el MX de Akky), las tres variables en hPanel y un nuevo despliegue. Los pasos están en DESPLIEGUE §12.
   - Las pruebas simulan Resend: unitarias con `fetch` sustituido y e2e con `page.route`. Ninguna prueba manda correo real.
   - Vitest procesa `next-intl` con Vite (`server.deps.inline`) para poder probar el servicio, que usa `getPathname`.
+
+### D-056 — Design & Production con dos marcas y contenido en español
+
+- Fecha: 2026-10-16
+- Contexto:
+  - El documento de D&P del Drive ya no menciona a Otro Cielo. El responsable pidió quitar todo lo relativo a esa marca.
+  - Compartió una carpeta solo con fotos de Minimal (chable, MONTAJE OCEAN, quinta, RODRIGO MORA, tekit) y Más que Ayer (masqueayer). Pidió 4 fotos de cada carpeta de Minimal y 6 de Más que Ayer.
+  - El responsable reportó que, al cambiar a ES, algunas páginas seguían en inglés. Revisión en producción:
+    - el selector de idioma funciona en todas las páginas: cambia la URL, la etiqueta `lang` y el menú;
+    - lo que quedaba en inglés era el contenido: 436 campos de Sanity tenían inglés y no español (D-008 muestra el inglés cuando falta el español);
+    - afectaba a venues, Discover, D&P, About, partners, artículos y la sección de la serie.
+- Decisión:
+  - **D&P:**
+    - copy nuevo del Drive: "Two disciplines. One shared vision.", introducción con dos marcas, servicio "Tables, Tabletop, Chairs, Lounges & Bars" y cierre nuevo;
+    - Otro Cielo sale de Sanity, de los datos DEMO, de las descripciones y de los marcadores (`diseno-mesa-*`).
+  - **Fotos de D&P:**
+    - Minimal: 20 (4 por carpeta), elegidas por mobiliario y montaje;
+    - Más que Ayer: 6;
+    - reemplazan a las anteriores en `fotos-drive.json`;
+    - la fila bajo el mosaico ajusta sus columnas para cerrar sin huecos: 18 → 6 por fila en escritorio; 4 → 4.
+  - **Español:**
+    - `sanity/traducciones/es.json` es un diccionario inglés → español con los 885 textos únicos de esos campos;
+    - `npm run sanity:traducciones` (`scripts/traducciones-es.ts`) lo aplica: completa solo los campos sin español (textos y bloques span por span) y nunca sobrescribe un español existente, así que respeta lo editado en el Studio;
+    - con `PRUEBA=1` solo informa.
+    - Traducción hecha por Claude a partir del copy del Drive, pendiente de revisión.
+    - Los títulos de los videos de YouTube se dejan como están publicados.
+- Consecuencias:
+  - Después de importar la semilla con `--replace`, hay que correr `npm run sanity:fotos`, `npm run sanity:traducciones` y volver a escribir los correos privados.
+  - Si se edita el inglés de un campo en el Studio, su español no cambia solo: se corrige en el Studio o se actualiza el diccionario y se borra el español viejo antes de correr el script.
+  - Los datos DEMO siguen solo en inglés (respaldo sin conexión y pruebas).
+  - Pendiente del Drive: 30 fotos sueltas en la raíz de 06_DESIGN & PRODUCTION tienen la descarga desactivada para quien no es editor. Las de la carpeta compartida sí se pudieron usar.
+  - Gaber Studio (fotografía): llegó un zip con 23 fotos de bodas y su logotipo, sin ficha ni texto. No se publicó.
