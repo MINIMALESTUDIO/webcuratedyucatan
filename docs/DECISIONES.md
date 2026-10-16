@@ -597,5 +597,5 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - Después de importar la semilla con `--replace`, hay que correr `npm run sanity:fotos`, `npm run sanity:traducciones` y volver a escribir los correos privados.
   - Si se edita el inglés de un campo en el Studio, su español no cambia solo: se corrige en el Studio o se actualiza el diccionario y se borra el español viejo antes de correr el script.
   - Los datos DEMO siguen solo en inglés (respaldo sin conexión y pruebas).
-  - Pendiente del Drive: 30 fotos sueltas en la raíz de 06_DESIGN & PRODUCTION tienen la descarga desactivada para quien no es editor. Las de la carpeta compartida sí se pudieron usar.
+  - Las 30 fotos sueltas en la raíz de 06_DESIGN & PRODUCTION son las mismas de la carpeta compartida (confirmado por el responsable): no hay nada pendiente ahí.
   - Gaber Studio (fotografía): llegó un zip con 23 fotos de bodas y su logotipo, sin ficha ni texto. No se publicó.

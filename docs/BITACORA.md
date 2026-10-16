@@ -708,13 +708,13 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 
 ### Drive (solo lectura)
 
-| Novedad                                                             | Qué se hizo                                                                                                                           |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| "Estructura de design and production e info" sin Otro Cielo         | Copy nuevo aplicado; Otro Cielo eliminado de Sanity, de los datos DEMO, de las descripciones y de los marcadores (D-056)              |
-| Carpeta compartida con fotos de Minimal y Más que Ayer              | 4 fotos por cada carpeta de Minimal (20) y 6 de Más que Ayer, con texto alternativo en inglés y español                               |
-| 30 fotos sueltas y carpeta "masqueayer" en la raíz de 06_DESIGN     | Descarga desactivada para quien no es editor; la carpeta "masqueayer" está vacía o es privada. Se usaron las de la carpeta compartida |
-| Gaber Studio (05_PHOTOGRAPHY): zip con 23 fotos de bodas y logotipo | Sin ficha ni texto: no se publicó (pendiente)                                                                                         |
-| "foto principal" en 02_DISCOVER YUCATAN                             | Ya estaba en el sitio                                                                                                                 |
+| Novedad                                                             | Qué se hizo                                                                                                              |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| "Estructura de design and production e info" sin Otro Cielo         | Copy nuevo aplicado; Otro Cielo eliminado de Sanity, de los datos DEMO, de las descripciones y de los marcadores (D-056) |
+| Carpeta compartida con fotos de Minimal y Más que Ayer              | 4 fotos por cada carpeta de Minimal (20) y 6 de Más que Ayer, con texto alternativo en inglés y español                  |
+| 30 fotos sueltas y carpeta "masqueayer" en la raíz de 06_DESIGN     | Son las mismas fotos de la carpeta compartida (confirmado): ya están en el sitio                                         |
+| Gaber Studio (05_PHOTOGRAPHY): zip con 23 fotos de bodas y logotipo | Sin ficha ni texto: no se publicó (pendiente)                                                                            |
+| "foto principal" en 02_DISCOVER YUCATAN                             | Ya estaba en el sitio                                                                                                    |
 
 ### Traducciones
 
@@ -737,4 +737,3 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 
 - Revisar las traducciones (`sanity/traducciones/es.json` o directo en el Studio).
 - Gaber Studio: ficha (descripción, servicios, cobertura) para publicarlo con sus fotos.
-- Fotos sueltas de 06_DESIGN: activar "los lectores pueden descargar" si se quieren usar.
