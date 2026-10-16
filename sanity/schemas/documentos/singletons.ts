@@ -219,7 +219,7 @@ export const disenoProduccion = defineType({
     defineField({
       name: 'marcas',
       title: 'Marcas',
-      description: 'Minimal, Más que Ayer y Otro Cielo (D-052).',
+      description: 'Minimal y Más que Ayer (D-052, D-056).',
       type: 'array',
       group: 'marcas',
       of: [

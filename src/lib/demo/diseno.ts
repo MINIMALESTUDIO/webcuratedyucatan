@@ -2,10 +2,10 @@ import type { DisenoProduccion, ElementoLista } from '@/lib/contenido/tipos';
 import { bloquesIngles, HORIZONTAL, imagenDemo, serieDemo, VERTICAL } from './ayudantes';
 
 /*
- * Design & Production (D-052): copy real de 01_WEB/06_DESIGN & PRODUCTION — MINIMAL (Drive,
- * 2026-10-08), solo en inglés (D-008). Se quitaron las notas internas del documento.
- * Otro Cielo queda [PENDIENTE]: el propio documento no trae todavía su About, servicios ni
- * Curated Notes. Las fotos son [DEMO] y ninguna marca trae aún enlace para "Discover".
+ * Design & Production (D-052, D-056): copy real de 01_WEB/06_DESIGN & PRODUCTION — MINIMAL
+ * (Drive, revisado el 2026-10-16), solo en inglés (D-008). Dos marcas: Minimal y Más que Ayer;
+ * Otro Cielo salió del documento y del sitio. Las fotos son [DEMO] y ninguna marca trae aún
+ * enlace para "Discover".
  */
 
 const en = (valor: string) => ({ en: valor });
@@ -17,9 +17,9 @@ function servicios(clave: string, nombres: string[]): ElementoLista[] {
 export const disenoDemo: DisenoProduccion = {
   _id: 'disenoProduccion',
   _type: 'disenoProduccion',
-  titular: en('Three disciplines. One shared vision.'),
+  titular: en('Two disciplines. One shared vision.'),
   entradilla: en(
-    'Furniture, floral design and tabletop come together through three specialized brands, each with its own identity and approach to transforming a celebration.',
+    'Furniture, event production and floral design come together through two specialized brands, each with its own identity and approach to transforming a celebration.',
   ),
   imagenPrincipal: imagenDemo(
     'diseno-hero.jpg',
@@ -31,9 +31,9 @@ export const disenoDemo: DisenoProduccion = {
   introduccion: {
     titulo: en('Designed to work together.'),
     texto: bloquesIngles('diseno-intro', [
-      'Minimal, Más que Ayer and Otro Cielo are three specialized brands united by a shared approach to design, detail and the transformation of spaces.',
-      'Minimal focuses on furniture and spatial production, Más que Ayer on floral design and production, and Otro Cielo on tabletop — from tableware and glassware to the pieces that complete the experience of the table.',
-      'Each brand can work independently or come together within the same project, allowing furniture, florals and tabletop to become part of one cohesive visual language.',
+      'Minimal and Más que Ayer are two specialized brands united by a shared approach to design, detail and the transformation of spaces.',
+      'Minimal focuses on furniture and spatial production, while Más que Ayer specializes in floral design and production.',
+      'Each brand can work independently or come together within the same project, allowing furniture, spatial elements and florals to become part of one cohesive visual language.',
     ]),
   },
   marcas: [
@@ -48,7 +48,7 @@ export const disenoDemo: DisenoProduccion = {
       ]),
       servicios: servicios('minimal', [
         'Furniture Rental',
-        'Tables, Chairs, Lounges & Bars',
+        'Tables, Tabletop, Chairs, Lounges & Bars',
         'Specialty Furniture & Design Pieces',
         'Spatial Configuration & Construction',
         'Custom Furniture & Elements',
@@ -78,17 +78,6 @@ export const disenoDemo: DisenoProduccion = {
       ]),
       imagenes: serieDemo('diseno-floral', [HORIZONTAL, VERTICAL], 'Más que Ayer'),
     },
-    {
-      _key: 'otro-cielo',
-      nombre: 'Otro Cielo',
-      categoria: en('Tabletop'),
-      titular: en('The table, considered in every detail.'),
-      descripcion: bloquesIngles('otro-cielo-about', [
-        '[PENDIENTE] Otro Cielo information: About, services and Curated Notes are not in the Drive yet.',
-      ]),
-      servicios: [],
-      imagenes: serieDemo('diseno-mesa', [HORIZONTAL, VERTICAL], 'Otro Cielo'),
-    },
   ],
   experienciaDestino: {
     sobretitulo: en('Destination Events'),
@@ -102,7 +91,7 @@ export const disenoDemo: DisenoProduccion = {
   cierre: {
     titulo: en('One vision, expressed through every detail.'),
     texto: en(
-      'Furniture, florals and tabletop can stand independently or come together to create a complete and considered environment.',
+      'Furniture, spatial production and floral design can stand independently or come together to create a cohesive and considered environment.',
     ),
   },
 };

@@ -283,7 +283,7 @@ export interface ProveedorResumen {
 
 // --- Design & Production -------------------------------------------------------------
 
-/** Una de las tres marcas: Minimal, Más que Ayer y Otro Cielo (D-052). */
+/** Una de las marcas: Minimal y Más que Ayer (D-052, D-056). */
 export interface MarcaDiseno {
   _key: string;
   /** Nombre propio: no se traduce. */
@@ -300,11 +300,11 @@ export interface MarcaDiseno {
   sitioWeb?: string;
 }
 
-/** Design & Production: tres marcas especializadas con una visión compartida (D-052). */
+/** Design & Production: dos marcas especializadas con una visión compartida (D-052, D-056). */
 export interface DisenoProduccion {
   _id: 'disenoProduccion';
   _type: 'disenoProduccion';
-  /** Headline del hero: "Three disciplines. One shared vision." */
+  /** Headline del hero: "Two disciplines. One shared vision." */
   titular: TextoLocalizado;
   entradilla: TextoLocalizado;
   imagenPrincipal: Imagen;

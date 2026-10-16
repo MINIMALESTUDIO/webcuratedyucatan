@@ -108,7 +108,7 @@ for (const tipo of ['catering', 'fotografia']) {
 }
 
 imagenes.push(['diseno-hero.jpg', 2400, 1500, 'Design & Production', true]);
-for (const area of ['mobiliario', 'mesa', 'floral', 'decoracion', 'produccion']) {
+for (const area of ['mobiliario', 'floral', 'decoracion', 'produccion']) {
   imagenes.push([`diseno-${area}-1.jpg`, ...H, `${area} · 1`]);
   imagenes.push([`diseno-${area}-2.jpg`, ...V, `${area} · 2`]);
 }

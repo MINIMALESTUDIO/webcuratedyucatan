@@ -318,11 +318,15 @@ test('español: rutas traducidas y cambio de idioma que conserva la página', as
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
   await expect(page.getByRole('heading', { name: 'Datos clave' })).toBeAttached();
 
-  const rutas: Array<[string, string]> = [
+  // Con Sanity el titular de D&P sale en español (D-056); con los datos DEMO, en inglés.
+  const rutas: Array<[string, string | RegExp]> = [
     ['/es/descubre-yucatan', 'Descubre Yucatán'],
     ['/es/fotografia', 'Fotografía'],
     ['/photography', 'Photography'],
-    ['/es/diseno-y-produccion', 'Three disciplines. One shared vision.'],
+    [
+      '/es/diseno-y-produccion',
+      /^(Dos disciplinas\. Una visión compartida|Two disciplines\. One shared vision)\.$/,
+    ],
     ['/es/encuentra-tu-yucatan', '¿Qué Yucatán va contigo?'],
     ['/es/planea-tu-evento', 'Planea tu evento'],
     ['/about', 'About Curated'],
