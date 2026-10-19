@@ -627,3 +627,37 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - **Aviso de privacidad:** sigue con su "[PENDIENTE]": el texto legal lo debe dar el responsable y no se inventa.
   - Los datos de respaldo en código (`src/lib/demo`) conservan sus marcadores: solo se usan sin conexión a Sanity y en pruebas, no en el sitio publicado.
   - Las 140 imágenes de relleno sin usar en Sanity no se borraron: no se ven en el sitio y borrarlas es irreversible.
+
+### D-059 — Endurecimiento de seguridad (19 oct)
+
+- Fecha: 2026-10-19
+- Contexto: el escáner de Hostinger reportó 32 vulnerabilidades en dependencias, y el responsable pidió revisar y corregir otras posibles fallas.
+- Revisión:
+  - **Dependencias:**
+    - la única que afecta al sitio publicado era Next.js 16.3.6 (alta: envenenamiento de la caché de páginas SSG/ISR);
+    - el resto viene de la CLI de Sanity, ESLint y herramientas de compilación, que no corren al servir el sitio.
+  - **Secretos:** ninguno de los valores de `.env.local` ni de `.env.hostinger` aparece en los 62 commits ni en el código que descarga el navegador.
+  - **Sanity:** los documentos `privado.*` no son legibles con la API pública (0 resultados sin token).
+  - **Código:** sin `dangerouslySetInnerHTML`; todos los enlaces externos con `rel="noopener noreferrer"`; `/api/revalidar` verifica la firma; el modo borrador lo valida next-sanity con el token del servidor; `/api/leads` no responde CORS a otros orígenes.
+  - **Encabezados:** producción no enviaba HSTS, nosniff, Referrer-Policy, Permissions-Policy ni protección contra incrustación (solo la CSP `upgrade-insecure-requests` de la CDN).
+  - **Formularios:**
+    - el límite por IP se basa en X-Forwarded-For, que se puede falsear;
+    - el nombre y el mensaje del visitante viajaban en la confirmación, así que se podía usar el sitio para mandar texto engañoso desde nuestro dominio a otra persona.
+- Decisión:
+  - **Dependencias:**
+    - Next.js y eslint-config-next 16.4.2;
+    - `npm audit fix` sin cambios mayores (adm-zip, undici, source-map-js, module-federation);
+    - `overrides` para js-yaml 3.15.2 y smol-toml 1.9.1 dentro de `@vercel/frameworks`, misma versión mayor;
+    - nunca `npm audit fix --force` ni "Autocorregir todo" de Hostinger: bajarían Sanity a la 5, next-sanity a la 11 y eslint-config-next a la 14.
+  - **Encabezados** (`next.config.ts`):
+    - CSP con `frame-ancestors` (el sitio, `*.sanity.studio`, `www.sanity.io`, el Studio configurado y `localhost:3333`), `base-uri 'self'`, `object-src 'none'` y `form-action 'self'`;
+    - HSTS de un año, sin `includeSubDomains` por los subdominios del correo;
+    - `nosniff`, `Referrer-Policy: strict-origin-when-cross-origin` y `Permissions-Policy` sin cámara, micrófono, ubicación, pagos, USB ni browsing-topics.
+    - No se restringen scripts: una CSP estricta exige nonces y se evaluará aparte.
+  - **Formularios:**
+    - nombre, empresa, país y fecha no admiten enlaces, `<`, `>` ni saltos de línea (error `formatoInvalido`);
+    - el mensaje libre solo va al equipo, no a la confirmación del visitante;
+    - límites nuevos en memoria que no dependen de la IP: 5 correos por destinatario cada 24 h y 60 envíos por hora en total.
+- Consecuencias:
+  - Quedan 20 avisos en `npm audit`, todos en la CLI de Sanity, ESLint y herramientas de compilación. braces, micromatch y sprintf-js no tienen versión corregida publicada; uuid 10→11 sería un cambio mayor. Se revisan cuando Sanity publique una versión que los resuelva.
+  - La llave de Resend apareció en la salida de una herramienta durante la configuración (14 oct). Conviene rotarla: crear una nueva, ponerla en hPanel y redesplegar, y después borrar la anterior.

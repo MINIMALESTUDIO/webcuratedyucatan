@@ -778,3 +778,15 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 - **Revisión del HTML de 19 páginas** (inglés y español): no aparece "[DEMO]" salvo en el texto alternativo de las fotos de relleno de San Juan Opichén, que se conservan a pedido del responsable.
 - **Pendiente:** el aviso de privacidad sigue con "[PENDIENTE]" hasta tener el texto legal.
 - **Verificación:** `tsc`, ESLint y Prettier sin errores; Vitest 70 de 70; Playwright 33 de 33.
+
+## Seguridad: dependencias, encabezados y formularios (2026-10-19)
+
+- **Next.js 16.3.6 → 16.4.2:** corrige la falla alta de caché que sí afectaba al sitio publicado. Además, `npm audit fix` sin cambios mayores y overrides seguros. De 28 avisos quedan 20, todos en herramientas que no corren al servir el sitio (D-059).
+- **Encabezados de seguridad nuevos:** CSP con `frame-ancestors` (el Studio sigue pudiendo mostrar el sitio), HSTS, nosniff, Referrer-Policy y Permissions-Policy.
+- **Formularios:**
+  - sin enlaces ni etiquetas en los campos que se repiten en la confirmación;
+  - el mensaje libre solo va al equipo;
+  - límites de 5 correos por destinatario al día y 60 envíos por hora.
+- **Sin secretos** en el historial de Git ni en el código del navegador. Los documentos privados de Sanity no son públicos.
+- **Verificación:** `tsc`, ESLint y Prettier sin errores; Vitest 73 de 73 (3 pruebas nuevas); build con Next 16.4.2; Playwright 33 de 33.
+- **Pendiente:** rotar la llave de Resend.
