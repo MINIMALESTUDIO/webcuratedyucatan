@@ -165,8 +165,6 @@ export interface Pelicula {
   youtubeId: string;
   titulo: TextoLocalizado;
   capitulos: Capitulo[];
-  /** Solo en el piloto: el video no es de la serie (D-007). */
-  esDemo?: boolean;
 }
 
 export interface Venue {

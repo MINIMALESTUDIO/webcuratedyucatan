@@ -13,12 +13,11 @@ export interface OpcionColeccion {
   nombre: string;
 }
 
-function Grupo({ titulo, nota, children }: { titulo: string; nota?: string; children: ReactNode }) {
+function Grupo({ titulo, children }: { titulo: string; children: ReactNode }) {
   return (
     <fieldset className="border-t border-linea pt-5">
       <legend className="etiqueta float-left mb-4 w-full">{titulo}</legend>
       <div className="clear-left flex flex-wrap gap-2">{children}</div>
-      {nota && <p className="mt-2 text-xs text-tinta-suave">{nota}</p>}
     </fieldset>
   );
 }
@@ -53,7 +52,7 @@ export function PanelFiltros({
         ))}
       </Grupo>
 
-      <Grupo titulo={t('grupos.capacidad')} nota={t('notaRangos')}>
+      <Grupo titulo={t('grupos.capacidad')}>
         {RANGOS_CAPACIDAD.map((rango) => (
           <ChipFiltro
             key={rango.id}

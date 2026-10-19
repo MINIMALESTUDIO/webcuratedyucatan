@@ -615,3 +615,15 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - Si el partner reemplaza el .zip en el Drive, las posiciones pueden cambiar: hay que revisar la selección antes de volver a correr `sanity:fotos` con un .zip nuevo.
   - La prueba e2e de "Request information" usa ahora `/photography/gaber-studio`.
+
+### D-058 — Sin textos [DEMO] visibles en el sitio
+
+- Fecha: 2026-10-19
+- Contexto: el responsable pidió eliminar todo lo que diga "demo". Inventario en Sanity y en los textos de la interfaz.
+- Decisión:
+  - **Colecciones:** la descripción [DEMO] se reemplaza por el texto de cada resultado de Find Your Yucatán (copy del Drive, inglés y español), que es lo que esa descripción respalda.
+  - **Interfaz:** se quitan la nota "[DEMO] Sample ranges." del filtro de capacidad, la nota de video de muestra de la ficha de venue (y el campo `esDemo` de la película) y el aviso de piloto del pie.
+  - **San Juan Opichén:** por indicación del responsable, conserva sus fotos de relleno hasta que lleguen las reales; son lo único con "[DEMO]" (en su texto alternativo).
+  - **Aviso de privacidad:** sigue con su "[PENDIENTE]": el texto legal lo debe dar el responsable y no se inventa.
+  - Los datos de respaldo en código (`src/lib/demo`) conservan sus marcadores: solo se usan sin conexión a Sanity y en pruebas, no en el sitio publicado.
+  - Las 140 imágenes de relleno sin usar en Sanity no se borraron: no se ven en el sitio y borrarlas es irreversible.

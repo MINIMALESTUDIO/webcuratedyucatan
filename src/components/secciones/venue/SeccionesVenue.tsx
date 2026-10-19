@@ -46,7 +46,6 @@ export async function SeccionPelicula({ venue }: { venue: Venue }) {
           <h2 id="titulo-pelicula" className="mt-4 text-titulo-2">
             {t('titulo')}
           </h2>
-          {pelicula.esDemo && <p className="mt-5 text-sm text-tinta-suave">{t('notaDemo')}</p>}
         </div>
         <div className="lg:col-span-8">
           <ReproductorVideo

@@ -58,8 +58,7 @@
     "contacto": "Contacto",
     "serieVideo": "El Lugar de Tu Historia · serie de video",
     "partner": "Curated Partner en diseño y producción",
-    "derechos": "© {anio} Curated Yucatán",
-    "avisoPiloto": "Piloto con contenido de ejemplo [DEMO]. Los formularios todavía no envían nada."
+    "derechos": "© {anio} Curated Yucatán"
   },
   "Inicio": {
     "hero": {
@@ -118,7 +117,6 @@
       "interior": "Interior",
       "exterior": "Exterior"
     },
-    "notaRangos": "[DEMO] Rangos de ejemplo.",
     "vacioTitulo": "Ningún venue coincide con estos filtros",
     "vacioTexto": "Prueba quitando un filtro, o cuéntanos de tu evento y te sugerimos lugares.",
     "vacioPlanea": "Planea tu evento",
@@ -158,7 +156,6 @@
     "pelicula": {
       "serie": "El Lugar de Tu Historia",
       "titulo": "La película",
-      "notaDemo": "[DEMO] Video de muestra. Aquí irá la película del venue en la serie.",
       "reproducir": "Reproducir video: {titulo}",
       "tituloIframe": "Video: {titulo}",
       "capitulos": "Capítulos",

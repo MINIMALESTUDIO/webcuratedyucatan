@@ -770,3 +770,11 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 - Photography tiene 2 fichas; el documento de estructura pide de 3 a 5.
 - El filtro de capacidad del listado de venues todavía muestra la nota "[DEMO] Sample ranges.".
 - Revisión de las traducciones.
+
+## Sin [DEMO] en el sitio (2026-10-19)
+
+- **Colecciones:** descripción real (texto de cada resultado de Find Your Yucatán) en Sanity y en los datos (D-058).
+- **Interfaz:** fuera la nota de rangos del filtro de capacidad, la nota de video de muestra y el aviso de piloto del pie.
+- **Revisión del HTML de 19 páginas** (inglés y español): no aparece "[DEMO]" salvo en el texto alternativo de las fotos de relleno de San Juan Opichén, que se conservan a pedido del responsable.
+- **Pendiente:** el aviso de privacidad sigue con "[PENDIENTE]" hasta tener el texto legal.
+- **Verificación:** `tsc`, ESLint y Prettier sin errores; Vitest 70 de 70; Playwright 33 de 33.
