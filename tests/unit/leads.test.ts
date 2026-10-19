@@ -138,7 +138,9 @@ describe('protección de /api/leads', () => {
   });
 });
 
-describe('servicio de leads (Resend simulado, datos DEMO)', () => {
+// La primera prueba importa el servicio y toda la capa de contenido: en una máquina ocupada
+// (build o servidor corriendo a la vez) puede pasar de los 5 s por defecto.
+describe('servicio de leads (Resend simulado, datos DEMO)', { timeout: 30_000 }, () => {
   const llamadas: { cuerpo: Record<string, unknown>; clave: string | null }[] = [];
 
   beforeEach(() => {
