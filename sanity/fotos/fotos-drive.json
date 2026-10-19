@@ -1487,6 +1487,100 @@
       ]
     },
     {
+      "destino": "proveedor-gaber-studio",
+      "campo": "imagenPrincipal",
+      "fotos": [
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 7,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 7)",
+          "alt": {
+            "en": "A couple on a wide garden lawn surrounded by trees",
+            "es": "Una pareja en un amplio jardín rodeado de árboles"
+          }
+        }
+      ]
+    },
+    {
+      "destino": "proveedor-gaber-studio",
+      "campo": "galeria",
+      "lista": true,
+      "fotos": [
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 11,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 11)",
+          "alt": {
+            "en": "A couple on a black-and-white checkered floor beneath a chandelier",
+            "es": "Una pareja sobre un piso de cuadros blancos y negros bajo un candil"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 22,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 22)",
+          "alt": {
+            "en": "A bride walking toward a pink historic mansion through a formal garden",
+            "es": "Una novia camina hacia una mansión histórica rosa por un jardín formal"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 12,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 12)",
+          "alt": {
+            "en": "A bride in a long arched corridor",
+            "es": "Una novia en un largo corredor de arcos"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 14,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 14)",
+          "alt": {
+            "en": "A couple embracing beneath falling petals at night",
+            "es": "Una pareja abrazada bajo una lluvia de pétalos de noche"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 18,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 18)",
+          "alt": {
+            "en": "A bride with a long train in a room with painted walls",
+            "es": "Una novia con una larga cola en un salón de muros pintados"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 20,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 20)",
+          "alt": {
+            "en": "A couple on steps decorated with white flowers",
+            "es": "Una pareja en una escalinata decorada con flores blancas"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 2,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 2)",
+          "alt": {
+            "en": "A couple posing within a sculptural terracotta arch",
+            "es": "Una pareja posa dentro de un arco escultórico color terracota"
+          }
+        },
+        {
+          "drive": "112-zNC0QVTYM4anQfKLHaZIFIedAmgea",
+          "zip": 9,
+          "origen": "05_PHOTOGRAPHY/Gaber Studio/wetransfer_fotos-expo (archivo 9)",
+          "alt": {
+            "en": "A couple walking through an arch framed by dark drapes and flowers",
+            "es": "Una pareja camina por un arco enmarcado por cortinas oscuras y flores"
+          }
+        }
+      ]
+    },
+    {
       "destino": "categoria-nature",
       "campo": "secciones[_key==\"nature-s5\"].imagenes",
       "lista": true,
