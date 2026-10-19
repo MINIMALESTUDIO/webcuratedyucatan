@@ -822,6 +822,127 @@ const SECCIONES_NOSOTROS: SeccionEditorial[] = [
   },
 ];
 
+/**
+ * Aviso de privacidad PROVISIONAL (D-060), escrito a partir de lo que el sitio hace realmente con
+ * los datos (formularios, Resend, Hostinger, cookie de idioma, IP con hash). Lo sustituirá el
+ * texto definitivo revisado por el responsable; no se inventan datos que no existen (domicilio,
+ * razón social, plazos distintos a los de la ley).
+ */
+function seccionPrivacidad(
+  clave: string,
+  titulo: [en: string, es: string],
+  en: string[],
+  es: string[],
+): SeccionEditorial {
+  return {
+    _type: 'seccionTexto',
+    _key: clave,
+    titulo: texto(...titulo),
+    texto: bloques(`privacidad-${clave}`, en, es),
+  };
+}
+
+const SECCIONES_PRIVACIDAD: SeccionEditorial[] = [
+  seccionPrivacidad(
+    'version',
+    ['Provisional version', 'Versión provisional'],
+    [
+      'Last updated: October 19, 2026.',
+      'This is a provisional privacy notice that describes how Curated Yucatán currently handles personal data. It will be replaced by a definitive version, which will be published on this same page.',
+    ],
+    [
+      'Última actualización: 19 de octubre de 2026.',
+      'Este es un aviso de privacidad provisional que describe cómo trata hoy Curated Yucatán los datos personales. Lo sustituirá una versión definitiva, que se publicará en esta misma página.',
+    ],
+  ),
+  seccionPrivacidad(
+    'responsable',
+    ['Who is responsible', 'Responsable'],
+    [
+      'Curated Yucatán is a project by Minimal, based in Mérida, Yucatán, Mexico, and is responsible for the personal data you share through curatedyucatan.com.',
+      'For any question about your data, write to info@curatedyucatan.com.',
+    ],
+    [
+      'Curated Yucatán es un proyecto de Minimal, con base en Mérida, Yucatán, México, y es responsable de los datos personales que compartes a través de curatedyucatan.com.',
+      'Para cualquier duda sobre tus datos, escribe a info@curatedyucatan.com.',
+    ],
+  ),
+  seccionPrivacidad(
+    'datos',
+    ['Data we collect', 'Datos que recabamos'],
+    [
+      'When you send a request through Plan Your Event or a venue or partner profile: the type of event, estimated guests, the services you are looking for, your name, company, country, email, phone (optional), approximate date and message.',
+      'When you save your Find Your Yucatán selection: your name, company, email and country, your answers, the resulting collection and the recommended venues.',
+      'Technical data: the site does not use analytics or advertising cookies. It only uses a functional cookie that remembers your language. To prevent abuse of the forms, your IP address is processed temporarily and only in an irreversible (hashed) form.',
+      'We do not ask for sensitive personal data.',
+    ],
+    [
+      'Cuando envías una solicitud desde Plan Your Event o desde la ficha de un venue o partner: el tipo de evento, los invitados estimados, los servicios que buscas, tu nombre, empresa, país, correo, teléfono (opcional), fecha aproximada y mensaje.',
+      'Cuando guardas tu selección de Find Your Yucatán: tu nombre, empresa, correo y país, tus respuestas, la colección resultante y los venues recomendados.',
+      'Datos técnicos: el sitio no usa cookies de analítica ni de publicidad. Solo usa una cookie funcional que recuerda tu idioma. Para evitar el abuso de los formularios, tu dirección IP se procesa de forma temporal y solo de manera irreversible (con hash).',
+      'No solicitamos datos personales sensibles.',
+    ],
+  ),
+  seccionPrivacidad(
+    'finalidades',
+    ['What we use it for', 'Para qué los usamos'],
+    [
+      'To answer your request and contact you about your event; to send you by email the selection you saved, with the recommended venues and their videos; and to protect the site against spam and abuse.',
+      'We will not send you newsletters or promotions unless you ask for them.',
+    ],
+    [
+      'Para atender tu solicitud y contactarte sobre tu evento; para enviarte por correo la selección que guardaste, con los venues recomendados y sus videos; y para proteger el sitio contra el spam y el abuso.',
+      'No te enviaremos boletines ni promociones a menos que los solicites.',
+    ],
+  ),
+  seccionPrivacidad(
+    'compartir',
+    ['Who we share it with', 'Con quién los compartimos'],
+    [
+      'We do not sell or rent your personal data. We share your details with a venue, caterer, photographer or design partner only when you ask us to or with your consent, to help plan your event.',
+      'Some providers process data on our behalf, only to provide their service: Resend (email delivery, United States), Hostinger (website hosting) and our email provider.',
+      'Videos are played through YouTube in privacy-enhanced mode. When you play one, YouTube (Google) may collect data under its own privacy policy.',
+    ],
+    [
+      'No vendemos ni rentamos tus datos personales. Compartimos tus datos con un venue, catering, fotógrafo o partner de diseño solo cuando nos lo pides o con tu consentimiento, para ayudarte a planear tu evento.',
+      'Algunos proveedores tratan datos por cuenta nuestra, solo para prestar su servicio: Resend (envío de correos, Estados Unidos), Hostinger (hospedaje del sitio) y nuestro proveedor de correo electrónico.',
+      'Los videos se reproducen a través de YouTube en modo de privacidad mejorada. Al reproducir uno, YouTube (Google) puede recabar datos según su propia política de privacidad.',
+    ],
+  ),
+  seccionPrivacidad(
+    'conservacion',
+    ['How long we keep it', 'Cuánto tiempo los conservamos'],
+    [
+      'We keep your data for as long as it is needed to answer your request and follow up on your event. After that, we delete it, unless the law requires us to keep it.',
+    ],
+    [
+      'Conservamos tus datos el tiempo necesario para atender tu solicitud y dar seguimiento a tu evento. Después los eliminamos, salvo que la ley nos obligue a conservarlos.',
+    ],
+  ),
+  seccionPrivacidad(
+    'derechos',
+    ['Your rights', 'Tus derechos'],
+    [
+      "You can access, correct or delete your data, object to its use or withdraw your consent at any time (ARCO rights, under Mexico's Federal Law on the Protection of Personal Data Held by Private Parties).",
+      'Write to info@curatedyucatan.com with your name, the email you used and what you would like us to do. We may ask you to confirm your identity, and we will respond within the time limits set by law.',
+    ],
+    [
+      'Puedes acceder a tus datos, corregirlos o eliminarlos, oponerte a su uso o revocar tu consentimiento en cualquier momento (derechos ARCO, conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares).',
+      'Escribe a info@curatedyucatan.com con tu nombre, el correo que usaste y lo que quieres que hagamos. Podemos pedirte que confirmes tu identidad, y te responderemos en los plazos que marca la ley.',
+    ],
+  ),
+  seccionPrivacidad(
+    'cambios',
+    ['Changes to this notice', 'Cambios a este aviso'],
+    [
+      'Any change to this notice, including the definitive version, will be published on this page with its update date.',
+    ],
+    [
+      'Cualquier cambio a este aviso, incluida la versión definitiva, se publicará en esta página con su fecha de actualización.',
+    ],
+  ),
+];
+
 export const paginasDemo: PaginaEditorial[] = [
   {
     _id: 'pagina-nosotros',
@@ -839,20 +960,6 @@ export const paginasDemo: PaginaEditorial[] = [
     _id: 'pagina-privacidad',
     _type: 'paginaEditorial',
     titulo: texto('Privacy notice', 'Aviso de privacidad'),
-    secciones: [
-      {
-        _type: 'seccionTexto',
-        _key: 'pendiente',
-        texto: bloques(
-          'privacidad',
-          [
-            '[PENDIENTE] The legal text of the privacy notice will be provided by the project owner.',
-          ],
-          [
-            '[PENDIENTE] El texto legal del aviso de privacidad lo proporcionará el responsable del proyecto.',
-          ],
-        ),
-      },
-    ],
+    secciones: SECCIONES_PRIVACIDAD,
   },
 ];

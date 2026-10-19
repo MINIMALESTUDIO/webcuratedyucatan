@@ -662,3 +662,22 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
 - Consecuencias:
   - Quedan 20 avisos en `npm audit`, todos en la CLI de Sanity, ESLint y herramientas de compilación. braces, micromatch y sprintf-js no tienen versión corregida publicada. Se revisan cuando Sanity publique una versión que los resuelva.
   - La llave de Resend apareció en la salida de una herramienta durante la configuración (14 oct). Conviene rotarla: crear una nueva, ponerla en hPanel y redesplegar, y después borrar la anterior.
+
+### D-060 — Aviso de privacidad provisional
+
+- Fecha: 2026-10-19
+- Contexto: la página de privacidad mostraba "[PENDIENTE]". El responsable pidió un aviso provisional mientras se afina el definitivo.
+- Decisión:
+  - El aviso describe lo que el sitio hace realmente con los datos:
+    - qué recaban los formularios y Find Your Yucatán;
+    - para qué se usan;
+    - que no se venden ni se comparten con partners sin consentimiento;
+    - quién los trata por encargo: Resend (EE. UU.), Hostinger y el proveedor de correo;
+    - la cookie de idioma como única cookie, la IP solo con hash y YouTube en modo de privacidad mejorada;
+    - la conservación;
+    - los derechos ARCO conforme a la LFPDPPP, ejercidos en info@curatedyucatan.com.
+  - Está en inglés y español, con "Versión provisional" y la fecha (19 oct 2026) al inicio.
+  - No incluye datos que no tenemos (domicilio, razón social, plazos específicos): el texto definitivo debe completarlos y revisarlo con asesoría legal.
+- Consecuencias:
+  - Si cambia el tratamiento de datos, hay que actualizar el aviso. Por ejemplo: guardar leads en MariaDB, enviar copia a los partners o agregar analítica.
+  - El texto vive en `pagina-privacidad` de Sanity y en `src/lib/demo/editorial.ts`: se edita en el Studio.

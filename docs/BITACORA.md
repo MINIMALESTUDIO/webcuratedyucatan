@@ -790,3 +790,9 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 - **Sin secretos** en el historial de Git ni en el código del navegador. Los documentos privados de Sanity no son públicos.
 - **Verificación:** `tsc`, ESLint y Prettier sin errores; Vitest 73 de 73 (3 pruebas nuevas); build con Next 16.4.2; Playwright 33 de 33.
 - **Pendiente:** rotar la llave de Resend.
+
+## Aviso de privacidad provisional (2026-10-19)
+
+- Ocho secciones en inglés y español (D-060): versión provisional, responsable, datos que recabamos, para qué los usamos, con quién los compartimos, cuánto tiempo los conservamos, tus derechos y cambios a este aviso.
+- Publicado en Sanity y verificado en producción: `/privacy` y `/es/privacidad` ya no tienen "[PENDIENTE]".
+- **Pendiente:** el texto definitivo, con domicilio y razón social, revisado con asesoría legal.
