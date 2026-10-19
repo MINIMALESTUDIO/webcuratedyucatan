@@ -737,3 +737,36 @@ Revisión de solo lectura: no hay archivos nuevos, borrados ni movidos desde el 
 
 - Revisar las traducciones (`sanity/traducciones/es.json` o directo en el Studio).
 - Gaber Studio: ficha (descripción, servicios, cobertura) para publicarlo con sus fotos.
+
+## Drive del 19 oct: Gaber Studio y Photography sin [DEMO]
+
+**Estado:** hecho y verificado en Sanity y en producción.
+
+### Drive (solo lectura)
+
+| Novedad                               | Qué se hizo                                                                                       |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| "ficha gaber studio" (05_PHOTOGRAPHY) | Ficha publicada en inglés y español, con foto principal y galería de 8 tomadas de su .zip (D-057) |
+| Ficha de Gabo Preciado                | Sin cambios                                                                                       |
+| Resto del Drive                       | Sin archivos nuevos, borrados ni movidos desde el 16 oct                                          |
+
+### Photography
+
+- Quedan dos fotógrafos reales: Gabo Preciado y Gaber Studio. Los cuatro [DEMO] se retiraron (sus fichas ahora responden 404).
+- Las fotos de Gaber no llevan nombres de clientes ni en el repositorio ni en Sanity.
+
+### Verificación
+
+| Comprobación                 | Resultado real                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| `tsc`, ESLint, Prettier      | sin errores                                                                           |
+| Vitest                       | 70 de 70                                                                              |
+| Build con webpack            | correcto                                                                              |
+| Playwright leyendo de Sanity | 33 de 33                                                                              |
+| Producción                   | `/photography` con Gabo y Gaber; `/es/fotografia/gaber-studio` en español; DEMO → 404 |
+
+### Pendientes
+
+- Photography tiene 2 fichas; el documento de estructura pide de 3 a 5.
+- El filtro de capacidad del listado de venues todavía muestra la nota "[DEMO] Sample ranges.".
+- Revisión de las traducciones.

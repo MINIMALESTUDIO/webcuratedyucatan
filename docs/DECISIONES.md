@@ -599,3 +599,19 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
   - Los datos DEMO siguen solo en inglés (respaldo sin conexión y pruebas).
   - Las 30 fotos sueltas en la raíz de 06_DESIGN & PRODUCTION son las mismas de la carpeta compartida (confirmado por el responsable): no hay nada pendiente ahí.
   - Gaber Studio (fotografía): llegó un zip con 23 fotos de bodas y su logotipo, sin ficha ni texto. No se publicó.
+
+### D-057 — Photography solo con partners reales; fotos desde un .zip del Drive
+
+- Fecha: 2026-10-19
+- Contexto: llegó la ficha de Gaber Studio (05_PHOTOGRAPHY), segunda ficha real de fotografía. Sus fotos están dentro de un .zip de WeTransfer en el Drive y los nombres de archivo incluyen los nombres completos de las parejas.
+- Decisión:
+  - **Gaber Studio:** ficha con el copy del Drive (about, 4 servicios, estilo, experiencia, cobertura, sitio web, Instagram y Curated Notes), foto principal y galería de 8, elegidas del .zip. Su español se agregó al diccionario de D-056.
+  - **Fotógrafos [DEMO]:** se retiran de Sanity y de los datos de respaldo. Photography queda con dos partners reales; el documento pide de 3 a 5, así que la prueba admite 2 en fotografía mientras lleguen más fichas.
+    - Las cuatro entradas `example.com` de esos fotógrafos en `privado.contactosLeads` se quitaron.
+    - Antes se comprobó que ninguna era un correo real y que ningún otro documento los referenciaba.
+  - **Fotos dentro de un .zip:** `fotos-drive.json` admite `zip` (la posición del archivo dentro del .zip del Drive). `scripts/fotos-drive.ts` baja el .zip una vez y extrae cada foto leyendo el directorio central con `zlib`, sin dependencias nuevas.
+    - Se usa la posición y no el nombre para que los nombres de los clientes no lleguen al repositorio ni a Sanity.
+    - El asset se llama `<ID del zip>-<posición>.jpg` y su texto alternativo describe la escena sin nombres.
+- Consecuencias:
+  - Si el partner reemplaza el .zip en el Drive, las posiciones pueden cambiar: hay que revisar la selección antes de volver a correr `sanity:fotos` con un .zip nuevo.
+  - La prueba e2e de "Request information" usa ahora `/photography/gaber-studio`.
