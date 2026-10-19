@@ -13,6 +13,7 @@ export const CODIGOS_ERROR = [
   'correoInvalido',
   'eligeUno',
   'consentimiento',
+  'formatoInvalido',
 ] as const;
 
 export type CodigoError = (typeof CODIGOS_ERROR)[number];

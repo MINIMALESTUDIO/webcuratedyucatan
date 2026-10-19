@@ -379,7 +379,8 @@
       "muyLargo": "El texto es demasiado largo.",
       "correoInvalido": "Escribe un correo válido, como nombre@ejemplo.com.",
       "eligeUno": "Elige al menos una opción.",
-      "consentimiento": "Necesitas aceptar el aviso de privacidad para continuar."
+      "consentimiento": "Necesitas aceptar el aviso de privacidad para continuar.",
+      "formatoInvalido": "No incluyas enlaces ni caracteres especiales."
     },
     "piloto": {
       "titulo": "Gracias. Esto es un piloto: no se envió nada.",

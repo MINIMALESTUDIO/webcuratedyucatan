@@ -39,6 +39,24 @@ describe('esquemaSolicitud (Plan Your Event)', () => {
     });
   });
 
+  it('no acepta enlaces ni etiquetas en los campos que van al correo del visitante (D-059)', () => {
+    for (const valor of [
+      'Ana http://phish.example',
+      'www.phish.example',
+      'Ana <b>',
+      'Ana\nLópez',
+    ]) {
+      expect(errores(esquemaSolicitud, { ...solicitud, nombre: valor })).toEqual({
+        nombre: 'formatoInvalido',
+      });
+    }
+    expect(errores(esquemaSolicitud, { ...solicitud, empresa: 'Ver https://x.y' })).toEqual({
+      empresa: 'formatoInvalido',
+    });
+    // El mensaje libre sí admite enlaces: solo lo recibe el equipo.
+    expect(errores(esquemaSolicitud, { ...solicitud, mensaje: 'Mira https://x.y' })).toEqual({});
+  });
+
   it('las opciones son las del documento', () => {
     expect(errores(esquemaSolicitud, { ...solicitud, tipoEvento: 'cumpleaños' })).toEqual({
       tipoEvento: 'requerido',

@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { hashIp, ipDe, registrarIntento } from '@/lib/leads/proteccion';
+import { hashIp, ipDe, registrarEnvio, registrarIntento } from '@/lib/leads/proteccion';
 import { procesarSeleccion, procesarSolicitud, type ResultadoLead } from '@/lib/leads/servicio';
 import { esquemaSeleccion, esquemaSolicitud } from '@/lib/validacion/formularios';
 
@@ -11,8 +11,10 @@ import { esquemaSeleccion, esquemaSolicitud } from '@/lib/validacion/formularios
  * 2. Campo trampa `sitioWeb`, invisible para personas: si llega con texto, se responde ok sin
  *    enviar nada.
  * 3. Límite de 5 envíos por IP cada 10 minutos.
- * 4. Validación con los mismos esquemas zod del navegador.
- * 5. Duplicados: el mismo formulario no se reenvía en 24 horas (servicio + Resend).
+ * 4. Validación con los mismos esquemas zod del navegador (sin enlaces en los campos que se
+ *    repiten en la confirmación, D-059).
+ * 5. Límite de 5 correos por destinatario cada 24 horas y de 60 envíos por hora en total.
+ * 6. Duplicados: el mismo formulario no se reenvía en 24 horas (servicio + Resend).
  */
 
 export const dynamic = 'force-dynamic';
@@ -60,10 +62,14 @@ export async function POST(peticion: NextRequest) {
     if (tipo === 'solicitud') {
       const validos = esquemaSolicitud.safeParse(datos);
       if (!validos.success) return responder(400, { ok: false, error: 'datos-invalidos' });
+      if (!registrarEnvio(validos.data.correo))
+        return responder(429, { ok: false, error: 'limite' });
       resultado = await procesarSolicitud(validos.data);
     } else if (tipo === 'seleccion') {
       const validos = esquemaSeleccion.safeParse(datos);
       if (!validos.success) return responder(400, { ok: false, error: 'datos-invalidos' });
+      if (!registrarEnvio(validos.data.correo))
+        return responder(429, { ok: false, error: 'limite' });
       resultado = await procesarSeleccion(validos.data);
     } else {
       return responder(400, { ok: false, error: 'tipo-invalido' });

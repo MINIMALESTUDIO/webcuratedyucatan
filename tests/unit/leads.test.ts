@@ -4,9 +4,13 @@ import es from '@/i18n/mensajes/es.json';
 import { correoConfirmacionSolicitud, correoSeleccion, escaparHtml } from '@/lib/correo/plantillas';
 import {
   LIMITE_ENVIOS,
+  LIMITE_GLOBAL,
+  LIMITE_POR_CORREO,
+  VENTANA_CORREO_MS,
   VENTANA_MS,
   claveEnvio,
   marcarEnviado,
+  registrarEnvio,
   registrarIntento,
   reiniciarProteccion,
   yaEnviado,
@@ -106,6 +110,21 @@ describe('protección de /api/leads', () => {
     expect(registrarIntento('ip', inicio + 10)).toBe(false);
     expect(registrarIntento('otra-ip', inicio + 10)).toBe(true);
     expect(registrarIntento('ip', inicio + VENTANA_MS)).toBe(true);
+  });
+
+  it(`limita a ${LIMITE_POR_CORREO} correos por destinatario cada 24 horas (D-059)`, () => {
+    for (let i = 0; i < LIMITE_POR_CORREO; i++) {
+      expect(registrarEnvio(i % 2 ? 'Victima@Example.com' : 'victima@example.com', i)).toBe(true);
+    }
+    expect(registrarEnvio('victima@example.com', 100)).toBe(false);
+    expect(registrarEnvio('otra@example.com', 100)).toBe(true);
+    expect(registrarEnvio('victima@example.com', VENTANA_CORREO_MS)).toBe(true);
+  });
+
+  it(`tope global de ${LIMITE_GLOBAL} envíos por hora (D-059)`, () => {
+    for (let i = 0; i < LIMITE_GLOBAL; i++)
+      expect(registrarEnvio(`p${i}@example.com`, i)).toBe(true);
+    expect(registrarEnvio('nueva@example.com', 100)).toBe(false);
   });
 
   it('la clave de envío es estable y marca duplicados por 24 horas', () => {
@@ -231,6 +250,7 @@ describe('servicio de leads (Resend simulado, datos DEMO)', () => {
       pais: 'Canada',
       correo: 'ana@example.com',
       fechaAproximada: 'March 2027',
+      mensaje: 'Queremos una cena al aire libre.',
       consentimientoPrivacidad: true,
       origen: 'general',
       idioma: 'es',
@@ -241,5 +261,8 @@ describe('servicio de leads (Resend simulado, datos DEMO)', () => {
     expect(alVisitante?.cuerpo.subject).toContain('Recibimos tu solicitud');
     expect(alVisitante?.cuerpo.text).toContain('Venue, Fotografía');
     expect(alEquipo?.cuerpo.subject).toBe('Nueva solicitud · Plan Your Event · Ana');
+    // El mensaje libre solo llega al equipo (D-059).
+    expect(alVisitante?.cuerpo.text).not.toContain('cena al aire libre');
+    expect(alEquipo?.cuerpo.text).toContain('cena al aire libre');
   });
 });

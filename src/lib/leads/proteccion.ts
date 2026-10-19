@@ -3,9 +3,13 @@ import { createHash } from 'node:crypto';
 
 /*
  * Protecciones de /api/leads mientras no exista la base MariaDB (D-055):
- * - Límite de envíos por IP en memoria: 5 por 10 minutos (el número de D-011). Hostinger corre
- *   un solo proceso de Node, así que la memoria es compartida; se reinicia con cada despliegue.
- *   Con la base se pasará a la tabla limites_envio de D-011.
+ * - Límites en memoria (Hostinger corre un solo proceso de Node; se reinician con cada
+ *   despliegue; con la base pasarán a la tabla limites_envio de D-011):
+ *   - por IP: 5 cada 10 minutos (D-011). La IP sale de X-Forwarded-For y se puede falsear, por
+ *     eso hay dos límites más que no dependen de ella (D-059);
+ *   - por destinatario: 5 cada 24 horas, para que nadie use el sitio para llenar de correos la
+ *     bandeja de otra persona;
+ *   - global: 60 cada hora, como techo ante un ataque distribuido.
  * - La IP nunca se guarda en claro: se usa su hash con IP_HASH_SALT.
  * - Clave de envío: hash del contenido del formulario. Sirve de Idempotency-Key en Resend (24 h)
  *   y para responder sin reenviar si el mismo formulario llega dos veces.
@@ -13,10 +17,14 @@ import { createHash } from 'node:crypto';
 
 export const LIMITE_ENVIOS = 5;
 export const VENTANA_MS = 10 * 60 * 1000;
+export const LIMITE_POR_CORREO = 5;
+export const VENTANA_CORREO_MS = 24 * 60 * 60 * 1000;
+export const LIMITE_GLOBAL = 60;
+export const VENTANA_GLOBAL_MS = 60 * 60 * 1000;
 /** Tope de entradas en memoria: si se supera, se descartan las vencidas (y si no, todas). */
 const MAX_ENTRADAS = 5000;
 
-const ventanas = new Map<string, { inicio: number; conteo: number }>();
+const ventanas = new Map<string, { inicio: number; conteo: number; duracion: number }>();
 const enviados = new Map<string, number>();
 
 export function hashIp(ip: string): string {
@@ -36,16 +44,33 @@ function podar<V>(mapa: Map<string, V>, vencida: (valor: V) => boolean) {
   if (mapa.size >= MAX_ENTRADAS) mapa.clear();
 }
 
-/** Cuenta un envío; devuelve false si la IP ya superó el límite en la ventana actual. */
-export function registrarIntento(ipHash: string, ahora = Date.now()): boolean {
-  podar(ventanas, (v) => ahora - v.inicio >= VENTANA_MS);
-  const ventana = ventanas.get(ipHash);
-  if (!ventana || ahora - ventana.inicio >= VENTANA_MS) {
-    ventanas.set(ipHash, { inicio: ahora, conteo: 1 });
+/** Cuenta un intento para `clave`; devuelve false si ya superó `limite` en la ventana actual. */
+function contar(clave: string, limite: number, duracion: number, ahora: number): boolean {
+  podar(ventanas, (v) => ahora - v.inicio >= v.duracion);
+  const ventana = ventanas.get(clave);
+  if (!ventana || ahora - ventana.inicio >= duracion) {
+    ventanas.set(clave, { inicio: ahora, conteo: 1, duracion });
     return true;
   }
   ventana.conteo += 1;
-  return ventana.conteo <= LIMITE_ENVIOS;
+  return ventana.conteo <= limite;
+}
+
+/** Límite por IP (antes de validar). */
+export function registrarIntento(ipHash: string, ahora = Date.now()): boolean {
+  return contar(`ip:${ipHash}`, LIMITE_ENVIOS, VENTANA_MS, ahora);
+}
+
+/** Límite por destinatario y global (después de validar, antes de enviar). */
+export function registrarEnvio(correo: string, ahora = Date.now()): boolean {
+  const destinatario = createHash('sha256')
+    .update(`${process.env.IP_HASH_SALT ?? ''}:${correo.trim().toLowerCase()}`)
+    .digest('hex')
+    .slice(0, 32);
+  // Las dos cuentas avanzan siempre, para que un destinatario bloqueado también sume al global.
+  const porCorreo = contar(`correo:${destinatario}`, LIMITE_POR_CORREO, VENTANA_CORREO_MS, ahora);
+  const global = contar('global', LIMITE_GLOBAL, VENTANA_GLOBAL_MS, ahora);
+  return porCorreo && global;
 }
 
 /** Hash estable del contenido: el mismo formulario enviado dos veces da la misma clave. */

@@ -18,9 +18,19 @@ const textoRequerido = (min: number, max: number) =>
     .min(min, { error: 'muyCorto' })
     .max(max, { error: 'muyLargo' });
 
-const nombre = textoRequerido(2, 120);
-const empresa = textoRequerido(2, 160);
-const pais = textoRequerido(2, 80);
+/**
+ * Campos que se repiten en el correo de confirmación al visitante: sin enlaces, etiquetas ni
+ * saltos de línea, para que nadie use el formulario para mandar texto engañoso desde nuestro
+ * dominio a otra persona (D-059).
+ */
+const textoPlano = (min: number, max: number) =>
+  textoRequerido(min, max).refine((valor) => !/:\/\/|www\.|[<>\r\n]/i.test(valor), {
+    error: 'formatoInvalido',
+  });
+
+const nombre = textoPlano(2, 120);
+const empresa = textoPlano(2, 160);
+const pais = textoPlano(2, 80);
 
 const correo = z
   .string({ error: 'requerido' })
@@ -48,7 +58,7 @@ export const esquemaSolicitud = z.object({
   pais,
   correo,
   telefono: opcional(40),
-  fechaAproximada: textoRequerido(2, 60),
+  fechaAproximada: textoPlano(2, 60),
   mensaje: opcional(2000),
   consentimientoPrivacidad,
   origen: z.enum(ORIGENES_SOLICITUD),

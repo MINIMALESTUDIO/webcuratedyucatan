@@ -232,8 +232,12 @@ export async function procesarSolicitud(datos: DatosSolicitud): Promise<Resultad
     origenSlug: datos.origenSlug ?? '',
   });
 
-  /** Resumen localizado de la solicitud, para el visitante (su idioma) o el equipo (es). */
-  async function filas(locale: Idioma): Promise<[string, string][]> {
+  /**
+   * Resumen localizado de la solicitud, para el visitante (su idioma) o el equipo (es). El mensaje
+   * libre solo va al equipo: así el formulario no sirve para mandar texto arbitrario desde nuestro
+   * dominio a la dirección de otra persona (D-059).
+   */
+  async function filas(locale: Idioma, conMensaje: boolean): Promise<[string, string][]> {
     const t = await getTranslations({ locale, namespace: 'Formularios' });
     const lista: [string, string][] = [
       [t('preguntas.tipoEvento'), t(`opciones.tipoEvento.${datos.tipoEvento}`)],
@@ -242,11 +246,14 @@ export async function procesarSolicitud(datos: DatosSolicitud): Promise<Resultad
       [t('fechaAproximada'), datos.fechaAproximada.trim()],
     ];
     if (origen) lista.unshift([locale === 'es' ? 'Sobre' : 'About', origen.nombre]);
-    if (datos.mensaje?.trim()) lista.push([t('mensaje'), datos.mensaje.trim()]);
+    if (conMensaje && datos.mensaje?.trim()) lista.push([t('mensaje'), datos.mensaje.trim()]);
     return lista;
   }
 
-  const [filasVisitante, filasEquipo] = await Promise.all([filas(idioma), filas('es')]);
+  const [filasVisitante, filasEquipo] = await Promise.all([
+    filas(idioma, false),
+    filas('es', true),
+  ]);
   const visitante = correoConfirmacionSolicitud({
     idioma,
     nombre: datos.nombre.trim(),
