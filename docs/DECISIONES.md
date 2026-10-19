@@ -648,6 +648,7 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
     - Next.js y eslint-config-next 16.4.2;
     - `npm audit fix` sin cambios mayores (adm-zip, undici, source-map-js, module-federation);
     - `overrides` para js-yaml 3.15.2 y smol-toml 1.9.1 dentro de `@vercel/frameworks`, misma versión mayor;
+    - `overrides` de uuid 11.1.1 dentro de `typeid-js` (CLI de Sanity): solo usa `stringify` y `v7`, iguales en la 11; comprobado con `require` e `import`, con la CLI y con el build del Studio. Era el único aviso que mostraba el escáner de Hostinger (CVE-2026-41907);
     - nunca `npm audit fix --force` ni "Autocorregir todo" de Hostinger: bajarían Sanity a la 5, next-sanity a la 11 y eslint-config-next a la 14.
   - **Encabezados** (`next.config.ts`):
     - CSP con `frame-ancestors` (el sitio, `*.sanity.studio`, `www.sanity.io`, el Studio configurado y `localhost:3333`), `base-uri 'self'`, `object-src 'none'` y `form-action 'self'`;
@@ -659,5 +660,5 @@ Formato ADR breve (sección 14 de `docs/PROMPT.md`). Las decisiones marcadas "ap
     - el mensaje libre solo va al equipo, no a la confirmación del visitante;
     - límites nuevos en memoria que no dependen de la IP: 5 correos por destinatario cada 24 h y 60 envíos por hora en total.
 - Consecuencias:
-  - Quedan 20 avisos en `npm audit`, todos en la CLI de Sanity, ESLint y herramientas de compilación. braces, micromatch y sprintf-js no tienen versión corregida publicada; uuid 10→11 sería un cambio mayor. Se revisan cuando Sanity publique una versión que los resuelva.
+  - Quedan 20 avisos en `npm audit`, todos en la CLI de Sanity, ESLint y herramientas de compilación. braces, micromatch y sprintf-js no tienen versión corregida publicada. Se revisan cuando Sanity publique una versión que los resuelva.
   - La llave de Resend apareció en la salida de una herramienta durante la configuración (14 oct). Conviene rotarla: crear una nueva, ponerla en hPanel y redesplegar, y después borrar la anterior.
