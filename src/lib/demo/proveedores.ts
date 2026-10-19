@@ -4,93 +4,13 @@ import type {
   ProveedorResumen,
   TipoProveedor,
 } from '@/lib/contenido/tipos';
-import {
-  bloques,
-  bloquesIngles,
-  HORIZONTAL,
-  imagenDemo,
-  lista,
-  serieDemo,
-  texto,
-  VERTICAL,
-} from './ayudantes';
+import { bloquesIngles, HORIZONTAL, imagenDemo, serieDemo, VERTICAL } from './ayudantes';
 
 /*
- * Selección curada de Catering y Photography (3 a 5 por sección, documento de estructura,
- * secciones 8 y 9). Catering: los 4 partners reales del Drive. Photography: Gabo Preciado
- * (real) y fotógrafos [DEMO] hasta que lleguen más fichas.
+ * Selección curada de Catering y Photography (documento de estructura, secciones 8 y 9), solo
+ * con partners reales del Drive: 4 de catering, y Gabo Preciado y Gaber Studio en fotografía.
+ * Los fotógrafos [DEMO] se retiraron al llegar la segunda ficha real (D-057).
  */
-
-interface DatosProveedorDemo {
-  tipo: TipoProveedor;
-  numero: number;
-  nombre: string;
-  slug: string;
-  especialidad: [en: string, es: string];
-  resumen: [en: string, es: string];
-  estilosFotografia?: EstiloFotografia[];
-}
-
-const SERVICIOS: Record<TipoProveedor, Array<[string, string]>> = {
-  catering: [
-    ['[DEMO] Plated dinners and family-style menus', '[DEMO] Cenas servidas y menús al centro'],
-    ['[DEMO] Welcome dinners and rehearsal dinners', '[DEMO] Cenas de bienvenida y de ensayo'],
-    ['[DEMO] Bar and mixology', '[DEMO] Barra y mixología'],
-  ],
-  fotografia: [
-    ['[DEMO] Full wedding weekend coverage', '[DEMO] Cobertura de todo el fin de semana'],
-    ['[DEMO] Editorial portraits', '[DEMO] Retratos editoriales'],
-    ['[DEMO] Short films', '[DEMO] Cortometrajes'],
-  ],
-};
-
-function proveedorDemo(d: DatosProveedorDemo): Proveedor {
-  const prefijo = `${d.tipo}-${d.numero}`;
-  return {
-    _id: `proveedor-${d.slug}`,
-    _type: 'proveedor',
-    tipo: d.tipo,
-    nombre: d.nombre,
-    slug: d.slug,
-    especialidad: texto(...d.especialidad),
-    resumen: texto(...d.resumen),
-    descripcion: bloques(
-      prefijo,
-      [
-        `[DEMO] Sample description of ${d.nombre}. The real text will come from the partner profile in Sanity.`,
-        '[DEMO] A second paragraph describes the team, its approach and the kind of celebrations it works on.',
-      ],
-      [
-        `[DEMO] Descripción de ejemplo de ${d.nombre}. El texto real vendrá de su ficha en Sanity.`,
-        '[DEMO] Un segundo párrafo describe al equipo, su enfoque y el tipo de celebraciones en las que trabaja.',
-      ],
-    ),
-    servicios: lista(`${prefijo}-servicio`, SERVICIOS[d.tipo]),
-    estilo: texto(
-      '[DEMO] Sample style or differentiator, in one or two sentences.',
-      '[DEMO] Estilo o diferenciador de ejemplo, en una o dos frases.',
-    ),
-    estilosFotografia: d.estilosFotografia ?? [],
-    ciudadBase: 'Mérida',
-    cobertura: texto('[DEMO] Yucatán and the Riviera Maya', '[DEMO] Yucatán y la Riviera Maya'),
-    experiencia: texto(
-      '[DEMO] Sample text about experience with destination weddings and international events.',
-      '[DEMO] Texto de ejemplo sobre su experiencia en bodas destino y eventos internacionales.',
-    ),
-    sitioWeb: 'https://example.com',
-    instagram: 'https://www.instagram.com/',
-    imagenPrincipal: imagenDemo(
-      `${prefijo}.jpg`,
-      1600,
-      1200,
-      `[DEMO] Placeholder photo of ${d.nombre}`,
-      `[DEMO] Foto de relleno de ${d.nombre}`,
-    ),
-    galeria: serieDemo(`${prefijo}-galeria`, [VERTICAL, HORIZONTAL, VERTICAL], d.nombre),
-    // Después de los partners reales.
-    orden: d.numero + 10,
-  };
-}
 
 // --- Partners reales (Drive, 01_WEB/04_CATERING y 05_PHOTOGRAPHY, 2026-10-08) -------------
 //
@@ -397,62 +317,51 @@ const partnersReales: Proveedor[] = [
     sitioWeb: 'http://www.gabopreciado.com/',
     instagram: 'https://www.instagram.com/gabopreciado/',
   }),
+  partnerReal({
+    tipo: 'fotografia',
+    numero: 6,
+    marcador: 2,
+    nombre: 'Gaber Studio',
+    slug: 'gaber-studio',
+    especialidad: 'Destination Wedding Photography & Videography',
+    resumen:
+      'Gaber Studio is a creative photography and videography studio based in Mérida, Yucatán, specializing in documenting weddings and celebrations through thoughtful visual storytelling.',
+    about: [
+      'Gaber Studio is a creative photography and videography studio based in Mérida, Yucatán, specializing in documenting weddings and celebrations through thoughtful visual storytelling.',
+      'Their approach combines an editorial, natural and contemporary aesthetic with careful attention to composition, light and spontaneous moments. Through creativity and attention to detail, the team captures the essence of each celebration, creating authentic and timeless visual memories.',
+      'With experience in destination weddings and international celebrations, Gaber Studio has documented events across Mexico, the United States and Europe.',
+    ],
+    servicios: [
+      {
+        titulo: 'Wedding & Event Photography',
+        detalle: 'Photography coverage for weddings and destination celebrations.',
+      },
+      {
+        titulo: 'Wedding Videography',
+        detalle:
+          'Video production capturing the atmosphere, emotions and meaningful moments of each celebration.',
+      },
+      { titulo: 'Social Media Content', detalle: 'Content creation for social media.' },
+      {
+        titulo: 'Social & Corporate Events',
+        detalle: 'Photography and video coverage for social and corporate celebrations.',
+      },
+    ],
+    notas: [
+      "Gaber Studio's editorial and contemporary approach makes their work particularly suited to couples seeking elegant, natural and authentic imagery that reflects the atmosphere and emotions of their celebration.",
+      'Their experience documenting destination weddings across Mexico and internationally brings a versatile perspective to capturing celebrations in different settings and destinations.',
+    ],
+    estilo: 'Editorial · Natural · Contemporary · Timeless',
+    estilosFotografia: ['editorial'],
+    ciudadBase: 'Mérida',
+    cobertura: 'Yucatán · Cancún · Mexico City · National & International Destinations',
+    experiencia: 'Destination weddings · International celebrations',
+    sitioWeb: 'https://www.gaberstudio.com/',
+    instagram: 'https://www.instagram.com/gaberstudio/',
+  }),
 ];
 
-export const proveedoresDemo: Proveedor[] = [
-  ...partnersReales,
-  proveedorDemo({
-    tipo: 'fotografia',
-    numero: 1,
-    nombre: '[DEMO] Estudio Ejemplo',
-    slug: 'demo-estudio-ejemplo',
-    especialidad: ['[DEMO] Editorial wedding photography', '[DEMO] Fotografía editorial de bodas'],
-    resumen: [
-      '[DEMO] Architecture and portraits in natural light.',
-      '[DEMO] Arquitectura y retrato con luz natural.',
-    ],
-    estilosFotografia: ['editorial', 'fine-art'],
-  }),
-  proveedorDemo({
-    tipo: 'fotografia',
-    numero: 2,
-    nombre: '[DEMO] Luz Ejemplo',
-    slug: 'demo-luz-ejemplo',
-    especialidad: ['[DEMO] Documentary photography', '[DEMO] Fotografía documental'],
-    resumen: [
-      '[DEMO] Candid moments of the whole weekend.',
-      '[DEMO] Momentos espontáneos de todo el fin de semana.',
-    ],
-    estilosFotografia: ['documental'],
-  }),
-  proveedorDemo({
-    tipo: 'fotografia',
-    numero: 3,
-    nombre: '[DEMO] Cine Ejemplo',
-    slug: 'demo-cine-ejemplo',
-    especialidad: ['[DEMO] Wedding films', '[DEMO] Películas de boda'],
-    resumen: [
-      '[DEMO] Short films with a cinematic language.',
-      '[DEMO] Cortometrajes con lenguaje cinematográfico.',
-    ],
-    estilosFotografia: ['cinematografico'],
-  }),
-  proveedorDemo({
-    tipo: 'fotografia',
-    numero: 4,
-    nombre: '[DEMO] Grano Ejemplo',
-    slug: 'demo-grano-ejemplo',
-    especialidad: [
-      '[DEMO] Film and fine art photography',
-      '[DEMO] Fotografía en película y fine art',
-    ],
-    resumen: [
-      '[DEMO] Analog photography with a timeless finish.',
-      '[DEMO] Fotografía analógica con acabado atemporal.',
-    ],
-    estilosFotografia: ['fine-art', 'editorial'],
-  }),
-];
+export const proveedoresDemo: Proveedor[] = partnersReales;
 
 export function resumenProveedor(p: Proveedor): ProveedorResumen {
   return {

@@ -68,32 +68,29 @@ describe('mensajes de interfaz', () => {
 });
 
 describe('datos DEMO', () => {
-  it('partners: 4 de catering y Gabo Preciado reales; los fotógrafos restantes son [DEMO]', () => {
-    const reales = proveedoresDemo.filter((p) => !p.slug.startsWith('demo-'));
-    expect(reales.map((p) => p.slug)).toEqual([
+  it('partners: solo reales (4 de catering, Gabo Preciado y Gaber Studio), sin [DEMO] (D-057)', () => {
+    expect(proveedoresDemo.map((p) => p.slug)).toEqual([
       'bravo-catering',
       'experiences-banquetes',
       'margo-amalia',
       'ritualia',
       'gabo-preciado-fotografia',
+      'gaber-studio',
     ]);
-    for (const p of reales) {
+    for (const p of proveedoresDemo) {
       expect(p.nombre.includes('[DEMO]')).toBe(false);
       expect(p.descripcion.en.length).toBeGreaterThanOrEqual(3);
       expect(p.notasCurated?.en.length ?? 0).toBeGreaterThan(0);
-      // Copy real sin traducir: respaldo a inglés (D-008).
+      // Copy real en inglés; el español vive en Sanity (D-056).
       expect(p.resumen.es).toBeUndefined();
-    }
-    for (const p of proveedoresDemo.filter((p) => p.slug.startsWith('demo-'))) {
-      expect(p.nombre.startsWith('[DEMO]')).toBe(true);
-      expect(p.tipo).toBe('fotografia');
     }
   });
 
-  it('entre 3 y 5 partners por sección (documento de estructura, secciones 8 y 9)', () => {
+  it('hasta 5 partners por sección (documento de estructura, secciones 8 y 9)', () => {
+    // El documento pide de 3 a 5; fotografía tiene por ahora las 2 fichas reales del Drive.
     for (const tipo of ['catering', 'fotografia'] as const) {
       const cantidad = proveedoresDemo.filter((p) => p.tipo === tipo).length;
-      expect(cantidad).toBeGreaterThanOrEqual(3);
+      expect(cantidad).toBeGreaterThanOrEqual(tipo === 'catering' ? 3 : 2);
       expect(cantidad).toBeLessThanOrEqual(5);
     }
   });

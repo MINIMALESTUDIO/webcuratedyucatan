@@ -177,7 +177,7 @@ test('solicitud de información en la ficha: errores asociados y confirmación',
 });
 
 test('Plan your event: "Looking for" llega marcado desde un partner', async ({ page }) => {
-  await page.goto('/photography/demo-estudio-ejemplo');
+  await page.goto('/photography/gaber-studio');
   await page.getByRole('link', { name: 'Request information' }).click();
   await expect(page).toHaveURL(/\/plan-your-event\?buscando=fotografia/);
   const buscando = page.getByRole('group', { name: 'Looking for' });
@@ -357,7 +357,7 @@ test('accesibilidad: axe sin violaciones serias ni críticas (WCAG 2.1 AA)', asy
     '/venues',
     '/venues/hacienda-xtepen',
     '/catering',
-    '/photography/demo-estudio-ejemplo',
+    '/photography/gaber-studio',
     '/design-production',
     '/journal',
     '/journal/why-yucatan-for-a-destination-wedding',

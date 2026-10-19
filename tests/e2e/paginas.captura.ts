@@ -15,7 +15,7 @@ const PAGINAS = [
   { nombre: 'listado', ruta: '/venues' },
   { nombre: 'ficha', ruta: '/venues/hacienda-xtepen' },
   { nombre: 'catering', ruta: '/catering' },
-  { nombre: 'perfil-fotografia', ruta: '/photography/demo-estudio-ejemplo' },
+  { nombre: 'perfil-fotografia', ruta: '/photography/gaber-studio' },
   { nombre: 'diseno', ruta: '/design-production' },
   { nombre: 'journal', ruta: '/journal' },
   { nombre: 'encuentra', ruta: '/find-your-yucatan' },
